@@ -93,7 +93,7 @@ namespace PortAIO
 
             Loader.Menu();
 
-            LoadUtility();
+            //LoadUtility();
             LoadChampion();
 
             Game.OnUpdate += Game_OnUpdate;
