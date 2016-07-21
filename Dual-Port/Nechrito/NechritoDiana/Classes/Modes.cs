@@ -26,14 +26,14 @@ using System.Linq;
                             Spells.R.Cast(Target);
                         }
 
-                        if (Spells.Q.GetPrediction(Target).Hitchance >= HitChance.Medium)
+                        if (Spells.Q.GetPrediction(Target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                         {
                             Spells.Q.Cast(arcPred);
                         }
                     }
                 }
 
-                if (Spells.Q.IsReady() && Spells.Q.GetPrediction(Target).Hitchance >= HitChance.Medium)
+                if (Spells.Q.IsReady() && Spells.Q.GetPrediction(Target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                 {
                     if (true)
                     {

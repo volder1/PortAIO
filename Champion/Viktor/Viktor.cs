@@ -115,7 +115,7 @@ namespace Viktor
                 if (useW && W.IsReady() && sender.LSIsValidTarget(W.Range) &&
                     (Game.Time + 1.5 + W.Delay) >= e.EndTime)
                 {
-                    if (W.Cast(sender) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                    if (W.Cast(sender))
                         return;
                 }
                 else if (useR && sender.LSIsValidTarget(R.Range) && R.Instance.Name == "ViktorChaosStorm")
@@ -265,14 +265,14 @@ namespace Viktor
                     {
                         if (t.HasBuffOfType(BuffType.Slow))
                         {
-                            if (W.GetPrediction(t).Hitchance >= LeagueSharp.Common.HitChance.Medium)
-                                if (W.Cast(t) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                            if (W.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
+                                if (W.Cast(t))
                                     return;
                         }
                         if (t.CountEnemiesInRange(250) > 2 || W.IsInRange(t))
                         {
-                            if (W.GetPrediction(t).Hitchance >= LeagueSharp.Common.HitChance.Medium)
-                                if (W.Cast(t) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                            if (W.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
+                                if (W.Cast(t))
                                     return;
                         }
                     }
@@ -502,7 +502,7 @@ namespace Viktor
             var tPanth = HeroManager.Enemies.Find(h => h.LSIsValidTarget(W.Range) && h.HasBuff("Pantheon_GrandSkyfall_Jump"));
             if (tPanth != null)
             {
-                if (W.Cast(tPanth) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                if (W.Cast(tPanth))
                     return;
             }
 
@@ -513,7 +513,7 @@ namespace Viktor
                     var t = HeroManager.Allies.Find(h => h.BaseSkinName.ToLower() == "blitzcrank" && h.LSDistance((AttackableUnit)player) < W.Range);
                     if (t != null)
                     {
-                        if (W.Cast(t) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                        if (W.Cast(t))
                             return;
                     }
                 }
@@ -522,12 +522,12 @@ namespace Viktor
                          enemy.HasBuffOfType(BuffType.Taunt) || enemy.HasBuffOfType(BuffType.Suppression) ||
                          enemy.IsStunned || enemy.IsRecalling())
                 {
-                    if (W.Cast(enemy) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                    if (W.Cast(enemy))
                         return;
                 }
-                if (W.GetPrediction(enemy).Hitchance == LeagueSharp.Common.HitChance.Immobile)
+                if (W.GetPrediction(enemy).HitChance == EloBuddy.SDK.Enumerations.HitChance.Immobile)
                 {
-                    if (W.Cast(enemy) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                    if (W.Cast(enemy))
                         return;
                 }
             }

@@ -66,7 +66,7 @@ namespace HeavenStrikeRyze
                     // in investigation
                     var tarqss = tarqs;
                     var tarqsss = tarqs;
-                    MainTarget = tarqss.FirstOrDefault(x => Helper.HasEBuff(x) && Program._q.GetPrediction(x).Hitchance >= HitChance.Low && Program._q.IsReady()
+                    MainTarget = tarqss.FirstOrDefault(x => Helper.HasEBuff(x) && Program._q.GetPrediction(x).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low && Program._q.IsReady()
                         && Program.QlaneClear
                         && tarqs.Count(y => Helper.HasEBuff(y) && y.Distance(x.Position) <= 300) >= 2
                         && tarqs.Where(y => Helper.HasEBuff(y) && tarqsss.Count(z => Helper.HasEBuff(z) && z.Distance(y.Position) <= 300) >= 2).Count() >= 3);
@@ -108,7 +108,7 @@ namespace HeavenStrikeRyze
                     }
 
                     MainTarget = tars.FirstOrDefault(x => x.Health <= Helper.Qdamage(x) && Program._q.IsReady() && Program.QlaneClear
-                        && Helper.HasEBuff(x) && Program._q.GetPrediction(x).Hitchance >= HitChance.Low
+                        && Helper.HasEBuff(x) && Program._q.GetPrediction(x).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low
                         && tarqs.Where(y => y.Distance(x.Position) <= 300).Count() >= 3);
                     if (MainTarget != null)
                     {
@@ -129,7 +129,7 @@ namespace HeavenStrikeRyze
                     }
 
                     MainTarget = tars.FirstOrDefault(x => x.Health <= Helper.Edamge(x) + Helper.Qdamage(x, true) && Program._e.IsReady() && Program.ElaneClear && Program._q.IsReady() && Program.QlaneClear
-                        && Program._q.GetPrediction(x).Hitchance >= HitChance.Low
+                        && Program._q.GetPrediction(x).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low
                         && tarqs.Where(y => y.Distance(x.Position) <= 300).Count() >= 3);
                     if (MainTarget != null)
                     {

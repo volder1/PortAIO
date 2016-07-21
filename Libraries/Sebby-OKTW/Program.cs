@@ -468,21 +468,21 @@ namespace SebbyLib
                 if (getSliderItem("HitChance") == 0)
                 {
                     var pred = QWER.GetPrediction(target);
-                    if (pred.Hitchance >= LeagueSharp.Common.HitChance.VeryHigh)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         QWER.Cast(pred.CastPosition);
                     return;
                 }
                 else if (getSliderItem("HitChance") == 1)
                 {
                     var pred = QWER.GetPrediction(target);
-                    if (pred.Hitchance >= LeagueSharp.Common.HitChance.High)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         QWER.Cast(pred.CastPosition);
                     return;
                 }
                 else if (getSliderItem("HitChance") == 2)
                 {
                     var pred = QWER.GetPrediction(target);
-                    if (pred.Hitchance >= LeagueSharp.Common.HitChance.Medium)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                         QWER.Cast(pred.CastPosition);
                     return;
                 }
@@ -559,28 +559,28 @@ namespace SebbyLib
                     if (getSliderItem("HitChance") == 0)
                     {
                         var pred = QWER.GetSPrediction(t);
-                        if (pred.HitChance >= LeagueSharp.Common.HitChance.VeryHigh)
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                             QWER.Cast(pred.CastPosition);
                         return;
                     }
                     else if (getSliderItem("HitChance") == 1)
                     {
                         var pred = QWER.GetSPrediction(t);
-                        if (pred.HitChance >= LeagueSharp.Common.HitChance.High)
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                             QWER.Cast(pred.CastPosition);
                         return;
                     }
                     else if (getSliderItem("HitChance") == 2)
                     {
                         var pred = QWER.GetSPrediction(t);
-                        if (pred.HitChance >= LeagueSharp.Common.HitChance.Medium)
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                             QWER.Cast(pred.CastPosition);
                         return;
                     }
                 }
                 else
                 {
-                    QWER.CastIfHitchanceEquals(target, LeagueSharp.Common.HitChance.High);
+                    QWER.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
                 return;
             }

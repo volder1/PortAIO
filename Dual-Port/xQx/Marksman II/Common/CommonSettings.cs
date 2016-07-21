@@ -62,9 +62,9 @@ using EloBuddy.SDK.Menu.Values;
             MenuCastSettings["Settings.SpellCast.VisibleDelay"].Cast<ComboBox>().CurrentValue = 2;
         }
 
-        public static HitChance GetHitchance(this Spell nSpell)
+        public static EloBuddy.SDK.Enumerations.HitChance GetHitchance(this Spell nSpell)
         {
-            HitChance[] hitChances = new[] { HitChance.Medium, HitChance.High, HitChance.VeryHigh};
+            EloBuddy.SDK.Enumerations.HitChance[] hitChances = new[] { EloBuddy.SDK.Enumerations.HitChance.Medium, EloBuddy.SDK.Enumerations.HitChance.High, EloBuddy.SDK.Enumerations.HitChance.High};
             return hitChances[MenuHitchanceSettings["MenuSettings.Hitchance." + nSpell.Slot].Cast<ComboBox>().CurrentValue];
         }
     }

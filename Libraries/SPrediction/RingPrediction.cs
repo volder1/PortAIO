@@ -86,13 +86,13 @@ namespace SPrediction
             //if you are copying it negro; dont forget sprediction credits, ty.
             var result = CirclePrediction.GetPrediction(target, ringRadius, delay, missileSpeed, range + radius,
                 collisionable, path, avgt, movt, avgp, 360, from, rangeCheckFrom);
-            if (result.HitChance > HitChance.Low)
+            if (result.HitChance > EloBuddy.SDK.Enumerations.HitChance.Low)
             {
                 var direction = (result.CastPosition - from + target.Direction.LSTo2D()).LSNormalized();
                 result.CastPosition -= direction*(radius - ringRadius/2f);
 
                 if (result.CastPosition.LSDistance(from) > range)
-                    result.HitChance = HitChance.OutOfRange;
+                    result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Unknown;
             }
 
             return result;

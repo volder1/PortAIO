@@ -158,9 +158,7 @@
             ignite = Player.GetSpellSlot("summonerdot");
             flash = Player.GetSpellSlot("SummonerFlash");
 
-            Spells[ElVi.Spells.Q].SetSkillshot(0.5f, 75f, float.MaxValue, false, SkillshotType.SkillshotLine);
-            Spells[ElVi.Spells.Q].SetCharged("ViQ", "ViQ", 100, 860, 1f);
-
+            Spells[ElVi.Spells.Q].SetCharged(100, 860, 1f, 0.5f, int.MaxValue, 75);
             Spells[ElVi.Spells.E].SetSkillshot(0.15f, 150f, float.MaxValue, false, SkillshotType.SkillshotLine);
             Spells[ElVi.Spells.R].SetTargetted(0.15f, 1500f);
 
@@ -300,7 +298,7 @@
                     if (Spells[ElVi.Spells.Q].IsInRange(target))
                     {
                         var prediction = Spells[ElVi.Spells.Q].GetPrediction(target);
-                        if (prediction.Hitchance >= HitChance.High)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             if (Spells[ElVi.Spells.Q].Range == Spells[ElVi.Spells.Q].ChargedMaxRange)
                             {

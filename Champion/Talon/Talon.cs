@@ -242,7 +242,7 @@ using Spell = LeagueSharp.Common.Spell;
                             HeroManager.Enemies.Where(hero => !hero.IsDead && hero.LSIsValidTarget(R.Range - 50)))
                     {
                         var pred = R.GetPrediction(x);
-                        if (pred.AoeTargetsHitCount >= getSliderItem(comboMenu, "GFUELTalon.Combo.Count"))
+                        if (pred.GetCollisionObjects<AIHeroClient>().Count() >= getSliderItem(comboMenu, "GFUELTalon.Combo.Count"))
                         {
                             R.Cast();
                         }
@@ -253,7 +253,7 @@ using Spell = LeagueSharp.Common.Spell;
                     W.IsReady())
                 {
                     var prediction = W.GetPrediction(target);
-                    if (prediction.Hitchance >= HitChance.High)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         W.Cast(target);
                     }
@@ -295,7 +295,7 @@ using Spell = LeagueSharp.Common.Spell;
                     W.IsReady())
                 {
                     var prediction = W.GetPrediction(target);
-                    if (prediction.Hitchance >= HitChance.High)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         W.Cast(target);
                     }
@@ -627,7 +627,7 @@ using Spell = LeagueSharp.Common.Spell;
                     if (enemy.LSIsValidTarget(W.Range) && enemy.Health < W.GetDamage(enemy))
                     {
                         var prediction = W.GetPrediction(enemy);
-                        if (prediction.Hitchance >= HitChance.High)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             W.Cast(enemy);
                         }

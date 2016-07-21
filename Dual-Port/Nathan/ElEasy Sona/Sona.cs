@@ -262,7 +262,7 @@
             if (useR && spells[Spells.R].IsReady() && rTarget.LSIsValidTarget(spells[Spells.R].Range))
             {
                 var pred = spells[Spells.R].GetPrediction(target);
-                if (pred.Hitchance >= HitChance.High)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     var hits = HeroManager.Enemies.Where(x => x.LSDistance(target) <= spells[Spells.R].Width).ToList();
                     Console.WriteLine(hits.Count);

@@ -93,7 +93,7 @@ namespace PortAIO
 
             Loader.Menu();
 
-            //LoadUtility();
+            LoadUtility();
             LoadChampion();
 
             Game.OnUpdate += Game_OnUpdate;
@@ -496,16 +496,13 @@ namespace PortAIO
                         switch (Loader.brand)
                         {
                             case 0:
-                                PortAIO.Champion.Brand.Program.Load();
-                                break;
-                            case 1:
                                 SebbyLib.Program.GameOnOnGameLoad();
                                 break;
-                            case 2:
+                            case 1:
                                 yol0Brand.Program.Game_OnGameLoad();
                                 break;
                             default:
-                                PortAIO.Champion.Brand.Program.Load();
+                                SebbyLib.Program.GameOnOnGameLoad();
                                 break;
                         }
                         break;
@@ -1742,18 +1739,6 @@ namespace PortAIO
                             break;
                     }
                 }
-
-                if (Loader.dzaware)
-                {
-                    DZAwarenessAIO.Program.Game_OnGameLoad();
-                }
-
-                if (Loader.godTracker)
-                {
-                    GodJungleTracker.Program.OnGameLoad();
-                    Chat.Print("Berb : Depending on whether packets are updated or not will this work.");
-                }
-
                 if (Loader.ping)
                 {
                     new UniversalPings.Program();
@@ -1790,29 +1775,21 @@ namespace PortAIO
                     switch (Loader.predictionerCB)
                     {
                         case 0:
-                            EBPredictioner.Program.Init();
-                            break;
-                        case 1:
                             SDKPredictioner.Program.Init();
                             break;
-                        case 2:
+                        case 1:
                             OKTWPredictioner.Program.Init();
                             break;
-                        case 3:
+                        case 2:
                             SPredictioner.Program.Init();
                             break;
-                        case 4:
+                        case 3:
                             SharpPredictioner.Program.Init();
                             break;
                         default:
-                            EBPredictioner.Program.Init();
+                            SDKPredictioner.Program.Init();
                             break;
                     }
-                }
-
-                if (Loader.cheat)
-                {
-                    new TheCheater.TheCheater().Load();
                 }
 
                 if (Loader.banwards)
@@ -1820,41 +1797,10 @@ namespace PortAIO
                     Sebby_Ban_War.Program.Game_OnGameLoad();
                 }
 
-                if (Loader.antialistar)
-                {
-                    AntiAlistar.AntiAlistar.OnLoad();
-                }
-
-                if (Loader.traptrack)
-                {
-                    AntiTrap.Program.Game_OnGameLoad();
-                }
-
-                if (Loader.limitedShat)
-                {
-                    LimitedShat.Program.Game_OnGameLoad();
-                }
-
                 if (Loader.autoLevel)
                 {
                     AutoLevelup.Program.Game_OnGameLoad();
                 }
-
-                if (Loader.chatLogger)
-                {
-                    Chat_Logger.Program.Init();
-                }
-
-                if (Loader.autoFF)
-                {
-                    AutoFF.Program.Game_OnGameLoad();
-                }
-
-                if (Loader.urfSpell)
-                {
-                    URF_Spell_Spammer.Program.Game_OnGameLoad();
-                }
-
                 if (Loader.pastingSharp)
                 {
                     PastingSharp.Program.Game_OnGameLoad();
@@ -1889,49 +1835,6 @@ namespace PortAIO
                 {
                     DeveloperSharp.Program.Init();
                 }
-
-                if (Loader.cursor)
-                {
-                    VCursor.Program.Game_OnGameLoad();
-                }
-
-                if (Loader.condemn)
-                {
-                    AsunaCondemn.Program.Main();
-                }
-
-                if (Loader.randomult)
-                {
-                    RandomUlt.Program.Main();
-                }
-
-                //if (Loader.orbwalker)
-                //{
-                //PuppyStandaloneOrbwalker.Program.Game_OnGameLoad();
-                //}
-
-                /*
-                if (Loader.stream)
-                {
-                    StreamBuddy.Program.Main();
-                }
-
-                if (RandomUltChampsList.Contains(ObjectManager.Player.ChampionName))
-                {
-                    if (Loader.randomUlt)
-                    {
-                        RandomUlt.Program.Game_OnGameLoad();
-                    }
-                }
-
-                if (BaseUltList.Contains(ObjectManager.Player.ChampionName))
-                {
-                    if (Loader.baseUlt)
-                    {
-                        new BaseUlt3.BaseUlt();
-                    }
-                }
-                */
             }
         }
     }

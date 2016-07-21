@@ -280,7 +280,7 @@ namespace ElAurelion_Sol
                 if (Q.IsReady() && getCheckBoxItem(comboMenu, "Combo.Q"))
                 {
                     var prediction = Q.GetPrediction(target);
-                    if (prediction.Hitchance >= HitChance.High)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Q.Cast(target);
                     }
@@ -318,7 +318,7 @@ namespace ElAurelion_Sol
                     RDamage(target) > target.Health + target.AttackShield)
                 {
                     var prediction = R.GetPrediction(target);
-                    if (prediction.Hitchance >= HitChance.High)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         R.Cast(target);
                     }
@@ -371,7 +371,7 @@ namespace ElAurelion_Sol
                 && Q.IsReady())
             {
                 var prediction = Q.GetPrediction(sender);
-                if (prediction.Hitchance >= HitChance.High)
+                if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     Q.Cast(sender);
                 }
@@ -393,7 +393,7 @@ namespace ElAurelion_Sol
                 if (gapcloser.Sender.LSIsValidTarget(Q.Range) && Q.IsReady())
                 {
                     var prediction = Q.GetPrediction(gapcloser.Sender);
-                    if (prediction.Hitchance >= HitChance.High)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Q.Cast(gapcloser.Sender);
                     }
@@ -470,7 +470,7 @@ namespace ElAurelion_Sol
                 if (Q.IsReady() && getCheckBoxItem(harassMenu, "Harass.Q"))
                 {
                     var prediction = Q.GetPrediction(target);
-                    if (prediction.Hitchance >= HitChance.High)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Q.Cast(target);
                     }
@@ -534,7 +534,7 @@ namespace ElAurelion_Sol
                     if (Q.IsReady() && enemy.LSIsValidTarget(Q.Range) && enemy.Health < QDamage(enemy))
                     {
                         var prediction = Q.GetPrediction(enemy);
-                        if (prediction.Hitchance >= HitChance.High)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             Q.Cast(enemy);
                         }
@@ -543,7 +543,7 @@ namespace ElAurelion_Sol
                     if (R.IsReady() && enemy.LSIsValidTarget(R.Range) && enemy.Health < RDamage(enemy))
                     {
                         var prediction = R.GetPrediction(enemy);
-                        if (prediction.Hitchance >= HitChance.High)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             R.Cast(enemy);
                         }

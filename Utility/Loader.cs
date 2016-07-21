@@ -18,22 +18,16 @@ namespace PortAIO.Utility
     class Loader
     {
         public static bool antiStealth { get { return Miscc["antiStealth"].Cast<CheckBox>().CurrentValue; } }
-        public static bool limitedShat { get { return Miscc["limitedShat"].Cast<CheckBox>().CurrentValue; } }
         public static bool autoLevel { get { return Miscc["autoLevel"].Cast<CheckBox>().CurrentValue; } }
-        public static bool chatLogger { get { return Miscc["chatLogger"].Cast<CheckBox>().CurrentValue; } }
-        public static bool autoFF { get { return Miscc["autoFF"].Cast<CheckBox>().CurrentValue; } }
-        public static bool urfSpell { get { return Miscc["urfSpell"].Cast<CheckBox>().CurrentValue; } }
         public static bool emoteSpammer { get { return Miscc["emoteSpammer"].Cast<CheckBox>().CurrentValue; } }
         public static bool pastingSharp { get { return Miscc["pastingSharp"].Cast<CheckBox>().CurrentValue; } }
         public static bool useActivator { get { return Miscc["activator"].Cast<CheckBox>().CurrentValue; } }
-        public static bool cheat { get { return Miscc["cheat"].Cast<CheckBox>().CurrentValue; } }
         public static bool useTracker { get { return Miscc["tracker"].Cast<CheckBox>().CurrentValue; } }
         public static bool useRecall { get { return Miscc["recall"].Cast<CheckBox>().CurrentValue; } }
         public static bool useSkin { get { return Miscc["skin"].Cast<CheckBox>().CurrentValue; } }
         public static bool champOnly { get { return Miscc["champ"].Cast<CheckBox>().CurrentValue; } }
         public static bool utilOnly { get { return Miscc["util"].Cast<CheckBox>().CurrentValue; } }
         public static bool evade { get { return Miscc["evade"].Cast<CheckBox>().CurrentValue; } }
-        public static bool godTracker { get { return Miscc["godTracker"].Cast<CheckBox>().CurrentValue; } }
         public static bool ping { get { return Miscc["ping"].Cast<CheckBox>().CurrentValue; } }
         public static bool human { get { return Miscc["human"].Cast<CheckBox>().CurrentValue; } }
         public static int soraka { get { return Miscc["soraka"].Cast<ComboBox>().CurrentValue; } }
@@ -42,7 +36,6 @@ namespace PortAIO.Utility
         public static int lux { get { return Miscc["lux"].Cast<ComboBox>().CurrentValue; } }
         public static int leesin { get { return Miscc["leesin"].Cast<ComboBox>().CurrentValue; } }
         public static int leblanc { get { return Miscc["leblanc"].Cast<ComboBox>().CurrentValue; } }
-        public static bool bubba { get { return Miscc["bubba"].Cast<CheckBox>().CurrentValue; } }
         public static int kalista { get { return Miscc["kalista"].Cast<ComboBox>().CurrentValue; } }
         public static bool gank { get { return Miscc["gank"].Cast<CheckBox>().CurrentValue; } }
         public static int diana { get { return Miscc["diana"].Cast<ComboBox>().CurrentValue; } }
@@ -84,8 +77,6 @@ namespace PortAIO.Utility
         public static int graves { get { return Miscc["Graves"].Cast<ComboBox>().CurrentValue; } }
         public static int ahri { get { return Miscc["ahri"].Cast<ComboBox>().CurrentValue; } }
         public static bool banwards { get { return Miscc["banwards"].Cast<CheckBox>().CurrentValue; } }
-        public static bool antialistar { get { return Miscc["antialistar"].Cast<CheckBox>().CurrentValue; } }
-        public static bool traptrack { get { return Miscc["traptrack"].Cast<CheckBox>().CurrentValue; } }
         public static int elise { get { return Miscc["elise"].Cast<ComboBox>().CurrentValue; } }
         public static int rengar { get { return Miscc["rengar"].Cast<ComboBox>().CurrentValue; } }
         public static int zed { get { return Miscc["zed"].Cast<ComboBox>().CurrentValue; } }
@@ -112,13 +103,11 @@ namespace PortAIO.Utility
         public static int aatrox { get { return Miscc["aatrox"].Cast<ComboBox>().CurrentValue; } }
         public static int missfortune { get { return Miscc["missfortune"].Cast<ComboBox>().CurrentValue; } }
         public static bool reform { get { return Miscc["reform"].Cast<CheckBox>().CurrentValue; } }
-        public static bool dzaware { get { return Miscc["dzaware"].Cast<CheckBox>().CurrentValue; } }
         public static int trackerCB { get { return Miscc["trackerCB"].Cast<ComboBox>().CurrentValue; } }
         public static int mundo { get { return Miscc["mundo"].Cast<ComboBox>().CurrentValue; } }
         public static bool feed { get { return Miscc["feed"].Cast<CheckBox>().CurrentValue; } }
         public static bool mes { get { return Miscc["mes"].Cast<CheckBox>().CurrentValue; } }
         public static bool dev { get { return Miscc["dev"].Cast<CheckBox>().CurrentValue; } }
-        public static bool cursor { get { return Miscc["cursor"].Cast<CheckBox>().CurrentValue; } }
         public static int akali { get { return Miscc["akali"].Cast<ComboBox>().CurrentValue; } }
         public static int thresh { get { return Miscc["thresh"].Cast<ComboBox>().CurrentValue; } }
         public static int amumu { get { return Miscc["amumu"].Cast<ComboBox>().CurrentValue; } }
@@ -128,14 +117,12 @@ namespace PortAIO.Utility
         public static int zac { get { return Miscc["zac"].Cast<ComboBox>().CurrentValue; } }
         public static int annie { get { return Miscc["annie"].Cast<ComboBox>().CurrentValue; } }
         public static int karthus { get { return Miscc["karthus"].Cast<ComboBox>().CurrentValue; } }
-        public static bool condemn { get { return Miscc["condemn"].Cast<CheckBox>().CurrentValue; } }
-        public static bool randomult { get { return Miscc["randomult"].Cast<CheckBox>().CurrentValue; } }
         public static int udyr { get { return Miscc["udyr"].Cast<ComboBox>().CurrentValue; } }
         public static int veigar { get { return Miscc["veigar"].Cast<ComboBox>().CurrentValue; } }
         public static int warwick { get { return Miscc["warwick"].Cast<ComboBox>().CurrentValue; } }
         public static int illaoi { get { return Miscc["illaoi"].Cast<ComboBox>().CurrentValue; } }
         public static int hecarim { get { return Miscc["hecarim"].Cast<ComboBox>().CurrentValue; } }
-        public static bool predictioner { get { return Miscc["predictioner"].Cast<CheckBox>().CurrentValue; } }
+        public static bool predictioner { get { return Miscc["predictionere"].Cast<CheckBox>().CurrentValue; } }
         public static int predictionerCB { get { return Miscc["predictionerCB"].Cast<ComboBox>().CurrentValue; } }
         public static int urgot { get { return Miscc["urgot"].Cast<ComboBox>().CurrentValue; } }
         public static int varus { get { return Miscc["varus"].Cast<ComboBox>().CurrentValue; } }
@@ -148,8 +135,6 @@ namespace PortAIO.Utility
             get { return ObjectManager.Player; }
         }
 
-        public static List<string> RandomUltChampsList = new List<string>(new[] { "Ezreal", "Jinx", "Ashe", "Draven", "Gangplank", "Ziggs", "Lux", "Xerath" });
-        public static List<string> BaseUltList = new List<string>(new[] { "Jinx", "Ashe", "Draven", "Ezreal", "Karthus" });
         public static List<string> Champion = new List<string>(new[] {
             "Soraka", // 0
             "KogMaw", // 1
@@ -322,7 +307,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[18]))
                 {
-                    Miscc.Add("brand", new ComboBox("Use addon for Brand : ", 0, "TheBrand", "OKTW", "yol0Brand"));
+                    Miscc.Add("brand", new ComboBox("Use addon for Brand : ", 0, "OKTW", "yol0Brand"));
                 }
                 if (Player.ChampionName.Equals(Champion[19]))
                 {
@@ -598,50 +583,34 @@ namespace PortAIO.Utility
             Miscc.Add("evadeCB", new ComboBox("Which Evade?", 0, "ezEvade", "Evade#"));
             Miscc.Add("activatorCB", new ComboBox("Which Activator?", 0, "ElUtilitySuite", "NabbActivator", "Activator#"));
             Miscc.Add("trackerCB", new ComboBox("Which Tracker?", 0, "NabbTracker", "Tracker#"));
-            Miscc.Add("predictionerCB", new ComboBox("Which Predictioner?", 0, "EB", "SDK", "OKTW", "SPred", "L#"));
+            Miscc.Add("predictionerCB", new ComboBox("Which Predictioner?", 0, "SDK", "OKTW", "SPred", "L#"));
             Miscc.AddSeparator();
             Miscc.AddGroupLabel("Util Changes");
             Miscc.AddLabel("Please F5 after making any changes below >>");
             Miscc.Add("champ", new CheckBox("Champ only mode? (No utils will load)", false));
             Miscc.Add("util", new CheckBox("Util only mode? (No champs will load)", false));
             Miscc.AddSeparator();
+            Miscc.AddGroupLabel("Main Utilities :");
             Miscc.Add("activator", new CheckBox("Enable Activator?"));
             Miscc.Add("tracker", new CheckBox("Enable Tracker?"));
-            Miscc.Add("recall", new CheckBox("Enable Recall Tracker?"));
-            Miscc.Add("skin", new CheckBox("Enable Skin Hack?", false));
-            Miscc.AddSeparator();
             Miscc.Add("evade", new CheckBox("Enable Evade?", false));
-            Miscc.Add("predictioner", new CheckBox("Enable Predictioner?", true));
-            Miscc.Add("dzaware", new CheckBox("Enable DZAwareness?", false));
-            Miscc.Add("godTracker", new CheckBox("Enable God Jungle Tracker?", false));
-            Miscc.AddSeparator();
             Miscc.Add("human", new CheckBox("Enable Humanizer?", false));
+            Miscc.Add("recall", new CheckBox("Enable Recall Tracker?"));
+            Miscc.Add("predictionere", new CheckBox("Enable Predictioner?", false));
+            Miscc.AddSeparator();
+            Miscc.AddGroupLabel("Extra Utilities :");
+            Miscc.Add("skin", new CheckBox("Enable Skin Hack?", false));
             Miscc.Add("gank", new CheckBox("Enable GankAlerter?", false));
-            Miscc.Add("cheat", new CheckBox("Enable TheCheater?", false));
-            Miscc.Add("randomult", new CheckBox("Enable Random Ult?", false));
-            Miscc.AddSeparator();
             Miscc.Add("banwards", new CheckBox("Enable Sebby BanWars?", false));
-            Miscc.Add("antialistar", new CheckBox("Enable AntiAlistar?", false));
-            Miscc.Add("traptrack", new CheckBox("Enable TrapTracker?", false));
-            Miscc.Add("limitedShat", new CheckBox("Enable LimitedShat?", false));
-            Miscc.AddSeparator();
             Miscc.Add("autoLevel", new CheckBox("Enable Auto Level?", false));
-            Miscc.Add("chatLogger", new CheckBox("Enable Chat Logger?", false));
-            Miscc.Add("autoFF", new CheckBox("Enable Auto FF?", false));
-            Miscc.Add("urfSpell", new CheckBox("Enable URF Spam Speller?", false));
-            Miscc.AddSeparator();
             Miscc.Add("pastingSharp", new CheckBox("Enable PastingSharp?", false));
             Miscc.Add("emoteSpammer", new CheckBox("Enable Emote Spammer?", false));
             Miscc.Add("antiStealth", new CheckBox("Enable Anti Stealth (ElUtil)?", false));
             Miscc.Add("reform", new CheckBox("Enable Toxic Player Reform Program?", false));
-            Miscc.AddSeparator();
             Miscc.Add("ping", new CheckBox("Enable Ping Block?", false));
             Miscc.Add("feed", new CheckBox("Enable Black Feeder 2.0?", false));
             Miscc.Add("mes", new CheckBox("Enable Mastery Emote Spammer?", false));
             Miscc.Add("dev", new CheckBox("Enable Developer Sharp?", false));
-            Miscc.AddSeparator();
-            Miscc.Add("cursor", new CheckBox("Enable VCursor?", false));
-            Miscc.Add("condemn", new CheckBox("Enable Asuna Condemn (Vayne Only)?", false));
 
             var credits = Miscc.AddSubMenu("Credits");
             credits.AddLabel("Nathan or jQuery");
@@ -696,21 +665,6 @@ namespace PortAIO.Utility
             credits.AddLabel("LuNi");
             credits.AddLabel("Berb");
             credits.AddLabel("Muse30");
-
-            /*
-            //Miscc.Add("orbwalker", new CheckBox("Enable L# Orbwalker (HIGHLY BETA)?", false));
-            public static bool orbwalker { get { return Miscc["orbwalker"].Cast<CheckBox>().CurrentValue; } }
-            public static bool VCursor { get { return Miscc["VCursor"].Cast<CheckBox>().CurrentValue; } }
-            //Miscc.Add("VCursor", new CheckBox("Enable VCursor?", false));
-            Miscc.Add("stream", new CheckBox("Enable StreamBuddy?", false));
-            public static bool stream { get { return Miscc["stream"].Cast<CheckBox>().CurrentValue; } }
-            public static bool baseUlt { get { return Miscc["baseUlt"].Cast<CheckBox>().CurrentValue; } }
-
-            if (BaseUltList.Contains(ObjectManager.Player.ChampionName))
-            {
-                Miscc.Add("baseUlt", new CheckBox("Enable Base Ult?", false));
-            }
-            */
         }
         
         private static void Loader_OnValueChange(ValueBase<bool> sender, ValueBase<bool>.ValueChangeArgs args)

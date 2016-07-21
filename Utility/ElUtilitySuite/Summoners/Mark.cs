@@ -152,7 +152,7 @@
             {
                 if (getCheckBoxItem(this.Menu, string.Format("snowballon{0}", enemy.ChampionName)))
                 {
-                    this.MarkSpell.CastIfHitchanceEquals(enemy, HitChance.High);
+                    this.MarkSpell.CastIfHitchanceEquals(enemy, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
             }
         }

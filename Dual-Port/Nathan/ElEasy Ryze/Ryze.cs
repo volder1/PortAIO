@@ -246,8 +246,8 @@
             if (useQ && spells[Spells.Q].IsReady() && spells[Spells.Q].IsInRange(target))
             {
                 var prediction = spells[Spells.Q].GetPrediction(target);
-                if (prediction.Hitchance != HitChance.Impossible && prediction.Hitchance != HitChance.OutOfRange
-                    && prediction.Hitchance != HitChance.Collision)
+                if (prediction.HitChance != EloBuddy.SDK.Enumerations.HitChance.Impossible && prediction.HitChance != EloBuddy.SDK.Enumerations.HitChance.Unknown
+                    && prediction.HitChance != EloBuddy.SDK.Enumerations.HitChance.Collision)
                 {
                     spells[Spells.Q].Cast(target);
                 }
@@ -520,7 +520,7 @@
             if (useQ && spells[Spells.Q].IsReady() && spells[Spells.Q].IsInRange(target))
             {
                 var pred = spells[Spells.Q].GetPrediction(target);
-                if (pred.Hitchance >= HitChance.High && pred.CollisionObjects.Count == 0)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && pred.CollisionObjects.Count() == 0)
                 {
                     spells[Spells.Q].Cast(target);
                 }

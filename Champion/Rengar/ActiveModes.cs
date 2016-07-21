@@ -141,7 +141,7 @@
                 }
 
                 var pred = spells[Spells.E].GetPrediction(target);
-                if (pred.Hitchance >= HitChance.High)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.E].Cast(pred.CastPosition);
                 }

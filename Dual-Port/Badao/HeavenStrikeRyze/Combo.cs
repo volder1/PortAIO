@@ -52,7 +52,7 @@ namespace HeavenStrikeRyze
                 Obj_AI_Base MainTarget = null;
 
                 // in investigation
-                MainTarget = tarqs.Where(x => Helper.HasEBuff(x) && Program._q.GetPrediction(x).Hitchance >= HitChance.Low && Program._q.IsReady()
+                MainTarget = tarqs.Where(x => Helper.HasEBuff(x) && Program._q.GetPrediction(x).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low && Program._q.IsReady()
                     && Helper.GetchainedTarget(x).Count() >= 2 && Helper.GetchainedTarget(x).Count(y => y is AIHeroClient) >= 1)
                     .MaxOrDefault(x => Helper.GetchainedTarget(x).Count(y => y is AIHeroClient));
                 if (MainTarget != null)

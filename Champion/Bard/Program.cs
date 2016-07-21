@@ -173,7 +173,7 @@ namespace PortAIO.Champion.Bard
         {
             var QPrediction = spells[SpellSlot.Q].GetPrediction(comboTarget);
 
-            if (QPrediction.Hitchance >= HitChance.High)
+            if (QPrediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 if (spells[SpellSlot.Q].GetDamage(comboTarget) > comboTarget.Health + 15 &&
                     getCheckBoxItem(comboMenu, "dz191.bard.combo.qks"))
@@ -241,10 +241,10 @@ namespace PortAIO.Champion.Bard
                     }
                 }
             }
-            else if (QPrediction.Hitchance == HitChance.Collision)
+            else if (QPrediction.HitChance == EloBuddy.SDK.Enumerations.HitChance.Collision)
             {
                 var QCollision = QPrediction.CollisionObjects;
-                if (QCollision.Count == 1)
+                if (QCollision.Count() == 1)
                 {
                     spells[SpellSlot.Q].Cast(QPrediction.CastPosition);
                 }

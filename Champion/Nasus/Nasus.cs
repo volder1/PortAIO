@@ -353,7 +353,7 @@
             if (useE && spells[Spells.E].IsReady() && target.LSIsValidTarget())
             {
                 var pred = spells[Spells.E].GetPrediction(target);
-                if (pred.Hitchance >= HitChance.High)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.E].Cast(pred.CastPosition);
                 }
@@ -457,8 +457,8 @@
 
             if (useE && spells[Spells.E].IsReady() && eTarget.LSIsValidTarget() && spells[Spells.E].IsInRange(eTarget))
             {
-                var pred = spells[Spells.E].GetPrediction(eTarget).Hitchance;
-                if (pred >= HitChance.High)
+                var pred = spells[Spells.E].GetPrediction(eTarget).HitChance;
+                if (pred >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.E].Cast(eTarget);
                 }

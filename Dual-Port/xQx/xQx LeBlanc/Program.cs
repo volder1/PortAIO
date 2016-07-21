@@ -512,7 +512,7 @@ using EloBuddy.SDK;
             {
                 var wP = W.GetPrediction(t);
                 var hithere = wP.CastPosition.LSExtend(ObjectManager.Player.Position, -50);
-                if (wP.Hitchance >= HitChance.High)
+                if (wP.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     W.Cast(hithere);
                 }
@@ -828,7 +828,7 @@ using EloBuddy.SDK;
                 {
                     var wP = W.GetPrediction(t);
                     var hithere = wP.CastPosition.LSExtend(ObjectManager.Player.Position, -50);
-                    if (wP.Hitchance >= HitChance.High)
+                    if (wP.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         W.Cast(hithere);
                     }
@@ -1068,42 +1068,42 @@ using EloBuddy.SDK;
 
         #region GetEHitChance
 
-        private static HitChance GetEHitChance
+        private static EloBuddy.SDK.Enumerations.HitChance GetEHitChance
         {
             get
             {
-                HitChance hitChance;
+                EloBuddy.SDK.Enumerations.HitChance hitChance;
                 var eHitChance = getBoxItem(comboMenu, "ComboSetEHitCh");
                 switch (eHitChance)
                 {
                     case 0:
                         {
-                            hitChance = HitChance.Low;
+                            hitChance = EloBuddy.SDK.Enumerations.HitChance.Low;
                             break;
                         }
                     case 1:
                         {
-                            hitChance = HitChance.Medium;
+                            hitChance = EloBuddy.SDK.Enumerations.HitChance.Medium;
                             break;
                         }
                     case 2:
                         {
-                            hitChance = HitChance.High;
+                            hitChance = EloBuddy.SDK.Enumerations.HitChance.High;
                             break;
                         }
                     case 3:
                         {
-                            hitChance = HitChance.VeryHigh;
+                            hitChance = EloBuddy.SDK.Enumerations.HitChance.High;
                             break;
                         }
                     case 4:
                         {
-                            hitChance = HitChance.Immobile;
+                            hitChance = EloBuddy.SDK.Enumerations.HitChance.Immobile;
                             break;
                         }
                     default:
                         {
-                            hitChance = HitChance.High;
+                            hitChance = EloBuddy.SDK.Enumerations.HitChance.High;
                             break;
                         }
                 }

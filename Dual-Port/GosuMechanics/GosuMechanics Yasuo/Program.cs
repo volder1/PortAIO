@@ -726,16 +726,16 @@ using EloBuddy.SDK.Menu.Values;
             {
                 if (Q3READY() && Q3.IsReady() && Extensions.IsValidTarget(TsTarget,Q3.Range) && !IsDashing)
                 {
-                    PredictionOutput Q3Pred = Q3.GetPrediction(TsTarget);
-                    if (Q3.IsInRange(TsTarget) && Q3Pred.Hitchance >= HitChance.VeryHigh) 
+                    var Q3Pred = Q3.GetPrediction(TsTarget);
+                    if (Q3.IsInRange(TsTarget) && Q3Pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) 
                     {
                         Q3.Cast(TsTarget);
                     }
                 }
                 if (!Q3READY() && Q.IsReady() && Extensions.IsValidTarget(TsTarget, Q.Range))
                 {
-                    PredictionOutput QPred = Q1.GetPrediction(TsTarget);
-                    if (Q.IsInRange(TsTarget) && QPred.Hitchance >= LeagueSharp.Common.HitChance.High)
+                    var QPred = Q1.GetPrediction(TsTarget);
+                    if (Q.IsInRange(TsTarget) && QPred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         TsTarget = TargetSelector.GetTarget(470, DamageType.Physical);
                         Q1.Cast(TsTarget);
@@ -921,8 +921,8 @@ using EloBuddy.SDK.Menu.Values;
             {
                 return;
             }
-            PredictionOutput QPred = Q1.GetPrediction(target);
-            if (QPred.Hitchance >= LeagueSharp.Common.HitChance.High && Extensions.IsValidTarget(target, Q.Range))
+            var QPred = Q1.GetPrediction(target);
+            if (QPred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && Extensions.IsValidTarget(target, Q.Range))
             {
                 Q1.Cast(target);
             }
@@ -933,8 +933,8 @@ using EloBuddy.SDK.Menu.Values;
             {
                 return;
             }
-            PredictionOutput Q3Pred = Q3.GetPrediction(target, true);
-            if (Q3Pred.Hitchance >= HitChance.High && Extensions.IsValidTarget(target, Q3.Range))
+            var Q3Pred = Q3.GetPrediction(target, true);
+            if (Q3Pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && Extensions.IsValidTarget(target, Q3.Range))
             {
                 Q3.Cast(target);
             }
@@ -943,8 +943,8 @@ using EloBuddy.SDK.Menu.Values;
         {
             foreach (AIHeroClient target in HeroManager.Enemies.Where(x => x.LSIsValidTarget(1100)))
             {
-                PredictionOutput Q3Pred = Q3.GetPrediction(target, true);
-                if (Q3Pred.Hitchance >= HitChance.High && Extensions.IsValidTarget(target ,Q3.Range) && Q3Pred.AoeTargetsHitCount >= 2)
+                var Q3Pred = Q3.GetPrediction(target, true);
+                if (Q3Pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && Extensions.IsValidTarget(target ,Q3.Range) && Q3Pred.GetCollisionObjects<AIHeroClient>().Count() >= 2)
                 {
                     Q3.Cast(target);
                 }

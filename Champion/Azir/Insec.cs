@@ -106,7 +106,7 @@ namespace HeavenStrikeAzir
                         Program._r.Level == 2 ? 125 * 5 / 2 :
                         125 * 4 / 2;
             var Rect1 = new LeagueSharp.Common.Geometry.Polygon.Rectangle(start1, end1, width1 - 100);
-            var Predicted1 = LeagueSharp.Common.Prediction.GetPrediction(target, Game.Ping / 1000f + 0.25f).UnitPosition;
+            var Predicted1 = EloBuddy.SDK.Prediction.Position.PredictUnitPosition(target, (int)Game.Ping / (int)1000f + (int)0.25f);
             if (Rect1.IsInside(target.Position) && Rect1.IsInside(Predicted1))
             {
                 Program._r2.Cast(InsecPoint);
@@ -124,8 +124,8 @@ namespace HeavenStrikeAzir
             {
                 if (!Program._q2.IsReady())
                 {
-                    var time = Player.Position.LSDistance(sold2.Position) / 1700f;
-                    var predicted2 = LeagueSharp.Common.Prediction.GetPrediction(target, time).UnitPosition;
+                    int time = (int)Player.Position.LSDistance(sold2.Position) / (int)1700f;
+                    var predicted2 = EloBuddy.SDK.Prediction.Position.PredictUnitPosition(target, time);
                     Vector2 start2 = sold2.Position.LSTo2D().LSExtend(InsecPoint.LSTo2D(), -300);
                     Vector2 end2 = start2.LSExtend(InsecPoint.LSTo2D(), 750);
                     float width2 = Program._r.Level == 3 ? 125 * 6 / 2 :
@@ -141,8 +141,8 @@ namespace HeavenStrikeAzir
                 }
                 if (Program._q2.IsReady() && target.LSDistance(sold2.Position) <= 875 - 100)
                 {
-                    var time = (Player.LSDistance(sold2.Position) + sold2.Position.LSDistance(target.Position)) / 1700f;
-                    var predicted2 = LeagueSharp.Common.Prediction.GetPrediction(target, time).UnitPosition;
+                    int time = (int)((Player.LSDistance(sold2.Position) + sold2.Position.LSDistance(target.Position)) / 1700f);
+                    var predicted2 = EloBuddy.SDK.Prediction.Position.PredictUnitPosition(target, time);
                     Vector2 start2 = target.Position.LSTo2D().LSExtend(InsecPoint.LSTo2D(), -300);
                     Vector2 end2 = start2.LSExtend(InsecPoint.LSTo2D(), 750);
                     float width2 = Program._r.Level == 3 ? 125 * 6 / 2 :
@@ -166,8 +166,8 @@ namespace HeavenStrikeAzir
                 {
                     if (!Program._q2.IsReady())
                     {
-                        var time = Player.Position.LSTo2D().LSDistance((Vector2)posW) / 1700f + 0.3f;
-                        var predicted2 = LeagueSharp.Common.Prediction.GetPrediction(target, time).UnitPosition;
+                        int time = (int)(Player.Position.LSTo2D().LSDistance((Vector2)posW) / 1700f + 0.3f);
+                        var predicted2 = EloBuddy.SDK.Prediction.Position.PredictUnitPosition(target, time);
                         Vector2 start2 = ((Vector2)posW).LSExtend(InsecPoint.LSTo2D(), -300);
                         Vector2 end2 = start2.LSExtend(InsecPoint.LSTo2D(), 750);
                         float width2 = Program._r.Level == 3 ? 125 * 6 / 2 :
@@ -186,8 +186,8 @@ namespace HeavenStrikeAzir
                     }
                     if (Program._q2.IsReady() && target.LSDistance((Vector2)posW) <= 875 - 100)
                     {
-                        var time = (Player.LSDistance((Vector2)posW) + ((Vector2)posW).LSDistance(target.Position)) / 1700f + 0.3f;
-                        var predicted2 = LeagueSharp.Common.Prediction.GetPrediction(target, time).UnitPosition;
+                        var time = (int)((Player.LSDistance((Vector2)posW) + ((Vector2)posW).LSDistance(target.Position)) / 1700f + 0.3f);
+                        var predicted2 = EloBuddy.SDK.Prediction.Position.PredictUnitPosition(target, time);
                         Vector2 start2 = target.Position.LSTo2D().LSExtend(InsecPoint.LSTo2D(), -300);
                         Vector2 end2 = start2.LSExtend(InsecPoint.LSTo2D(), 750);
                         float width2 = Program._r.Level == 3 ? 125 * 6 / 2 :

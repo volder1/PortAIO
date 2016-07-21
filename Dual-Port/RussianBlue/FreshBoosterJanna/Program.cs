@@ -211,7 +211,7 @@ using EloBuddy.SDK.Menu.Values;
                     if (QTarget != null && getCheckBoxItem(comboMenu, "Janna_CUse_Q") && _Q.IsReady())
                     {
                         var Prediction = _Q.GetPrediction(QTarget);
-                        if (!_Q.IsCharging && Prediction.Hitchance >= HitChance.Medium)
+                        if (!_Q.IsCharging && Prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                         {
                             _Q.Cast(Prediction.CastPosition, true);
                         }

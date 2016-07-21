@@ -348,7 +348,7 @@ using Utility = LeagueSharp.Common.Utility;
             if (minions.Where(
                 minion =>
                     orbTarget != minion.NetworkId && !ObjectManager.Player.IsInAutoAttackRange(minion) &&
-                    minion.Health < Q.GetDamage(minion)).Any(minion => Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted))
+                    minion.Health < Q.GetDamage(minion)).Any(minion => Q.Cast(minion) ))
             {
                 return;
             }
@@ -371,7 +371,7 @@ using Utility = LeagueSharp.Common.Utility;
                     {
                         if (hpPred > dmgMinion)
                         {
-                            if (Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted)
+                            if (Q.Cast(minion) )
                                 return;
                         }
                     }
@@ -379,7 +379,7 @@ using Utility = LeagueSharp.Common.Utility;
                     {
                         if (hpPred > dmgMinion + qDmg)
                         {
-                            if (Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted)
+                            if (Q.Cast(minion) )
                                 return;
                         }
                     }

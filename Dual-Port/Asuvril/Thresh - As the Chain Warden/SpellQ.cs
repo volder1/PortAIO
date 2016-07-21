@@ -159,17 +159,17 @@ using SebbyLib.Prediction;
           //      Chat.Print("Common");
                 if (getBoxItem(ThreshWarden.PredictConfig, "HitChance") == 0)
                 {
-                    QWER.CastIfHitchanceEquals(target, LeagueSharp.Common.HitChance.VeryHigh);
+                    QWER.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                     return;
                 }
                 else if (getBoxItem(ThreshWarden.PredictConfig, "HitChance") == 1)
                 {
-                    QWER.CastIfHitchanceEquals(target, LeagueSharp.Common.HitChance.High);
+                    QWER.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                     return;
                 }
                 else if (getBoxItem(ThreshWarden.PredictConfig, "HitChance") == 2)
                 {
-                    QWER.CastIfHitchanceEquals(target, LeagueSharp.Common.HitChance.Medium);
+                    QWER.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Medium);
                     return;
                 }
             }
@@ -182,23 +182,23 @@ using SebbyLib.Prediction;
               //      var t = target as AIHeroClient;
                     if (getBoxItem(ThreshWarden.PredictConfig, "HitChance") == 0)
                     {
-                        QWER.SPredictionCast(target, LeagueSharp.Common.HitChance.VeryHigh);
+                        QWER.SPredictionCast(target, EloBuddy.SDK.Enumerations.HitChance.High);
                         return;
                     }
                     else if (getBoxItem(ThreshWarden.PredictConfig, "HitChance") == 1)
                     {
-                        QWER.SPredictionCast(target, LeagueSharp.Common.HitChance.High);
+                        QWER.SPredictionCast(target, EloBuddy.SDK.Enumerations.HitChance.High);
                         return;
                     }
                     else if (getBoxItem(ThreshWarden.PredictConfig, "HitChance") == 2)
                     {
-                        QWER.SPredictionCast(target, LeagueSharp.Common.HitChance.Medium);
+                        QWER.SPredictionCast(target, EloBuddy.SDK.Enumerations.HitChance.Medium);
                         return;
                     }
                 }
                 else
                 {
-                    QWER.CastIfHitchanceEquals(target, LeagueSharp.Common.HitChance.High);
+                    QWER.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
             }
         }

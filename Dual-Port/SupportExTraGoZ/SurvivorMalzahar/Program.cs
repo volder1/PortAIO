@@ -148,7 +148,7 @@ using EloBuddy.SDK;
                 foreach (var h in HeroManager.Enemies.Where(h => h.LSIsValidTarget(Q.Range) && h.Health < Player.LSGetSpellDamage(h, SpellSlot.Q)))
                 {
                     var pred = Q.GetPrediction(h);
-                    if (pred.Hitchance >= HitChance.High)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Q.Cast(pred.CastPosition);
                     }
@@ -285,7 +285,7 @@ using EloBuddy.SDK;
             if (m != null && harass["autoharass"].Cast<CheckBox>().CurrentValue)
                 E.CastOnUnit(m);
             if (m != null && harass["autoharassuseQ"].Cast<CheckBox>().CurrentValue)
-                if (pred.Hitchance >= HitChance.High)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     Q.Cast(pred.CastPosition);
                 }
@@ -312,7 +312,7 @@ using EloBuddy.SDK;
                 if (useE && E.IsReady() && E.IsInRange(m)) E.CastOnUnit(m);
                 if (useQ && Q.IsReady() && Player.Mana > Q.ManaCost && Q.IsInRange(m))
                 {
-                    if (pred.Hitchance >= HitChance.High)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Q.Cast(pred.CastPosition);
                     }
@@ -325,7 +325,7 @@ using EloBuddy.SDK;
                 if (useE && E.IsReady() && E.IsInRange(m)) E.CastOnUnit(m);
                 if (useQ && Q.IsReady() && Player.Mana > Q.ManaCost && Q.IsInRange(m))
                 {
-                    if (pred.Hitchance >= HitChance.High)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Q.Cast(pred.CastPosition);
                     }
@@ -369,7 +369,7 @@ using EloBuddy.SDK;
             var pred = Q.GetPrediction(m);
             if (Q.IsReady() && Q.IsInRange(m))
             {
-                if (pred.Hitchance >= HitChance.High)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     Q.Cast(pred.CastPosition);
                 }

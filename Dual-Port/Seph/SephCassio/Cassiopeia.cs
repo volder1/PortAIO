@@ -159,7 +159,7 @@ using Spell = LeagueSharp.Common.Spell;
                 foreach (var targ in targets)
                 {
                     var pred = Spells[SpellSlot.R].GetPrediction(targ, true);
-                    if (pred.Hitchance >= CassioUtils.RChance())
+                    if (pred.HitChance >= CassioUtils.RChance())
                     {
                         int enemhitpred = 0;
                         int enemfacingpred = 0;
@@ -299,7 +299,7 @@ using Spell = LeagueSharp.Common.Spell;
 	            //Spells[SpellSlot.Q].SPredictionCast(target, CassioUtils.GetHitChance("Hitchance.Q"));
 	            
                 var pred = Spells[SpellSlot.Q].GetPrediction(target, true);
-                if (pred.Hitchance >= CassioUtils.QChance())
+                if (pred.HitChance >= CassioUtils.QChance())
                 {
                     Spells[SpellSlot.Q].Cast(pred.CastPosition);
                 }
@@ -310,7 +310,7 @@ using Spell = LeagueSharp.Common.Spell;
 				//Spells[SpellSlot.W].SPredictionCast(target, CassioUtils.GetHitChance("Hitchance.W"));
 				
                 var pred = Spells[SpellSlot.W].GetPrediction(target, true);
-                if (pred.Hitchance > CassioUtils.WChance())
+                if (pred.HitChance > CassioUtils.WChance())
                 {
                     Spells[SpellSlot.W].Cast(pred.CastPosition);
                 }
@@ -526,7 +526,7 @@ using Spell = LeagueSharp.Common.Spell;
 				//Spells[SpellSlot.Q].SPredictionCast(target, CassioUtils.GetHitChance("Hitchance.Q"));
 				
                 var pred = Spells[SpellSlot.Q].GetPrediction(target, true);
-                if (pred.Hitchance >= CassioUtils.QChance())
+                if (pred.HitChance >= CassioUtils.QChance())
                 {
                     Spells[SpellSlot.Q].Cast(pred.CastPosition);
                 }
@@ -537,7 +537,7 @@ using Spell = LeagueSharp.Common.Spell;
 				//Spells[SpellSlot.W].SPredictionCast(target, CassioUtils.GetHitChance("Hitchance.W"));
 				
                 var pred = Spells[SpellSlot.W].GetPrediction(target, true);
-                if (pred.Hitchance >= CassioUtils.WChance())
+                if (pred.HitChance >= CassioUtils.WChance())
                 {
                     Spells[SpellSlot.W].Cast(pred.CastPosition);
                 }
@@ -583,7 +583,7 @@ using Spell = LeagueSharp.Common.Spell;
 	                    //return;
 	                    
                         var pred = Spells[SpellSlot.Q].GetPrediction(qtarget);
-                        if (pred != null && pred.Hitchance >= HitChance.Medium)
+                        if (pred != null && pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                         {
                             Spells[SpellSlot.W].Cast(pred.CastPosition);
                             return;
@@ -606,7 +606,7 @@ using Spell = LeagueSharp.Common.Spell;
 						//Spells[SpellSlot.W].SPredictionCast(target, CassioUtils.GetHitChance("Hitchance.W"));
 						
                         var pred = Spells[SpellSlot.W].GetPrediction(wtarget);
-                        if (pred != null && pred.Hitchance >= HitChance.Medium)
+                        if (pred != null && pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                         {
                             Spells[SpellSlot.W].Cast(pred.CastPosition);
                             return;
@@ -645,7 +645,7 @@ using Spell = LeagueSharp.Common.Spell;
 					//Spells[SpellSlot.R].SPredictionCast(target, CassioUtils.GetHitChance("Hitchance.R"));
 					
                     var pred = Spells[SpellSlot.R].GetPrediction(targ);
-                    if (pred.Hitchance >= CassioUtils.RChance())
+                    if (pred.HitChance >= CassioUtils.RChance())
                     {
                         Spells[SpellSlot.R].Cast(pred.CastPosition);
                     }
@@ -737,7 +737,7 @@ using Spell = LeagueSharp.Common.Spell;
 	                //Spells[SpellSlot.R].SPredictionCast(sender, CassioUtils.GetHitChance("Hitchance.R"));
 	                
                     var pred = Spells[SpellSlot.R].GetPrediction(sender);
-                    if (pred.Hitchance >= HitChance.VeryHigh && sender.LSIsFacing(Player))
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && sender.LSIsFacing(Player))
                     {
                         Spells[SpellSlot.R].Cast(pred.CastPosition);
                     }
@@ -762,7 +762,7 @@ using Spell = LeagueSharp.Common.Spell;
 					//Spells[SpellSlot.R].SPredictionCast(sender, CassioUtils.GetHitChance("Hitchance.R"));
 					
                     var pred = Spells[SpellSlot.R].GetPrediction(sender);
-                    if (pred.Hitchance >= HitChance.VeryHigh && sender.LSIsFacing(Player))
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && sender.LSIsFacing(Player))
                     {
                         Spells[SpellSlot.R].Cast(pred.CastPosition);
                     }

@@ -15,10 +15,10 @@ namespace Jhin___The_Virtuoso.Extensions
         /// <summary>
         ///     Hitchance Array
         /// </summary>
-        private static readonly HitChance[] HitchanceArray =
+        private static readonly EloBuddy.SDK.Enumerations.HitChance[] HitchanceArray =
         {
-            HitChance.Low, HitChance.Medium, HitChance.High,
-            HitChance.VeryHigh, HitChance.Immobile
+            EloBuddy.SDK.Enumerations.HitChance.Low, EloBuddy.SDK.Enumerations.HitChance.Medium, EloBuddy.SDK.Enumerations.HitChance.High,
+            EloBuddy.SDK.Enumerations.HitChance.High, EloBuddy.SDK.Enumerations.HitChance.Immobile
         };
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Jhin___The_Virtuoso.Extensions
         /// <param name="menu">Main menu</param>
         /// <param name="menuName">Menu name</param>
         /// <returns></returns>
-        public static HitChance HikiChance(this Menu menu, string menuName)
+        public static EloBuddy.SDK.Enumerations.HitChance HikiChance(this Menu menu, string menuName)
         {
             return HitchanceArray[Menus.getBoxItem(menu, menuName)];
         }

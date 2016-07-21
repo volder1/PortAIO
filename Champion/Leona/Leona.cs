@@ -220,8 +220,8 @@ using Spell = LeagueSharp.Common.Spell;
 
             if (useE && spells[Spells.E].IsReady() && target.LSIsValidTarget(spells[Spells.E].Range))
             {
-                var pred = spells[Spells.E].GetPrediction(target).Hitchance;
-                if (pred >= HitChance.VeryHigh)
+                var pred = spells[Spells.E].GetPrediction(target).HitChance;
+                if (pred >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.E].Cast(target);
                 }
@@ -231,9 +231,9 @@ using Spell = LeagueSharp.Common.Spell;
                 && Player.CountEnemiesInRange(spells[Spells.R].Range) >= countEnemies)
             {
                 var pred = spells[Spells.R].GetPrediction(target);
-                if (pred.Hitchance >= HitChance.VeryHigh)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
-                    spells[Spells.R].CastIfHitchanceEquals(target, HitChance.Immobile);
+                    spells[Spells.R].CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Immobile);
                 }
             }
 

@@ -27,11 +27,11 @@ using EloBuddy.SDK;
         {
             Utils.Utils.PrintMessage("Corki loaded");
 
-            Q = new LeagueSharp.Common.Spell(SpellSlot.Q, 825f, DamageType.Magical) { MinHitChance = HitChance.High };
+            Q = new LeagueSharp.Common.Spell(SpellSlot.Q, 825f, DamageType.Magical) { MinHitChance = EloBuddy.SDK.Enumerations.HitChance.High };
             W = new LeagueSharp.Common.Spell(SpellSlot.W, 600f, DamageType.Magical);
             E = new LeagueSharp.Common.Spell(SpellSlot.E, 700f);
-            R1 = new LeagueSharp.Common.Spell(SpellSlot.R, 1300f, DamageType.Magical) { MinHitChance = HitChance.High };
-            R2 = new LeagueSharp.Common.Spell(SpellSlot.R, 1500f, DamageType.Magical) { MinHitChance = HitChance.VeryHigh };
+            R1 = new LeagueSharp.Common.Spell(SpellSlot.R, 1300f, DamageType.Magical) { MinHitChance = EloBuddy.SDK.Enumerations.HitChance.High };
+            R2 = new LeagueSharp.Common.Spell(SpellSlot.R, 1500f, DamageType.Magical) { MinHitChance = EloBuddy.SDK.Enumerations.HitChance.High };
 
             Q.SetSkillshot(0.35f, 240f, 1300f, false, SkillshotType.SkillshotCircle);
             W.SetSkillshot(0.35f, 140f, 1500f, false, SkillshotType.SkillshotLine);
@@ -106,7 +106,7 @@ using EloBuddy.SDK;
             {
                 var t = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
                 if (t != null)
-                    if (Q.Cast(t, false, true) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                    if (Q.Cast(t, false, true))
                         return;
             }
 
@@ -114,7 +114,7 @@ using EloBuddy.SDK;
             {
                 var t = TargetSelector.GetTarget(E.Range, DamageType.Physical);
                 if (t.LSIsValidTarget())
-                    if (E.Cast(t, false, true) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                    if (E.Cast(t, false, true))
                         return;
             }
 
@@ -241,11 +241,11 @@ using EloBuddy.SDK;
             var rLim = ComboActive ? Program.combo["RlimC"].Cast<Slider>().CurrentValue : Program.harass["RlimH"].Cast<Slider>().CurrentValue;
 
             if (useQ && Q.IsReady())
-                if (Q.Cast(t, false, true) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                if (Q.Cast(t, false, true))
                     return;
 
             if (useE && E.IsReady())
-                if (E.Cast(t, false, true) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                if (E.Cast(t, false, true))
                     return;
 
             if (useR && R1.IsReady() && ObjectManager.Player.Spellbook.GetSpell(SpellSlot.R).Ammo > rLim)

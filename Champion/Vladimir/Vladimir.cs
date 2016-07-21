@@ -147,7 +147,7 @@ using Color = System.Drawing.Color;
             {
                 if (Player.Distance(target) > 300 && Player.Distance(target) < spells[Spells.E].Range)
                 {
-                    spells[Spells.E].StartCharging(Game.CursorPos);
+                    spells[Spells.E].StartCharging();
                 }
             }
 
@@ -170,7 +170,7 @@ using Color = System.Drawing.Color;
                     if (spells[Spells.R].IsReady() && spells[Spells.R].GetDamage(target) >= target.Health && !target.IsDead)
                     {
                         var pred = spells[Spells.R].GetPrediction(target);
-                        if (pred.Hitchance >= HitChance.VeryHigh)
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             spells[Spells.R].Cast(pred.CastPosition);
                         }
@@ -202,7 +202,7 @@ using Color = System.Drawing.Color;
             {
                 if (Player.LSDistance(target) < 800)
                 {
-                    spells[Spells.E].StartCharging(Game.CursorPos);
+                    spells[Spells.E].StartCharging();
                 }
             }
         }

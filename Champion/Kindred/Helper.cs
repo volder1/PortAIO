@@ -197,7 +197,7 @@ using Spell = LeagueSharp.Common.Spell;
 
         private static void CollisionObjectCheckCast(Spell spell, AIHeroClient unit, int count)
         {
-            if (spell.GetPrediction(unit).CollisionObjects.Count < count)
+            if (spell.GetPrediction(unit).CollisionObjects.Count() < count)
             {
                 if ((spell.GetPrediction(unit).CollisionObjects.Any(x => x.IsChampion() && x.IsEnemy)))
                 {

@@ -19,7 +19,7 @@ using EloBuddy.SDK;
         {
             var pos = Spells.Q.GetPrediction(Target).CastPosition.To2D();
 
-            if (Spells.Q.MinHitChance >= HitChance.High)
+            if (Spells.Q.MinHitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 return pos.To3D2();
             }
@@ -260,7 +260,7 @@ using EloBuddy.SDK;
                 {
                     Spells.W.Cast(wAlly);
                 }
-                if (qPrediction.Hitchance == HitChance.Collision) return;
+                if (qPrediction.HitChance == EloBuddy.SDK.Enumerations.HitChance.Collision) return;
 
                 if (Spells.Flash != SpellSlot.Unknown && Player.Spellbook.CanUseSpell(Spells.Flash) == SpellState.Ready)
                 {

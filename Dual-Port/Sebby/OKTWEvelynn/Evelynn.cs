@@ -137,7 +137,7 @@ using EloBuddy.SDK.Menu.Values;
             {
                 var poutput = R.GetPrediction(t, true);
 
-                var aoeCount = poutput.AoeTargetsHitCount;
+                var aoeCount = poutput.GetCollisionObjects<AIHeroClient>().Length;
 
                 aoeCount = (aoeCount == 0) ? 1 : aoeCount;
 

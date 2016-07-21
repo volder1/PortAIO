@@ -38,7 +38,7 @@ using VayneHunter_Reborn.Utility.MenuUtility;
             {
                 var Prediction = Variables.spells[SpellSlot.E].GetPrediction(target);
 
-                if (Prediction.Hitchance >= HitChance.VeryHigh)
+                if (Prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     var endPosition = Prediction.UnitPosition.LSExtend(ObjectManager.Player.ServerPosition, -pushDistance);
                     if (endPosition.LSIsWall())

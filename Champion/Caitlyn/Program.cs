@@ -237,7 +237,7 @@ namespace OneKeyToWin_AIO_Sebby
                 if (target.Health < R.GetDamage(target) * 0.6f)
                 {
                     cast = true;
-                    PredictionOutput output = R.GetPrediction(target);
+                    var output = R.GetPrediction(target);
                     Vector2 direction = output.CastPosition.LSTo2D() - Player.Position.LSTo2D();
                     direction.Normalize();
                     List<AIHeroClient> enemies = Program.Enemies.Where(x => x.LSIsValidTarget()).ToList();
@@ -245,7 +245,7 @@ namespace OneKeyToWin_AIO_Sebby
                     {
                         if (enemy.BaseSkinName == target.BaseSkinName || !cast)
                             continue;
-                        PredictionOutput prediction = R.GetPrediction(enemy);
+                        var prediction = R.GetPrediction(enemy);
                         Vector3 predictedPosition = prediction.CastPosition;
                         Vector3 v = output.CastPosition - Player.ServerPosition;
                         Vector3 w = predictedPosition - Player.ServerPosition;
@@ -377,7 +377,7 @@ namespace OneKeyToWin_AIO_Sebby
                     {
                         if (getCheckBoxItem(eMenu, "Ehitchance"))
                         {
-                            E.CastIfHitchanceEquals(t, HitChance.Dashing);
+                            E.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.Dashing);
                         }
                         if (Player.Health < Player.MaxHealth * 0.3)
                         {

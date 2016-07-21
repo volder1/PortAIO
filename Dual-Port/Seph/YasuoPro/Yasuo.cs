@@ -71,7 +71,7 @@ using Valvrave_Sharp.Evade;
                 if (closest != null)
                 {
                     var pred = Spells[Q].GetPrediction(closest);
-                    if (pred.Hitchance >= HitChance.Low)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
                     {
                         Spells[Q].Cast(closest.ServerPosition);
                     }
@@ -281,7 +281,7 @@ using Valvrave_Sharp.Evade;
                     {
                         var pred = Spells[Q].GetPrediction(bestmin);
 
-                        if (pred.Hitchance >= HitChance.Medium)
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                         {
                             Spells[Q].Cast(bestmin);
                         }
@@ -995,7 +995,7 @@ using Valvrave_Sharp.Evade;
             if (GetBool("Misc.AG", YasuoMenu.MiscM) && TornadoReady && Yasuo.LSDistance(args.End) <= 500)
             {
                 var pred = Spells[Q2].GetPrediction(args.Sender);
-                if (pred.Hitchance >= GetHitChance("Hitchance.Q"))
+                if (pred.HitChance >= GetHitChance("Hitchance.Q"))
                 {
                     Spells[Q2].Cast(pred.CastPosition);
                 }

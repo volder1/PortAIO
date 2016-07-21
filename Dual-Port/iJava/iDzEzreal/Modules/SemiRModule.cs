@@ -65,7 +65,7 @@ using EloBuddy.SDK.Menu.Values;
                     && HeroManager.Enemies.Count(m => m.LSDistance(target.ServerPosition) < 200f) >= getSliderItem(Variables.comboMenu, "ezreal.combo.r.min"))
                 {
                     Variables.Spells[SpellSlot.R].SPredictionCast(
-                        target, target.IsMoving ? HitChance.VeryHigh : HitChance.High);
+                        target, target.IsMoving ? EloBuddy.SDK.Enumerations.HitChance.High : EloBuddy.SDK.Enumerations.HitChance.High);
                 }
             }
         }

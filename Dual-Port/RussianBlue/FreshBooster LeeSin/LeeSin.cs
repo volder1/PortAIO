@@ -82,13 +82,10 @@ using EloBuddy.SDK.Menu.Values;
                 comboMenu.Add("LeeSin_CUse_E", new CheckBox("Use E"));
                 comboMenu.Add("LeeSin_CUse_R", new CheckBox("Use R"));
                 comboMenu.AddSeparator();
-                comboMenu.AddLabel("1 : Out of Range");
-                comboMenu.AddLabel("2 : Impossible");
-                comboMenu.AddLabel("3 : Low");
-                comboMenu.AddLabel("4 : Medium");
-                comboMenu.AddLabel("5 : High");
-                comboMenu.AddLabel("6 : Very High");
-                comboMenu.Add("LeeSin_CUseQ_Hit", new Slider("Q HitChance", 4, 1, 6));
+                comboMenu.AddLabel("1 : Low");
+                comboMenu.AddLabel("2 : Medium");
+                comboMenu.AddLabel("3 : High");
+                comboMenu.Add("LeeSin_CUseQ_Hit", new Slider("Q HitChance", 3, 1, 3));
 
                 harassMenu = menu.AddSubMenu("Harass", "Harass");
                 harassMenu.Add("LeeSin_HUse_Q", new CheckBox("Use Q"));
@@ -269,31 +266,22 @@ using EloBuddy.SDK.Menu.Values;
                     var ETarget = TargetSelector.GetTarget(_E.Range, DamageType.Physical);
                     if (QTarget != null && _Q.IsReady() && ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).Name == "BlindMonkQOne" && getCheckBoxItem(comboMenu, "LeeSin_CUse_Q") && QTime < Environment.TickCount)
                     {
-                        var HC = HitChance.Medium;
+                        var HC = EloBuddy.SDK.Enumerations.HitChance.Medium;
                         switch (getSliderItem(comboMenu, "LeeSin_CUseQ_Hit"))
                         {
                             case 1:
-                                HC = HitChance.OutOfRange;
+                                HC = EloBuddy.SDK.Enumerations.HitChance.Low;
                                 break;
                             case 2:
-                                HC = HitChance.Impossible;
+                                HC = EloBuddy.SDK.Enumerations.HitChance.Medium;
                                 break;
                             case 3:
-                                HC = HitChance.Low;
-                                break;
-                            case 4:
-                                HC = HitChance.Medium;
-                                break;
-                            case 5:
-                                HC = HitChance.High;
-                                break;
-                            case 6:
-                                HC = HitChance.VeryHigh;
+                                HC = EloBuddy.SDK.Enumerations.HitChance.High;
                                 break;
 
                         }
                         var prediction = _Q.GetPrediction(QTarget);
-                        if (prediction.Hitchance >= HC)
+                        if (prediction.HitChance >= HC)
                         {
                             _Q.Cast(prediction.CastPosition);
                         }
@@ -322,7 +310,7 @@ using EloBuddy.SDK.Menu.Values;
                     var ETarget = TargetSelector.GetTarget(_E.Range, DamageType.Physical);
                     if (QTarget != null && _Q.IsReady() && ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).Name == "BlindMonkQOne" && getCheckBoxItem(harassMenu, "LeeSin_HUse_Q") && QTime < Environment.TickCount)
                     {
-                        var HC = HitChance.Medium;
+                        var HC = EloBuddy.SDK.Enumerations.HitChance.Medium;
                         _Q.CastIfHitchanceEquals(QTarget, HC, true);
                         QTime = TickCount(2000);
                     }
@@ -344,7 +332,7 @@ using EloBuddy.SDK.Menu.Values;
                     {
                         if (_Q.IsReady() && getCheckBoxItem(jungleClearMenu, "LeeSin_JUse_Q") && minion != null && Environment.TickCount > QTime)
                         {
-                            _Q.CastIfHitchanceEquals(minion, HitChance.Medium, true);
+                            _Q.CastIfHitchanceEquals(minion, EloBuddy.SDK.Enumerations.HitChance.Medium, true);
                             QTime = TickCount(1500);
                         }
                         if (_E.IsReady() && getCheckBoxItem(jungleClearMenu, "LeeSin_JUse_E") && minion != null && Environment.TickCount > ETime
@@ -366,7 +354,7 @@ using EloBuddy.SDK.Menu.Values;
                     {
                         if (_Q.IsReady() && getCheckBoxItem(laneClearMenu, "LeeSin_LUse_Q") && minion != null && Environment.TickCount > QTime)
                         {
-                            _Q.CastIfHitchanceEquals(minion, HitChance.Medium, true);
+                            _Q.CastIfHitchanceEquals(minion, EloBuddy.SDK.Enumerations.HitChance.Medium, true);
                             QTime = TickCount(1000);
                         }
                         if (_E.IsReady() && getCheckBoxItem(laneClearMenu, "LeeSin_LUse_E") && minion != null && Environment.TickCount > ETime
@@ -390,7 +378,7 @@ using EloBuddy.SDK.Menu.Values;
 
                     if (GetTarget == null || GetTarget.IsDead) return;
 
-                    if (_Q.IsReady() && ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).Name == "BlindMonkQOne" && _Q.GetPrediction(GetTarget).Hitchance >= HitChance.Low)
+                    if (_Q.IsReady() && ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).Name == "BlindMonkQOne" && _Q.GetPrediction(GetTarget).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
                         _Q.Cast(GetTarget);
                     else if (_Q.IsReady() && ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).Name != "BlindMonkQOne" && GetTarget.HasBuff("BlindMonkSonicWave"))
                         _Q.Cast();

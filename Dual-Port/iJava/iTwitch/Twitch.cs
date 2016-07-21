@@ -133,7 +133,7 @@
                     && !ObjectManager.Player.HasBuff("TwitchHideInShadows"))
                 {
                     var prediction = Spells[SpellSlot.W].GetPrediction(wTarget);
-                    if (prediction.Hitchance >= HitChance.High)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Spells[SpellSlot.W].Cast(prediction.CastPosition);
                     }
@@ -206,7 +206,7 @@
                 if (wTarget.LSIsValidTarget(Spells[SpellSlot.W].Range))
                 {
                     var prediction = Spells[SpellSlot.W].GetPrediction(wTarget);
-                    if (prediction.Hitchance >= HitChance.High)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Spells[SpellSlot.W].Cast(prediction.CastPosition);
                     }

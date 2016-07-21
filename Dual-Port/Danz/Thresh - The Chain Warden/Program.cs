@@ -181,7 +181,7 @@ using Spell = LeagueSharp.Common.Spell;
                     Render.Circle.DrawCircle(V2E(ObjectManager.Player.Position, enemy.Position, 400).To3D(), 100, Color.Aqua, 1);
                     Drawing.DrawLine(Drawing.WorldToScreen(V2E(ObjectManager.Player.Position, enemy.Position, 400).To3D()), Drawing.WorldToScreen(predPos.CastPosition), 2, Color.Aqua);
                     var toScreen = Drawing.WorldToScreen(enemy.Position);
-                    Drawing.DrawText(toScreen.X + 70, toScreen.Y, Color.Aqua, predPos.Hitchance.ToString());
+                    Drawing.DrawText(toScreen.X + 70, toScreen.Y, Color.Aqua, predPos.HitChance.ToString());
                 }
 
                 if (getCheckBoxItem(debugMenu, "debugE"))
@@ -325,7 +325,7 @@ using Spell = LeagueSharp.Common.Spell;
             {
                 var Qprediction = Q.GetPrediction(target);
 
-                if (Qprediction.Hitchance >= HitChance.High && Qprediction.CollisionObjects.Count(h => h.IsEnemy && !h.IsDead && h is Obj_AI_Minion) < 2)
+                if (Qprediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && Qprediction.CollisionObjects.Count(h => h.IsEnemy && !h.IsDead && h is Obj_AI_Minion) < 2)
                 {
                     Q.Cast(Qprediction.CastPosition);
                 }
@@ -342,11 +342,11 @@ using Spell = LeagueSharp.Common.Spell;
             var target = TargetSelector.GetTarget(1300, DamageType.Magical);
             if (Q.IsReady() && (getCheckBoxItem(comboMenu, "UseQCombo")))
             {
-                Q.CastIfHitchanceEquals(target, HitChance.Dashing, true);
-                Q.CastIfHitchanceEquals(target, HitChance.Immobile, true);
+                Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Dashing, true);
+                Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Immobile, true);
                 var Qprediction = Q.GetPrediction(target);
 
-                if (Qprediction.Hitchance >= HitChance.High && Qprediction.CollisionObjects.Count(h => h.IsEnemy && !h.IsDead && h is Obj_AI_Minion) < 2)
+                if (Qprediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && Qprediction.CollisionObjects.Count(h => h.IsEnemy && !h.IsDead && h is Obj_AI_Minion) < 2)
                 {
                     Q.Cast(Qprediction.CastPosition);
                 }
@@ -383,7 +383,7 @@ using Spell = LeagueSharp.Common.Spell;
                 {
                     Q2.UpdateSourcePosition(V2E(ObjectManager.Player.Position, target.Position, FlashRange).To3D());
                     var predPos = Q2.GetPrediction(target);
-                    if (predPos.Hitchance != HitChance.VeryHigh) //What does "Madlife" mean?
+                    if (predPos.HitChance != EloBuddy.SDK.Enumerations.HitChance.High) //What does "Madlife" mean?
                         return;
                     Player.Spellbook.CastSpell(FlashSlot, predPos.CastPosition);
                     Q.Cast(predPos.CastPosition);

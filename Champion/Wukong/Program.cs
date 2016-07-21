@@ -267,12 +267,12 @@ using Spell = LeagueSharp.Common.Spell;
                     switch (getBoxItem(menuCombo, "forceUlti" + t.NetworkId))
                     {
                         case 1:
-                            R.CastIfHitchanceEquals(t, HitChance.High);
+                            R.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High);
                             break;
                         case 2:
                         {
                             if (t.Health < GetComboDamage(t))
-                                R.CastIfHitchanceEquals(t, HitChance.High);
+                                R.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High);
                         }
                             break;
                     }

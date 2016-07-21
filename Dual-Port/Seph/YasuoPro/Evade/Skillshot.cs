@@ -128,16 +128,16 @@ using EloBuddy.SDK.Menu.Values;
             //Create the spatial object for each type of skillshot.
             switch (spellData.Type)
             {
-                case SkillShotType.SkillshotCircle:
+                case SkillshotType.SkillshotCircle:
                     Circle = new Geometry.Circle(CollisionEnd, spellData.Radius);
                     break;
-                case SkillShotType.SkillshotLine:
+                case SkillshotType.SkillshotLine:
                     Rectangle = new Geometry.Rectangle(Start, CollisionEnd, spellData.Radius);
                     break;
                 case SkillShotType.SkillshotMissileLine:
                     Rectangle = new Geometry.Rectangle(Start, CollisionEnd, spellData.Radius);
                     break;
-                case SkillShotType.SkillshotCone:
+                case SkillshotType.SkillshotCone:
                     Sector = new Geometry.Sector(
                         start, CollisionEnd - start, spellData.Radius * (float) Math.PI / 180, spellData.Range);
                     break;
@@ -330,7 +330,7 @@ using EloBuddy.SDK.Menu.Values;
         {
             switch (SpellData.Type)
             {
-                case SkillShotType.SkillshotCircle:
+                case SkillshotType.SkillshotCircle:
                     Polygon = Circle.ToPolygon();
                     EvadePolygon = Circle.ToPolygon(Config.ExtraEvadeDistance);
                     PathFindingPolygon = Circle.ToPolygon(Config.PathFindingDistance);
@@ -341,7 +341,7 @@ using EloBuddy.SDK.Menu.Values;
                             ? SpellData.Radius
                             : (SpellData.Radius - ObjectManager.Player.BoundingRadius));
                     break;
-                case SkillShotType.SkillshotLine:
+                case SkillshotType.SkillshotLine:
                     Polygon = Rectangle.ToPolygon();
                     DrawingPolygon = Rectangle.ToPolygon(
                         0,
@@ -363,7 +363,7 @@ using EloBuddy.SDK.Menu.Values;
                     PathFindingPolygon = Rectangle.ToPolygon(Config.PathFindingDistance);
                     PathFindingInnerPolygon = Rectangle.ToPolygon(Config.PathFindingDistance2);
                     break;
-                case SkillShotType.SkillshotCone:
+                case SkillshotType.SkillshotCone:
                     Polygon = Sector.ToPolygon();
                     DrawingPolygon = Polygon;
                     EvadePolygon = Sector.ToPolygon(Config.ExtraEvadeDistance);

@@ -234,7 +234,7 @@ namespace Mundo
 
             if (castQ && CommonUtilities.Player.HealthPercent >= qHealth && target.LSIsValidTarget(q.Range))
             {
-                if (q.GetPrediction(target).Hitchance >= CommonUtilities.GetHitChance("hitchanceQ"))
+                if (q.GetPrediction(target).HitChance >= CommonUtilities.GetHitChance("hitchanceQ"))
                 {
                     q.Cast(target);
                 }
@@ -262,7 +262,7 @@ namespace Mundo
 
             if (castQ && CommonUtilities.Player.HealthPercent >= qHealth && target.LSIsValidTarget(q.Range))
             {
-                if (q.GetPrediction(target).Hitchance >= CommonUtilities.GetHitChance("hitchanceQ"))
+                if (q.GetPrediction(target).HitChance >= CommonUtilities.GetHitChance("hitchanceQ"))
                 {
                     q.Cast(target);
                 }
@@ -399,7 +399,7 @@ namespace Mundo
                             .Where(target => target.Health < CommonUtilities.Player.GetSpellDamage(target, SpellSlot.Q))
                     )
                 {
-                    if (q.GetPrediction(target).Hitchance >= CommonUtilities.GetHitChance("hitchanceQ"))
+                    if (q.GetPrediction(target).HitChance >= CommonUtilities.GetHitChance("hitchanceQ"))
                     {
                         q.Cast(target);
                     }
@@ -438,7 +438,7 @@ namespace Mundo
 
             if (autoQ && CommonUtilities.Player.HealthPercent >= qHealth && target.LSIsValidTarget(q.Range))
             {
-                if (q.GetPrediction(target).Hitchance >= CommonUtilities.GetHitChance("hitchanceQ"))
+                if (q.GetPrediction(target).HitChance >= CommonUtilities.GetHitChance("hitchanceQ"))
                 {
                     q.Cast(target);
                 }

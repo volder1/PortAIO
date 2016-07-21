@@ -336,11 +336,11 @@ using EloBuddy.SDK.Menu.Values;
                         if (!OktwCommon.CanMove(t))
                             Q.Cast(t);
 
-                        Q.CastIfHitchanceEquals(t, HitChance.Immobile);
+                        Q.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.Immobile);
                     }
                     if (getCheckBoxItem(qMenu, "qDash"))
                     {
-                        Q.CastIfHitchanceEquals(t, HitChance.Dashing);
+                        Q.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.Dashing);
                     }
                 }
             }

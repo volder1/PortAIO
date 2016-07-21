@@ -138,14 +138,14 @@ namespace Leblanc.Modes
             {
                 targets = targets.Where(t => t.LSIsValidTarget((W.Range + W.Width))).ToList();
                 var pred = W.GetPrediction(target);
-                if (pred.Hitchance >= HitChance.Medium)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                 {
                     var circle = new LeagueSharp.Common.Geometry.Polygon.Circle(pred.UnitPosition, target.BoundingRadius + W.Width);
                     circle.Draw(System.Drawing.Color.Aqua, 5);
 
                     return 1 + (from t in targets.Where(x => x.NetworkId != target.NetworkId)
                                 let pred2 = W.GetPrediction(t)
-                                where pred2.Hitchance >= HitChance.Medium
+                                where pred2.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium
                                 select new LeagueSharp.Common.Geometry.Polygon.Circle(pred2.UnitPosition, t.BoundingRadius * 0.9f)).Count(
                             circle2 => circle2.Points.Any(p => circle.IsInside(p)));
                 }

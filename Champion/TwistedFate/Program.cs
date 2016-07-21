@@ -271,7 +271,7 @@ using Utility = LeagueSharp.Common.Utility;
                 if (enemy.LSIsValidTarget() && enemy.NetworkId != unit.NetworkId)
                 {
                     var pos = Q.GetPrediction(enemy);
-                    if (pos.Hitchance >= HitChance.Medium)
+                    if (pos.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                     {
                         points.Add(pos.UnitPosition.LSTo2D());
                         hitBoxes.Add((int)enemy.BoundingRadius);
@@ -397,8 +397,8 @@ using Utility = LeagueSharp.Common.Utility;
                     if (enemy.LSIsValidTarget(Q.Range * 2))
                     {
                         var pred = Q.GetPrediction(enemy);
-                        if ((pred.Hitchance == HitChance.Immobile && autoQI) ||
-                            (pred.Hitchance == HitChance.Dashing && autoQD))
+                        if ((pred.HitChance == EloBuddy.SDK.Enumerations.HitChance.Immobile && autoQI) ||
+                            (pred.HitChance == EloBuddy.SDK.Enumerations.HitChance.Dashing && autoQD))
                         {
                             CastQ(enemy, pred.UnitPosition.LSTo2D());
                         }

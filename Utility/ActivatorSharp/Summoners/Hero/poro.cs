@@ -31,7 +31,7 @@ using EloBuddy.SDK.Menu.Values;
             foreach (var tar in Activator.Heroes.Where(hero => hero.Player.LSIsValidTarget(Range)))
             {
                 if (Activator.smenu[Parent.UniqueMenuId + "useon" + tar.Player.NetworkId].Cast<CheckBox>().CurrentValue)
-                    mark.CastIfHitchanceEquals(tar.Player, HitChance.Medium);
+                    mark.CastIfHitchanceEquals(tar.Player, EloBuddy.SDK.Enumerations.HitChance.Medium);
             }
         }
     }

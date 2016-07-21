@@ -217,12 +217,12 @@ using EloBuddy.SDK;
                 // Kill
                 if (getCheckBoxItem(KillSteal, "Braum_KUse_Q") && QTarget != null && _Q.IsReady() && _Q.GetDamage(QTarget) > QTarget.Health)
                 {
-                    _Q.CastIfHitchanceEquals(QTarget, HitChance.Low, true);
+                    _Q.CastIfHitchanceEquals(QTarget, EloBuddy.SDK.Enumerations.HitChance.Low, true);
                     return;
                 }
                 if (getCheckBoxItem(KillSteal, "Braum_KUse_R") && QTarget != null && _R.IsReady() && _R.GetDamage(RTarget) > RTarget.Health)
                 {
-                    _R.CastIfHitchanceEquals(QTarget, HitChance.VeryHigh, true);
+                    _R.CastIfHitchanceEquals(QTarget, EloBuddy.SDK.Enumerations.HitChance.High, true);
                     return;
                 }
 
@@ -231,14 +231,14 @@ using EloBuddy.SDK;
                 {
                     MovingPlayer(Game.CursorPos);
                     if (QTarget != null && _Q.IsReady())
-                        _Q.CastIfHitchanceEquals(QTarget, HitChance.Low, true);
+                        _Q.CastIfHitchanceEquals(QTarget, EloBuddy.SDK.Enumerations.HitChance.Low, true);
                 }
 
                 // Combo
                 if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
                 {
                     if (getCheckBoxItem(Combo, "Braum_CUse_R") && _R.IsReady() && RTarget != null)
-                        _R.CastIfHitchanceEquals(RTarget, HitChance.VeryHigh, true);
+                        _R.CastIfHitchanceEquals(RTarget, EloBuddy.SDK.Enumerations.HitChance.High, true);
                     if (getCheckBoxItem(Combo, "Braum_CUse_Q") && _Q.IsReady() && QTarget != null)
                         _Q.CastIfHitchanceEquals(QTarget, Hitchance("Braum_CUse_Q_Hit"), true);
                 }
@@ -248,7 +248,7 @@ using EloBuddy.SDK;
                     && getSliderItem(Harass, "Braum_HMana") < Player.ManaPercent)
                 {
                     if (getCheckBoxItem(Harass, "Braum_HUse_Q") && _Q.IsReady() && QTarget != null)
-                        _Q.CastIfHitchanceEquals(QTarget, HitChance.VeryHigh, true);
+                        _Q.CastIfHitchanceEquals(QTarget, EloBuddy.SDK.Enumerations.HitChance.High, true);
                 }
             }
             catch (Exception)
@@ -266,12 +266,12 @@ using EloBuddy.SDK;
             {
                 if (getCheckBoxItem(Misc, "Braum_GapQ") && _Q.IsReady() && gapcloser.Sender.Position.LSDistance(Player.Position) < _Q.Range)
                 {
-                    _Q.CastIfHitchanceEquals(gapcloser.Sender, HitChance.Low, true);
+                    _Q.CastIfHitchanceEquals(gapcloser.Sender, EloBuddy.SDK.Enumerations.HitChance.Low, true);
                     return;
                 }
                 if (getCheckBoxItem(Misc, "Braum_GapR") && _R.IsReady() && gapcloser.Sender.Position.LSDistance(Player.Position) < _R.Range)
                 {
-                    _R.CastIfHitchanceEquals(gapcloser.Sender, HitChance.VeryHigh, true);
+                    _R.CastIfHitchanceEquals(gapcloser.Sender, EloBuddy.SDK.Enumerations.HitChance.High, true);
                     return;
                 }
             }
@@ -358,7 +358,7 @@ using EloBuddy.SDK;
             try
             {
                 if (getCheckBoxItem(Misc, "Braum_InterR") && _R.IsReady() && sender.IsEnemy && sender.Position.LSDistance(Player.Position) < _R.Range * 0.9)
-                    _R.CastIfHitchanceEquals(sender, HitChance.VeryHigh, true);
+                    _R.CastIfHitchanceEquals(sender, EloBuddy.SDK.Enumerations.HitChance.High, true);
             }
             catch (Exception)
             {

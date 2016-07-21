@@ -453,13 +453,13 @@ namespace Slutty_ryze
                         }
 
                         if (Champion.E.IsReady() && target.IsValidTarget(Champion.E.Range) &&
-                            (!Champion.Q.IsReady() || Champion.Q.GetPrediction(target).CollisionObjects.Count != 0))
+                            (!Champion.Q.IsReady() || Champion.Q.GetPrediction(target).CollisionObjects.Count() != 0))
                         {
                             Champion.E.Cast(target);
                         }
 
                         if (Champion.W.IsReady() && target.IsValidTarget(Champion.W.Range) &&
-                            (!Champion.Q.IsReady() || Champion.Q.GetPrediction(target).CollisionObjects.Count != 0))
+                            (!Champion.Q.IsReady() || Champion.Q.GetPrediction(target).CollisionObjects.Count() != 0))
                         {
                             if (Champion.E.IsReady() && Champion.W.IsReady() && !Champion.Q.IsReady())
                                 return;

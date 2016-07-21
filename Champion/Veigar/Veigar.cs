@@ -94,13 +94,10 @@ using UnderratedAIO.Helpers;
                 Combo.Add("Veigar_CUseR", new CheckBox("Use R"));
                 Combo.Add("Veigar_CUseR_Select", new CheckBox("When can be Kill, Only use R"));
                 //Combo.Add("buffer", new Slider("Buffer", 5, 0, 25));
-                Combo.AddLabel("1 : Out of Range");
-                Combo.AddLabel("2 : Impossible");
-                Combo.AddLabel("3 : Low");
-                Combo.AddLabel("4 : Medium");
-                Combo.AddLabel("5 : High");
-                Combo.AddLabel("6 : Very High");
-                Combo.Add("Veigar_CUseQ_Hit", new Slider("Q HitChance", 3, 1, 6));
+                Combo.AddLabel("1 : Low");
+                Combo.AddLabel("2 : Medium");
+                Combo.AddLabel("3 : High");
+                Combo.Add("Veigar_CUseQ_Hit", new Slider("Q HitChance", 3, 1, 3));
 
                 Harass = menu.AddSubMenu("Harass", "Harass");
                 Harass.Add("Veigar_HUseQ", new CheckBox("Use Q"));
@@ -214,7 +211,7 @@ using UnderratedAIO.Helpers;
 
                     if (getCheckBoxItem(KillSteal, "Veigar_KseW") && _W.IsReady() && !KTarget.CanMove && KTarget.Health < _W.GetDamage(KTarget) && KTarget.LSDistance(Player) <= _W.Range)
                     {
-                        _W.CastIfHitchanceEquals(KTarget, LeagueSharp.Common.HitChance.VeryHigh, true);
+                        _W.CastIfHitchanceEquals(KTarget, EloBuddy.SDK.Enumerations.HitChance.High, true);
                         return;
                     }
                 }
@@ -239,7 +236,7 @@ using UnderratedAIO.Helpers;
                     }
                     if (getCheckBoxItem(Combo, "Veigar_CUseW") && WTarget != null && _W.IsReady())
                     {
-                        _W.CastIfHitchanceEquals(WTarget, LeagueSharp.Common.HitChance.VeryHigh, true);
+                        _W.CastIfHitchanceEquals(WTarget, EloBuddy.SDK.Enumerations.HitChance.High, true);
                         return;
                     }
                     if (getCheckBoxItem(Combo, "Veigar_CUseQ") && QTarget != null && _Q.IsReady())
@@ -275,7 +272,7 @@ using UnderratedAIO.Helpers;
                     }
                     if (getCheckBoxItem(Harass, "Veigar_HUseW") && WTarget != null && _W.IsReady() && !WTarget.CanMove)
                     {
-                        _W.CastIfHitchanceEquals(WTarget, LeagueSharp.Common.HitChance.VeryHigh, true);
+                        _W.CastIfHitchanceEquals(WTarget, EloBuddy.SDK.Enumerations.HitChance.High, true);
                         return;
                     }
                     if (getCheckBoxItem(Harass, "Veigar_HUseQ") && QTarget != null && _Q.IsReady())
@@ -304,13 +301,13 @@ using UnderratedAIO.Helpers;
                         {
                             if (getCheckBoxItem(LaneClear, "Veigar_LUseQSet"))
                             {
-                                //_Q.CastIfHitchanceEquals(item, LeagueSharp.Common.HitChance.High, true);
+                                //_Q.CastIfHitchanceEquals(item, EloBuddy.SDK.Enumerations.HitChance.High, true);
                                 LastHitQ();
                                 return;
                             }
                             if (!getCheckBoxItem(LaneClear, "Veigar_LUseQSet"))
                             {
-                                _Q.CastIfHitchanceEquals(item, LeagueSharp.Common.HitChance.High, true);
+                                _Q.CastIfHitchanceEquals(item, EloBuddy.SDK.Enumerations.HitChance.High, true);
                                 return;
                             }
                         }
@@ -323,13 +320,13 @@ using UnderratedAIO.Helpers;
                         {
                             if (getCheckBoxItem(JungleClear, "Veigar_JUseQSet"))
                             {
-                                //_Q.CastIfHitchanceEquals(item, LeagueSharp.Common.HitChance.Low, true);
+                                //_Q.CastIfHitchanceEquals(item, EloBuddy.SDK.Enumerations.HitChance.Low, true);
                                 LastHitQ();
                                 return;
                             }
                             if (!getCheckBoxItem(JungleClear, "Veigar_JUseQSet"))
                             {
-                                _Q.CastIfHitchanceEquals(item, LeagueSharp.Common.HitChance.Low, true);
+                                _Q.CastIfHitchanceEquals(item, EloBuddy.SDK.Enumerations.HitChance.Low, true);
                                 return;
                             }
                         }
@@ -355,7 +352,7 @@ using UnderratedAIO.Helpers;
                 var targE = _E.GetPrediction(target);
                 var pos = targE.CastPosition;
                 if (pos.IsValid() && pos.LSDistance(player.Position) < _E.Range &&
-                    targE.Hitchance >= LeagueSharp.Common.HitChance.VeryHigh)
+                    targE.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     _E.Cast(edge ? pos.LSExtend(player.Position, 375) : pos);
                 }

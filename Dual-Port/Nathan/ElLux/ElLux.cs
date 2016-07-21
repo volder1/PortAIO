@@ -168,7 +168,7 @@
             var cast = spells[Spells.E].GetPrediction(target);
             var castPos = spells[Spells.E].IsInRange(cast.CastPosition) ? cast.CastPosition : target.ServerPosition;
 
-            return cast.Hitchance >= HitChance.High && spells[Spells.E].Cast(castPos);
+            return cast.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && spells[Spells.E].Cast(castPos);
         }
 
 
@@ -180,7 +180,7 @@
             }
 
             var prediction = spells[Spells.Q].GetPrediction(target, false, -1, new[] { CollisionableObjects.YasuoWall });
-            if (prediction.Hitchance < HitChance.VeryHigh)
+            if (prediction.HitChance < EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 return;
             }
@@ -198,7 +198,7 @@
             {
                 spells[Spells.Q].Cast(prediction.CastPosition);
             }
-            else if (prediction.Hitchance >= HitChance.VeryHigh)
+            else if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 spells[Spells.Q].Cast(prediction.CastPosition);
             }
@@ -239,7 +239,7 @@
                 if (target.HasBuff("LuxLightBindingMis"))
                 {
                     var prediction = spells[Spells.Q].GetPrediction(target);
-                    if (prediction.Hitchance >= HitChance.High)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         spells[Spells.R].Cast(prediction.CastPosition);
                     }
@@ -249,7 +249,7 @@
             if (spells[Spells.R].GetDamage(target) > GetHealth(target) && getCheckBoxItem(cMenu, "ElLux.Combo.R.Kill"))
             {
                 var prediction = spells[Spells.R].GetPrediction(target);
-                if (prediction.Hitchance >= HitChance.High)
+                if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.R].Cast(prediction.CastPosition);
                 }
@@ -312,7 +312,7 @@
                         if (spells[Spells.R].GetDamage(target) > target.Health)
                         {
                             var prediction = spells[Spells.R].GetPrediction(target);
-                            if (prediction.Hitchance >= HitChance.High)
+                            if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                             {
                                 spells[Spells.R].Cast(prediction.CastPosition);
                             }
@@ -660,7 +660,7 @@
             }
 
             var prediction = spells[Spells.R].GetPrediction(target);
-            if (prediction.Hitchance >= HitChance.High)
+            if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 spells[Spells.R].Cast(target.Position);
             }

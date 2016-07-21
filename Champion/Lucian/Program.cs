@@ -127,7 +127,7 @@ using Prediction = LeagueSharp.Common.Prediction;
                     {
                         if (LucianSpells.W.GetDamage((AIHeroClient)args.Target) >= ((AIHeroClient)args.Target).Health)
                         {
-                            if (LucianSpells.W.GetPrediction((AIHeroClient)args.Target).Hitchance >= HitChance.High)
+                            if (LucianSpells.W.GetPrediction((AIHeroClient)args.Target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                             {
                                 LucianSpells.W.Cast(((AIHeroClient)args.Target));
                             }
@@ -140,7 +140,7 @@ using Prediction = LeagueSharp.Common.Prediction;
                             }
                             else
                             {
-                                if (LucianSpells.W.GetPrediction((AIHeroClient)args.Target).Hitchance >= HitChance.Medium)
+                                if (LucianSpells.W.GetPrediction((AIHeroClient)args.Target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                                 {
                                     LucianSpells.W.Cast(((AIHeroClient)args.Target).Position);
                                 }
@@ -176,7 +176,7 @@ using Prediction = LeagueSharp.Common.Prediction;
                         ObjectManager.Player.LSDistance(args.Target.Position) < LucianSpells.W.Range &&
                         Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) &&
                         ObjectManager.Player.Buffs.Any(buff => buff.Name != "lucianpassivebuff")
-                        && LucianSpells.W.GetPrediction((AIHeroClient)args.Target).Hitchance >= HitChance.Medium)
+                        && LucianSpells.W.GetPrediction((AIHeroClient)args.Target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                     {
                         LucianSpells.W.Cast(((AIHeroClient)args.Target).Position);
                     }
@@ -270,7 +270,7 @@ using Prediction = LeagueSharp.Common.Prediction;
             {
                 return;
             }
-            foreach (var enemy in HeroManager.Enemies.Where(x => x.LSIsValidTarget(LucianSpells.R.Range) && LucianSpells.R.GetPrediction(x).CollisionObjects.Count == 0))
+            foreach (var enemy in HeroManager.Enemies.Where(x => x.LSIsValidTarget(LucianSpells.R.Range) && LucianSpells.R.GetPrediction(x).CollisionObjects.Count() == 0))
             {
                 LucianSpells.R.Cast(enemy);
             }
@@ -288,7 +288,7 @@ using Prediction = LeagueSharp.Common.Prediction;
             }
             if (LucianSpells.W.IsReady() && getCheckBoxItem(harassMenu, "lucian.w.harass") && ObjectManager.Player.Buffs.Any(buff => buff.Name != "lucianpassivebuff"))
             {
-                foreach (var enemy in HeroManager.Enemies.Where(x => x.LSIsValidTarget(LucianSpells.W.Range) && LucianSpells.W.GetPrediction(x).Hitchance >= HitChance.Medium))
+                foreach (var enemy in HeroManager.Enemies.Where(x => x.LSIsValidTarget(LucianSpells.W.Range) && LucianSpells.W.GetPrediction(x).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium))
                 {
                     if (enemy != null)
                         LucianSpells.W.Cast(enemy);
@@ -356,7 +356,7 @@ using Prediction = LeagueSharp.Common.Prediction;
                 {
                     foreach (var minion in minions)
                     {
-                        if (LucianSpells.Q2.WillHit(target, ObjectManager.Player.ServerPosition.LSExtend(minion.ServerPosition, LucianSpells.Q2.Range), 0, HitChance.VeryHigh))
+                        if (LucianSpells.Q2.WillHit(target, ObjectManager.Player.ServerPosition.LSExtend(minion.ServerPosition, LucianSpells.Q2.Range), 0, EloBuddy.SDK.Enumerations.HitChance.High))
                         {
                             LucianSpells.Q2.CastOnUnit(minion);
                         }
@@ -371,7 +371,7 @@ using Prediction = LeagueSharp.Common.Prediction;
 
             var pred = LucianSpells.W.GetPrediction(target);
 
-            if (target != null && pred.Hitchance >= HitChance.High)
+            if (target != null && pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 LucianSpells.W.Cast(pred.CastPosition);
             }

@@ -18,7 +18,7 @@ namespace Jhin___The_Virtuoso.Modes
             foreach (var enemy in HeroManager.Enemies.Where(x => x.LSIsValidTarget(Spells.W.Range)))
             {
                 var pred = Spells.W.GetPrediction(enemy);
-                if (pred.Hitchance >= Menus.wMenu.HikiChance("w.hit.chance"))
+                if (pred.HitChance >= Menus.wMenu.HikiChance("w.hit.chance"))
                 {
                     Spells.W.Cast(enemy);
                 }

@@ -111,7 +111,7 @@ using EloBuddy.SDK;
                                           t.HasBuffOfType(BuffType.Taunt) || t.HasBuff("zhonyasringshield") ||
                                           t.HasBuff("Recall")))
                 {
-                    E.CastIfHitchanceEquals(t, HitChance.Low);
+                    E.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.Low);
                 }
             }
 
@@ -131,9 +131,9 @@ using EloBuddy.SDK;
                     if (t.LSIsValidTarget())
                     {
                         if (ObjectManager.Player.LSDistance(t) > 600)
-                            E.CastIfHitchanceEquals(t, t.Path.Count() > 1 ? HitChance.High : HitChance.Medium);
+                            E.CastIfHitchanceEquals(t, t.Path.Count() > 1 ? EloBuddy.SDK.Enumerations.HitChance.High : EloBuddy.SDK.Enumerations.HitChance.Medium);
                         else
-                            E.CastIfHitchanceEquals(t, HitChance.Low);
+                            E.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.Low);
                     }
                 }
             }

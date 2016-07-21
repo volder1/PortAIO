@@ -335,7 +335,7 @@ using Utility = LeagueSharp.Common.Utility;
                     if (Rdmg > predictedHealth)
                     {
                         cast = true;
-                        PredictionOutput output = R.GetPrediction(target);
+                        var output = R.GetPrediction(target);
                         Vector2 direction = output.CastPosition.LSTo2D() - Player.Position.LSTo2D();
                         direction.Normalize();
 
@@ -343,7 +343,7 @@ using Utility = LeagueSharp.Common.Utility;
                         {
                             if (enemy.NetworkId == target.NetworkId || !cast)
                                 continue;
-                            PredictionOutput prediction = R.GetPrediction(enemy);
+                            var prediction = R.GetPrediction(enemy);
                             Vector3 predictedPosition = prediction.CastPosition;
                             Vector3 v = output.CastPosition - Player.ServerPosition;
                             Vector3 w = predictedPosition - Player.ServerPosition;
@@ -425,13 +425,13 @@ using Utility = LeagueSharp.Common.Utility;
                 {
                     if (!CanMove(enemy))
                         E.Cast(enemy.Position);
-                    E.CastIfHitchanceEquals(enemy, HitChance.Immobile);
+                    E.CastIfHitchanceEquals(enemy, EloBuddy.SDK.Enumerations.HitChance.Immobile);
                 }
 
                 if(enemy.MoveSpeed < 250 && getCheckBoxItem(eMenu, "Eslow"))
                     E.Cast(enemy);
                 if (getCheckBoxItem(eMenu, "Edash"))
-                    E.CastIfHitchanceEquals(enemy, HitChance.Dashing);
+                    E.CastIfHitchanceEquals(enemy, EloBuddy.SDK.Enumerations.HitChance.Dashing);
             }
             
 
@@ -665,21 +665,21 @@ using Utility = LeagueSharp.Common.Utility;
                 if (QWER.Slot == SpellSlot.W)
                 {
                     if (getBoxItem(predMenu, "Wpred") == 0)
-                        QWER.CastIfHitchanceEquals(target, HitChance.VeryHigh);
+                        QWER.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                     else
                         QWER.Cast(target);
                 }
                 if (QWER.Slot == SpellSlot.R)
                 {
                     if (getBoxItem(predMenu, "Rpred") == 0)
-                        QWER.CastIfHitchanceEquals(target, HitChance.VeryHigh);
+                        QWER.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                     else
                         QWER.Cast(target);
                 }
                 if (QWER.Slot == SpellSlot.E)
                 {
                     if (getBoxItem(predMenu, "Epred") == 0)
-                        QWER.CastIfHitchanceEquals(target, HitChance.VeryHigh);
+                        QWER.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                     else
                         QWER.Cast(target);
                 }

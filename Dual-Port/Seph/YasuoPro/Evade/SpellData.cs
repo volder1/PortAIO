@@ -136,7 +136,7 @@ using YasuoPro;
             get
             {
                 return _range +
-                       ((Type == SkillShotType.SkillshotLine || Type == SkillShotType.SkillshotMissileLine)
+                       ((Type == SkillshotType.SkillshotLine || Type == SkillShotType.SkillshotMissileLine)
                            ? Config.SkillShotsExtraRange
                            : 0);
             }

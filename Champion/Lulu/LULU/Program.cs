@@ -184,7 +184,7 @@ using Spell = LeagueSharp.Common.Spell;
                 if (QTarget != null && _Q.IsReady()) // Q 사용
                 {
                     //_Q.Cast(QTarget, true);
-                    _Q.CastIfHitchanceEquals(QTarget, HitChance.Medium, true);
+                    _Q.CastIfHitchanceEquals(QTarget, EloBuddy.SDK.Enumerations.HitChance.Medium, true);
                 }
                 if (_W.IsReady() && getCheckBoxItem(wMenu, "Combo_W"))
                 {

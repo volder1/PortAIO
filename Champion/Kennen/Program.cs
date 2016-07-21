@@ -222,7 +222,7 @@ namespace UnderratedAIO.Champions
             if (getCheckBoxItem(comboMenu, "useq") && Q.CanCast(target) &&
                 !target.IsDashing())
             {
-                Q.CastIfHitchanceEquals(target, HitChance.High, getCheckBoxItem(config, "packets"));
+                Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, getCheckBoxItem(config, "packets"));
             }
             if (getCheckBoxItem(comboMenu, "usew") && W.IsReady())
             {

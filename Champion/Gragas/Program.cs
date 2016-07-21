@@ -291,7 +291,7 @@ namespace GragasTheDrunkCarry
                             buff.Type == BuffType.Snare || buff.Type == BuffType.Stun ||
                             buff.Type == BuffType.Suppression || buff.Type == BuffType.Knockup))
                 {
-                    if (pred.Hitchance >= HitChance.Medium && pred.CastPosition.LSDistance(Player.Position) < R.Range - 150)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium && pred.CastPosition.LSDistance(Player.Position) < R.Range - 150)
                     {
                         R.Cast(pred.CastPosition.LSExtend(Player.Position, -150));
                     }
@@ -358,7 +358,7 @@ namespace GragasTheDrunkCarry
         {
             if (E.CanCast(target))
             {
-                E.CastIfHitchanceEquals(target, HitChance.High);
+                E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
             }
         }
 

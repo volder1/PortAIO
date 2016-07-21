@@ -107,7 +107,7 @@ using EloBuddy.SDK;
         {
             var nPrediction = Q.GetPrediction(t);
             var nHitPosition = nPrediction.CastPosition.LSExtend(ObjectManager.Player.Position, -140);
-            if (nPrediction.Hitchance >= Q.GetHitchance())
+            if (nPrediction.HitChance >= Q.GetHitchance())
                 Q.Cast(nHitPosition);
         }
 
@@ -115,7 +115,7 @@ using EloBuddy.SDK;
         {
             var nPrediction = E.GetPrediction(t);
             var nHitPosition = nPrediction.CastPosition.LSExtend(ObjectManager.Player.Position, -140);
-            if (nPrediction.Hitchance >= E.GetHitchance())
+            if (nPrediction.HitChance >= E.GetHitchance())
                 E.Cast(nHitPosition);
         }
 
@@ -123,7 +123,7 @@ using EloBuddy.SDK;
         {
             var nPrediction = E.GetPrediction(t);
             var nHitPosition = nPrediction.CastPosition.LSExtend(ObjectManager.Player.Position, -140);
-            if (nPrediction.Hitchance >= R.GetHitchance())
+            if (nPrediction.HitChance >= R.GetHitchance())
                 R.Cast(nHitPosition);
         }
 
@@ -316,7 +316,7 @@ using EloBuddy.SDK;
                     {
                         var qP = Q.GetPrediction(minions);
                         var hit = qP.CastPosition.LSExtend(ObjectManager.Player.Position, -140);
-                        if (qP.Hitchance >= HitChance.High)
+                        if (qP.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             Q.Cast(hit);
                         }

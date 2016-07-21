@@ -282,7 +282,7 @@ using Spell = LeagueSharp.Common.Spell;
             if (getCheckBoxItem(comboMenu, "usew") && W.IsReady() && target.LSDistance(player) > 350f &&
                 W.GetDamage(target) > target.Health)
             {
-                W.CastIfHitchanceEquals(target, HitChance.High, getCheckBoxItem(config, "packets"));
+                W.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, getCheckBoxItem(config, "packets"));
             }
 
             if (getCheckBoxItem(comboMenu, "useIgnite") && hasIgnite && ComboDamage(target) > target.Health &&

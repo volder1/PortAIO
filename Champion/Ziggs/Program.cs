@@ -205,7 +205,7 @@ using Utility = LeagueSharp.Common.Utility;
                          (harassActive && getCheckBoxItem(harassMenu, "UseWHarass"))) && W.IsReady())
                     {
                         var prediction = W.GetPrediction(target);
-                        if (prediction.Hitchance >= HitChance.High)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             if (ObjectManager.Player.ServerPosition.LSDistance(prediction.UnitPosition) < W.Range &&
                                 ObjectManager.Player.ServerPosition.LSDistance(prediction.UnitPosition) > W.Range - 250 &&
@@ -337,7 +337,7 @@ using Utility = LeagueSharp.Common.Utility;
 
         private static void CastQ(Obj_AI_Base target)
         {
-            PredictionOutput prediction;
+            EloBuddy.SDK.PredictionResult prediction;
 
             if (ObjectManager.Player.LSDistance(target) < Q1.Range)
             {
@@ -362,7 +362,7 @@ using Utility = LeagueSharp.Common.Utility;
                 return;
             }
 
-            if (prediction.Hitchance >= HitChance.High)
+            if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 if (ObjectManager.Player.ServerPosition.LSDistance(prediction.CastPosition) <= Q1.Range + Q1.Width)
                 {

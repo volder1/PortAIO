@@ -208,7 +208,7 @@ namespace BrianSharp.Plugin
             if (E.CanCast(unit) && Player.Mana >= Q.Instance.SData.Mana + E.Instance.SData.Mana)
             {
                 var predE = E.GetPrediction(unit);
-                if (predE.Hitchance >= E.MinHitChance &&
+                if (predE.HitChance >= E.MinHitChance &&
                     E.Cast(
                         predE.UnitPosition.LSExtend(Player.ServerPosition, -E.Width/(unit.IsFacing(Player) ? 2 : 1)),
                         getCheckBoxItem(miscMenu, "Packet")) &&
@@ -250,7 +250,7 @@ namespace BrianSharp.Plugin
                 if (target != null)
                 {
                     var predE = E.GetPrediction(target);
-                    if (predE.Hitchance >= E.MinHitChance)
+                    if (predE.HitChance >= E.MinHitChance)
                     {
                         E.Cast(
                             predE.UnitPosition.LSExtend(Player.ServerPosition, -E.Width/(target.IsFacing(Player) ? 2 : 1)),

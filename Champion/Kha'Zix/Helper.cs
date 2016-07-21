@@ -124,19 +124,19 @@ namespace SephKhazix
             return validtargets;
         }
 
-        internal static HitChance HarassHitChance(KhazixMenu menu)
+        internal static EloBuddy.SDK.Enumerations.HitChance HarassHitChance(KhazixMenu menu)
         {
             int hitchance = SephKhazix.Khazix.getBoxItem(SephKhazix.KhazixMenu.harass, "Harass.WHitchance");
             switch (hitchance)
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
             }
-            return HitChance.Medium;
+            return EloBuddy.SDK.Enumerations.HitChance.Medium;
         }
 
         internal KhazixMenu GenerateMenu()

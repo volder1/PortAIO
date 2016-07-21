@@ -293,7 +293,7 @@ using System.Drawing;
                         var te = TargetSelector.GetTarget(_e.Range, DamageType.Physical);
                         var predE = _e.GetPrediction(te);
                         if (te.LSIsValidTarget(_e.Range) && _e.IsReady()
-                            && predE.Hitchance >= Echange() && predE.CollisionObjects.Count == 0)
+                            && predE.HitChance >= Echange() && predE.CollisionObjects.Count() == 0)
                             _e.Cast(te);
                     }
                 }
@@ -322,8 +322,8 @@ using System.Drawing;
                     {
                         var te = TargetSelector.GetTarget(_e.Range, DamageType.Physical);
                         var predE = _e.GetPrediction(te);
-                        if (te.LSIsValidTarget(_e.Range) && _e.IsReady() && predE.Hitchance >= Echange()
-                            && predE.CollisionObjects.Count == 0)
+                        if (te.LSIsValidTarget(_e.Range) && _e.IsReady() && predE.HitChance >= Echange()
+                            && predE.CollisionObjects.Count() == 0)
                             _e.Cast(te);
                     }
                 }
@@ -426,7 +426,7 @@ using System.Drawing;
             if (_e.IsReady() && unit.LSIsValidTarget(_e.Range) && getCheckBoxItem(miscMenu, "UseEInt"))
             {
                 var predE = _e.GetPrediction(unit);
-                if (predE.Hitchance >= Echange() && predE.CollisionObjects.Count == 0) _e.Cast(unit);
+                if (predE.HitChance >= Echange() && predE.CollisionObjects.Count() == 0) _e.Cast(unit);
             }
         }
 
@@ -718,7 +718,7 @@ using System.Drawing;
                     var te = TargetSelector.GetTarget(_e.Range, DamageType.Physical);
                     var predE = _e.GetPrediction(te);
                     if (!_player.HasBuff("rengarpassivebuff") && te.LSIsValidTarget(_e.Range) && _e.IsReady()
-                        && predE.Hitchance >= Echange() && predE.CollisionObjects.Count == 0)
+                        && predE.HitChance >= Echange() && predE.CollisionObjects.Count() == 0)
                         _e.Cast(te);
                 }
             }
@@ -754,8 +754,8 @@ using System.Drawing;
                 {
                     var te = TargetSelector.GetTarget(_e.Range, DamageType.Physical);
                     var predE = _e.GetPrediction(te);
-                    if (te.LSIsValidTarget(_e.Range) && _e.IsReady() && predE.Hitchance >= Echange()
-                        && predE.CollisionObjects.Count == 0 && !_player.HasBuff("rengarpassivebuff"))
+                    if (te.LSIsValidTarget(_e.Range) && _e.IsReady() && predE.HitChance >= Echange()
+                        && predE.CollisionObjects.Count() == 0 && !_player.HasBuff("rengarpassivebuff"))
                         _e.Cast(te);
                 }
 
@@ -768,8 +768,8 @@ using System.Drawing;
                     if (_player.LSDistance(te) > _q.Range + 100f)
                     {
                         var predE = _e.GetPrediction(te);
-                        if (te.LSIsValidTarget(_e.Range) && _e.IsReady() && predE.Hitchance >= Echange()
-                            && predE.CollisionObjects.Count == 0)
+                        if (te.LSIsValidTarget(_e.Range) && _e.IsReady() && predE.HitChance >= Echange()
+                            && predE.CollisionObjects.Count() == 0)
                             _e.Cast(te);
                     }
                 }
@@ -803,8 +803,8 @@ using System.Drawing;
                 {
                     var te = TargetSelector.GetTarget(_e.Range, DamageType.Physical);
                     var predE = _e.GetPrediction(te);
-                    if (te.LSIsValidTarget(_e.Range) && _e.IsReady() && predE.Hitchance >= Echange()
-                        && predE.CollisionObjects.Count == 0)
+                    if (te.LSIsValidTarget(_e.Range) && _e.IsReady() && predE.HitChance >= Echange()
+                        && predE.CollisionObjects.Count() == 0)
                         _e.Cast(te);
                 }
             }
@@ -827,8 +827,8 @@ using System.Drawing;
                 {
                     var te = TargetSelector.GetTarget(_e.Range, DamageType.Physical);
                     var predE = _e.GetPrediction(te);
-                    if (te.LSIsValidTarget(_e.Range) && _e.IsReady() && predE.Hitchance >= Echange()
-                        && predE.CollisionObjects.Count == 0)
+                    if (te.LSIsValidTarget(_e.Range) && _e.IsReady() && predE.HitChance >= Echange()
+                        && predE.CollisionObjects.Count() == 0)
                         _e.Cast(te);
                 }
             }
@@ -844,20 +844,20 @@ using System.Drawing;
             }
         }
 
-        private static HitChance Echange()
+        private static EloBuddy.SDK.Enumerations.HitChance Echange()
         {
             switch (getBoxItem(miscMenu, "Echange"))
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 default:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
             }
         }
 
@@ -897,7 +897,7 @@ using System.Drawing;
                     var t = TargetSelector.GetTarget(_q.Range, DamageType.Physical);
                     if (t != null)
                         if (!t.HasBuff("JudicatorIntervention") && !t.HasBuff("Undying Rage") && eDmg > t.Health
-                            && _e.GetPrediction(t).Hitchance >= HitChance.High)
+                            && _e.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                             _e.Cast(t);
                 }
             }

@@ -169,15 +169,15 @@ namespace MathFizz
             {
                 var collisionCheck = new CollisionableObjects[1];
                 collisionCheck[0] = CollisionableObjects.YasuoWall;
-                var test = R.GetPrediction(SelectedTarget, false, -1, collisionCheck).Hitchance;
-                if (test == HitChance.Collision) hitchanceR = "Collision Detected";
-                if (test == HitChance.Dashing) hitchanceR = "Is Dashing";
-                if (test == HitChance.Immobile) hitchanceR = "Immobile";
-                if (test == HitChance.Medium) hitchanceR = "Medium Chance";
-                if (test == HitChance.VeryHigh) hitchanceR = "VeryHigh Chance";
-                if (test == HitChance.Low) hitchanceR = "Low  Chance";
-                if (test == HitChance.High) hitchanceR = "High Chance";
-                if (test == HitChance.Impossible) hitchanceR = "Impossible";
+                var test = R.GetPrediction(SelectedTarget, false, -1, collisionCheck).HitChance;
+                if (test == EloBuddy.SDK.Enumerations.HitChance.Collision) hitchanceR = "Collision Detected";
+                if (test == EloBuddy.SDK.Enumerations.HitChance.Dashing) hitchanceR = "Is Dashing";
+                if (test == EloBuddy.SDK.Enumerations.HitChance.Immobile) hitchanceR = "Immobile";
+                if (test == EloBuddy.SDK.Enumerations.HitChance.Medium) hitchanceR = "Medium Chance";
+                if (test == EloBuddy.SDK.Enumerations.HitChance.High) hitchanceR = "VeryHigh Chance";
+                if (test == EloBuddy.SDK.Enumerations.HitChance.Low) hitchanceR = "Low  Chance";
+                if (test == EloBuddy.SDK.Enumerations.HitChance.High) hitchanceR = "High Chance";
+                if (test == EloBuddy.SDK.Enumerations.HitChance.Impossible) hitchanceR = "Impossible";
             }
 
 
@@ -325,14 +325,14 @@ namespace MathFizz
                 //Check YasuoWall
                 var collisionCheck = new CollisionableObjects[1];
                 collisionCheck[0] = CollisionableObjects.YasuoWall;
-                var hitChance = R.GetPrediction(target, false, -1, collisionCheck).Hitchance;
+                var hitChance = R.GetPrediction(target, false, -1, collisionCheck).HitChance;
                 var endPosition =
                     R.GetPrediction(target, false, Player.LSDistance(target.Position), collisionCheck)
                         .CastPosition.LSExtend(Player.Position, -600);
                 //Tweak hitchance
-                if (hitChance == HitChance.OutOfRange || hitChance == HitChance.Low || hitChance == HitChance.Immobile)
+                if (hitChance == EloBuddy.SDK.Enumerations.HitChance.Unknown || hitChance == EloBuddy.SDK.Enumerations.HitChance.Low || hitChance == EloBuddy.SDK.Enumerations.HitChance.Immobile)
                 {
-                    hitChance = HitChance.Medium;
+                    hitChance = EloBuddy.SDK.Enumerations.HitChance.Medium;
                 }
                 //Check for spellshields
                 if (!target.HasBuff("summonerbarrier") || !target.HasBuff("BlackShield") ||
@@ -340,28 +340,28 @@ namespace MathFizz
                     !target.HasBuff("ShroudofDarkness"))
                 {
                     //in combo & custom combo casts hitchance
-                    if (medium && hitChance >= HitChance.Medium && !getKeyBindItem(customComboMenu, "manualR"))
+                    if (medium && hitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium && !getKeyBindItem(customComboMenu, "manualR"))
                     {
                         R.Cast(endPosition);
                     }
-                    if (high && hitChance >= HitChance.High && !getKeyBindItem(customComboMenu, "manualR"))
+                    if (high && hitChance >= EloBuddy.SDK.Enumerations.HitChance.High && !getKeyBindItem(customComboMenu, "manualR"))
                     {
                         R.Cast(endPosition);
                     }
-                    if (veryhigh && hitChance >= HitChance.VeryHigh && !getKeyBindItem(customComboMenu, "manualR"))
+                    if (veryhigh && hitChance >= EloBuddy.SDK.Enumerations.HitChance.High && !getKeyBindItem(customComboMenu, "manualR"))
                     {
                         R.Cast(endPosition);
                     }
                     //manual casts hitchance
-                    if (mediumAuto && hitChance >= HitChance.Medium && getKeyBindItem(customComboMenu, "manualR"))
+                    if (mediumAuto && hitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium && getKeyBindItem(customComboMenu, "manualR"))
                     {
                         R.Cast(endPosition);
                     }
-                    if (highAuto && hitChance >= HitChance.High && getKeyBindItem(customComboMenu, "manualR"))
+                    if (highAuto && hitChance >= EloBuddy.SDK.Enumerations.HitChance.High && getKeyBindItem(customComboMenu, "manualR"))
                     {
                         R.Cast(endPosition);
                     }
-                    if (veryhighAuto && hitChance >= HitChance.VeryHigh && getKeyBindItem(customComboMenu, "manualR"))
+                    if (veryhighAuto && hitChance >= EloBuddy.SDK.Enumerations.HitChance.High && getKeyBindItem(customComboMenu, "manualR"))
                     {
                         R.Cast(endPosition);
                     }

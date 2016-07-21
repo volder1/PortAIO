@@ -138,7 +138,7 @@ using Utility = LeagueSharp.Common.Utility;
                  Environment.TickCount - lastE > getSliderItem(menuH, "HeDelay") ||
                  getEdamage(target) > target.Health))
             {
-                E.CastIfHitchanceEquals(target, HitChance.VeryHigh, getCheckBoxItem(config, "packets"));
+                E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, getCheckBoxItem(config, "packets"));
             }
         }
 
@@ -235,7 +235,7 @@ using Utility = LeagueSharp.Common.Utility;
                    Environment.TickCount - lastE > getSliderItem(menuC, "eDelay"))) ||
                  edmg > target.Health))
             {
-                E.CastIfHitchanceEquals(target, HitChance.High, getCheckBoxItem(config, "packets"));
+                E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, getCheckBoxItem(config, "packets"));
             }
             if (W.IsReady() && getCheckBoxItem(menuC, "wSpeed") && ActiveQ && preventSilence(W) &&
                 target.LSDistance(player) < Q.Range &&
@@ -266,7 +266,7 @@ using Utility = LeagueSharp.Common.Utility;
                 {
                     var pos = targE.CastPosition;
                     if (pos.IsValid() && pos.LSDistance(player.Position) < R.Range + 1000 &&
-                        targE.Hitchance >= HitChance.High)
+                        targE.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         R.Cast(target.Position.LSExtend(pos, -500), pos);
                     }
@@ -276,7 +276,7 @@ using Utility = LeagueSharp.Common.Utility;
                     R.Cast(target.Position.LSExtend(player.Position, 500), target.Position);
                 }
             }
-            else if (targE.Hitchance >= HitChance.High)
+            else if (targE.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 var pred = getBestRVector3(target, targE);
                 if (pred != Vector3.Zero &&
@@ -289,13 +289,13 @@ using Utility = LeagueSharp.Common.Utility;
             }
         }
 
-        private Vector3 getBestRVector3(Obj_AI_Base target, PredictionOutput targE)
+        private Vector3 getBestRVector3(Obj_AI_Base target, EloBuddy.SDK.PredictionResult targE)
         {
             var otherHeroes =
                 HeroManager.Enemies.Where(
                     e => e.LSIsValidTarget() && e.NetworkId != target.NetworkId && player.LSDistance(e) < 1000)
                     .Select(e => R.GetPrediction(e))
-                    .Where(o => o.Hitchance > HitChance.High && o.CastPosition.LSDistance(targE.UnitPosition) < 1000);
+                    .Where(o => o.HitChance > EloBuddy.SDK.Enumerations.HitChance.High && o.CastPosition.LSDistance(targE.UnitPosition) < 1000);
             if (otherHeroes.Any())
             {
                 var best =

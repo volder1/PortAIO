@@ -146,7 +146,7 @@
             {
                 var pred = spells[Spells.W].GetPrediction(target);
                 if (spells[Spells.W].Range - 80 > pred.CastPosition.LSDistance(Player.Position)
-                    && pred.Hitchance >= HitChance.High)
+                    && pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.W].Cast(pred.CastPosition);
                 }
@@ -193,7 +193,7 @@
             {
                 var pred = spells[Spells.W].GetPrediction(target);
                 if (spells[Spells.W].Range - 80 > pred.CastPosition.LSDistance(Player.Position)
-                    && pred.Hitchance >= HitChance.High)
+                    && pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.W].Cast(pred.CastPosition);
                 }
@@ -208,7 +208,7 @@
             {
                 var pred = spells[Spells.W].GetPrediction(target);
                 if (spells[Spells.W].Range - 80 > pred.CastPosition.LSDistance(Player.Position)
-                    && pred.Hitchance >= HitChance.High)
+                    && pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.W].Cast(pred.CastPosition);
                 }

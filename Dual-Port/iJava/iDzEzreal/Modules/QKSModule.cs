@@ -57,7 +57,7 @@ using EloBuddy.SDK.Menu.Values;
                 var enemy in HeroManager.Enemies.Where(m => m.Health + 5 <= Variables.Spells[SpellSlot.Q].GetDamage(m) && m.LSIsValidTarget(Variables.Spells[SpellSlot.Q].Range)))
             {
                 var sPrediction = Variables.Spells[SpellSlot.Q].GetSPrediction(enemy);
-                if (sPrediction.HitChance >= HitChance.High)
+                if (sPrediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     Variables.Spells[SpellSlot.Q].Cast(sPrediction.CastPosition);
                 }

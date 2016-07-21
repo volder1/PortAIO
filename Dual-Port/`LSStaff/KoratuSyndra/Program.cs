@@ -232,7 +232,7 @@ using SharpDX;
                     Eq.Delay = E.Delay + Player.LSDistance(orb) / E.Speed;
                     Eq.From = orb;
                     var enemyPred = Eq.GetPrediction(enemy);
-                    if (enemyPred.Hitchance >= HitChance.High
+                    if (enemyPred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High
                         && enemyPred.UnitPosition.LSTo2D().LSDistance(startPoint, endPoint, false)
                         < Eq.Width + enemy.BoundingRadius)
                     {
@@ -249,7 +249,7 @@ using SharpDX;
             Eq.From = Player.ServerPosition.LSTo2D().LSExtend(enemy.ServerPosition.LSTo2D(), Q.Range).To3D();
 
             var prediction = Eq.GetPrediction(enemy);
-            if (prediction.Hitchance >= HitChance.High)
+            if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 Q.Cast(Player.ServerPosition.LSTo2D().LSExtend(prediction.CastPosition.LSTo2D(), Q.Range - 100));
                 qeComboT = Utils.TickCount;
@@ -301,7 +301,7 @@ using SharpDX;
             if (qTarget != null && useQ)
             {
                 var qPred = Q.GetPrediction(qTarget);
-                if (qPred.Hitchance >= HitChance.High)
+                if (qPred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     Q.Cast(qPred.CastPosition);
             }
 
@@ -377,7 +377,7 @@ using SharpDX;
                 Eq.Delay = E.Delay + Q.Range / W.Speed;
                 Eq.From = Player.ServerPosition.LSTo2D().LSExtend(qeTarget.ServerPosition.LSTo2D(), Q.Range).To3D();
                 var prediction = Eq.GetPrediction(qeTarget);
-                if (prediction.Hitchance >= HitChance.High)
+                if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     W.Cast(Player.ServerPosition.LSTo2D().LSExtend(prediction.CastPosition.LSTo2D(), Q.Range - 100));
                     weComboT = Utils.TickCount;

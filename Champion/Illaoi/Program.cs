@@ -196,16 +196,16 @@ namespace Illaoi___Tentacle_Kitty
                 var enemyGhost = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(x => x.Name == enemy.Name);
                 if (enemy != null && enemyGhost == null)
                 {
-                    if (Q.CanCast(enemy) && Q.GetPrediction(enemy).Hitchance >= HitChance.High
-                        && Q.GetPrediction(enemy).CollisionObjects.Count == 0)
+                    if (Q.CanCast(enemy) && Q.GetPrediction(enemy).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High
+                        && Q.GetPrediction(enemy).CollisionObjects.Count() == 0)
                     {
                         Q.Cast(enemy);
                     }
                 }
                 if (enemy == null && enemyGhost != null && getCheckBoxItem(comboMenu, "q.ghost.combo"))
                 {
-                    if (Q.CanCast(enemyGhost) && Q.GetPrediction(enemyGhost).Hitchance >= HitChance.High
-                        && Q.GetPrediction(enemyGhost).CollisionObjects.Count == 0)
+                    if (Q.CanCast(enemyGhost) && Q.GetPrediction(enemyGhost).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High
+                        && Q.GetPrediction(enemyGhost).CollisionObjects.Count() == 0)
                     {
                         Q.Cast(enemyGhost);
                     }
@@ -229,8 +229,8 @@ namespace Illaoi___Tentacle_Kitty
                     var enemy in HeroManager.Enemies.Where(o => o.LSIsValidTarget(E.Range) && !o.IsDead && !o.IsZombie))
                 {
                     if (getCheckBoxItem(eMenu, "enemy." + enemy.NetworkId) &&
-                        E.GetPrediction(enemy).Hitchance >= HitChance.High
-                        && E.GetPrediction(enemy).CollisionObjects.Count == 0)
+                        E.GetPrediction(enemy).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High
+                        && E.GetPrediction(enemy).CollisionObjects.Count() == 0)
                     {
                         E.Cast(enemy);
                     }
@@ -261,16 +261,16 @@ namespace Illaoi___Tentacle_Kitty
                 var enemyGhost = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(x => x.Name == enemy.Name);
                 if (enemy != null && enemyGhost == null)
                 {
-                    if (Q.CanCast(enemy) && Q.GetPrediction(enemy).Hitchance >= HitChance.High
-                        && Q.GetPrediction(enemy).CollisionObjects.Count == 0)
+                    if (Q.CanCast(enemy) && Q.GetPrediction(enemy).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High
+                        && Q.GetPrediction(enemy).CollisionObjects.Count() == 0)
                     {
                         Q.Cast(enemy);
                     }
                 }
                 if (enemy == null && enemyGhost != null && getCheckBoxItem(harassMenu, "q.ghost.harass"))
                 {
-                    if (Q.CanCast(enemyGhost) && Q.GetPrediction(enemyGhost).Hitchance >= HitChance.High
-                        && Q.GetPrediction(enemyGhost).CollisionObjects.Count == 0)
+                    if (Q.CanCast(enemyGhost) && Q.GetPrediction(enemyGhost).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High
+                        && Q.GetPrediction(enemyGhost).CollisionObjects.Count() == 0)
                     {
                         Q.Cast(enemyGhost);
                     }
@@ -293,8 +293,8 @@ namespace Illaoi___Tentacle_Kitty
                     var enemy in HeroManager.Enemies.Where(o => o.LSIsValidTarget(E.Range) && !o.IsDead && !o.IsZombie))
                 {
                     if (getCheckBoxItem(eMenu, "enemy." + enemy.NetworkId) &&
-                        E.GetPrediction(enemy).Hitchance >= HitChance.High
-                        && E.GetPrediction(enemy).CollisionObjects.Count == 0)
+                        E.GetPrediction(enemy).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High
+                        && E.GetPrediction(enemy).CollisionObjects.Count() == 0)
                     {
                         E.Cast(enemy);
                     }

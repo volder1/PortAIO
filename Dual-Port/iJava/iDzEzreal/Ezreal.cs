@@ -107,11 +107,11 @@ using EloBuddy.SDK.Menu;
             {
                 if (getCheckBoxItem(Variables.comboMenu, "ezreal.combo.q") && Variables.Spells[SpellSlot.Q].IsReady() && target.LSIsValidTarget(Variables.Spells[SpellSlot.Q].Range))
                 {
-                    Variables.Spells[SpellSlot.Q].SPredictionCast(target, HitChance.High);
+                    Variables.Spells[SpellSlot.Q].SPredictionCast(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
                 if (getCheckBoxItem(Variables.comboMenu, "ezreal.combo.w") && Variables.Spells[SpellSlot.W].IsReady() && target.LSIsValidTarget(Variables.Spells[SpellSlot.W].Range) && ObjectManager.Player.ManaPercent > 45)
                 {
-                    Variables.Spells[SpellSlot.W].SPredictionCast(target, HitChance.High);
+                    Variables.Spells[SpellSlot.W].SPredictionCast(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
             }
 
@@ -119,11 +119,11 @@ using EloBuddy.SDK.Menu;
             {
                 if (getCheckBoxItem(Variables.mixedMenu, "ezreal.mixed.q") && Variables.Spells[SpellSlot.Q].IsReady() && target.LSIsValidTarget(Variables.Spells[SpellSlot.Q].Range))
                 {
-                    Variables.Spells[SpellSlot.Q].SPredictionCast(target, HitChance.High);
+                    Variables.Spells[SpellSlot.Q].SPredictionCast(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
                 if (getCheckBoxItem(Variables.mixedMenu, "ezreal.mixed.w") && Variables.Spells[SpellSlot.W].IsReady() && target.LSIsValidTarget(Variables.Spells[SpellSlot.W].Range) && ObjectManager.Player.ManaPercent > 45)
                 {
-                    Variables.Spells[SpellSlot.W].SPredictionCast(target, HitChance.High);
+                    Variables.Spells[SpellSlot.W].SPredictionCast(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
             }
         }
@@ -258,7 +258,7 @@ using EloBuddy.SDK.Menu;
                     && HeroManager.Enemies.Count(m => m.LSDistance(target.ServerPosition) < 200f) >= getSliderItem(Variables.comboMenu, "ezreal.combo.r.min"))
                 {
                     Variables.Spells[SpellSlot.R].SPredictionCast(
-                        target, target.IsMoving ? HitChance.VeryHigh : HitChance.High);
+                        target, target.IsMoving ? EloBuddy.SDK.Enumerations.HitChance.High : EloBuddy.SDK.Enumerations.HitChance.High);
                 }
                 /**
                 var rPrediction = Variables.Spells[SpellSlot.R].GetAoeSPrediction();
@@ -366,7 +366,7 @@ using EloBuddy.SDK.Menu;
             double damage = 1f;
 
             var prediction = Variables.Spells[SpellSlot.R].GetPrediction(target);
-            var count = prediction.CollisionObjects.Count;
+            var count = prediction.CollisionObjects.Count();
 
             damage += ObjectManager.Player.GetSpellDamage(target, SpellSlot.R);
 

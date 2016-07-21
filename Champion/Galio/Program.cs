@@ -154,10 +154,10 @@ namespace UnderratedAIO.Champions
             {
                 return;
             }
-            var hitC = HitChance.High;
+            var hitC = EloBuddy.SDK.Enumerations.HitChance.High;
             if (getCheckBoxItem(miscMenu, "useHigherHit"))
             {
-                hitC = HitChance.VeryHigh;
+                hitC = EloBuddy.SDK.Enumerations.HitChance.High;
             }
             if (getCheckBoxItem(harassMenu, "useqH") && Q.CanCast(target))
             {
@@ -230,10 +230,10 @@ namespace UnderratedAIO.Champions
                 Utility.DelayAction.Add(200, () => justR = false);
                 return;
             }
-            var hitC = HitChance.High;
+            var hitC = EloBuddy.SDK.Enumerations.HitChance.High;
             if (getCheckBoxItem(miscMenu, "useHigherHit"))
             {
-                hitC = HitChance.VeryHigh;
+                hitC = EloBuddy.SDK.Enumerations.HitChance.High;
             }
             if (getCheckBoxItem(comboMenu, "useq") && Q.CanCast(target) &&
                 player.LSDistance(target) < getSliderItem(comboMenu, "useqRange"))

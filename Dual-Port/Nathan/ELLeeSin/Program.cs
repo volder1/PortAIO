@@ -481,12 +481,12 @@
                     -1,
                     new[] { CollisionableObjects.YasuoWall, CollisionableObjects.Minions });
 
-                if (prediction.Hitchance < HitChance.VeryHigh)
+                if (prediction.HitChance < EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     return;
                 }
 
-                if (prediction.Hitchance >= HitChance.VeryHigh)
+                if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     if (prediction.CollisionObjects.Any())
                     {
@@ -1046,9 +1046,9 @@
                         if (QState)
                         {
                             var pred1 = spells[Spells.Q].GetPrediction(target);
-                            if (pred1.Hitchance >= HitChance.High)
+                            if (pred1.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                             {
-                                if (pred1.CollisionObjects.Count == 0)
+                                if (pred1.CollisionObjects.Count() == 0)
                                 {
                                     if (spells[Spells.Q].Cast(pred1.CastPosition))
                                     {

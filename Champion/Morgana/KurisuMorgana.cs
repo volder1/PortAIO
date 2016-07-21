@@ -186,7 +186,7 @@ using Utility = LeagueSharp.Common.Utility;
                 if (qtarget.LSIsValidTarget())
                 {
                     var poutput = _q.GetPrediction(qtarget);
-                    if (poutput.Hitchance >= (HitChance) getSliderItem(menuQ, "hitchanceq") + 2)
+                    if (poutput.HitChance >= (EloBuddy.SDK.Enumerations.HitChance) getSliderItem(menuQ, "hitchanceq") + 2)
                     {
                         _q.Cast(poutput.CastPosition);
                     }
@@ -201,7 +201,7 @@ using Utility = LeagueSharp.Common.Utility;
                     if (!getCheckBoxItem(menuW, "waitfor") || _mw*1 >= wtarget.Health)
                     {
                         var poutput = _w.GetPrediction(wtarget);
-                        if (poutput.Hitchance >= (HitChance) getSliderItem(menuW, "hitchancew") + 2)
+                        if (poutput.HitChance >= (EloBuddy.SDK.Enumerations.HitChance) getSliderItem(menuW, "hitchancew") + 2)
                         {
                             _w.Cast(poutput.CastPosition);
                         }
@@ -246,7 +246,7 @@ using Utility = LeagueSharp.Common.Utility;
                     if (Me.ManaPercent >= getSliderItem(miscMenu, "harassmana"))
                     {
                         var poutput = _q.GetPrediction(qtarget);
-                        if (poutput.Hitchance >= (HitChance) getSliderItem(menuQ, "hitchanceq") + 2)
+                        if (poutput.HitChance >= (EloBuddy.SDK.Enumerations.HitChance) getSliderItem(menuQ, "hitchanceq") + 2)
                         {
                             _q.Cast(qtarget);
                         }
@@ -264,7 +264,7 @@ using Utility = LeagueSharp.Common.Utility;
                         if (!getCheckBoxItem(menuW, "waitfor") || _mw*1 >= wtarget.Health)
                         {
                             var poutput = _w.GetPrediction(wtarget);
-                            if (poutput.Hitchance >= (HitChance) getSliderItem(menuW, "hitchancew") + 2)
+                            if (poutput.HitChance >= (EloBuddy.SDK.Enumerations.HitChance) getSliderItem(menuW, "hitchancew") + 2)
                             {
                                 _w.Cast(wtarget);
                             }
@@ -284,10 +284,10 @@ using Utility = LeagueSharp.Common.Utility;
                         _q.Cast(itarget);
 
                     if (immobile)
-                        _q.CastIfHitchanceEquals(itarget, HitChance.Immobile);
+                        _q.CastIfHitchanceEquals(itarget, EloBuddy.SDK.Enumerations.HitChance.Immobile);
 
                     if (dashing && itarget.LSDistance(Me.ServerPosition) <= 400f)
-                        _q.CastIfHitchanceEquals(itarget, HitChance.Dashing);
+                        _q.CastIfHitchanceEquals(itarget, EloBuddy.SDK.Enumerations.HitChance.Dashing);
                 }
             }
 
@@ -356,7 +356,7 @@ using Utility = LeagueSharp.Common.Utility;
 
                     if (getCheckBoxItem(menuQ, "autoqaa"))
                     {
-                        _q.CastIfHitchanceEquals(hero, HitChance.VeryHigh);
+                        _q.CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.High);
                     }
                 }
             }

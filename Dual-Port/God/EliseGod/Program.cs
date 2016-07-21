@@ -154,7 +154,7 @@ using Spell = LeagueSharp.Common.Spell;
 
                     if (W.IsReady())
                     {
-                        if (W.GetPrediction(minion).CollisionObjects.Count >= 1)
+                        if (W.GetPrediction(minion).CollisionObjects.Count() >= 1)
                             W.Cast(minion);
 
                         else
@@ -213,17 +213,16 @@ using Spell = LeagueSharp.Common.Spell;
                 {
                     var wprediction = W.GetPrediction(target);
 
-                    switch (wprediction.Hitchance)
+                    switch (wprediction.HitChance)
                     {
-                        case HitChance.Medium:
-                        case HitChance.High:
-                        case HitChance.VeryHigh:
-                        case HitChance.Immobile:
+                        case EloBuddy.SDK.Enumerations.HitChance.Medium:
+                        case EloBuddy.SDK.Enumerations.HitChance.High:
+                        case EloBuddy.SDK.Enumerations.HitChance.Immobile:
 
                             W.Cast(wprediction.CastPosition);
                             break;
 
-                        case HitChance.Collision:
+                        case EloBuddy.SDK.Enumerations.HitChance.Collision:
 
                             var colliding = wprediction.CollisionObjects.OrderBy(o => o.LSDistance(Player, true)).ToList();
                             if (colliding.Count > 0)
@@ -275,16 +274,16 @@ using Spell = LeagueSharp.Common.Spell;
                     target.LSDistance(Player.Position) <= E.Range)
                 {
                     var eprediction = E.GetPrediction(target);
-                    switch (eprediction.Hitchance)
+                    switch (eprediction.HitChance)
                     {
 
-                        case HitChance.VeryHigh:
-                        case HitChance.Immobile:
+                        case EloBuddy.SDK.Enumerations.HitChance.High:
+                        case EloBuddy.SDK.Enumerations.HitChance.Immobile:
 
                             E.Cast(eprediction.CastPosition);
                             break;
 
-                        case HitChance.Collision:
+                        case EloBuddy.SDK.Enumerations.HitChance.Collision:
                             var colliding = eprediction.CollisionObjects.OrderBy(o => o.LSDistance(Player, true)).ToList();
                             if (colliding.Count >= 1 && colliding[0].Type == GameObjectType.AIHeroClient)
                                 E.Cast(eprediction.CastPosition);
@@ -335,17 +334,16 @@ using Spell = LeagueSharp.Common.Spell;
                 {
                     var wprediction = W.GetPrediction(target);
 
-                    switch (wprediction.Hitchance)
+                    switch (wprediction.HitChance)
                     {
-                        case HitChance.Medium:
-                        case HitChance.High:
-                        case HitChance.VeryHigh:
-                        case HitChance.Immobile:
+                        case EloBuddy.SDK.Enumerations.HitChance.Medium:
+                        case EloBuddy.SDK.Enumerations.HitChance.High:
+                        case EloBuddy.SDK.Enumerations.HitChance.Immobile:
 
                             W.Cast(wprediction.CastPosition);
                             break;
 
-                        case HitChance.Collision:
+                        case EloBuddy.SDK.Enumerations.HitChance.Collision:
 
                             var colliding = wprediction.CollisionObjects.OrderBy(o => o.LSDistance(Player, true)).ToList();
                             if (colliding.Count > 0)
@@ -397,16 +395,16 @@ using Spell = LeagueSharp.Common.Spell;
                     target.LSDistance(Player.Position) <= E.Range)
                 {
                     var eprediction = E.GetPrediction(target);
-                    switch (eprediction.Hitchance)
+                    switch (eprediction.HitChance)
                     {
 
-                        case HitChance.VeryHigh:
-                        case HitChance.Immobile:
+                        case EloBuddy.SDK.Enumerations.HitChance.High:
+                        case EloBuddy.SDK.Enumerations.HitChance.Immobile:
 
                             E.Cast(eprediction.CastPosition);
                             break;
 
-                        case HitChance.Collision:
+                        case EloBuddy.SDK.Enumerations.HitChance.Collision:
                             var colliding = eprediction.CollisionObjects.OrderBy(o => o.LSDistance(Player, true)).ToList();
                             if (colliding.Count >= 1 && colliding[0].Type == GameObjectType.AIHeroClient)
                                 E.Cast(eprediction.CastPosition);

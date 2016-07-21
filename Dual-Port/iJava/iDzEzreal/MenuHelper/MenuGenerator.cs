@@ -64,20 +64,20 @@ using EloBuddy.SDK.Menu.Values;
         }
 
 
-        public static HitChance GetHitchance()
+        public static EloBuddy.SDK.Enumerations.HitChance GetHitchance()
         {
             switch (Variables.miscMenu["ezreal.misc.hitchance"].Cast<ComboBox>().CurrentValue)
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
             }
-            return HitChance.High;
+            return EloBuddy.SDK.Enumerations.HitChance.High;
         }
     }
 }

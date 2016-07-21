@@ -159,11 +159,11 @@ namespace AhriSharp
 
             var target = EloBuddy.SDK.TargetSelector.GetTarget(_spellE.Range, EloBuddy.DamageType.Magical);
             var predE = _spellQ.GetPrediction(target);
-            if (target != null && !target.CanMove && predE.Hitchance >= HitChance.VeryHigh && ObjectManager.Player.LSDistance(target) < Misc["charmRange"].Cast<Slider>().CurrentValue)
+            if (target != null && !target.CanMove && predE.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && ObjectManager.Player.LSDistance(target) < Misc["charmRange"].Cast<Slider>().CurrentValue)
             {
-                return _spellE.Cast(target) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted;
+                return _spellE.Cast(target);
             }
-            else if (target != null && predE.Hitchance >=  HitChance.VeryHigh && _spellE.WillHit(target,predE.CastPosition) && ObjectManager.Player.LSDistance(target) < Misc["charmRange"].Cast<Slider>().CurrentValue)
+            else if (target != null && predE.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && _spellE.WillHit(target,predE.CastPosition) && ObjectManager.Player.LSDistance(target) < Misc["charmRange"].Cast<Slider>().CurrentValue)
             {
                 return _spellE.Cast(predE.CastPosition);
             }
@@ -180,11 +180,11 @@ namespace AhriSharp
 
             var target = EloBuddy.SDK.TargetSelector.GetTarget(_spellQ.Range, EloBuddy.DamageType.Magical);
             var predQ = _spellQ.GetPrediction(target);
-            if (target !=  null && !target.CanMove && predQ.Hitchance >= HitChance.VeryHigh)
+            if (target !=  null && !target.CanMove && predQ.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 _spellQ.Cast(target);
             }
-            else if (target != null && predQ.Hitchance >= HitChance.VeryHigh )
+            else if (target != null && predQ.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High )
             {
                  _spellQ.Cast(predQ.CastPosition);
             }

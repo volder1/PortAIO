@@ -91,7 +91,7 @@ using Spell = LeagueSharp.Common.Spell;
 
                                     case 2:
                                         var so = KL.Spells["Javelin"].GetPrediction((AIHeroClient) target);
-                                        if (so.Hitchance == (HitChance) (getBoxItem(KN.Root, "ndhqch") + 3))
+                                        if (so.HitChance == (EloBuddy.SDK.Enumerations.HitChance) (getBoxItem(KN.Root, "ndhqch") + 3))
                                         {
                                             KL.Spells["Javelin"].Cast(so.CastPosition);
                                         }
@@ -99,7 +99,7 @@ using Spell = LeagueSharp.Common.Spell;
 
                                     case 0:
                                         var co = KL.Spells["Javelin"].GetPrediction(target);
-                                        if (co.Hitchance == (HitChance) (getBoxItem(KN.Root, "ndhqch") + 3))
+                                        if (co.HitChance == (EloBuddy.SDK.Enumerations.HitChance) (getBoxItem(KN.Root, "ndhqch") + 3))
                                         {
                                             KL.Spells["Javelin"].Cast(co.CastPosition);
                                         }
@@ -107,7 +107,7 @@ using Spell = LeagueSharp.Common.Spell;
                                 }
                             }
 
-                            if (qoutput.Hitchance == HitChance.Collision && KL.Smite.IsReady())
+                            if (qoutput.HitChance == EloBuddy.SDK.Enumerations.HitChance.Collision && KL.Smite.IsReady())
                             {
                                 if (getCheckBoxItem(KN.qHMenu, "qsmcol") && target.Health <= KL.CatDamage(target) * 3)
                                 {
@@ -165,7 +165,7 @@ using Spell = LeagueSharp.Common.Spell;
                         if (getBoxItem(wHMenu, "ndhwforce") == 0)
                         {
                             if (target.IsChampion())
-                                KL.Spells["Bushwhack"].CastIfHitchanceEquals(target, HitChance.VeryHigh);
+                                KL.Spells["Bushwhack"].CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                             else
                                 KL.Spells["Bushwhack"].Cast(target.ServerPosition);
                         }
@@ -270,7 +270,7 @@ using Spell = LeagueSharp.Common.Spell;
                         if (getCheckBoxItem(wCMenu, "ndcwcheck"))
                         {
                             var voutout = KL.Spells["Pounce"].GetPrediction(target);
-                            if (voutout.Hitchance >= (HitChance) getBoxItem(wCMenu, "ndcwch") + 3)
+                            if (voutout.HitChance >= (EloBuddy.SDK.Enumerations.HitChance) getBoxItem(wCMenu, "ndcwch") + 3)
                             {
                                 KL.Spells["Pounce"].Cast(voutout.CastPosition);
                             }
@@ -309,7 +309,7 @@ using Spell = LeagueSharp.Common.Spell;
                         if (getCheckBoxItem(eCMenu, "ndcecheck"))
                         {
                             var voutout = KL.Spells["Swipe"].GetPrediction(target);
-                            if (voutout.Hitchance >= (HitChance) getBoxItem(eCMenu, "ndcech") + 3)
+                            if (voutout.HitChance >= (EloBuddy.SDK.Enumerations.HitChance) getBoxItem(eCMenu, "ndcech") + 3)
                             {
                                 KL.Spells["Swipe"].Cast(voutout.CastPosition);
                             }
@@ -364,7 +364,7 @@ using Spell = LeagueSharp.Common.Spell;
                     if (KL.SpellTimer["Javelin"].IsReady())
                     {
                         var poutput = KL.Spells["Javelin"].GetPrediction(target);
-                        if (poutput.Hitchance >= HitChance.High)
+                        if (poutput.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             KL.Spells["Aspect"].Cast();
                         }
@@ -395,7 +395,7 @@ using Spell = LeagueSharp.Common.Spell;
                             !(KL.Player.LSDistance(target.ServerPosition) <= 355) ||
                             !getKeyBindItem(jungleMenu, "jgaacount"))
                         {
-                            if (KL.Spells["Javelin"].Cast(target) != Spell.CastStates.Collision &&
+                            if (KL.Spells["Javelin"].Cast(target) != false &&
                                 KL.SpellTimer["Javelin"].IsReady())
                             {
                                 KL.Spells["Aspect"].Cast();
@@ -473,7 +473,7 @@ using Spell = LeagueSharp.Common.Spell;
                                 if (mode == "co" && target.LSIsValidTarget(KL.Spells["Pounce"].Range + 200))
                                 {
                                     if (!KL.CanUse(KL.Spells["Javelin"], true, "co") ||
-                                        KL.Spells["Javelin"].Cast(target) == Spell.CastStates.Collision)
+                                        KL.Spells["Javelin"].Cast(target))
                                     {
                                         KL.Spells["Aspect"].Cast();
                                     }
@@ -495,7 +495,7 @@ using Spell = LeagueSharp.Common.Spell;
                         }
                         else
                         {
-                            if (KL.Spells["Javelin"].Cast(target) == Spell.CastStates.Collision &&
+                            if (KL.Spells["Javelin"].Cast(target) &&
                                 getCheckBoxItem(jungleMenu, "spcol"))
                             {
                                 if (KL.Spells["Aspect"].IsReady())
@@ -521,7 +521,7 @@ using Spell = LeagueSharp.Common.Spell;
                             {
                                 // if we dont meet hitchance on Q target pounce nearest target
                                 var poutput = KL.Spells["Javelin"].GetPrediction(KN.Target);
-                                if (poutput.Hitchance < (HitChance) (getBoxItem(KN.Root, "ndhqch") + 3))
+                                if (poutput.HitChance < (EloBuddy.SDK.Enumerations.HitChance) (getBoxItem(KN.Root, "ndhqch") + 3))
                                 {
                                     if (KL.Spells["Aspect"].IsReady())
                                         KL.Spells["Aspect"].Cast();

@@ -76,7 +76,7 @@
 
                 if (UseEKS && E.GetDamage(target) > target.Health && Player.LSDistance(target) <= E.Range && Player.Mana >= E.ManaCost)
                 {
-                    E.CastIfHitchanceEquals(target, HitChance.VeryHigh, PacketCast);
+                    E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, PacketCast);
                 }
 
                 if (UseIgniteKS && SkyLv_Taric.Ignite.Slot != SpellSlot.Unknown && target.Health < Player.GetSummonerSpellDamage(target, LeagueSharp.Common.Damage.SummonerSpell.Ignite) && Player.LSDistance(target) <= SkyLv_Taric.Ignite.Range)

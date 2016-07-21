@@ -244,7 +244,7 @@ using Spell = LeagueSharp.Common.Spell;
                     var playerPos = Drawing.WorldToScreen(Player.Position);
                     var targetPos = Drawing.WorldToScreen(currentTarget.Position);
                     Drawing.DrawLine(playerPos, targetPos, 4,
-                        _Q.GetPrediction(currentTarget, overrideRange: qRange).Hitchance < GetSelectedHitChance()
+                        _Q.GetPrediction(currentTarget, overrideRange: qRange).HitChance < GetSelectedHitChance()
                             ? Color.Red
                             : Color.Green);
                 }
@@ -434,7 +434,7 @@ using Spell = LeagueSharp.Common.Spell;
                             ObjectManager.Get<AIHeroClient>().Where(unit => unit.Team != Player.Team && !unit.IsDead)
                         let qDmg = Player.LSGetSpellDamage(enemy, SpellSlot.Q)
                         where qDmg > enemy.Health && Player.LSDistance(enemy) <= qRange && IsFirstQ() && _Q.IsReady() &&
-                              _Q.GetPrediction(enemy, overrideRange: qRange).Hitchance >= GetSelectedHitChance()
+                              _Q.GetPrediction(enemy, overrideRange: qRange).HitChance >= GetSelectedHitChance()
                         select enemy)
                 {
                     _Q.Cast(enemy);
@@ -443,20 +443,20 @@ using Spell = LeagueSharp.Common.Spell;
             }
         }
 
-        private static HitChance GetSelectedHitChance()
+        private static EloBuddy.SDK.Enumerations.HitChance GetSelectedHitChance()
         {
             switch (getBoxItem(miscMenu, "qHitChance"))
             {
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
             }
-            return HitChance.Medium;
+            return EloBuddy.SDK.Enumerations.HitChance.Medium;
         }
 
         private static void AutoBox()
@@ -521,7 +521,7 @@ using Spell = LeagueSharp.Common.Spell;
             if (getCheckBoxItem(harassMenu, "useQ1") && _Q.IsReady() && IsFirstQ() &&
                 !IsImmune(currentTarget) && percentManaAfterQ >= minPercentMana)
             {
-                if (_Q.GetPrediction(currentTarget, false, qRange).Hitchance >= GetSelectedHitChance())
+                if (_Q.GetPrediction(currentTarget, false, qRange).HitChance >= GetSelectedHitChance())
                 {
                     _Q.Cast(currentTarget);
                 }

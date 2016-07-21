@@ -286,7 +286,7 @@ using Utility = LeagueSharp.Common.Utility;
                 {
                     var QHit = new Geometry.Polygon.Rectangle(Player.Position, Player.Position.LSExtend(Minion.Position, Q1.Range), Q1.Width);
                     var QPred = Q1.GetPrediction(target);
-                    if (!QHit.IsOutside(QPred.UnitPosition.LSTo2D()) && QPred.Hitchance == HitChance.High)
+                    if (!QHit.IsOutside(QPred.UnitPosition.LSTo2D()) && QPred.HitChance == EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Q.Cast(Minion);
                         break;
@@ -306,7 +306,7 @@ using Utility = LeagueSharp.Common.Utility;
                 {
                     var QHit = new Geometry.Polygon.Rectangle(Player.Position, Player.Position.LSExtend(Minion.Position, Q1.Range), Q1.Width);
                     var QPred = Q1.GetPrediction(extarget);
-                    if (!QHit.IsOutside(QPred.UnitPosition.LSTo2D()) && QPred.Hitchance == HitChance.High)
+                    if (!QHit.IsOutside(QPred.UnitPosition.LSTo2D()) && QPred.HitChance == EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Q.Cast(Minion);
                         break;
@@ -324,7 +324,7 @@ using Utility = LeagueSharp.Common.Utility;
                 {
                     var QHit = new Geometry.Polygon.Rectangle(Player.Position, Player.Position.LSExtend(Minion.Position, Q1.Range), Q1.Width);
                     var QPred = Q1.GetPrediction(extarget);
-                    if (!QHit.IsOutside(QPred.UnitPosition.LSTo2D()) && QPred.Hitchance == HitChance.High)
+                    if (!QHit.IsOutside(QPred.UnitPosition.LSTo2D()) && QPred.HitChance == EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Q.Cast(Minion);
                         break;

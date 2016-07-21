@@ -98,7 +98,7 @@
                 {
                     if (Player.LSDistance(target) < E.Range)
                     {
-                        E.CastIfHitchanceEquals(target, HitChance.VeryHigh, PacketCast);
+                        E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, PacketCast);
                         return;
                     }
                 }

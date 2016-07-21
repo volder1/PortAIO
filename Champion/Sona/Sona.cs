@@ -117,7 +117,7 @@ namespace vSupport_Series.Champions
             }
             if (R.IsReady() && sender.LSIsValidTarget(R.Range) && getCheckBoxItem(misc, "sona.inter"))
             {
-                R.CastIfHitchanceEquals(sender, HitChance.High);
+                R.CastIfHitchanceEquals(sender, EloBuddy.SDK.Enumerations.HitChance.High);
             }
         }
 
@@ -128,7 +128,7 @@ namespace vSupport_Series.Champions
                 return;
             }
             if (R.IsReady() && getCheckBoxItem(misc, "sona.anti") &&
-                R.GetPrediction(gapcloser.Sender).Hitchance > HitChance.High
+                R.GetPrediction(gapcloser.Sender).HitChance > EloBuddy.SDK.Enumerations.HitChance.High
                 && gapcloser.Sender.LSIsValidTarget(1000))
             {
                 R.Cast(gapcloser.Sender);

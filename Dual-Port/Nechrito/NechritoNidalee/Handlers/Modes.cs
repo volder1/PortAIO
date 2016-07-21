@@ -55,7 +55,7 @@ using Nechrito_Nidalee.Extras;
                 {
                     Champion.Bushwack.Cast(Target.ServerPosition - 75);
                 }
-                if (!CatForm() && Champion.Javelin.IsReady() && QPred.Hitchance >= LeagueSharp.Common.HitChance.VeryHigh && QPred.Hitchance != LeagueSharp.Common.HitChance.Collision)
+                if (!CatForm() && Champion.Javelin.IsReady() && QPred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && QPred.HitChance != EloBuddy.SDK.Enumerations.HitChance.Collision)
                 {
                     Champion.Javelin.Cast(QPred.CastPosition);
                 }
@@ -89,7 +89,7 @@ using Nechrito_Nidalee.Extras;
             var QPred = Champion.Javelin.GetPrediction(Target);
             if (Target != null && Target.LSIsValidTarget() && !Target.IsZombie)
             {
-                if (!CatForm() && Champion.Javelin.IsReady() && QPred.Hitchance >= LeagueSharp.Common.HitChance.VeryHigh && QPred.Hitchance != LeagueSharp.Common.HitChance.Collision)
+                if (!CatForm() && Champion.Javelin.IsReady() && QPred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && QPred.HitChance != EloBuddy.SDK.Enumerations.HitChance.Collision)
                 {
                     Champion.Javelin.Cast(QPred.CastPosition);
                 }

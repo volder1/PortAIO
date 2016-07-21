@@ -50,7 +50,7 @@ using Utility = LeagueSharp.Common.Utility;
             E = new Spell(SpellSlot.E, 250);
             R = new Spell(SpellSlot.R, 900);
             R.SetSkillshot(0.25f, 45, 1600, false, SkillshotType.SkillshotCone);
-            R.MinHitChance = HitChance.Medium;
+            R.MinHitChance = EloBuddy.SDK.Enumerations.HitChance.Medium;
 
             Menu = MainMenu.AddMenu("Badao Riven", "Riven");
 

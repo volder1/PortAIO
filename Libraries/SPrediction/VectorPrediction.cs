@@ -108,7 +108,7 @@ namespace SPrediction
                                     predPos1 - (predPos1 - rangeCheckFrom).LSNormalized().LSPerpendicular()*30,
                                     predPos1 - (predPos1 - rangeCheckFrom).LSNormalized().LSPerpendicular()*30);
                                     //get enemy prediciton with from = target's position (a bit backward)
-                                if (predRes.HitChance >= HitChance.Low)
+                                if (predRes.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
                                     return
                                         predRes.AsVectorResult(predPos1 -
                                                                (predPos1 - rangeCheckFrom).LSNormalized().LSPerpendicular()*
@@ -121,7 +121,7 @@ namespace SPrediction
                                     predPos2 - (predPos2 - rangeCheckFrom).LSNormalized().LSPerpendicular()*30,
                                     predPos2 - (predPos2 - rangeCheckFrom).LSNormalized().LSPerpendicular()*30);
                                     //get target prediction with from = enemy's position (a bit backward)
-                                if (predRes.HitChance >= HitChance.Low)
+                                if (predRes.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
                                     return
                                         predRes.AsVectorResult(predPos2 -
                                                                (predPos2 - rangeCheckFrom).LSNormalized().LSPerpendicular()*
@@ -136,7 +136,7 @@ namespace SPrediction
 
             if (path.Count <= 1) //if target is not moving, easy to hit
             {
-                result.HitChance = HitChance.VeryHigh;
+                result.HitChance = EloBuddy.SDK.Enumerations.HitChance.High;
                 result.CastSourcePosition = immobileFrom;
                 result.CastTargetPosition = target.ServerPosition.LSTo2D();
                 result.UnitPosition = result.CastTargetPosition;
@@ -147,7 +147,7 @@ namespace SPrediction
                     vectorLenght -
                     Prediction.GetArrivalTime(immobileFrom.LSDistance(result.CastTargetPosition), delay, vectorSpeed)*
                     target.MoveSpeed)
-                    result.HitChance = HitChance.OutOfRange;
+                    result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Unknown;
 
                 return result;
             }
@@ -156,7 +156,7 @@ namespace SPrediction
             {
                 if (((AIHeroClient) target).IsChannelingImportantSpell())
                 {
-                    result.HitChance = HitChance.VeryHigh;
+                    result.HitChance = EloBuddy.SDK.Enumerations.HitChance.High;
                     result.CastSourcePosition = immobileFrom;
                     result.CastTargetPosition = target.ServerPosition.LSTo2D();
                     result.UnitPosition = result.CastTargetPosition;
@@ -168,7 +168,7 @@ namespace SPrediction
                         range -
                         Prediction.GetArrivalTime(immobileFrom.LSDistance(result.CastTargetPosition), delay, vectorSpeed)*
                         target.MoveSpeed)
-                        result.HitChance = HitChance.OutOfRange;
+                        result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Unknown;
 
                     return result;
                 }
@@ -176,7 +176,7 @@ namespace SPrediction
                 //to do: find a fuking logic
                 if (avgp < 400 && movt < 100)
                 {
-                    result.HitChance = HitChance.High;
+                    result.HitChance = EloBuddy.SDK.Enumerations.HitChance.High;
                     result.CastTargetPosition = target.ServerPosition.LSTo2D();
                     result.CastSourcePosition = immobileFrom;
                     result.UnitPosition = result.CastTargetPosition;
@@ -188,7 +188,7 @@ namespace SPrediction
                         range -
                         Prediction.GetArrivalTime(immobileFrom.LSDistance(result.CastTargetPosition), delay, vectorSpeed)*
                         target.MoveSpeed)
-                        result.HitChance = HitChance.OutOfRange;
+                        result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Unknown;
 
                     return result;
                 }
@@ -212,13 +212,13 @@ namespace SPrediction
                 var res = Prediction.WaypointAnlysis(target, width, delay, vectorSpeed, vectorLenght, false,
                     SkillshotType.SkillshotLine, path, avgt, movt, avgp, 360, point);
                 res.Lock();
-                if (res.HitChance >= HitChance.Low)
+                if (res.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
                     return res.AsVectorResult(point);
             }
 
             result.CastSourcePosition = immobileFrom;
             result.CastTargetPosition = target.ServerPosition.LSTo2D();
-            result.HitChance = HitChance.Impossible;
+            result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Impossible;
             return result;
         }
 
@@ -277,7 +277,7 @@ namespace SPrediction
                                 false, SkillshotType.SkillshotLine, path, enemy.AvgMovChangeTime(),
                                 enemy.LastMovChangeTime(), enemy.AvgPathLenght(), enemy.LastAngleDiff(), point,
                                 rangeCheckFrom);
-                            if (prediction.HitChance > HitChance.Medium)
+                            if (prediction.HitChance > EloBuddy.SDK.Enumerations.HitChance.Medium)
                             {
                                 var to = point + (prediction.CastPosition - point).LSNormalized()*vectorLenght;
                                 var colResult = Collision.GetCollisions(point, to, range, width, delay, vectorSpeed);
@@ -311,7 +311,7 @@ namespace SPrediction
             public Vector2 CastTargetPosition;
             public Vector2 CastSourcePosition;
             public Vector2 UnitPosition;
-            public HitChance HitChance;
+            public EloBuddy.SDK.Enumerations.HitChance HitChance;
             public Collision.Result CollisionResult;
         }
 

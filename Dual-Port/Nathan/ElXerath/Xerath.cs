@@ -14,6 +14,7 @@
     using EloBuddy.SDK;
     using EloBuddy.SDK.Menu;
     using EloBuddy.SDK.Menu.Values;
+    using EloBuddy.SDK.Enumerations;
     internal enum Spells
     {
         Q,
@@ -34,7 +35,7 @@
                                                                  { Spells.Q, new LeagueSharp.Common.Spell(SpellSlot.Q, 1600) },
                                                                  { Spells.W, new LeagueSharp.Common.Spell(SpellSlot.W, 1000) },
                                                                  { Spells.E, new LeagueSharp.Common.Spell(SpellSlot.E, 1150) },
-                                                                 { Spells.R, new LeagueSharp.Common.Spell(SpellSlot.R, 5600) }
+                                                                 { Spells.R, new LeagueSharp.Common.Spell(SpellSlot.R, 3200) }
                                                              };
 
         private static SpellSlot _ignite;
@@ -59,7 +60,7 @@
 
         #region Properties
 
-        private static HitChance CustomHitChance
+        private static EloBuddy.SDK.Enumerations.HitChance CustomHitChance
         {
             get
             {
@@ -86,11 +87,10 @@
                 return;
             }
 
-            spells[Spells.Q].SetSkillshot(0.6f, 95f, float.MaxValue, false, SkillshotType.SkillshotLine);
-            spells[Spells.W].SetSkillshot(0.7f, 125f, float.MaxValue, false, SkillshotType.SkillshotCircle);
+            spells[Spells.Q].SetCharged(750, 1550, 1.5f, 0.6f, int.MaxValue, 100);
+            spells[Spells.W].SetSkillshot(0.25f, 100f, float.MaxValue, false, SkillshotType.SkillshotCircle);
             spells[Spells.E].SetSkillshot(0.25f, 60f, 1400f, true, SkillshotType.SkillshotLine);
-            spells[Spells.R].SetSkillshot(0.7f, 130f, float.MaxValue, false, SkillshotType.SkillshotCircle);
-            spells[Spells.Q].SetCharged("XerathArcanopulseChargeUp", "XerathArcanopulseChargeUp", 750, 1550, 1.5f);
+            spells[Spells.R].SetSkillshot(0.5f, 120f, float.MaxValue, false, SkillshotType.SkillshotCircle);
             _ignite = Player.GetSpellSlot("summonerdot");
 
             ElXerathMenu.Initialize();
@@ -175,7 +175,7 @@
                     if (spells[Spells.Q].IsCharging)
                     {
                         var pred = spells[Spells.Q].GetPrediction(target);
-                        if (pred.Hitchance >= CustomHitChance)
+                        if (pred.HitChance >= CustomHitChance)
                         {
                             spells[Spells.Q].Cast(target);
                         }
@@ -184,7 +184,7 @@
                 if (wTarget != null && w && spells[Spells.W].IsReady())
                 {
                     var pred = spells[Spells.W].GetPrediction(wTarget);
-                    if (pred.Hitchance >= CustomHitChance)
+                    if (pred.HitChance >= CustomHitChance)
                     {
                         spells[Spells.W].Cast(wTarget);
                     }
@@ -211,22 +211,6 @@
 
             var ultType = getBoxItem(ElXerathMenu.rMenu, "ElXerath.R.Mode");
 
-            if (target.Health - spells[Spells.R].GetDamage(target) < 0)
-            {
-                if (Utils.TickCount - RCombo.CastSpell <= 700)
-                {
-                    return;
-                }
-            }
-
-            if ((RCombo._index != 0 && target.LSDistance(RCombo._position) > 1000))
-            {
-                if (Utils.TickCount - RCombo.CastSpell <= Math.Min(2500, target.LSDistance(RCombo._position) - 1000))
-                {
-                    return;
-                }
-            }
-
             switch (ultType)
             {
                 case 0:
@@ -250,7 +234,7 @@
                     break;
 
                 case 3:
-                    if (spells[Spells.R].GetPrediction(target).Hitchance >= CustomHitChance)
+                    if (spells[Spells.R].GetPrediction(target).HitChance >= CustomHitChance)
                     {
                         spells[Spells.R].Cast(target);
                     }
@@ -286,7 +270,7 @@
             var comboW = getCheckBoxItem(ElXerathMenu.cMenu, "ElXerath.Combo.W");
             var comboE = getCheckBoxItem(ElXerathMenu.cMenu, "ElXerath.Combo.E");
 
-            if (comboE && spells[Spells.E].IsReady() && Player.LSDistance(target) < spells[Spells.E].Range)
+            if (comboE && spells[Spells.E].IsReady() && spells[Spells.E].IsInRange(target))
             {
                 spells[Spells.E].Cast(target);
             }
@@ -294,25 +278,33 @@
             if (comboW && spells[Spells.W].IsReady())
             {
                 var prediction = spells[Spells.W].GetPrediction(target);
-                if (prediction.Hitchance >= HitChance.VeryHigh)
+                if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
-                    spells[Spells.W].Cast(prediction.CastPosition);
+                    spells[Spells.W].Cast(target);
                 }
             }
 
+            var predictionQ = spells[Spells.Q].GetPrediction(target);
             if (comboQ && spells[Spells.Q].IsReady() && target.LSIsValidTarget(spells[Spells.Q].ChargedMaxRange))
             {
                 if (!spells[Spells.Q].IsCharging)
                 {
                     spells[Spells.Q].StartCharging();
+                    return;
                 }
 
-                if (spells[Spells.Q].IsCharging)
+                if (spells[Spells.Q].Range == spells[Spells.Q].ChargedMaxRange)
                 {
-                    var prediction = spells[Spells.Q].GetPrediction(target);
-                    if (prediction.Hitchance >= HitChance.VeryHigh)
+                    spells[Spells.Q].Cast(target);
+                }
+                else
+                {
+                    if (Player.IsInRange(predictionQ.UnitPosition + 200 * (predictionQ.UnitPosition - Player.ServerPosition).Normalized(), spells[Spells.Q].Range))
                     {
-                        spells[Spells.Q].Cast(prediction.CastPosition);
+                        if (spells[Spells.Q].Cast(predictionQ.CastPosition))
+                        {
+                            return;
+                        }
                     }
                 }
             }
@@ -333,20 +325,20 @@
             }
         }
 
-        private static HitChance GetHitchance()
+        private static EloBuddy.SDK.Enumerations.HitChance GetHitchance()
         {
             switch (getBoxItem(ElXerathMenu.miscMenu, "ElXerath.hitChance"))
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 default:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
             }
         }
 

@@ -66,7 +66,9 @@ using EloBuddy.SDK.Menu.Values;
         {
             return m[item].Cast<ComboBox>().CurrentValue;
         }
-        
+
+        public static EloBuddy.SDK.Enumerations.HitChance[] HitchanceArray = { EloBuddy.SDK.Enumerations.HitChance.High, EloBuddy.SDK.Enumerations.HitChance.High, EloBuddy.SDK.Enumerations.HitChance.Medium };
+
         public static void Spellbook_OnCastSpell(Spellbook sender, SpellbookCastSpellEventArgs args)
         {
             if (sender.Owner.IsMe)
@@ -91,13 +93,13 @@ using EloBuddy.SDK.Menu.Values;
                         if (enemy != null)
                         {
                             if (ObjectManager.Player.ChampionName == "Viktor" && args.Slot == SpellSlot.E)
-                                SPredictioner.Spells[(int)args.Slot].SPredictionCastVector(enemy, 500, ShineCommon.Utility.HitchanceArray[getBoxItem(menu, "SPREDHITC")]);
+                                SPredictioner.Spells[(int)args.Slot].SPredictionCastVector(enemy, 500, HitchanceArray[getBoxItem(menu, "SPREDHITC")]);
                             else if (ObjectManager.Player.ChampionName == "Diana" && args.Slot == SpellSlot.Q)
-                                SPredictioner.Spells[(int)args.Slot].SPredictionCastArc(enemy, ShineCommon.Utility.HitchanceArray[getBoxItem(menu, "SPREDHITC")]);
+                                SPredictioner.Spells[(int)args.Slot].SPredictionCastArc(enemy, HitchanceArray[getBoxItem(menu, "SPREDHITC")]);
                             else if (ObjectManager.Player.ChampionName == "Veigar" && args.Slot == SpellSlot.E)
-                                SPredictioner.Spells[(int)args.Slot].SPredictionCastRing(enemy, 80, ShineCommon.Utility.HitchanceArray[getBoxItem(menu, "SPREDHITC")]);
+                                SPredictioner.Spells[(int)args.Slot].SPredictionCastRing(enemy, 80, HitchanceArray[getBoxItem(menu, "SPREDHITC")]);
                             else
-                                SPredictioner.Spells[(int)args.Slot].SPredictionCast(enemy, ShineCommon.Utility.HitchanceArray[getBoxItem(menu, "SPREDHITC")]);
+                                SPredictioner.Spells[(int)args.Slot].SPredictionCast(enemy, HitchanceArray[getBoxItem(menu, "SPREDHITC")]);
                         }
                     }
                 }

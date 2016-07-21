@@ -331,7 +331,7 @@ using EloBuddy.SDK.Menu.Values;
             {
                 if (useQ && Q.IsReady())
                 {
-                    Q.CastIfHitchanceEquals(target, HitChance.High);
+                    Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
 
                 if (useE && E.IsReady())
@@ -349,7 +349,7 @@ using EloBuddy.SDK.Menu.Values;
 
                 if (useQ && Q.IsReady() && !E.IsReady() && !Player.HasBuff("ekkoeattackbuff"))
                 {
-                    Q.CastIfHitchanceEquals(target, HitChance.High);
+                    Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
             }
 
@@ -362,12 +362,12 @@ using EloBuddy.SDK.Menu.Values;
 
                 if (useQ && Q.IsReady() && !E.IsReady() && Player.HasBuff("ekkoeattackbuff"))
                 {
-                    Q.CastIfHitchanceEquals(target, HitChance.VeryHigh);
+                    Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
 
                 else if (useQ && Q.IsReady() && !E.IsReady())
                 {
-                    Q.CastIfHitchanceEquals(target, HitChance.High);
+                    Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
             }
 

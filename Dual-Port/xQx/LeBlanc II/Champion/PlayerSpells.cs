@@ -142,9 +142,9 @@ using EloBuddy.SDK;
         {
             if (E.IsReady() && t.LSIsValidTarget(Modes.ModeSettings.MaxERange))
             {
-                HitChance[] hitChances = new[] { HitChance.VeryHigh, HitChance.High, HitChance.Medium, HitChance.Low };
+                EloBuddy.SDK.Enumerations.HitChance[] hitChances = new[] { EloBuddy.SDK.Enumerations.HitChance.High, EloBuddy.SDK.Enumerations.HitChance.High, EloBuddy.SDK.Enumerations.HitChance.Medium, EloBuddy.SDK.Enumerations.HitChance.Low };
                 E.UpdateSourcePosition(ObjectManager.Player.ServerPosition, t.ServerPosition);
-                if (E.GetPrediction(t).Hitchance >= hitChances[Modes.ModeSettings.EHitchance])
+                if (E.GetPrediction(t).HitChance >= hitChances[Modes.ModeSettings.EHitchance])
                 {
                     E.Cast(t, true);
                 }
@@ -155,9 +155,9 @@ using EloBuddy.SDK;
         {
             if (CommonHelper.SpellRStatus == CommonHelper.SpellRName.R2xE && E.IsReady() && t.LSIsValidTarget(Modes.ModeSettings.MaxERange))
             {
-                HitChance[] hitChances = new[] { HitChance.VeryHigh, HitChance.High, HitChance.Medium, HitChance.Low};
+                EloBuddy.SDK.Enumerations.HitChance[] hitChances = new[] { EloBuddy.SDK.Enumerations.HitChance.High, EloBuddy.SDK.Enumerations.HitChance.High, EloBuddy.SDK.Enumerations.HitChance.Medium, EloBuddy.SDK.Enumerations.HitChance.Low};
                 E.UpdateSourcePosition(ObjectManager.Player.ServerPosition, t.ServerPosition);
-                if (E.GetPrediction(t).Hitchance >= hitChances[Modes.ModeSettings.EHitchance])
+                if (E.GetPrediction(t).HitChance >= hitChances[Modes.ModeSettings.EHitchance])
                 {
                     E2.Cast(t, true);
                 }

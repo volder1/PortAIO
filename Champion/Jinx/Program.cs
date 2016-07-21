@@ -325,7 +325,7 @@ namespace OneKeyToWin_AIO_Sebby
                 if (Program.Combo && Player.IsMoving && eMenu["comboE"].Cast<CheckBox>().CurrentValue && Player.Mana > RMANA + EMANA + WMANA)
                 {
                     var t = TargetSelector.GetTarget(E.Range, DamageType.Physical);
-                    if (t.LSIsValidTarget(E.Range) && E.GetPrediction(t).CastPosition.LSDistance(t.Position) > 200 && (int)E.GetPrediction(t).Hitchance == 5)
+                    if (t.LSIsValidTarget(E.Range) && E.GetPrediction(t).CastPosition.LSDistance(t.Position) > 200 && (int)E.GetPrediction(t).HitChance == 5)
                     {
                         E.CastIfWillHit(t, 2);
                         if (t.HasBuffOfType(BuffType.Slow))

@@ -219,7 +219,7 @@ using EloBuddy.SDK.Menu.Values;
                 var qPrediction = Q.GetPrediction(t);
                 var hithere = qPrediction.CastPosition.LSExtend(ObjectManager.Player.Position, -100);
 
-                if (qPrediction.Hitchance >= Q.GetHitchance())
+                if (qPrediction.HitChance >= Q.GetHitchance())
                 {
                     Q.Cast(hithere);
                 }
@@ -233,7 +233,7 @@ using EloBuddy.SDK.Menu.Values;
                 var pred = E.GetPrediction(t);
                 var hithere = pred.CastPosition.LSExtend(ObjectManager.Player.Position, -100);
 
-                if (pred.Hitchance >= E.GetHitchance())
+                if (pred.HitChance >= E.GetHitchance())
                 {
                     E.Cast(hithere);
                 }
@@ -564,7 +564,7 @@ using EloBuddy.SDK.Menu.Values;
                         e =>
                             e.LSIsValidTarget(E.Range) && e.Health >= ObjectManager.Player.TotalAttackDamage * 2 &&
                             e.LSIsFacing(ObjectManager.Player) && e.LSIsValidTarget(E.Range - 300) &&
-                            E.GetPrediction(e).CollisionObjects.Count == 0);
+                            E.GetPrediction(e).CollisionObjects.Count() == 0);
                 foreach (var n in nResult)
                 {
                     //                    if (n.LSIsValidTarget(n.IsFacing(ObjectManager.Player) ? E.Range - 200 : E.Range - 300) && E.GetPrediction(n).CollisionObjects.Count == 0)

@@ -178,7 +178,7 @@ using EloBuddy.SDK;
             var Qpredict = Q.GetPrediction(t);
             var hithere = Qpredict.CastPosition.LSExtend(ObjectManager.Player.Position, -20);
 
-            if (Qpredict.Hitchance >= HitChance.High)
+            if (Qpredict.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 if (W.IsReady())
                     W.Cast();
@@ -222,7 +222,7 @@ using EloBuddy.SDK;
                 {
                     if (t.LSIsValidTarget(E.Range))
                     {
-                        E.CastIfHitchanceEquals(t, HitChance.Medium);
+                        E.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.Medium);
                     }
                 }
 

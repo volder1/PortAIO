@@ -112,19 +112,19 @@ using LeagueSharp.Common;
             return m[item].Cast<ComboBox>().CurrentValue;
         }
 
-        internal HitChance GetHitChance(string search)
+        internal EloBuddy.SDK.Enumerations.HitChance GetHitChance(string search)
         {
             var hitchance = getBoxItem(combo, "WHitchance");
             switch (hitchance)
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
             }
-            return HitChance.Medium;
+            return EloBuddy.SDK.Enumerations.HitChance.Medium;
         }
     }
 }
