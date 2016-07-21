@@ -184,7 +184,7 @@ namespace ElZilean
                 IncomingDamageManager.Skillshots = true;
 
 
-                Q = new EloBuddy.SDK.Spell.Skillshot(SpellSlot.Q, 900 + 100, EloBuddy.SDK.Enumerations.SkillShotType.Circular, 300, 2000, 150);
+                Q = new EloBuddy.SDK.Spell.Skillshot(SpellSlot.Q, 900 + 100, EloBuddy.SDK.Enumerations.SkillShotType.Circular, 300, 2000, 100);
                 W = new Spell(SpellSlot.W, Player.GetAutoAttackRange(Player));
                 E = new Spell(SpellSlot.E, 700f);
                 R = new Spell(SpellSlot.R, 900f);
@@ -376,21 +376,21 @@ namespace ElZilean
                 if (getCheckBoxItem(comboMenu, "ElZilean.Combo.Q") && Q.IsReady() && target.IsValidTarget(Q.Range) && !isBombed2.IsValidTarget(Q.Range))
                 {
                     var pred = Q.GetPrediction(target);
-                    if (QDmg(target) >= target.Health + target.HPRegenRate && pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low && !isBombed2.IsValidTarget())
+                    if (QDmg(target) >= target.Health + target.HPRegenRate && pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && !isBombed2.IsValidTarget())
                     {
-                        Q.Cast(target);
+                        Q.Cast(pred.CastPosition);
                     }
-                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium && !isBombed2.IsValidTarget())
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && !isBombed2.IsValidTarget())
                     {
-                        Q.Cast(target);
+                        Q.Cast(pred.CastPosition);
                     }
                 }
                 if (getCheckBoxItem(comboMenu, "ElZilean.Combo.Q") && Q.IsReady() && isBombed2.IsValidTarget(Q.Range) && isBombed2.IsValidTarget())
                 {
                     var pred = Q.GetPrediction(isBombed2);
-                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
-                        Utility.DelayAction.Add(50, () => Q.Cast(isBombed2));
+                        Utility.DelayAction.Add(50, () => Q.Cast(pred.CastPosition));
                     }
                 }
                 if (!Q.IsReady())
@@ -533,7 +533,7 @@ namespace ElZilean
             if (getCheckBoxItem(harassMenu, "ElZilean.Harass.Q") && Q.IsReady() && target.LSIsValidTarget(Q.Range))
             {
                 var pred = Q.GetPrediction(target);
-                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     Q.Cast(pred.CastPosition);
                 }
@@ -571,7 +571,7 @@ namespace ElZilean
                 if (Q.IsReady() && sender.LSIsValidTarget(Q.Range))
                 {
                     var prediction = Q.GetPrediction(sender);
-                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Q.Cast(prediction.CastPosition);
                     }
@@ -744,7 +744,7 @@ namespace ElZilean
                         if (Q.IsReady() && target.LSIsValidTarget(Q.Range))
                         {
                             var prediction = Q.GetPrediction(target);
-                            if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
+                            if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                             {
                                 Q.Cast(prediction.CastPosition);
                                 W.Cast();
