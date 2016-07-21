@@ -112,7 +112,7 @@ namespace SPrediction
                 var prediction = GetPrediction(enemy, width, delay, missileSpeed, range, false, enemy.GetWaypoints(),
                     enemy.AvgMovChangeTime(), enemy.LastMovChangeTime(), enemy.AvgPathLenght(), enemy.LastAngleDiff(),
                     from, rangeCheckFrom);
-                if (prediction.HitChance > HitChance.Medium)
+                if (prediction.HitChance > EloBuddy.SDK.Enumerations.HitChance.Medium)
                 {
                     var to = from + (prediction.CastPosition - from).LSNormalized()*range;
                     var spellHitBox = ClipperWrapper.DefineSector(from, to, width, range);

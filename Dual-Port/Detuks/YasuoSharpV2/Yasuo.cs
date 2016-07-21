@@ -564,8 +564,8 @@ using EloBuddy.SDK.Spells;
             {
                 if (canCastFarQ())
                 {
-                    PredictionOutput po = QEmp.GetPrediction(target); //QEmp.GetPrediction(target, true);
-                    if (po.Hitchance >= LeagueSharp.Common.HitChance.Medium)
+                    var po = QEmp.GetPrediction(target); //QEmp.GetPrediction(target, true);
+                    if (po.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                     {
                         QEmp.Cast(po.CastPosition);
                         return;
@@ -585,8 +585,8 @@ using EloBuddy.SDK.Spells;
             {
                 if (canCastFarQ())
                 {
-                    PredictionOutput po = Q.GetPrediction(target);
-                    if (po.Hitchance >= LeagueSharp.Common.HitChance.Medium)
+                    var po = Q.GetPrediction(target);
+                    if (po.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                     {
                         Q.Cast(po.CastPosition);
                     }

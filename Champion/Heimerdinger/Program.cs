@@ -186,7 +186,7 @@ namespace Two_Girls_One_Donger
 
         private static void CastER(Obj_AI_Base target) // copied from ScienceARK
         {
-            PredictionOutput prediction;
+            EloBuddy.SDK.PredictionResult prediction;
 
             if (ObjectManager.Player.LSDistance(target) < E1.Range)
             {
@@ -211,7 +211,7 @@ namespace Two_Girls_One_Donger
                 return;
             }
 
-            if (prediction.Hitchance >= HitChance.High)
+            if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 if (ObjectManager.Player.ServerPosition.LSDistance(prediction.CastPosition) <= E1.Range + E1.Width)
                 {
@@ -308,23 +308,23 @@ namespace Two_Girls_One_Donger
                 {
                     if (E.IsReady() && getCheckBoxItem(comboMenu, "UseECombo") && target.LSIsValidTarget(E.Range))
                     {
-                        E.CastIfHitchanceEquals(target, HitChance.High, true);
+                        E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, true);
                     }
                     if (W.IsReady() && getCheckBoxItem(comboMenu, "UseWRCombo") &&
                         getCheckBoxItem(comboMenu, "UseRCombo") &&
                         R.IsReady() && target.LSIsValidTarget(W.Range) &&
-                        wpred.Hitchance >= HitChance.High && CalcDamage(target) >= target.Health)
+                        wpred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && CalcDamage(target) >= target.Health)
                     {
                         R.Cast();
 
                         Utility.DelayAction.Add(1010,
-                            () => W.CastIfHitchanceEquals(target, HitChance.High, true));
+                            () => W.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, true));
                     }
                     else
                     {
                         if (W.IsReady() && getCheckBoxItem(comboMenu, "UseWCombo") && target.LSIsValidTarget(W.Range))
                         {
-                            W.CastIfHitchanceEquals(target, HitChance.High, true);
+                            W.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, true);
                         }
                     }
                 }
@@ -340,7 +340,7 @@ namespace Two_Girls_One_Donger
             var useW = getKeyBindItem(miscMenu, "AutoHarras");
             if (W.IsReady() && target.LSIsValidTarget() && useW && Player.Mana / Player.MaxMana * 100 > harassmana)
             {
-                W.CastIfHitchanceEquals(target, HitChance.High, true);
+                W.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, true);
             }
         }
 
@@ -387,8 +387,8 @@ namespace Two_Girls_One_Donger
             if (target == null) return;
             if (target.Health < GetEDamage())
             {
-                E.CastIfHitchanceEquals(target, HitChance.Medium, true);
-                E.CastIfHitchanceEquals(target, HitChance.High, true);
+                E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Medium, true);
+                E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, true);
                 return;
             }
 
@@ -398,7 +398,7 @@ namespace Two_Girls_One_Donger
             if (target.Health < GetWDamage())
             {
                 var prediction = W.GetPrediction(target);
-                if (prediction.Hitchance >= HitChance.High &&
+                if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High &&
                     prediction.CollisionObjects.Count(h => h.IsEnemy && !h.IsDead && h is Obj_AI_Minion) < 2)
                 {
                     W.Cast(prediction.CastPosition);
@@ -411,7 +411,7 @@ namespace Two_Girls_One_Donger
             if (target.Health < GetW1Damage() && R.IsReady())
             {
                 var prediction = W.GetPrediction(target);
-                if (prediction.Hitchance >= HitChance.High &&
+                if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High &&
                     prediction.CollisionObjects.Count(h => h.IsEnemy && !h.IsDead && h is Obj_AI_Minion) < 2)
                 {
                     R.Cast();

@@ -154,14 +154,14 @@ namespace SPrediction
             public Obj_AI_Base Unit;
             public Vector2 CastPosition;
             public Vector2 UnitPosition;
-            public HitChance HitChance;
+            public EloBuddy.SDK.Enumerations.HitChance HitChance;
             public Collision.Result CollisionResult;
 
             #endregion
 
             #region Constructors and Destructors
 
-            public Result(Input inp, Obj_AI_Base unit, Vector2 castpos, Vector2 unitpos, HitChance hc,
+            public Result(Input inp, Obj_AI_Base unit, Vector2 castpos, Vector2 unitpos, EloBuddy.SDK.Enumerations.HitChance hc,
                 Collision.Result col)
             {
                 Input = inp;
@@ -192,13 +192,13 @@ namespace SPrediction
                 if (Input.SpellCollisionable &&
                     (CollisionResult.Objects.HasFlag(Collision.Flags.Minions) ||
                      CollisionResult.Objects.HasFlag(Collision.Flags.YasuoWall)))
-                    HitChance = HitChance.Collision;
+                    HitChance = EloBuddy.SDK.Enumerations.HitChance.Collision;
             }
 
             private void CheckOutofRange(bool checkDodge)
             {
                 if (this.Input.RangeCheckFrom.LSTo2D().LSDistance(this.CastPosition) > this.Input.SpellRange - (checkDodge ? GetArrivalTime(this.Input.From.LSTo2D().LSDistance(this.CastPosition), this.Input.SpellDelay, this.Input.SpellMissileSpeed) * this.Unit.MoveSpeed * (100 - ConfigMenu.MaxRangeIgnore) / 100f : 0))
-                    this.HitChance = HitChance.OutOfRange;
+                    this.HitChance = EloBuddy.SDK.Enumerations.HitChance.Unknown;
             }
 
             #endregion
@@ -341,7 +341,7 @@ namespace SPrediction
                 //to do: hook logic ? by storing average movement direction etc
                 if (path.Count <= 1 && movt > 100 && (Environment.TickCount - PathTracker.EnemyInfo[target.NetworkId].LastAATick > 300 || !ConfigMenu.CheckAAWindUp)) //if target is not moving, easy to hit (and not aaing)
                 {
-                    result.HitChance = HitChance.VeryHigh;
+                    result.HitChance = EloBuddy.SDK.Enumerations.HitChance.High;
                     result.CastPosition = target.ServerPosition.LSTo2D();
                     result.UnitPosition = result.CastPosition;
                     result.Lock();
@@ -353,7 +353,7 @@ namespace SPrediction
                 {
                     if (((AIHeroClient)target).IsChannelingImportantSpell())
                     {
-                        result.HitChance = HitChance.VeryHigh;
+                        result.HitChance = EloBuddy.SDK.Enumerations.HitChance.High;
                         result.CastPosition = target.ServerPosition.LSTo2D();
                         result.UnitPosition = result.CastPosition;
                         result.Lock();
@@ -365,7 +365,7 @@ namespace SPrediction
                     {
                         if (target.AttackCastDelay * 1000 + PathTracker.EnemyInfo[target.NetworkId].AvgOrbwalkTime + avgt - width / 2f / target.MoveSpeed >= GetArrivalTime(target.ServerPosition.LSTo2D().LSDistance(from), delay, missileSpeed))
                         {
-                            result.HitChance = HitChance.High;
+                            result.HitChance = EloBuddy.SDK.Enumerations.HitChance.High;
                             result.CastPosition = target.ServerPosition.LSTo2D();
                             result.UnitPosition = result.CastPosition;
                             result.Lock();
@@ -377,7 +377,7 @@ namespace SPrediction
                     //to do: find a fuking logic
                     if (avgp < 400 && movt < 100 && path.LSPathLength() <= avgp)
                     {
-                        result.HitChance = HitChance.High;
+                        result.HitChance = EloBuddy.SDK.Enumerations.HitChance.High;
                         result.CastPosition = path.Last();
                         result.UnitPosition = result.CastPosition;
                         result.Lock();
@@ -396,7 +396,7 @@ namespace SPrediction
 
                 float d = result.CastPosition.LSDistance(target.ServerPosition.LSTo2D());
                 if (d >= (avgt - movt) * target.MoveSpeed && d >= avgp)
-                    result.HitChance = HitChance.Medium;
+                    result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Medium;
 
                 result.Lock();
 
@@ -406,7 +406,7 @@ namespace SPrediction
             {
                 //check if movement changed while prediction calculations
                 if (!target.GetWaypoints().SequenceEqual(path))
-                    result.HitChance = HitChance.Medium;
+                    result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Medium;
             }
         }
 
@@ -445,13 +445,13 @@ namespace SPrediction
                 var dashInfo = target.LSGetDashInfo();
                 if (dashInfo.IsBlink)
                 {
-                    result.HitChance = HitChance.Impossible;
+                    result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Impossible;
                     result.CastPosition = dashInfo.EndPos;
                     return result;
                 }
 
                 result.CastPosition = GetFastUnitPosition(target, dashInfo.Path, delay, missileSpeed, from, dashInfo.Speed);
-                result.HitChance = HitChance.Dashing;
+                result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Dashing;
 
                 result.Lock(false);
             }
@@ -493,7 +493,7 @@ namespace SPrediction
 
             if (t >= Utility.LeftImmobileTime(target))
             {
-                result.HitChance = HitChance.Immobile;
+                result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Immobile;
                 result.Lock();
 
                 return result;
@@ -502,7 +502,7 @@ namespace SPrediction
             if (target is AIHeroClient)
                 result.HitChance = GetHitChance(t - Utility.LeftImmobileTime(target), ((AIHeroClient)target).AvgMovChangeTime(), 0, 0, 0);
             else
-                result.HitChance = HitChance.High;
+                result.HitChance = EloBuddy.SDK.Enumerations.HitChance.High;
 
             result.Lock();
 
@@ -517,7 +517,7 @@ namespace SPrediction
         /// <param name="movt">Passed time from last movement change (in ms)</param>
         /// <param name="avgp">Average Path Lenght</param>
         /// <returns>HitChance</returns>
-        internal static HitChance GetHitChance(float t, float avgt, float movt, float avgp, float anglediff)
+        internal static EloBuddy.SDK.Enumerations.HitChance GetHitChance(float t, float avgt, float movt, float avgp, float anglediff)
         {
             if (avgp > 400)
             {
@@ -526,20 +526,20 @@ namespace SPrediction
                     if (avgt >= t * 1.25f)
                     {
                         if (anglediff < 30)
-                            return HitChance.VeryHigh;
+                            return EloBuddy.SDK.Enumerations.HitChance.High;
                         else
-                            return HitChance.High;
+                            return EloBuddy.SDK.Enumerations.HitChance.High;
                     }
                     else if (avgt - movt >= t)
-                        return HitChance.Medium;
+                        return EloBuddy.SDK.Enumerations.HitChance.Medium;
                     else
-                        return HitChance.Low;
+                        return EloBuddy.SDK.Enumerations.HitChance.Low;
                 }
                 else
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
             }
             else
-                return HitChance.High;
+                return EloBuddy.SDK.Enumerations.HitChance.High;
         }
 
         /// <summary>
@@ -646,7 +646,7 @@ namespace SPrediction
                 }
             }
 
-            result.HitChance = HitChance.Impossible;
+            result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Impossible;
             result.CastPosition = target.ServerPosition.LSTo2D();
 
             return result;

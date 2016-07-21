@@ -95,7 +95,7 @@ namespace SPrediction
 
                 var pred = LinePrediction.GetPrediction(target, 80f, delay, missileSpeed, range, collisionable, path,
                     avgt, movt, avgp, anglediff, from, rangeCheckFrom);
-                if (pred.HitChance >= HitChance.Low)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
                 {
                     pred.CastPosition = @from + (pred.CastPosition - @from).LSNormalized()*range
                         /*.RotateAroundPoint(from, (1 - pred.UnitPosition.LSDistance(ObjectManager.Player.ServerPosition.LSTo2D()) / 820f) * (float)Math.PI / 2f)*/;
@@ -112,7 +112,7 @@ namespace SPrediction
 
             if (path.Count <= 1) //if target is not moving, easy to hit
             {
-                result.HitChance = HitChance.Immobile;
+                result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Immobile;
                 result.CastPosition = target.ServerPosition.LSTo2D();
                 result.UnitPosition = result.CastPosition;
                 return result;
@@ -120,7 +120,7 @@ namespace SPrediction
 
             if (target is AIHeroClient && ((AIHeroClient) target).IsChannelingImportantSpell())
             {
-                result.HitChance = HitChance.Immobile;
+                result.HitChance = EloBuddy.SDK.Enumerations.HitChance.Immobile;
                 result.CastPosition = target.ServerPosition.LSTo2D();
                 result.UnitPosition = result.CastPosition;
                 return result;
@@ -155,7 +155,7 @@ namespace SPrediction
 
             #region arc collision test
 
-            if (result.HitChance > HitChance.Low)
+            if (result.HitChance > EloBuddy.SDK.Enumerations.HitChance.Low)
             {
                 for (var i = 1; i < path.Count; i++)
                 {
@@ -172,7 +172,7 @@ namespace SPrediction
 
                     if (!dianaArc.IsOutside(target.ServerPosition.LSTo2D()))
                     {
-                        result.HitChance = HitChance.VeryHigh;
+                        result.HitChance = EloBuddy.SDK.Enumerations.HitChance.High;
                         result.CastPosition = testPos;
                         result.UnitPosition = testPos;
                         return result;
@@ -211,7 +211,7 @@ namespace SPrediction
                 var prediction = GetPrediction(enemy, width, delay, missileSpeed, range, false, enemy.GetWaypoints(),
                     enemy.AvgMovChangeTime(), enemy.LastMovChangeTime(), enemy.AvgPathLenght(), enemy.LastAngleDiff(),
                     from, rangeCheckFrom);
-                if (prediction.HitChance > HitChance.Medium)
+                if (prediction.HitChance > EloBuddy.SDK.Enumerations.HitChance.Medium)
                 {
                     var multp = result.CastPosition.LSDistance(@from)/875.0f;
 

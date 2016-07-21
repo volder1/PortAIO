@@ -179,7 +179,7 @@
                 if (spells[Spells.E].GetDamage(target) > target.Health && target.LSIsValidTarget(spells[Spells.E].Range))
                 {
                     var prediction = spells[Spells.E].GetPrediction(target);
-                    if (prediction.Hitchance >= HitChance.VeryHigh)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         spells[Spells.E].Cast(prediction.CastPosition);
                     }
@@ -224,7 +224,7 @@
                                 if (targetE.LSIsValidTarget())
                                 {
                                     var pred = spells[Spells.E].GetPrediction(targetE);
-                                    if (pred.Hitchance >= HitChance.High)
+                                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                                     {
                                         spells[Spells.E].Cast(pred.CastPosition);
                                     }
@@ -252,7 +252,7 @@
                             if (targetE.LSIsValidTarget(spells[Spells.E].Range))
                             {
                                 var pred = spells[Spells.E].GetPrediction(targetE);
-                                if (pred.Hitchance >= HitChance.Medium)
+                                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                                 {
                                     spells[Spells.E].Cast(pred.CastPosition);
                                 }
@@ -444,7 +444,7 @@
                             return;
                         }
 
-                        spells[Spells.E].CastIfHitchanceEquals(target, HitChance.Immobile);
+                        spells[Spells.E].CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Immobile);
                     }
                 }
 

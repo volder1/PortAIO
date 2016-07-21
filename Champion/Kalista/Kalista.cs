@@ -610,7 +610,7 @@ namespace iKalistaReborn
                 SpellManager.Spell[SpellSlot.Q].Range,
                 DamageType.Physical);
             var prediction = SpellManager.Spell[SpellSlot.Q].GetPrediction(spearTarget);
-            if (prediction.Hitchance >= HitChance.High
+            if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High
                 && spearTarget.IsValidTarget(SpellManager.Spell[SpellSlot.Q].Range) && !ObjectManager.Player.IsDashing()
                 && !ObjectManager.Player.Spellbook.IsAutoAttacking)
             {
@@ -624,7 +624,7 @@ namespace iKalistaReborn
             {
                 var target = TargetSelector.GetTarget(SpellManager.Spell[SpellSlot.Q].Range, DamageType.Physical);
                 var prediction = SpellManager.Spell[SpellSlot.Q].GetPrediction(target);
-                if (prediction.Hitchance >= HitChance.High &&
+                if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High &&
                     target.LSIsValidTarget(SpellManager.Spell[SpellSlot.Q].Range))
                 {
                     SpellManager.Spell[SpellSlot.Q].Cast(target);

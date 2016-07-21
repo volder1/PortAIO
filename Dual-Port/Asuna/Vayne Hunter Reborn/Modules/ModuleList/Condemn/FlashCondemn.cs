@@ -51,7 +51,7 @@ using Spell = LeagueSharp.Common.Spell;
 
             if (target.LSIsDashing() || !E.IsReady()) return;
 
-            if (prediction.Hitchance >= HitChance.VeryHigh)
+            if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 var endPosition = prediction.UnitPosition.LSExtend(flashPosition, -pushDistance);
                 if (endPosition.IsWall())

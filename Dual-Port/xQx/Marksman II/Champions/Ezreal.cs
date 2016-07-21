@@ -171,7 +171,7 @@ using Marksman.Common;
                                         select Q.GetPrediction(minions)
                         into qP
                                         let hit = qP.CastPosition.LSExtend(ObjectManager.Player.Position, -140)
-                                        where qP.Hitchance >= Q.GetHitchance()
+                                        where qP.HitChance >= Q.GetHitchance()
                                         select hit)
                     {
                         Q.Cast(hit);
@@ -253,7 +253,7 @@ using Marksman.Common;
                         var maxRRange = Program.combo["UseRCMaxRange"].Cast<Slider>().CurrentValue;
                         var minRRange = Program.combo["UseRCMinRange"].Cast<Slider>().CurrentValue;
 
-                        if (Q.IsReady() && t.LSIsValidTarget(Q.Range) && Q.GetPrediction(t).CollisionObjects.Count == 0
+                        if (Q.IsReady() && t.LSIsValidTarget(Q.Range) && Q.GetPrediction(t).CollisionObjects.Count() == 0
                             && t.Health < ObjectManager.Player.LSGetSpellDamage(t, SpellSlot.Q)) return;
 
                         if (t.LSIsValidTarget() && ObjectManager.Player.LSDistance(t) >= minRRange
@@ -304,7 +304,7 @@ using Marksman.Common;
                 {
                     var qP = Q.GetPrediction(minions);
                     var hit = qP.CastPosition.LSExtend(ObjectManager.Player.Position, -140);
-                    if (qP.Hitchance >= HitChance.High) Q.Cast(hit);
+                    if (qP.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) Q.Cast(hit);
                 }
             }
 
@@ -318,7 +318,7 @@ using Marksman.Common;
                 {
                     var qP = Q.GetPrediction(minions);
                     var hit = qP.CastPosition.LSExtend(ObjectManager.Player.Position, -140);
-                    if (qP.Hitchance >= HitChance.High) Q.Cast(hit);
+                    if (qP.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) Q.Cast(hit);
                 }
             }
 

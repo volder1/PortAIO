@@ -126,7 +126,7 @@ namespace SPrediction
                     var prediction = GetPrediction(enemy, width, delay + flyTime, 0, range, false, enemy.GetWaypoints(),
                         enemy.AvgMovChangeTime(), enemy.LastMovChangeTime(), enemy.AvgPathLenght(),
                         enemy.LastAngleDiff(), from, rangeCheckFrom);
-                    if (prediction.HitChance > HitChance.Medium)
+                    if (prediction.HitChance > EloBuddy.SDK.Enumerations.HitChance.Medium)
                     {
                         posSummary += prediction.UnitPosition;
                         predictionResults.Add(new Tuple<Prediction.Result, float>(prediction, enemy.BoundingRadius));

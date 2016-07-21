@@ -33,7 +33,7 @@ using EloBuddy;
             if (target == null) return false;
             if (_q.IsReady())
             {
-                Q.CastIfHitchanceEquals(target, HitChance.High);
+                Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 return true;
             }
             return false;

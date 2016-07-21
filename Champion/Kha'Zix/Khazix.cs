@@ -152,16 +152,16 @@ namespace SephKhazix
                 {
                     if (!EvolvedW && Khazix.LSDistance(target) <= W.Range)
                     {
-                        PredictionOutput predw = W.GetPrediction(target);
-                        if (predw.Hitchance == hitchance)
+                        var predw = W.GetPrediction(target);
+                        if (predw.HitChance == hitchance)
                         {
                             W.Cast(predw.CastPosition);
                         }
                     }
                     else if (EvolvedW && target.LSIsValidTarget(W.Range))
                     {
-                        PredictionOutput pred = WE.GetPrediction(target);
-                        if ((pred.Hitchance == HitChance.Immobile && autoWI) || (pred.Hitchance == HitChance.Dashing && autoWD) || pred.Hitchance >= hitchance)
+                        var pred = WE.GetPrediction(target);
+                        if ((pred.HitChance == EloBuddy.SDK.Enumerations.HitChance.Immobile && autoWI) || (pred.HitChance == EloBuddy.SDK.Enumerations.HitChance.Dashing && autoWD) || pred.HitChance >= hitchance)
                         {
                             CastWE(target, pred.UnitPosition.LSTo2D(), 0, hitchance);
                         }
@@ -369,7 +369,7 @@ namespace SephKhazix
                 if (W.IsReady() && !EvolvedW && dist <= W.Range && getCheckBoxItem(combo, "UseWCombo"))
                 {
                     var pred = W.GetPrediction(target);
-                    if (pred.Hitchance >= Config.GetHitChance("WHitchance"))
+                    if (pred.HitChance >= Config.GetHitChance("WHitchance"))
                     {
                         W.Cast(pred.CastPosition);
                     }
@@ -377,7 +377,7 @@ namespace SephKhazix
 
                 if (E.IsReady() && !Jumping && dist <= E.Range && getCheckBoxItem(combo, "UseECombo") && dist > Q.Range + (0.7 * Khazix.MoveSpeed))
                 {
-                    PredictionOutput pred = E.GetPrediction(target);
+                    var pred = E.GetPrediction(target);
                     if (target.IsValid && target.IsVisible && target.IsHPBarRendered && !target.IsDead && ShouldJump(pred.CastPosition))
                     {
                         E.Cast(pred.CastPosition);
@@ -389,7 +389,7 @@ namespace SephKhazix
                     getCheckBoxItem(combo, "UseEGapclose")) || (dist <= E.Range + W.Range && dist > Q.Range && E.IsReady() && W.IsReady() &&
                     getCheckBoxItem(combo, "UseEGapcloseW")))
                 {
-                    PredictionOutput pred = E.GetPrediction(target);
+                    var pred = E.GetPrediction(target);
                     if (target.IsValid && target.IsVisible && target.IsHPBarRendered && !target.IsDead && ShouldJump(pred.CastPosition))
                     {
                         E.Cast(pred.CastPosition);
@@ -411,14 +411,14 @@ namespace SephKhazix
 
                 if (W.IsReady() && EvolvedW && dist <= WE.Range && getCheckBoxItem(combo, "UseWCombo"))
                 {
-                    PredictionOutput pred = WE.GetPrediction(target);
-                    if (pred.Hitchance >= Config.GetHitChance("WHitchance"))
+                    var pred = WE.GetPrediction(target);
+                    if (pred.HitChance >= Config.GetHitChance("WHitchance"))
                     {
                         CastWE(target, pred.UnitPosition.LSTo2D(), 0, Config.GetHitChance("WHitchance"));
                     }
-                    if (pred.Hitchance >= HitChance.Collision)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Collision)
                     {
-                        List<Obj_AI_Base> PCollision = pred.CollisionObjects;
+                        List<Obj_AI_Base> PCollision = pred.CollisionObjects.ToList();
                         var x = PCollision.Where(PredCollisionChar => PredCollisionChar.LSDistance(target) <= 30).FirstOrDefault();
                         if (x != null)
                         {
@@ -430,7 +430,7 @@ namespace SephKhazix
                 if (dist <= E.Range + (0.7 * Khazix.MoveSpeed) && dist > Q.Range &&
                     getCheckBoxItem(combo, "UseECombo") && E.IsReady())
                 {
-                    PredictionOutput pred = E.GetPrediction(target);
+                    var pred = E.GetPrediction(target);
                     if (target.IsValid && target.IsVisible && target.IsHPBarRendered && !target.IsDead && ShouldJump(pred.CastPosition))
                     {
                         E.Cast(pred.CastPosition);
@@ -492,7 +492,7 @@ namespace SephKhazix
                         LeagueSharp.Common.Utility.DelayAction.Add(
                             Game.Ping + getSliderItem(ks, "Edelay"), delegate
                             {
-                                PredictionOutput pred = E.GetPrediction(target);
+                                var pred = E.GetPrediction(target);
                                 if (target.IsValid && !target.IsDead)
                                 {
                                     if (getCheckBoxItem(ks, "Ksbypass") || ShouldJump(pred.CastPosition))
@@ -511,7 +511,7 @@ namespace SephKhazix
                     if (target.Health <= WDmg)
                     {
                         var pred = W.GetPrediction(target);
-                        if (pred.Hitchance >= HitChance.Medium)
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                         {
                             W.Cast(pred.CastPosition);
                             return;
@@ -524,16 +524,16 @@ namespace SephKhazix
                         getCheckBoxItem(ks, "UseWKs"))
                 {
                     double WDmg = Khazix.GetSpellDamage(target, SpellSlot.W);
-                    PredictionOutput pred = WE.GetPrediction(target);
-                    if (target.Health <= WDmg && pred.Hitchance >= HitChance.Medium)
+                    var pred = WE.GetPrediction(target);
+                    if (target.Health <= WDmg && pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                     {
                         CastWE(target, pred.UnitPosition.LSTo2D(), 0, Config.GetHitChance("WHitchance"));
                         return;
                     }
 
-                    if (pred.Hitchance >= HitChance.Collision)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Collision)
                     {
-                        List<Obj_AI_Base> PCollision = pred.CollisionObjects;
+                        List<Obj_AI_Base> PCollision = pred.CollisionObjects.ToList();
                         var x =
                             PCollision
                                 .FirstOrDefault(PredCollisionChar => Vector3.Distance(PredCollisionChar.ServerPosition, target.ServerPosition) <= 30);
@@ -557,7 +557,7 @@ namespace SephKhazix
                     {
                         LeagueSharp.Common.Utility.DelayAction.Add(getSliderItem(ks, "Edelay"), delegate
                         {
-                            PredictionOutput pred = E.GetPrediction(target);
+                            var pred = E.GetPrediction(target);
                             if (target.LSIsValidTarget() && !target.IsZombie && target.IsVisible && target.IsHPBarRendered && ShouldJump(pred.CastPosition))
                             {
                                 if (getCheckBoxItem(ks, "Ksbypass") || ShouldJump(pred.CastPosition))
@@ -580,7 +580,7 @@ namespace SephKhazix
 
                         LeagueSharp.Common.Utility.DelayAction.Add(getSliderItem(ks, "Edelay"), delegate
                         {
-                            PredictionOutput pred = E.GetPrediction(target);
+                            var pred = E.GetPrediction(target);
                             if (target.IsValid && !target.IsDead && target.IsVisible && target.IsHPBarRendered && ShouldJump(pred.CastPosition))
                             {
                                 if (getCheckBoxItem(ks, "Ksbypass") || ShouldJump(pred.CastPosition))
@@ -655,7 +655,7 @@ namespace SephKhazix
 
 
 
-        internal void CastWE(Obj_AI_Base unit, Vector2 unitPosition, int minTargets = 0, HitChance hc = HitChance.Medium)
+        internal void CastWE(Obj_AI_Base unit, Vector2 unitPosition, int minTargets = 0, EloBuddy.SDK.Enumerations.HitChance hc = EloBuddy.SDK.Enumerations.HitChance.Medium)
         {
             var points = new List<Vector2>();
             var hitBoxes = new List<int>();
@@ -667,8 +667,8 @@ namespace SephKhazix
             {
                 if (enemy.LSIsValidTarget() && enemy.NetworkId != unit.NetworkId)
                 {
-                    PredictionOutput pos = WE.GetPrediction(enemy);
-                    if (pos.Hitchance >= hc)
+                    var pos = WE.GetPrediction(enemy);
+                    if (pos.HitChance >= hc)
                     {
                         points.Add(pos.UnitPosition.LSTo2D());
                         hitBoxes.Add((int)enemy.BoundingRadius + 275);

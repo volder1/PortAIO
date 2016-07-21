@@ -140,7 +140,7 @@ namespace PortAIO.Champion.Annie
                             continue;
 
                         var poutput = R.GetPrediction(enemy, true);
-                        var aoeCount = poutput.AoeTargetsHitCount;
+                        var aoeCount = poutput.GetCollisionObjects<AIHeroClient>().Count();
 
                         if (Rmode == 1)
                             R.Cast(enemy);
@@ -169,7 +169,7 @@ namespace PortAIO.Champion.Annie
                     else if (HaveStun && flash.IsReady())
                     {
                         var poutputFlas = FR.GetPrediction(enemy, true);
-                        var aoeCountFlash = poutputFlas.AoeTargetsHitCount;
+                        var aoeCountFlash = poutputFlas.GetCollisionObjects<AIHeroClient>().Count();
                         if (HaveStun && aoeCountFlash >= getSliderItem(RMenu, "rCountFlash") &&
                             getSliderItem(RMenu, "rCountFlash") > 0)
                         {

@@ -66,8 +66,7 @@ using Spell = LeagueSharp.Common.Spell;
             R = new Spell(SpellSlot.R);
 
             Q.SetSkillshot(550, 120, int.MaxValue, false, SkillshotType.SkillshotLine);
-            E.SetSkillshot(1550, 250, 1500, true, SkillshotType.SkillshotCone);
-            E.SetCharged("ZacE", "ZacE", 1150, 1550, 1.5f);
+            E.SetCharged(1150, 1550, 1.5f, 1550, 1500, 250);
 
             SpellList.Add(Q);
             SpellList.Add(W);

@@ -104,7 +104,7 @@ using EloBuddy.SDK;
             {
                 if (selectedTarget.BadaoIsValidTarget(BadaoMainVariables.Q.Range))
                 {
-                    if (BadaoMainVariables.Q.Cast(selectedTarget) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                    if (BadaoMainVariables.Q.Cast(selectedTarget))
                         BadaoPoppyVariables.QCastTick = Environment.TickCount;
                 }
             }

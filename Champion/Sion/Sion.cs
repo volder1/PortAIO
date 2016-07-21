@@ -77,8 +77,7 @@ using Utility = LeagueSharp.Common.Utility;
         private void InitSion()
         {
             Q = new Spell(SpellSlot.Q, 740);
-            Q.SetSkillshot(0.6f, 100f, float.MaxValue, false, SkillshotType.SkillshotLine);
-            Q.SetCharged("SionQ", "SionQ", 350, 740, 0.6f);
+            Q.SetCharged(350, 740, 0.6f, 0.6f, int.MaxValue, 100);
             W = new Spell(SpellSlot.W, 490);
             E = new Spell(SpellSlot.E, 775);
             E.SetSkillshot(0.25f, 80f, 1800, false, SkillshotType.SkillshotLine);
@@ -198,7 +197,7 @@ using Utility = LeagueSharp.Common.Utility;
                 var poly = GetPoly(qPred.UnitPosition);
                 if (qPred2.Hitchance >= HitChance.High && poly.IsInside(qPred2.UnitPosition.LSTo2D()) && poly.IsInside(target.ServerPosition))
                 {
-                    Q.StartCharging(qPred.CastPosition);
+                    Q.StartCharging();
                 }
             }
         }
@@ -218,7 +217,7 @@ using Utility = LeagueSharp.Common.Utility;
 
                 if (bestPositionQ.MinionsHit >= getSliderItem(menuLC, "qMinHit") && !Q.IsCharging)
                 {
-                    Q.StartCharging(bestPositionQ.Position.To3D());
+                    Q.StartCharging();
                     return;
                 }
                 if (Q.IsCharging && minions.Count(m => HealthPrediction.GetHealthPrediction(m, 500) < 0) > 0)
@@ -403,7 +402,7 @@ using Utility = LeagueSharp.Common.Utility;
         {
             if (E.CanCast(target))
             {
-                E.CastIfHitchanceEquals(target, HitChance.High);
+                E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 return;
             }
             var pred = Prediction.GetPrediction(

@@ -68,12 +68,10 @@ using Utility = LeagueSharp.Common.Utility;
             E = new Spell(SpellSlot.E, 1040);
             R = new Spell(SpellSlot.R, 675);
 
-            Q.SetSkillshot(0.6f, 100f, float.MaxValue, false, SkillshotType.SkillshotLine);
+            Q.SetCharged(700, 1550, 1.5f, 0.6f, int.MaxValue, 100);
             W.SetSkillshot(0.7f, 125f, float.MaxValue, false, SkillshotType.SkillshotCircle);
             E.SetSkillshot(0.25f, 60f, 1400f, true, SkillshotType.SkillshotLine);
             R.SetSkillshot(0.7f, 120f, float.MaxValue, false, SkillshotType.SkillshotCircle);
-
-            Q.SetCharged("XerathArcanopulseChargeUp", "XerathArcanopulseChargeUp", 700, 1550, 1.5f);
 
             drawMenu = Config.AddSubMenu("Drawings");
             drawMenu.Add("noti", new CheckBox("Show notification & line"));
@@ -338,7 +336,7 @@ using Utility = LeagueSharp.Common.Utility;
                     if (OktwCommon.GetPassiveTime(Player, "XerathArcanopulseChargeUp") < 1 || (Player.CountEnemiesInRange(800) > 0) || Player.LSDistance(t) > 1450)
                         Q.Cast(t);
                     else if (OktwCommon.GetPassiveTime(Player, "XerathArcanopulseChargeUp") < 2 || (Player.CountEnemiesInRange(1000) > 0))
-                        Q.CastIfHitchanceEquals(t, HitChance.VeryHigh);
+                        Q.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
                 else if (t.LSIsValidTarget(Q.Range - 300))
                 {

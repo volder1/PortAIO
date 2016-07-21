@@ -152,7 +152,7 @@ using EloBuddy.SDK;
                 if (getCheckBoxItem(comboMenu, "useRbeforeCC") &&
                     Program.IncDamages.GetAllyData(player.NetworkId).AnyCC)
                 {
-                    R.CastIfHitchanceEquals(target, HitChance.High);
+                    R.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
                 R.CastIfWillHit(target, getSliderItem(comboMenu, "useRMinHit"));
             }

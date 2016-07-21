@@ -124,7 +124,7 @@ using Spell = LeagueSharp.Common.Spell;
 
             if (comboQ && spells[Spells.Q].IsReady() && spells[Spells.Q].IsInRange(target))
             {
-                if (predA.Hitchance >= HitChance.High)
+                if (predA.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.Q].Cast(predA.CastPosition);
                 }
@@ -154,7 +154,7 @@ using Spell = LeagueSharp.Common.Spell;
                 foreach (var x in HeroManager.Enemies.Where(hero => !hero.IsDead && hero.LSIsValidTarget(spells[Spells.R].Range)))
                 {
                     var pred = spells[Spells.R].GetPrediction(x);
-                    if (pred.AoeTargetsHitCount >= countEnemyR)
+                    if (pred.GetCollisionObjects<AIHeroClient>().Count() >= countEnemyR)
                     {
                         spells[Spells.R].Cast(pred.CastPosition);
                     }
@@ -383,7 +383,7 @@ using Spell = LeagueSharp.Common.Spell;
             }
 
             var prediction = spells[Spells.R].GetPrediction(target);
-            if (prediction.Hitchance >= HitChance.High)
+            if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 spells[Spells.R].Cast(prediction.CastPosition);
             }

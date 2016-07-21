@@ -232,7 +232,7 @@ namespace GFUELElise
                         if (E.IsInRange(enemy))
                         {
                             var pred = E.GetPrediction(enemy);
-                            if (pred.Hitchance >= HitChance.Immobile)
+                            if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Immobile)
                             {
                                 E.Cast(enemy);
                             }
@@ -265,7 +265,7 @@ namespace GFUELElise
                     if (getCheckBoxItem(comboMenu, "GFUELElise.Combo.E") && E.IsInRange(target) && E.IsReady())
                     {
                         var prediction = E.GetPrediction(target);
-                        if (prediction.Hitchance >= HitChance.High)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             E.Cast(target);
                         }
@@ -279,7 +279,7 @@ namespace GFUELElise
                     if (getCheckBoxItem(comboMenu, "GFUELElise.Combo.W") && W.IsReady() && target.LSIsValidTarget(W.Range))
                     {
                         var prediction = W.GetPrediction(target);
-                        if (prediction.CollisionObjects.Count == 0)
+                        if (prediction.CollisionObjects.Count() == 0)
                         {
                             W.Cast(target.ServerPosition);
                         }
@@ -415,7 +415,7 @@ namespace GFUELElise
                         target.LSIsValidTarget(W.Range))
                     {
                         var prediction = W.GetPrediction(target);
-                        if (prediction.CollisionObjects.Count == 0)
+                        if (prediction.CollisionObjects.Count() == 0)
                         {
                             W.Cast(target.ServerPosition);
                         }

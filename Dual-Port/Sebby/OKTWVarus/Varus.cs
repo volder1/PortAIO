@@ -32,10 +32,9 @@ using Utility = LeagueSharp.Common.Utility;
             E = new Spell(SpellSlot.E, 975);
             R = new Spell(SpellSlot.R, 1050);
 
-            Q.SetSkillshot(0.25f, 70, 1650, false, SkillshotType.SkillshotLine);
+            Q.SetCharged(925, 1600, 1.5f, 0.25f, 1650, 70);
             E.SetSkillshot(0.35f, 120, 1500, false, SkillshotType.SkillshotCircle);
             R.SetSkillshot(0.25f, 120, 1950, false, SkillshotType.SkillshotLine);
-            Q.SetCharged("VarusQ", "VarusQ", 925, 1600, 1.5f);
 
             drawMenu = Config.AddSubMenu("Drawings");
             drawMenu.Add("qRange", new CheckBox("Q range", false));

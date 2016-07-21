@@ -263,7 +263,7 @@ using Spell = LeagueSharp.Common.Spell;
                         if (spells[Spells.R].GetDamage(target) > target.Health)
                         {
                             var pred = spells[Spells.R].GetPrediction(target);
-                            if (pred.Hitchance >= HitChance.High)
+                            if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                             {
                                 spells[Spells.R].Cast(target);
                             }
@@ -275,7 +275,7 @@ using Spell = LeagueSharp.Common.Spell;
                     if (useR && spells[Spells.R].IsReady() && target.LSIsValidTarget(spells[Spells.R].Range))
                     {
                         var pred = spells[Spells.R].GetPrediction(target);
-                        if (pred.Hitchance >= HitChance.High)
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             var hits = HeroManager.Enemies.Where(x => x.LSDistance(target) <= 300f).ToList();
                             if (hits.Any(hit => hits.Count >= countEnemies))
@@ -296,7 +296,7 @@ using Spell = LeagueSharp.Common.Spell;
                             && Player.CountEnemiesInRange(1000) == 1);
 
                 var pred = spells[Spells.R].GetPrediction(getthabitch);
-                if (pred.Hitchance >= HitChance.High)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.R].Cast(pred.CastPosition);
                 }

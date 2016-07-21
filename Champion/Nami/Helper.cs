@@ -9,10 +9,10 @@ using LeagueSharp.Common;
     {
         public static string[] HitchanceNameArray = {"Low", "Medium", "High", "Very High", "Only Immobile"};
 
-        public static HitChance[] HitchanceArray =
+        public static EloBuddy.SDK.Enumerations.HitChance[] HitchanceArray =
         {
-            HitChance.Low, HitChance.Medium, HitChance.High, HitChance.VeryHigh,
-            HitChance.Immobile
+            EloBuddy.SDK.Enumerations.HitChance.Low, EloBuddy.SDK.Enumerations.HitChance.Medium, EloBuddy.SDK.Enumerations.HitChance.High, EloBuddy.SDK.Enumerations.HitChance.High,
+            EloBuddy.SDK.Enumerations.HitChance.Immobile
         };
 
         public static string[] LowPriority =
@@ -41,7 +41,7 @@ using LeagueSharp.Common;
             "Zed", "Ziggs", "Kindred", "Jhin"
         };
 
-        public static HitChance SpellHitChance(Menu menu, string menuname)
+        public static EloBuddy.SDK.Enumerations.HitChance SpellHitChance(Menu menu, string menuname)
         {
             return HitchanceArray[menu[menuname].Cast<ComboBox>().CurrentValue];
         }

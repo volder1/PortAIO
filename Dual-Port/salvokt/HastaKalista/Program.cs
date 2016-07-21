@@ -157,11 +157,11 @@ using EloBuddy.SDK;
                 var predout = Q.GetPrediction(target);
                 var coll = predout.CollisionObjects;
 
-                if (coll.Count < 1)
+                if (coll.Count() < 1)
                 {
-                    Q.CastIfHitchanceEquals(target, HitChance.High);
+                    Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
-                if (coll.Count == 1 && q["AutoQM"].Cast<CheckBox>().CurrentValue)
+                if (coll.Count() == 1 && q["AutoQM"].Cast<CheckBox>().CurrentValue)
                 {
                     foreach (var c in coll)
                     {

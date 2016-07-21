@@ -85,7 +85,7 @@ using Spell = LeagueSharp.Common.Spell;
             if (getCheckBoxItem(menuC, "useq") && Q.CanCast(target) &&
                 dist < getSliderItem(menuC, "useqMaxRange") && !player.IsDashing())
             {
-                Q.CastIfHitchanceEquals(target, dist < 550 ? HitChance.Medium : HitChance.High,
+                Q.CastIfHitchanceEquals(target, dist < 550 ? EloBuddy.SDK.Enumerations.HitChance.Medium : EloBuddy.SDK.Enumerations.HitChance.High,
                     getCheckBoxItem(config, "packets"));
             }
             if (getCheckBoxItem(menuC, "usee") && E.CanCast(eTarget) &&

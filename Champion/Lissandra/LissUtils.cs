@@ -10,19 +10,19 @@ using SharpDX;
     {
         private static readonly AIHeroClient Player = Lissandra.Player;
 
-        public static HitChance GetHitChance(string search)
+        public static EloBuddy.SDK.Enumerations.HitChance GetHitChance(string search)
         {
             var hitchance = Lissandra.getBoxItem(Lissandra.miscMenu, search);
             switch (hitchance)
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
             }
-            return HitChance.Medium;
+            return EloBuddy.SDK.Enumerations.HitChance.Medium;
         }
 
         public static bool isHealthy()

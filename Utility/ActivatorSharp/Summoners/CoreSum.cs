@@ -187,7 +187,7 @@ using EloBuddy.SDK.Menu.Values;
                 if (Excluded.Any(ex => Name.Equals(ex)) || // ignore limit
                     Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
                 {
-                    if (Player.GetSpell(Slot).State == SpellState.Ready)
+                    if (Player.GetSpell(Slot).IsReady())
                     {
                         Player.Spellbook.CastSpell(Slot);
                         Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
@@ -204,7 +204,7 @@ using EloBuddy.SDK.Menu.Values;
                 if (Excluded.Any(ex => Name.Equals(ex)) || // ignore limit
                     Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration) 
                 {
-                    if (Player.GetSpell(Slot).State == SpellState.Ready)
+                    if (Player.GetSpell(Slot).IsReady())
                     {
                         Player.Spellbook.CastSpell(Slot, target);
                         Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;

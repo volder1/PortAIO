@@ -263,11 +263,11 @@ using Version = System.Version;
                           select Spells["Q2"].GetPrediction(hero)
                 into prediction
                           where
-                              prediction.CollisionObjects.Count > 0 &&
-                              prediction.Hitchance >= LissUtils.GetHitChance("Hitchance.Q")
+                              prediction.CollisionObjects.Count() > 0 &&
+                              prediction.HitChance >= LissUtils.GetHitChance("Hitchance.Q")
                           let enemieshit = prediction.CollisionObjects.Where(x => x is AIHeroClient)
                           select prediction).ToDictionary(prediction => prediction.CastPosition,
-                    prediction => prediction.CollisionObjects.Count);
+                    prediction => prediction.CollisionObjects.Count());
 
             var bestpair = maxhit.MaxOrDefault(x => x.Value);
             if (bestpair.Value > 0)
@@ -283,7 +283,7 @@ using Version = System.Version;
             if (distbw < Spells["Q"].Range)
             {
                 var prediction2 = Spells["Q"].GetPrediction(target);
-                if (prediction2.Hitchance >= LissUtils.GetHitChance("Hitchance.Q"))
+                if (prediction2.HitChance >= LissUtils.GetHitChance("Hitchance.Q"))
                 {
                     Spells["Q"].Cast(target);
                     return;
@@ -294,10 +294,10 @@ using Version = System.Version;
             {
                 var testQ = Spells["Qtest"].GetPrediction(target);
                 var collobjs = testQ.CollisionObjects;
-                if ((testQ.Hitchance == HitChance.Collision || collobjs.Count > 0) && collobjs.All(x => x.IsTargetable))
+                if ((testQ.HitChance == EloBuddy.SDK.Enumerations.HitChance.Collision || collobjs.Count() > 0) && collobjs.All(x => x.IsTargetable))
                 {
                     var pred = Spells["Q2"].GetPrediction(target);
-                    if (pred.Hitchance >= LissUtils.GetHitChance("Hitchance.Q"))
+                    if (pred.HitChance >= LissUtils.GetHitChance("Hitchance.Q"))
                     {
                         Spells["Q2"].Cast(target);
                     }
@@ -334,8 +334,8 @@ using Version = System.Version;
                         .Select(hero => Spells["E"].GetPrediction(hero))
                         .Select(
                             pred =>
-                                new Tuple<Vector3, int, HitChance, List<AIHeroClient>>(pred.CastPosition,
-                                    pred.AoeTargetsHitCount, pred.Hitchance, pred.AoeTargetsHit));
+                                new Tuple<Vector3, int, EloBuddy.SDK.Enumerations.HitChance, List<AIHeroClient>>(pred.CastPosition,
+                                    pred.GetCollisionObjects<AIHeroClient>().Count(), pred.HitChance, pred.GetCollisionObjects<AIHeroClient>().ToList()));
 
                 var BestLocation = PredManager.MaxOrDefault(x => x.Item4.Count);
                 if (BestLocation.Item3 >= LissUtils.GetHitChance("Hitchance.E") && Spells["E"].IsReady())

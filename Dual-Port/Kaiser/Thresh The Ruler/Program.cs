@@ -289,7 +289,7 @@ using EloBuddy.SDK.Menu.Values;
                             {
                                 var b = Q.GetPrediction(target);
 
-                                if (b.Hitchance >= HitChance.High &&
+                                if (b.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High &&
                                     Player.LSDistance(target.ServerPosition) < Q.Range)
                                 {
                                     Q.Cast(target);
@@ -303,7 +303,7 @@ using EloBuddy.SDK.Menu.Values;
                             {
                                 if (Player.LSDistance(target.ServerPosition) < Q.Range)
                                 {
-                                    Q.CastIfHitchanceEquals(target, HitChance.High);
+                                    Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                                 }
                             }
                             break;

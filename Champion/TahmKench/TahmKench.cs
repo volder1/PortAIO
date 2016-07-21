@@ -207,7 +207,7 @@ using Utility = LeagueSharp.Common.Utility;
             }
             if (getCheckBoxItem(menuH, "useqH") && Q.CanCast(target) && !justWOut)
             {
-                handeQ(target, HitChance.VeryHigh);
+                handeQ(target, EloBuddy.SDK.Enumerations.HitChance.High);
             } //usewminiH
             if (getCheckBoxItem(menuH, "usewminiH"))
             {
@@ -240,7 +240,7 @@ using Utility = LeagueSharp.Common.Utility;
         {
             if (W.IsReady() && MinionInYou && WSkillShot.CanCast(target))
             {
-                WSkillShot.CastIfHitchanceEquals(target, HitChance.High, getCheckBoxItem(config, "packets"));
+                WSkillShot.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, getCheckBoxItem(config, "packets"));
             }
             if (W.IsReady() && !SomebodyInYou && WSkillShot.CanCast(target) &&
                 player.LSDistance(target) > getSliderItem(menuC, "usewminiRange"))
@@ -305,7 +305,7 @@ using Utility = LeagueSharp.Common.Utility;
             }
             if (Q.CanCast(target) && getCheckBoxItem(menuC, "useq") && !justWOut)
             {
-                handeQ(target, HitChance.High);
+                handeQ(target, EloBuddy.SDK.Enumerations.HitChance.High);
             }
             if (W.IsReady() && !SomebodyInYou && getCheckBoxItem(menuC, "usew") && !blockW)
             {
@@ -332,7 +332,7 @@ using Utility = LeagueSharp.Common.Utility;
             return player.CalcDamage(target, DamageType.Magical, dmg + bonusDmg);
         }
 
-        private void handeQ(AIHeroClient target, HitChance hitChance)
+        private void handeQ(AIHeroClient target, EloBuddy.SDK.Enumerations.HitChance hitChance)
         {
             if (player.LSDistance(target) <= Orbwalking.GetRealAutoAttackRange(target) && !Orbwalker.CanAutoAttack &&
                 target.GetBuffCount("TahmKenchPDebuffCounter") != 2)

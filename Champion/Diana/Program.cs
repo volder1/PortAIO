@@ -52,7 +52,7 @@ namespace ElDiana
 
         #region Properties
 
-        private static HitChance CustomHitChance
+        private static EloBuddy.SDK.Enumerations.HitChance CustomHitChance
         {
             get { return GetHitchance(); }
         }
@@ -314,7 +314,7 @@ namespace ElDiana
             if (useQ && spells[Spells.Q].IsReady() && target.LSIsValidTarget(spells[Spells.Q].Range))
             {
                 var pred = spells[Spells.Q].GetPrediction(target);
-                if (pred.Hitchance >= HitChance.VeryHigh)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.Q].Cast(target);
                 }
@@ -366,20 +366,20 @@ namespace ElDiana
             }
         }
 
-        private static HitChance GetHitchance()
+        private static EloBuddy.SDK.Enumerations.HitChance GetHitchance()
         {
             switch (getSliderItem(comboMenu, "ElDiana.hitChance"))
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 default:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
             }
         }
 
@@ -404,7 +404,7 @@ namespace ElDiana
             if (useQ && spells[Spells.Q].IsReady() && spells[Spells.Q].IsInRange(target))
             {
                 var pred = spells[Spells.Q].GetPrediction(target);
-                if (pred.Hitchance >= CustomHitChance)
+                if (pred.HitChance >= CustomHitChance)
                 {
                     spells[Spells.Q].Cast(target);
                 }
@@ -607,7 +607,7 @@ namespace ElDiana
             if (useQ && spells[Spells.Q].IsReady() && spells[Spells.Q].IsInRange(target))
             {
                 var pred = spells[Spells.Q].GetPrediction(target);
-                if (pred.Hitchance >= HitChance.VeryHigh)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.Q].Cast(pred.CastPosition);
                 }

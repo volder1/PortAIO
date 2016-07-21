@@ -456,7 +456,7 @@ namespace OneKeyToWin_AIO_Sebby
 
             if (getCheckBoxItem(farmMenu, "FQ"))
             {
-                if (minions.Where(minion => minion.LSIsValidTarget() && orbTarget != minion.NetworkId && minion.HealthPercent < 70 && !LeagueSharp.Common.Orbwalking.InAutoAttackRange(minion) && minion.Health < Q.GetDamage(minion)).Any(minion => Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted))
+                if (minions.Where(minion => minion.LSIsValidTarget() && orbTarget != minion.NetworkId && minion.HealthPercent < 70 && !LeagueSharp.Common.Orbwalking.InAutoAttackRange(minion) && minion.Health < Q.GetDamage(minion)).Any(minion => Q.Cast(minion)))
                 {
                     Console.WriteLine("2");
                     return;
@@ -477,14 +477,14 @@ namespace OneKeyToWin_AIO_Sebby
                     var qDmg = Q.GetDamage(minion);
                     if (hpPred < qDmg && orbTarget != minion.NetworkId)
                     {
-                        if (Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted)
+                        if (Q.Cast(minion))
                             return;
                     }
                     else if (PT || LCP)
                     {
                         if (minion.HealthPercent > 80)
                         {
-                            if (Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted)
+                            if (Q.Cast(minion))
                                 return;
                         }
                     }
@@ -623,7 +623,7 @@ namespace OneKeyToWin_AIO_Sebby
                 if (target.LSIsValidTarget())
                 {
                     var poutput = Q.GetPrediction(target);
-                    if ((int)poutput.Hitchance == 5)
+                    if ((int)poutput.HitChance == 5)
                         Render.Circle.DrawCircle(poutput.CastPosition, 50, Color.YellowGreen);
                     if (Q.GetDamage(target) > target.Health)
                     {

@@ -35,8 +35,8 @@ namespace JustHecarim
 
             if (R.IsReady() && sender.LSIsValidTarget(R.Range) && getCheckBoxItem(miscMenu, "interruptr"))
             {
-                var pred = R.GetPrediction(sender).Hitchance;
-                if (pred >= HitChance.High)
+                var pred = R.GetPrediction(sender).HitChance;
+                if (pred >= EloBuddy.SDK.Enumerations.HitChance.High)
                     R.Cast(sender);
             }
         }
@@ -58,8 +58,8 @@ namespace JustHecarim
             var enemys = target.CountEnemiesInRange(R.Range);
             if (R.IsReady() && getCheckBoxItem(comboMenu, "UseR") && target.LSIsValidTarget(R.Range))
             {
-                var pred = R.GetPrediction(target).Hitchance;
-                if (pred >= HitChance.High)
+                var pred = R.GetPrediction(target).HitChance;
+                if (pred >= EloBuddy.SDK.Enumerations.HitChance.High)
                     R.CastIfWillHit(target, enemys);
             }
         }
@@ -85,7 +85,7 @@ namespace JustHecarim
 
             if (R.IsReady() && getCheckBoxItem(comboMenu, "UseR") && target.LSIsValidTarget(R.Range))
                 if (getSliderItem(comboMenu, "Rene") <= enemys)
-                    R.CastIfHitchanceEquals(target, HitChance.High);
+                    R.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
         }
 
         private static float GetComboDamage(AIHeroClient Target)
@@ -144,7 +144,7 @@ namespace JustHecarim
                                 enemy.LSIsValidTarget(R.Range) && enemy.Health < player.GetSpellDamage(enemy, SpellSlot.R));
                 if (target.LSIsValidTarget(R.Range) && target.IsEnemy)
                 {
-                    R.CastIfHitchanceEquals(target, HitChance.High);
+                    R.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
             }
         }

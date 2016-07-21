@@ -202,10 +202,10 @@ using Utility = LeagueSharp.Common.Utility;
 
             if (useR && _r.IsReady())
             {
-                if (t != null && _r.GetPrediction(t).Hitchance >= Rchange())
+                if (t != null && _r.GetPrediction(t).HitChance >= Rchange())
                     if (!t.HasBuff("JudicatorIntervention") && !t.HasBuff("Undying Rage") &&
                         ComboDamage(t) > t.Health)
-                        _r.CastIfHitchanceEquals(t, HitChance.Medium);
+                        _r.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.Medium);
             }
             if (useW && _w.IsReady())
             {
@@ -216,7 +216,7 @@ using Utility = LeagueSharp.Common.Utility;
             if (useE && _e.IsReady())
             {
                 if (t != null && _player.LSDistance(t) < _e.Range &&
-                    _e.GetPrediction(t).Hitchance >= Echange())
+                    _e.GetPrediction(t).HitChance >= Echange())
                     _e.Cast(t);
             }
 
@@ -230,7 +230,7 @@ using Utility = LeagueSharp.Common.Utility;
             {
                 if (ObjectManager.Get<AIHeroClient>().Count(hero => hero.LSIsValidTarget(_r.Range)) >=
                     getSliderItem(comboMenu, "MinTargets")
-                    && _r.GetPrediction(t).Hitchance >= Rchange())
+                    && _r.GetPrediction(t).HitChance >= Rchange())
                     _r.Cast(t);
             }
         }
@@ -256,7 +256,7 @@ using Utility = LeagueSharp.Common.Utility;
             if (useE && _e.IsReady())
             {
                 var t = TargetSelector.GetTarget(_e.Range, DamageType.Magical);
-                if (t != null && _player.LSDistance(t) < _e.Range && _e.GetPrediction(t).Hitchance >= Echange())
+                if (t != null && _player.LSDistance(t) < _e.Range && _e.GetPrediction(t).HitChance >= Echange())
                     _e.Cast(t);
             }
         }
@@ -361,37 +361,37 @@ using Utility = LeagueSharp.Common.Utility;
             }
         }
 
-        private static HitChance Echange()
+        private static EloBuddy.SDK.Enumerations.HitChance Echange()
         {
             switch (getBoxItem(miscMenu, "Echange"))
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 default:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
             }
         }
 
-        private static HitChance Rchange()
+        private static EloBuddy.SDK.Enumerations.HitChance Rchange()
         {
             switch (getBoxItem(miscMenu, "Rchange"))
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 default:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
             }
         }
 
@@ -411,7 +411,7 @@ using Utility = LeagueSharp.Common.Utility;
                     var t = TargetSelector.GetTarget(_r.Range, DamageType.Magical);
                     if (t != null)
                         if (!t.HasBuff("JudicatorIntervention") && !t.HasBuff("Undying Rage") &&
-                            _r.GetDamage(t) > t.Health && _r.GetPrediction(t).Hitchance >= Rchange())
+                            _r.GetDamage(t) > t.Health && _r.GetPrediction(t).HitChance >= Rchange())
                             _r.Cast(t);
                 }
             }

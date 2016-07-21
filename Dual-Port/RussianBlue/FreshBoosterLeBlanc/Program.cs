@@ -290,11 +290,11 @@ using Spell = LeagueSharp.Common.Spell;
                     var ETarget = TargetSelector.GetTarget(_E.Range, DamageType.Magical);
                     if (_E.IsReady() && ETarget != null && Environment.TickCount > ERTIME)
                     {
-                        _E.CastIfHitchanceEquals(ETarget, HitChance.Low, true);
+                        _E.CastIfHitchanceEquals(ETarget, EloBuddy.SDK.Enumerations.HitChance.Low, true);
                     }
                     else if (ETarget != null && _R.IsReady() && Player.Spellbook.GetSpell(SpellSlot.R).Name.ToLower() == "leblancsoulshacklem" && Environment.TickCount > ERTIME)
                     {
-                        _R.CastIfHitchanceEquals(ETarget, HitChance.Low, true);
+                        _R.CastIfHitchanceEquals(ETarget, EloBuddy.SDK.Enumerations.HitChance.Low, true);
                     }
                 }
 
@@ -341,7 +341,7 @@ using Spell = LeagueSharp.Common.Spell;
                     if (ETarget == null) return;
                     if (ETarget.Health <= _E.GetDamage(ETarget))
                     {
-                        _E.CastIfHitchanceEquals(ETarget, HitChance.Low, true);
+                        _E.CastIfHitchanceEquals(ETarget, EloBuddy.SDK.Enumerations.HitChance.Low, true);
                         return;
                     }
                 }
@@ -371,7 +371,7 @@ using Spell = LeagueSharp.Common.Spell;
                     if (QTarget == null) return;
                     if (QTarget.Health <= _E.GetDamage(QTarget))
                     {
-                        _R.CastIfHitchanceEquals(QTarget, HitChance.Low, true);
+                        _R.CastIfHitchanceEquals(QTarget, EloBuddy.SDK.Enumerations.HitChance.Low, true);
                         return;
                     }
                 }

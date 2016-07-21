@@ -45,7 +45,7 @@ namespace SPrediction
             {
                 var pred = s.GetPrediction(target);
                 var result = new Prediction.Result(new Prediction.Input(target, s), target, pred.CastPosition.LSTo2D(),
-                    pred.UnitPosition.LSTo2D(), pred.Hitchance, default(Collision.Result));
+                    pred.UnitPosition.LSTo2D(), pred.HitChance, default(Collision.Result));
                 result.Lock(false);
                 return result;
             }
@@ -290,7 +290,7 @@ namespace SPrediction
         /// <param name="rangeCheckFrom">Position where spell will be casted from</param>
         /// <param name="filterHPPercent">Minimum HP Percent to cast (for target)</param>
         /// <returns>true if spell has casted</returns>
-        public static bool SPredictionCast(this Spell s, AIHeroClient t, HitChance hc, int reactionIgnoreDelay = 0,
+        public static bool SPredictionCast(this Spell s, AIHeroClient t, EloBuddy.SDK.Enumerations.HitChance hc, int reactionIgnoreDelay = 0,
             byte minHit = 1, Vector3? rangeCheckFrom = null, float filterHPPercent = 100)
         {
             if (rangeCheckFrom == null)
@@ -300,7 +300,7 @@ namespace SPrediction
                 return s.Cast();
 
             if (!s.IsSkillshot)
-                return s.Cast(t) == Spell.CastStates.SuccessfullyCasted;
+                return s.Cast(t);
 
             #region if common prediction selected
 
@@ -309,11 +309,11 @@ namespace SPrediction
                 var pout = s.GetPrediction(t, minHit > 1);
 
                 if (minHit > 1)
-                    if (pout.AoeTargetsHitCount >= minHit)
+                    if (pout.GetCollisionObjects<AIHeroClient>().Length >= minHit)
                         return s.Cast(pout.CastPosition);
                     else return false;
 
-                if (pout.Hitchance >= hc)
+                if (pout.HitChance >= hc)
                     return s.Cast(pout.CastPosition);
                 return false;
             }
@@ -375,7 +375,7 @@ namespace SPrediction
         /// <param name="rangeCheckFrom">Position where spell will be casted from</param>
         /// <param name="filterHPPercent">Minimum HP Percent to cast (for target)</param>
         /// <returns>true if spell has casted</returns>
-        public static bool SPredictionCastArc(this Spell s, AIHeroClient t, HitChance hc, bool arconly = true,
+        public static bool SPredictionCastArc(this Spell s, AIHeroClient t, EloBuddy.SDK.Enumerations.HitChance hc, bool arconly = true,
             int reactionIgnoreDelay = 0, byte minHit = 1, Vector3? rangeCheckFrom = null, float filterHPPercent = 100)
         {
             if (ConfigMenu.SelectedPrediction == 1)
@@ -418,7 +418,7 @@ namespace SPrediction
         /// <param name="rangeCheckFrom">Position where spell will be casted from</param>
         /// <param name="filterHPPercent">Minimum HP Percent to cast (for target)</param>
         /// <returns>true if spell has casted</returns>
-        public static bool SPredictionCastVector(this Spell s, AIHeroClient t, float vectorLenght, HitChance hc,
+        public static bool SPredictionCastVector(this Spell s, AIHeroClient t, float vectorLenght, EloBuddy.SDK.Enumerations.HitChance hc,
             int reactionIgnoreDelay = 0, byte minHit = 1, Vector3? rangeCheckFrom = null, float filterHPPercent = 100)
         {
             if (ConfigMenu.SelectedPrediction == 1)
@@ -461,7 +461,7 @@ namespace SPrediction
         /// <param name="rangeCheckFrom">Position where spell will be casted from</param>
         /// <param name="filterHPPercent">Minimum HP Percent to cast (for target)</param>
         /// <returns>true if spell has casted</returns>
-        public static bool SPredictionCastRing(this Spell s, AIHeroClient t, float ringRadius, HitChance hc,
+        public static bool SPredictionCastRing(this Spell s, AIHeroClient t, float ringRadius, EloBuddy.SDK.Enumerations.HitChance hc,
             bool onlyEdge = true, int reactionIgnoreDelay = 0, byte minHit = 1, Vector3? rangeCheckFrom = null,
             float filterHPPercent = 100)
         {

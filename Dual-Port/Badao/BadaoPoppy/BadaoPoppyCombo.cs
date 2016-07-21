@@ -87,7 +87,7 @@ using EloBuddy.SDK;
                 var target = TargetSelector.GetTarget(BadaoMainVariables.Q.Range, DamageType.Physical);
                 if (target.BadaoIsValidTarget())
                 {
-                    if (BadaoMainVariables.Q.Cast(target) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                    if (BadaoMainVariables.Q.Cast(target))
                         BadaoPoppyVariables.QCastTick = Environment.TickCount;
                 }
             }

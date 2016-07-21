@@ -11,22 +11,22 @@ namespace Mundo
             get { return ObjectManager.Player; }
         }
 
-        public static HitChance GetHitChance(string name)
+        public static EloBuddy.SDK.Enumerations.HitChance GetHitChance(string name)
         {
             var hitChance = Mundo.getSliderItem(Mundo.miscMenu, "hitchanceQ");
 
             switch (hitChance)
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
             }
-            return HitChance.VeryHigh;
+            return EloBuddy.SDK.Enumerations.HitChance.High;
         }
 
         public static bool CheckItem()

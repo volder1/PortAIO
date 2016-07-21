@@ -596,7 +596,7 @@ using EloBuddy.SDK.Menu.Values;
 
                 var shadowpred = _q.GetPrediction(target);
                 _q.UpdateSourcePosition(WShadow.ServerPosition, WShadow.ServerPosition);
-                if (shadowpred.Hitchance >= HitChance.Medium)
+                if (shadowpred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                     _q.Cast(target);
 
 
@@ -607,7 +607,7 @@ using EloBuddy.SDK.Menu.Values;
                 _q.UpdateSourcePosition(_player.ServerPosition, _player.ServerPosition);
                 var normalpred = _q.GetPrediction(target);
 
-                if (normalpred.CastPosition.LSDistance(_player.ServerPosition) < 900 && normalpred.Hitchance >= HitChance.Medium)
+                if (normalpred.CastPosition.LSDistance(_player.ServerPosition) < 900 && normalpred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                 {
                     _q.Cast(target);
                 }

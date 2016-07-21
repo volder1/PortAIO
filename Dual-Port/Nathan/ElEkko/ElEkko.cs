@@ -366,7 +366,7 @@
                 if (Player.LSCountEnemiesInRange(spells[Spells.W].Range) >= enemies)
                 {
                     var pred = spells[Spells.W].GetPrediction(target);
-                    if (pred.Hitchance >= HitChance.High)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         spells[Spells.W].Cast(pred.CastPosition);
                     }
@@ -377,7 +377,7 @@
                          && target.LSDistance(Player.Position) <= spells[Spells.E].Range)
                 {
                     var pred = spells[Spells.W].GetPrediction(target);
-                    if (pred.Hitchance >= HitChance.High)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         spells[Spells.W].Cast(pred.CastPosition);
                     }
@@ -387,10 +387,10 @@
                     if (target.ServerPosition.LSDistance(Player.Position)
                         > spells[Spells.E].Range * spells[Spells.E].Range)
                     {
-                        if (spells[Spells.W].GetPrediction(target).Hitchance >= HitChance.VeryHigh)
+                        if (spells[Spells.W].GetPrediction(target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             var pred = spells[Spells.W].GetPrediction(target);
-                            if (pred.Hitchance >= HitChance.High)
+                            if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                             {
                                 spells[Spells.W].Cast(pred.CastPosition);
                             }
@@ -609,7 +609,7 @@
                 if (CountPassive(qtarget) == 2 && qtarget.LSDistance(Player.Position) <= spells[Spells.Q].Range)
                 {
                     var pred = spells[Spells.Q].GetPrediction(qtarget);
-                    if (pred.Hitchance >= HitChance.High)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         spells[Spells.Q].Cast(pred.CastPosition);
                     }

@@ -382,7 +382,7 @@ using Utility = LeagueSharp.Common.Utility;
                     if (_be.IsReady() && te.LSIsValidTarget(_be.Range + _bw.Range) && _player.LSDistance(te) > _q.Range)
                     {
                         var predE = _be.GetPrediction(te, true);
-                        if (predE.Hitchance >= HitChance.High)
+                        if (predE.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                             _be.Cast(predE.CastPosition.LSExtend(_player.ServerPosition, -50));
                     }
                 }
@@ -390,7 +390,7 @@ using Utility = LeagueSharp.Common.Utility;
                 if (getCheckBoxItem(comboMenu, "UseQBCombo"))
                 {
                     var tbq = TargetSelector.GetTarget(_bq.Range, DamageType.Magical);
-                    if (_bq.IsReady() && t.LSIsValidTarget(_bq.Range)) _bq.CastIfHitchanceEquals(tbq, HitChance.High);
+                    if (_bq.IsReady() && t.LSIsValidTarget(_bq.Range)) _bq.CastIfHitchanceEquals(tbq, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
 
                 if (getCheckBoxItem(comboMenu, "UseWCombo"))
@@ -481,7 +481,7 @@ using Utility = LeagueSharp.Common.Utility;
             {
                 if (target.LSIsValidTarget(_bq.Range) && _bq.IsReady() && IsBurrowed())
                 {
-                    _bq.CastIfHitchanceEquals(target, HitChance.High);
+                    _bq.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
 
                 if (targetq.LSIsValidTarget(_q.Range) && _q.IsReady() && !IsBurrowed())
@@ -652,14 +652,14 @@ using Utility = LeagueSharp.Common.Utility;
                 {
                     if (_bq.IsReady() && hero.LSIsValidTarget(_bq.Range) && IsBurrowed())
                     {
-                        if (hero.Health <= BqDamage(hero)) _bq.CastIfHitchanceEquals(hero, HitChance.High);
+                        if (hero.Health <= BqDamage(hero)) _bq.CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.High);
                     }
 
                     if (_bq.IsReady() && _w.IsReady() && !hero.LSIsValidTarget(_q.Range) && hero.LSIsValidTarget(_bq.Range)
                         && hero.Health <= BqDamage(hero))
                     {
                         _w.Cast();
-                        _bq.CastIfHitchanceEquals(hero, HitChance.High);
+                        _bq.CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.High);
                     }
 
                     if (_q.IsReady() && hero.LSIsValidTarget(_q.Range) && !IsBurrowed())

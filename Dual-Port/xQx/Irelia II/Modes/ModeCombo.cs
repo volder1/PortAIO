@@ -278,9 +278,9 @@ using EloBuddy.SDK;
             {
                 if (!t.LSIsValidTarget(Q.Range + Orbwalking.GetRealAutoAttackRange(null)) && t.Health < R.GetDamage(t) * 4)
                 {
-                    PredictionOutput rPredictionOutput = R.GetPrediction(t);
+                    var rPredictionOutput = R.GetPrediction(t);
                     Vector3 castPosition = rPredictionOutput.CastPosition.LSExtend(ObjectManager.Player.Position, -(ObjectManager.Player.LSDistance(t.ServerPosition) >= 450 ? 80 : 120));
-                    if (rPredictionOutput.Hitchance >= (ObjectManager.Player.LSDistance(t.ServerPosition) >= R.Range / 2 ? HitChance.VeryHigh : HitChance.High) && ObjectManager.Player.LSDistance(castPosition) < R.Range)
+                    if (rPredictionOutput.HitChance >= (ObjectManager.Player.LSDistance(t.ServerPosition) >= R.Range / 2 ? EloBuddy.SDK.Enumerations.HitChance.High : EloBuddy.SDK.Enumerations.HitChance.High) && ObjectManager.Player.LSDistance(castPosition) < R.Range)
                     {
                         R.Cast(castPosition);
                     }

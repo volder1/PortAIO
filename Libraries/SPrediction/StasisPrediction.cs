@@ -182,7 +182,7 @@ namespace SPrediction
                         CastPosition = Unit.ServerPosition.LSTo2D()
                     };
                     pred.UnitPosition = pred.CastPosition;
-                    pred.HitChance = HitChance.VeryHigh;
+                    pred.HitChance = EloBuddy.SDK.Enumerations.HitChance.High;
                     pred.Lock(false);
 
                     var result = new Result
@@ -191,8 +191,8 @@ namespace SPrediction
                         Prediction = pred
                     };
 
-                    if (OnGuaranteedHit != null && pred.HitChance != HitChance.Collision &&
-                        pred.HitChance != HitChance.OutOfRange)
+                    if (OnGuaranteedHit != null && pred.HitChance != EloBuddy.SDK.Enumerations.HitChance.Collision &&
+                        pred.HitChance != EloBuddy.SDK.Enumerations.HitChance.Unknown)
                         OnGuaranteedHit(MethodBase.GetCurrentMethod().DeclaringType, result);
 
                     Processed = true;

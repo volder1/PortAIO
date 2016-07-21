@@ -271,7 +271,7 @@ namespace TophSharp
                 _q.Cast(target);
             }
 
-            if (CanUse(_w, target) && usew && wpred.Hitchance >= HitChance.High)
+            if (CanUse(_w, target) && usew && wpred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 _w.Cast(wpred.CastPosition);
             }
@@ -304,7 +304,7 @@ namespace TophSharp
             var wpred = _w.GetPrediction(target);
             var qpred = _q.GetPrediction(target);
 
-            if (CanUse(_q, target) && useq && qpred.Hitchance > HitChance.High)
+            if (CanUse(_q, target) && useq && qpred.HitChance > EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 _q.Cast(qpred.CastPosition);
             }
@@ -316,13 +316,13 @@ namespace TophSharp
             }
 
             if (Environment.TickCount - EJustUsed < 2500 && Environment.TickCount - EJustUsed > 500 &&
-                CanUse(_w, target) && !CanUse(_e, target) && usew && _w.GetPrediction(target).Hitchance >= HitChance.VeryHigh) 
+                CanUse(_w, target) && !CanUse(_e, target) && usew && _w.GetPrediction(target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) 
             {
                 _w.Cast(wpred.CastPosition);
             }
 
             if (!CanUse(_e, target) && CanUse(_w, target) && SpellUpSoon(SpellSlot.E) > 1f && usew &&
-                _w.GetPrediction(target).Hitchance >= HitChance.VeryHigh)
+                _w.GetPrediction(target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 if (CanUse(_e, target) && (CanUse(_w, target) || SpellUpSoon(SpellSlot.W) < 0.5f) && usee) return;
                 _w.Cast(wpred.CastPosition);

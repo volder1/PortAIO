@@ -280,12 +280,12 @@ using Utility = LeagueSharp.Common.Utility;
                         if (!KL.CatForm())
                         {
                             KL.Spells["Javelin"].Cast(hero);
-                            KL.Spells["Javelin"].CastIfHitchanceEquals(hero, HitChance.Immobile);
+                            KL.Spells["Javelin"].CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.Immobile);
                         }
                         else
                         {
                             if (KL.Spells["Aspect"].IsReady() &&
-                                KL.Spells["Javelin"].Cast(hero) == Spell.CastStates.Collision)
+                                KL.Spells["Javelin"].Cast(hero))
                                 KL.Spells["Aspect"].Cast();
                         }
                     }
@@ -301,7 +301,7 @@ using Utility = LeagueSharp.Common.Utility;
                         args.Buff.Type == BuffType.Taunt || args.Buff.Type == BuffType.Knockback)
                     {
                         KL.Spells["Bushwhack"].Cast(hero);
-                        KL.Spells["Bushwhack"].CastIfHitchanceEquals(hero, HitChance.Immobile);
+                        KL.Spells["Bushwhack"].CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.Immobile);
                     }
                 }
             }

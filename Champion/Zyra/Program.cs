@@ -174,20 +174,20 @@ using Utility = LeagueSharp.Common.Utility;
 
         
 
-        private static HitChance Echange()
+        private static EloBuddy.SDK.Enumerations.HitChance Echange()
         {
             switch (getBoxItem(miscMenu, "Echange"))
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 default:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
             }
         }
 
@@ -262,7 +262,7 @@ using Utility = LeagueSharp.Common.Utility;
                 }
                 else if (_e.IsReady() && gapcloser.Sender.LSIsValidTarget(_e.Range))
                 {
-                    _e.CastIfHitchanceEquals(gapcloser.Sender, HitChance.High);
+                    _e.CastIfHitchanceEquals(gapcloser.Sender, EloBuddy.SDK.Enumerations.HitChance.High);
                 }
             }
         }
@@ -281,7 +281,7 @@ using Utility = LeagueSharp.Common.Utility;
             }
             else if (_e.IsReady() && unit.LSIsValidTarget(_e.Range))
             {
-                _e.CastIfHitchanceEquals(unit, HitChance.High);
+                _e.CastIfHitchanceEquals(unit, EloBuddy.SDK.Enumerations.HitChance.High);
             }
         }
 
@@ -414,13 +414,13 @@ using Utility = LeagueSharp.Common.Utility;
             if (!target.LSIsValidTarget(_r.Range) || !_r.IsReady()) return;
 
             if (ComboDamage(target)*1.3 > target.Health && getCheckBoxItem(comboMenu, "use_ulti")
-                && _r.GetPrediction(target).Hitchance >= HitChance.High)
+                && _r.GetPrediction(target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 _r.Cast(rpred.CastPosition);
             }
             if (ObjectManager.Get<AIHeroClient>().Count(hero => hero.LSIsValidTarget(_r.Range))
                 >= getSliderItem(comboMenu, "MinTargets")
-                && _r.GetPrediction(target).Hitchance >= HitChance.High)
+                && _r.GetPrediction(target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 _r.Cast(target);
             }
@@ -431,7 +431,7 @@ using Utility = LeagueSharp.Common.Utility;
             if (!_q.IsReady()) return;
             var target = TargetSelector.GetTarget(_q.Range + _q.Width/2, DamageType.Magical);
             if (!target.LSIsValidTarget(_q.Range)) return;
-            _q.CastIfHitchanceEquals(target, HitChance.High);
+            _q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
             if (_w.IsReady() && getCheckBoxItem(comboMenu, "useW_Passive"))
             {
                 var pos = _q.GetPrediction(target).CastPosition;
@@ -445,7 +445,7 @@ using Utility = LeagueSharp.Common.Utility;
             if (!_q.IsReady()) return;
             var target = TargetSelector.GetTarget(_q.Range + _q.Width/2, DamageType.Magical);
             if (!target.LSIsValidTarget(_q.Range)) return;
-            _q.CastIfHitchanceEquals(target, HitChance.High);
+            _q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
             if (_w.IsReady() && getCheckBoxItem(harassMenu, "useW_Passiveh"))
             {
                 var pos = _q.GetPrediction(target).CastPosition;
@@ -487,7 +487,7 @@ using Utility = LeagueSharp.Common.Utility;
             if (!_passive.IsReady()) return;
             var target = TargetSelector.GetTarget(_passive.Range, DamageType.Magical);
             if (!target.LSIsValidTarget(_e.Range)) return;
-            _passive.CastIfHitchanceEquals(target, HitChance.High);
+            _passive.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
         }
 
         private static void KillSteal()
@@ -505,11 +505,11 @@ using Utility = LeagueSharp.Common.Utility;
                 {
                     if (qhDmg >= hero.Health && qmana < _player.Mana)
                     {
-                        _q.CastIfHitchanceEquals(hero, HitChance.High);
+                        _q.CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.High);
                     }
                     else if (qhDmg + whDmg > hero.Health && _player.Mana >= qmana && _w.IsReady())
                     {
-                        _q.CastIfHitchanceEquals(hero, HitChance.High);
+                        _q.CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.High);
                         var pos = _e.GetPrediction(hero).CastPosition;
                         Utility.DelayAction.Add(50, () => _w.Cast(new Vector3(pos.X - 5, pos.Y - 5, pos.Z)));
                         Utility.DelayAction.Add(150, () => _w.Cast(new Vector3(pos.X + 5, pos.Y + 5, pos.Z)));
@@ -519,11 +519,11 @@ using Utility = LeagueSharp.Common.Utility;
                 {
                     if (ehDmg >= hero.Health && emana < _player.Mana)
                     {
-                        _e.CastIfHitchanceEquals(hero, HitChance.High);
+                        _e.CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.High);
                     }
                     else if (ehDmg + whDmg > hero.Health && _player.Mana >= emana && _w.IsReady())
                     {
-                        _e.CastIfHitchanceEquals(hero, HitChance.High);
+                        _e.CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.High);
                         var pos = _e.GetPrediction(hero).CastPosition;
                         Utility.DelayAction.Add(50, () => _w.Cast(new Vector3(pos.X - 5, pos.Y - 5, pos.Z)));
                         Utility.DelayAction.Add(150, () => _w.Cast(new Vector3(pos.X + 5, pos.Y + 5, pos.Z)));

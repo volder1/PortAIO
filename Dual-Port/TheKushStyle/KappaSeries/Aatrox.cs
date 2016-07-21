@@ -251,7 +251,7 @@ using EloBuddy.SDK;
                 #region eq
                 else if (t.Health < (_q.GetDamage(t) + _e.GetDamage(t)) && _e.IsReady() && _q.IsReady())
                 {
-                    if (_e.Cast(t) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                    if (_e.Cast(t))
                     {
                         _q.Cast(t.ServerPosition, false);
                     }

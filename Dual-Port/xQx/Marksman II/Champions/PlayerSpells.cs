@@ -16,7 +16,7 @@ using EloBuddy;
         {
             var nPrediction = spell.GetPrediction(t);
             var nHitPosition = nPrediction.CastPosition.LSExtend(ObjectManager.Player.Position, -130);
-            if (nPrediction.Hitchance >= spell.GetHitchance())
+            if (nPrediction.HitChance >= spell.GetHitchance())
             {
                 spell.Cast(nHitPosition);
             }

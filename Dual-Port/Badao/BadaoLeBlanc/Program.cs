@@ -327,7 +327,7 @@ using Spell = LeagueSharp.Common.Spell;
                             else
                             {
                                 var prediction = R.GetPrediction(target);
-                                if (prediction.Hitchance >= HitChance.High)
+                                if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                                 {
                                     var pos3 = prediction.CastPosition;
                                     var pos4 = Player.Position.LSExtend(pos3, 600);
@@ -373,7 +373,7 @@ using Spell = LeagueSharp.Common.Spell;
                     else
                     {
                         var prediction = W.GetPrediction(target);
-                        if (prediction.Hitchance >= HitChance.High)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             var pos3 = prediction.CastPosition;
                             var pos4 = Player.Position.LSExtend(pos3, 600);
@@ -401,7 +401,7 @@ using Spell = LeagueSharp.Common.Spell;
             if (E.IsReady())
             {
                 var prediction = E.GetPrediction(target);
-                if (prediction.Hitchance == HitChance.Collision)
+                if (prediction.HitChance == EloBuddy.SDK.Enumerations.HitChance.Collision)
                 {
                     Ecol = 1;
                 }

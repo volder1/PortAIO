@@ -44,7 +44,7 @@ using EloBuddy.SDK.Menu;
                 var targetPosition = Vector3.Zero;
 
                 var pred = Variables.spells[SpellSlot.E].GetPrediction(target);
-                if (pred.Hitchance >= HitChance.VeryHigh)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     targetPosition = pred.UnitPosition;
                 }

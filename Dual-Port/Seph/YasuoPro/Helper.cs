@@ -145,7 +145,7 @@ using EloBuddy.SDK;
         }
 
 
-        internal bool UseQ(AIHeroClient target, HitChance minhc = HitChance.Medium, bool UseQ1 = true, bool UseQ2 = true)
+        internal bool UseQ(AIHeroClient target, EloBuddy.SDK.Enumerations.HitChance minhc = EloBuddy.SDK.Enumerations.HitChance.Medium, bool UseQ1 = true, bool UseQ2 = true)
         {
             if (target == null)
             {
@@ -189,9 +189,9 @@ using EloBuddy.SDK;
             {
 
                 LeagueSharp.Common.Spell sp = tready ? Spells[Q2] : Spells[Q];
-                PredictionOutput pred = sp.GetPrediction(target);
+                var pred = sp.GetPrediction(target);
 
-                if (pred.Hitchance >= minhc)
+                if (pred.HitChance >= minhc)
                 {
                     return sp.Cast(pred.CastPosition);
                 }
@@ -298,20 +298,20 @@ using EloBuddy.SDK;
             get { return GetBool("Misc.Debug", YasuoMenu.MiscM); }
         }
 
-        internal static HitChance GetHitChance(String search)
+        internal static EloBuddy.SDK.Enumerations.HitChance GetHitChance(String search)
         {
             switch (GetSL(search, YasuoMenu.MiscM))
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
             }
-            return HitChance.Medium;
+            return EloBuddy.SDK.Enumerations.HitChance.High;
         }
 
 

@@ -570,24 +570,24 @@ namespace UnderratedAIO.Helpers.SkillShot
             return CollisionObjectTypes.Null;
         }
 
-        internal SkillshotType GetSkillShotType()
+        internal SkillShotType GetSkillShotType()
         {
             switch (SkillshotData.Type)
             {
                 case SkillShotType.SkillshotLine:
-                    return SkillshotType.SkillshotLine;
+                    return SkillShotType.SkillshotLine;
                 case SkillShotType.SkillshotCircle:
-                    return SkillshotType.SkillshotCircle;
+                    return SkillShotType.SkillshotCircle;
                 case SkillShotType.SkillshotCone:
-                    return SkillshotType.SkillshotCone;
+                    return SkillShotType.SkillshotCone;
                 case SkillShotType.SkillshotMissileCone:
-                    return SkillshotType.SkillshotCone;
+                    return SkillShotType.SkillshotCone;
                 case SkillShotType.SkillshotMissileLine:
-                    return SkillshotType.SkillshotLine;
+                    return SkillShotType.SkillshotLine;
                 case SkillShotType.SkillshotRing:
-                    return SkillshotType.SkillshotCircle;
+                    return SkillShotType.SkillshotCircle;
             }
-            return SkillshotType.SkillshotLine;
+            return SkillShotType.SkillshotLine;
         }
     }
 }

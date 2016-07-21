@@ -52,7 +52,7 @@ using EloBuddy.SDK;
                                         , MinionOrderTypes.MaxHealth).FirstOrDefault();
                 if (minion != null)
                 {
-                    if(BadaoMainVariables.Q.Cast(minion) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
+                    if(BadaoMainVariables.Q.Cast(minion))
                         BadaoPoppyVariables.QCastTick = Environment.TickCount;
                 }
             }

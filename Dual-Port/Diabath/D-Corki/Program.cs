@@ -327,20 +327,20 @@ namespace D_Corki
             if (useQ && _q.IsReady() && Rdelay >= getSliderItem(miscMenu, "delaycombo"))
             {
                 var t = TargetSelector.GetTarget(_q.Range, DamageType.Magical);
-                if (t.LSIsValidTarget(_q.Range) && _q.GetPrediction(t).Hitchance >= HitChance.High) _q.Cast(t, false, true);
+                if (t.LSIsValidTarget(_q.Range) && _q.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) _q.Cast(t, false, true);
                 Qcast = Environment.TickCount;
             }
 
             if (useE && _e.IsReady())
             {
                 var t = TargetSelector.GetTarget(_e.Range, DamageType.Magical);
-                if (t.LSIsValidTarget(_e.Range) && _e.GetPrediction(t).Hitchance >= HitChance.High) _e.Cast(t, false, true);
+                if (t.LSIsValidTarget(_e.Range) && _e.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) _e.Cast(t, false, true);
             }
 
             if (useR && _r.IsReady() && Qdelay >= getSliderItem(miscMenu, "delaycombo"))
             {
                 var t = TargetSelector.GetTarget(_r.Range, DamageType.Magical);
-                if (t.LSIsValidTarget(_r.Range) && _r.GetPrediction(t).Hitchance >= HitChance.High) _r.Cast(t, false, true);
+                if (t.LSIsValidTarget(_r.Range) && _r.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) _r.Cast(t, false, true);
                 Rcast = Environment.TickCount;
             }
 
@@ -358,20 +358,20 @@ namespace D_Corki
             if (useQ && _q.IsReady() && Rdelay >= getSliderItem(miscMenu, "delaycombo"))
             {
                 var t = TargetSelector.GetTarget(_q.Range, DamageType.Magical);
-                if (t.LSIsValidTarget(_q.Range) && _q.GetPrediction(t).Hitchance >= HitChance.High) _q.Cast(t, false, true);
+                if (t.LSIsValidTarget(_q.Range) && _q.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) _q.Cast(t, false, true);
                 Qcast = Environment.TickCount;
             }
 
             if (useE && _e.IsReady())
             {
                 var t = TargetSelector.GetTarget(_e.Range, DamageType.Magical);
-                if (t.LSIsValidTarget(_e.Range) && _e.GetPrediction(t).Hitchance >= HitChance.High) _e.Cast(t, false, true);
+                if (t.LSIsValidTarget(_e.Range) && _e.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) _e.Cast(t, false, true);
             }
 
             if (useR && _r.IsReady() && rlimH < UltiStucks() && Qdelay >= getSliderItem(miscMenu, "delaycombo"))
             {
                 var t = TargetSelector.GetTarget(_r.Range, DamageType.Magical);
-                if (t.LSIsValidTarget(_r.Range) && _r.GetPrediction(t).Hitchance >= HitChance.High) _r.Cast(t, false, true);
+                if (t.LSIsValidTarget(_r.Range) && _r.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) _r.Cast(t, false, true);
                 Rcast = Environment.TickCount;
             }
         }
@@ -390,20 +390,20 @@ namespace D_Corki
                     if (useQ && _q.IsReady() && Rdelay >= getSliderItem(miscMenu, "delaycombo"))
                     {
                         var t = TargetSelector.GetTarget(_q.Range, DamageType.Magical);
-                        if (t.LSIsValidTarget(_q.Range) && _q.GetPrediction(t).Hitchance >= HitChance.High) _q.Cast(t, false, true);
+                        if (t.LSIsValidTarget(_q.Range) && _q.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) _q.Cast(t, false, true);
                         Qcast = Environment.TickCount;
                     }
 
                     if (useE && _e.IsReady())
                     {
                         var t = TargetSelector.GetTarget(_e.Range, DamageType.Magical);
-                        if (t.LSIsValidTarget(_e.Range) && _e.GetPrediction(t).Hitchance >= HitChance.High) _e.Cast(t, false, true);
+                        if (t.LSIsValidTarget(_e.Range) && _e.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) _e.Cast(t, false, true);
                     }
 
                     if (useR && _r.IsReady() && Qdelay >= getSliderItem(miscMenu, "delaycombo"))
                     {
                         var t = TargetSelector.GetTarget(_r.Range, DamageType.Magical);
-                        if (t.LSIsValidTarget(_r.Range) && _r.GetPrediction(t).Hitchance >= HitChance.High) _r.Cast(t, false, true);
+                        if (t.LSIsValidTarget(_r.Range) && _r.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) _r.Cast(t, false, true);
                         Rcast = Environment.TickCount;
                     }
                 }
@@ -566,7 +566,7 @@ namespace D_Corki
                 if (_q.IsReady() && getCheckBoxItem(miscMenu, "UseQM") && Rdelay >= getSliderItem(miscMenu, "delaycombo"))
                 {
                     if (_q.GetDamage(hero) > hero.Health && hero.LSIsValidTarget(_q.Range)
-                        && _q.GetPrediction(hero).Hitchance >= HitChance.High)
+                        && _q.GetPrediction(hero).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         _q.Cast(hero, false, true);
                     Qcast = Environment.TickCount;
                 }
@@ -574,7 +574,7 @@ namespace D_Corki
                 if (_e.IsReady() && getCheckBoxItem(miscMenu, "UseEM"))
                 {
                     if (_e.GetDamage(hero) > hero.Health && hero.LSIsValidTarget(_e.Range)
-                        && _e.GetPrediction(hero).Hitchance >= HitChance.High)
+                        && _e.GetPrediction(hero).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         _e.Cast(hero, false, true);
                 }
 
@@ -584,7 +584,7 @@ namespace D_Corki
                     var bigRocket = HasBigRocket();
                     if (hero.LSIsValidTarget(bigRocket ? _r2.Range : _r1.Range)
                         && _r1.GetDamage(hero) * (bigRocket ? 1.5f : 1f) > hero.Health)
-                        if (_r.GetPrediction(t).Hitchance >= HitChance.High) _r.Cast(t, false, true);
+                        if (_r.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) _r.Cast(t, false, true);
                     Rcast = Environment.TickCount;
                 }
             }

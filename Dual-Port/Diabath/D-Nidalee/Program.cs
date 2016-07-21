@@ -396,37 +396,37 @@ using Utility = LeagueSharp.Common.Utility;
         }
 
 
-        private static HitChance QHitChanceCombo()
+        private static EloBuddy.SDK.Enumerations.HitChance QHitChanceCombo()
         {
             switch (getBoxItem(comboMenu, "QHitCombo"))
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 default:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
             }
         }
 
-        private static HitChance QHitChanceHarass()
+        private static EloBuddy.SDK.Enumerations.HitChance QHitChanceHarass()
         {
             switch (getBoxItem(harassMenu, "QHitharass"))
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 default:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
             }
         }
 
@@ -550,7 +550,7 @@ using Utility = LeagueSharp.Common.Utility;
             if (Q.IsReady() && IsHuman && target.LSIsValidTarget(Q.Range) && getCheckBoxItem(comboMenu, "UseQCombo"))
             {
                 var predictionq = Q.GetPrediction(target);
-                if (predictionq.Hitchance >= QHitChanceCombo() && predictionq.CollisionObjects.Count == 0)
+                if (predictionq.HitChance >= QHitChanceCombo() && predictionq.CollisionObjects.Count() == 0)
                     Q.Cast(predictionq.CastPosition);
             }
 
@@ -834,7 +834,7 @@ using Utility = LeagueSharp.Common.Utility;
                     getCheckBoxItem(harassMenu, "UseQHarass"))
                 {
                     var prediction = Q.GetPrediction(target);
-                    if (prediction.Hitchance >= QHitChanceHarass() && prediction.CollisionObjects.Count == 0)
+                    if (prediction.HitChance >= QHitChanceHarass() && prediction.CollisionObjects.Count() == 0)
                         Q.Cast(prediction.CastPosition);
                 }
 
@@ -892,13 +892,13 @@ using Utility = LeagueSharp.Common.Utility;
                     if (Humanq && lanemana && Q.IsReady())
                     {
                         var prediction = Q.GetPrediction(Minion);
-                        if (prediction.Hitchance >= HitChance.Medium) Q.Cast(Minion.ServerPosition);
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium) Q.Cast(Minion.ServerPosition);
                     }
 
                     if (Humanw && lanemana && W.IsReady())
                     {
                         var prediction = W.GetPrediction(Minion);
-                        if (prediction.Hitchance >= HitChance.Medium) W.Cast(Minion.ServerPosition);
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium) W.Cast(Minion.ServerPosition);
                     }
 
                     if (getKeyBindItem(laneMenu, "farm_R") && (!Q.IsReady() || !lanemana || !Humanq))
@@ -943,13 +943,13 @@ using Utility = LeagueSharp.Common.Utility;
                     if (Humanq && !mob.Name.Contains("Mini") && junglemana && Q.IsReady())
                     {
                         var prediction = Q.GetPrediction(mob);
-                        if (prediction.Hitchance >= HitChance.Low) Q.Cast(mob.ServerPosition);
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low) Q.Cast(mob.ServerPosition);
                     }
 
                     if (Humanw && junglemana && W.IsReady() && !mob.Name.Contains("Mini"))
                     {
                         var prediction = W.GetPrediction(mob);
-                        if (prediction.Hitchance >= HitChance.Medium) W.Cast(mob.ServerPosition);
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium) W.Cast(mob.ServerPosition);
                     }
 
                     if (Switch && (!Q.IsReady() || !Humanq) && (!W.IsReady() || !Humanw) || !junglemana)
@@ -1078,8 +1078,8 @@ using Utility = LeagueSharp.Common.Utility;
                     getCheckBoxItem(Misc, "UseQKs"))
                 {
                     var predictionq = Q.GetPrediction(hero);
-                    if (hero.Health <= qhDmg && predictionq.Hitchance >= HitChance.High &&
-                        predictionq.CollisionObjects.Count == 0)
+                    if (hero.Health <= qhDmg && predictionq.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High &&
+                        predictionq.CollisionObjects.Count() == 0)
                     {
                         Q.Cast(hero);
                     }

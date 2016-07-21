@@ -225,7 +225,7 @@ using Spell = LeagueSharp.Common.Spell;
                     if (QTarget != null)
                         if (_Q.IsReady())
                             if (QTarget.Health < _Q.GetDamage(QTarget))
-                                _Q.CastIfHitchanceEquals(QTarget, HitChance.High, true);
+                                _Q.CastIfHitchanceEquals(QTarget, EloBuddy.SDK.Enumerations.HitChance.High, true);
 
                 // W
                 if (getCheckBoxItem(miscMenu, "Bard_HealWMinEnable") && !Player.IsRecalling())
@@ -251,7 +251,7 @@ using Spell = LeagueSharp.Common.Spell;
                     var target = range.FirstOrDefault(f => f.LSDistance(Game.CursorPos) < 340f);
                     _R.SetSkillshot(Player.LSDistance(target.Position) * 3400 / 1.4f, 340f, 1400f, false, SkillshotType.SkillshotCircle);
                     if (target != null)
-                        _R.CastIfHitchanceEquals(target, HitChance.Medium, true);
+                        _R.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Medium, true);
                 }
 
                 // Combo
@@ -325,7 +325,7 @@ using Spell = LeagueSharp.Common.Spell;
             try
             {
                 if (getCheckBoxItem(miscMenu, "Bard_Anti") && _Q.IsReady() && gapcloser.Sender.LSDistance(Player.Position) < _Q.Range)
-                    _Q.CastIfHitchanceEquals(gapcloser.Sender, HitChance.Medium, true);
+                    _Q.CastIfHitchanceEquals(gapcloser.Sender, EloBuddy.SDK.Enumerations.HitChance.Medium, true);
             }
             catch (Exception)
             {
@@ -363,7 +363,7 @@ using Spell = LeagueSharp.Common.Spell;
                 if (getCheckBoxItem(miscMenu, "Bard_Inter") && _R.IsReady() && sender.LSDistance(Player.Position) < _R.Range)
                 {
                     _R.SetSkillshot(Player.LSDistance(sender.Position) * 3400 / 1.5f, 340f, 1400f, false, SkillshotType.SkillshotCircle);
-                    _R.CastIfHitchanceEquals(sender, HitChance.Medium, true);
+                    _R.CastIfHitchanceEquals(sender, EloBuddy.SDK.Enumerations.HitChance.Medium, true);
                 }
             }
             catch (Exception)

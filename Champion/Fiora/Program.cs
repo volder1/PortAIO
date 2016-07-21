@@ -36,7 +36,7 @@ namespace FioraProject
             E = new LeagueSharp.Common.Spell(SpellSlot.E);
             R = new LeagueSharp.Common.Spell(SpellSlot.R);
             W.SetSkillshot(0.75f, 80, 2000, false, SkillshotType.SkillshotLine);
-            W.MinHitChance = LeagueSharp.Common.HitChance.High;
+            W.MinHitChance = EloBuddy.SDK.Enumerations.HitChance.High;
 
 
             Menu = MainMenu.AddMenu("Project" + Player.ChampionName, Player.ChampionName);

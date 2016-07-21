@@ -186,7 +186,7 @@
                     }
                     else if (!IsPassWall(pred.UnitPosition, vector1) && !IsPassWall(pred.UnitPosition, pred.CastPosition))
                     {
-                        if (pred.Hitchance >= HitChance.Medium)
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                         {
                             var wts = Drawing.WorldToScreen(Player.Position);
                             Drawing.DrawText(wts[0], wts[1], Color.Wheat, "Hit: " + 1);
@@ -254,7 +254,7 @@
             }
             else if (!IsPassWall(pred.UnitPosition, vector1) && !IsPassWall(pred.UnitPosition, pred.CastPosition))
             {
-                if (pred.Hitchance >= HitChance.High)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     CastR2(vector1, pred.CastPosition);
                 }
@@ -371,7 +371,7 @@
             if (useE && spells[Spells.E].IsReady() && target.LSIsValidTarget(spells[Spells.E].Range))
             {
                 var pred = spells[Spells.E].GetPrediction(target);
-                if (pred.Hitchance >= HitChance.High)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.E].Cast(pred.CastPosition);
                 }
@@ -420,7 +420,7 @@
             if (useE && spells[Spells.E].IsReady() && spells[Spells.E].IsInRange(target))
             {
                 var pred = spells[Spells.E].GetPrediction(target);
-                if (pred.Hitchance >= HitChance.High)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.E].Cast(target);
                 }

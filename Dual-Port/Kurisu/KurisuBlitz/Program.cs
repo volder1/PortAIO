@@ -203,7 +203,7 @@ using EloBuddy.SDK.Menu.Values;
                     {
                         if (hero.LSDistance(Player.ServerPosition) > getSliderItem(qsmenu, "minq"))
                         {
-                            Q.CastIfHitchanceEquals(hero, HitChance.VeryHigh);
+                            Q.CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.High);
                         }
                     }
                 }
@@ -238,8 +238,8 @@ using EloBuddy.SDK.Menu.Values;
                 {
                     if (ene.LSDistance(Player.ServerPosition) > getSliderItem(qsmenu, "minq") && Q.IsReady())
                     {
-                        Q.CastIfHitchanceEquals(ene, HitChance.Dashing, true);
-                        Q.CastIfHitchanceEquals(ene, HitChance.Immobile, true);
+                        Q.CastIfHitchanceEquals(ene, EloBuddy.SDK.Enumerations.HitChance.Dashing, true);
+                        Q.CastIfHitchanceEquals(ene, EloBuddy.SDK.Enumerations.HitChance.Immobile, true);
                     }
                 }
             }
@@ -301,13 +301,13 @@ using EloBuddy.SDK.Menu.Values;
                             var poutput = Q.GetPrediction(QT); // prediction output
                             if (Utils.GameTimeTickCount - LastFlash < 1500)
                             {
-                                if (poutput.Hitchance == (HitChance) getSliderItem(qsmenu, "fpred") + 2)
+                                if (poutput.HitChance == (EloBuddy.SDK.Enumerations.HitChance) getSliderItem(qsmenu, "fpred") + 2)
                                 {
                                     Q.Cast(poutput.CastPosition);
                                 }
                             }
 
-                            if (poutput.Hitchance == (HitChance)getSliderItem(qsmenu, "pred") + 2)
+                            if (poutput.HitChance == (EloBuddy.SDK.Enumerations.HitChance)getSliderItem(qsmenu, "pred") + 2)
                             {
                                 Q.Cast(poutput.CastPosition);
                             }
@@ -366,13 +366,13 @@ using EloBuddy.SDK.Menu.Values;
                             var poutput = Q.GetPrediction(QT); // prediction output
                             if (Utils.GameTimeTickCount - LastFlash < 1500)
                             {
-                                if (poutput.Hitchance == (HitChance) getSliderItem(qsmenu, "fpred") + 2)
+                                if (poutput.HitChance == (EloBuddy.SDK.Enumerations.HitChance) getSliderItem(qsmenu, "fpred") + 2)
                                 {
                                     Q.Cast(poutput.CastPosition);
                                 }
                             }
 
-                            if (poutput.Hitchance == (HitChance) getSliderItem(qsmenu, "pred") + 2)
+                            if (poutput.HitChance == (EloBuddy.SDK.Enumerations.HitChance) getSliderItem(qsmenu, "pred") + 2)
                             {
                                 Q.Cast(poutput.CastPosition);
                             }
@@ -390,7 +390,7 @@ using EloBuddy.SDK.Menu.Values;
                 if (QT.LSIsValidTarget(getSliderItem(qsmenu, "maxq")))
                 {
                     var poutput = Q.GetPrediction(QT); // prediction output
-                    if (poutput.Hitchance >= (HitChance)getSliderItem(qsmenu, "pred") + 2)
+                    if (poutput.HitChance >= (EloBuddy.SDK.Enumerations.HitChance)getSliderItem(qsmenu, "pred") + 2)
                     {
                         if (!QT.IsZombie && !QT.IsInvulnerable)
                         {

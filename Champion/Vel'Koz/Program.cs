@@ -350,14 +350,14 @@ using Utility = LeagueSharp.Common.Utility;
         private static void CastQ(Obj_AI_Base t)
         {
             var Qpred = Q.GetPrediction(t);
-            if (Qpred.Hitchance >= HitChance.High)
+            if (Qpred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 Program.CastSpell(Q, t);
             }
             else
             {
                 var pred = QDummy.GetPrediction(t);
-                if (pred.Hitchance >= HitChance.High)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     if (Program.LagFree(1))
                         pointList = AimQ(t.ServerPosition);

@@ -219,7 +219,7 @@ namespace SAutoCarry.Champions
                     if (t != null)
                     {
                         var pred = Spells[R].GetPrediction(t);
-                        if (pred.Hitchance >= HitChance.High)
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             if (t.IsFacing(ObjectManager.Player))
                                 Spells[R].Cast(pred.CastPosition);
@@ -247,14 +247,14 @@ namespace SAutoCarry.Champions
             {
                 var t = TargetSelector.GetTarget(Spells[Q].Range, DamageType.Magical);
                 if (t != null)
-                    Spells[Q].CastIfHitchanceEquals(t, HitChance.High);
+                    Spells[Q].CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High);
             }
 
             if (!Spells[Q].IsReady() && Spells[W].IsReady() && HarassUseW)
             {
                 var t = TargetSelector.GetTarget(Spells[W].Range, DamageType.Magical);
                 if (t != null)
-                    Spells[W].CastIfHitchanceEquals(t, HitChance.High);
+                    Spells[W].CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High);
             }
 
             if (Spells[E].IsReady() && HarassUseE)

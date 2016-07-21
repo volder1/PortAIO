@@ -81,12 +81,9 @@ using Spell = LeagueSharp.Common.Spell;
             {
                 return;
             }
-
-            spells[Spells.Q].SetSkillshot(.25f, 70f, 1650f, false, SkillshotType.SkillshotLine);
+            spells[Spells.Q].SetCharged(250, 1600, 1.2f, .25f, 1650, 70);
             spells[Spells.E].SetSkillshot(0.35f, 120, 1500, false, SkillshotType.SkillshotCircle);
             spells[Spells.R].SetSkillshot(.25f, 120f, 1950f, false, SkillshotType.SkillshotLine);
-
-            spells[Spells.Q].SetCharged("VarusQ", "VarusQ", 250, 1600, 1.2f);
 
             ElVarusMenu.Initialize();
             Game.OnUpdate += OnGameUpdate;
@@ -136,7 +133,7 @@ using Spell = LeagueSharp.Common.Spell;
                 if (spells[Spells.E].IsKillable(target) || GetWStacks(target) >= 1)
                 {
                     var prediction = spells[Spells.E].GetPrediction(target);
-                    if (prediction.Hitchance >= HitChance.VeryHigh)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         spells[Spells.E].Cast(prediction.CastPosition);
                     }
@@ -158,7 +155,7 @@ using Spell = LeagueSharp.Common.Spell;
                     if (spells[Spells.Q].IsCharging)
                     {
                         var prediction = spells[Spells.Q].GetPrediction(target);
-                        if (prediction.Hitchance >= HitChance.VeryHigh)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             spells[Spells.Q].Cast(prediction.CastPosition);
                         }
@@ -170,7 +167,7 @@ using Spell = LeagueSharp.Common.Spell;
                 && target.LSIsValidTarget(spells[Spells.R].Range) && comboR)
             {
                 var pred = spells[Spells.R].GetPrediction(target);
-                if (pred.Hitchance >= HitChance.VeryHigh)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     var ultimateHits = HeroManager.Enemies.Where(x => x.LSDistance(target) <= 450f).ToList();
                     if (ultimateHits.Count >= rCount)
@@ -225,7 +222,7 @@ using Spell = LeagueSharp.Common.Spell;
                     if (spells[Spells.Q].IsCharging)
                     {
                         var prediction = spells[Spells.Q].GetPrediction(target);
-                        if (prediction.Hitchance >= HitChance.VeryHigh)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             spells[Spells.Q].Cast(prediction.CastPosition);
                         }
@@ -326,7 +323,7 @@ using Spell = LeagueSharp.Common.Spell;
                     if (spells[Spells.Q].IsCharging)
                     {
                         var prediction = spells[Spells.Q].GetPrediction(target);
-                        if (prediction.Hitchance >= HitChance.VeryHigh)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             spells[Spells.Q].Cast(prediction.CastPosition);
                         }

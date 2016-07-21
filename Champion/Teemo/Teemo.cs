@@ -24,7 +24,7 @@ using Spell = LeagueSharp.Common.Spell;
             _q = new Spell(SpellSlot.Q, 680f, DamageType.Magical);
             _w = new Spell(SpellSlot.W);
             _e = new Spell(SpellSlot.E);
-            _r = new Spell(SpellSlot.R, 300f, DamageType.Magical) {MinHitChance = HitChance.High};
+            _r = new Spell(SpellSlot.R, 300f, DamageType.Magical) {MinHitChance = EloBuddy.SDK.Enumerations.HitChance.High};
 
             _r.SetSkillshot(1.5f, 100f, float.MaxValue, false, SkillshotType.SkillshotCircle);
 
@@ -150,7 +150,7 @@ using Spell = LeagueSharp.Common.Spell;
                                     x =>
                                         x.LSIsValidTarget(_r.Range) && !x.IsFacing(ObjectManager.Player) &&
                                         !x.HasBuff("bantamtraptarget") &&
-                                        _r.GetPrediction(x).Hitchance >= _r.MinHitChance);
+                                        _r.GetPrediction(x).HitChance >= _r.MinHitChance);
                             if (target != null && target.LSDistance(ObjectManager.Player) <= _r.Range - 50)
                                 _r.Cast(target, false, true);
                         }

@@ -145,30 +145,21 @@ namespace FreshBooster
             return Environment.TickCount;
         }
 
-        public static HitChance Hitchance(string Type)
+        public static EloBuddy.SDK.Enumerations.HitChance Hitchance(string Type)
         {
-            var result = HitChance.Low;
+            var result = EloBuddy.SDK.Enumerations.HitChance.Low;
             if (ObjectManager.Player.ChampionName == EloBuddy.Champion.Blitzcrank.ToString())
             {
                 switch (Program.getQHitChance())
                 {
                     case 1:
-                        result = HitChance.OutOfRange;
+                        result = EloBuddy.SDK.Enumerations.HitChance.Low;
                         break;
                     case 2:
-                        result = HitChance.Impossible;
+                        result = EloBuddy.SDK.Enumerations.HitChance.Medium;
                         break;
                     case 3:
-                        result = HitChance.Low;
-                        break;
-                    case 4:
-                        result = HitChance.Medium;
-                        break;
-                    case 5:
-                        result = HitChance.High;
-                        break;
-                    case 6:
-                        result = HitChance.VeryHigh;
+                        result = EloBuddy.SDK.Enumerations.HitChance.High;
                         break;
                 }
             }
@@ -178,22 +169,13 @@ namespace FreshBooster
                 switch (Champion.Veigar.getQHitChance())
                 {
                     case 1:
-                        result = HitChance.OutOfRange;
+                        result = EloBuddy.SDK.Enumerations.HitChance.Low;
                         break;
                     case 2:
-                        result = HitChance.Impossible;
+                        result = EloBuddy.SDK.Enumerations.HitChance.Medium;
                         break;
                     case 3:
-                        result = HitChance.Low;
-                        break;
-                    case 4:
-                        result = HitChance.Medium;
-                        break;
-                    case 5:
-                        result = HitChance.High;
-                        break;
-                    case 6:
-                        result = HitChance.VeryHigh;
+                        result = EloBuddy.SDK.Enumerations.HitChance.High;
                         break;
                 }
             }

@@ -193,7 +193,7 @@ using EloBuddy.SDK.Menu.Values;
             {
                 if (getCheckBoxItem(miscMenu, "com.isivir.misc.qImmobile") && Spells[SpellSlot.Q].IsReady())
                 {
-                    Spells[SpellSlot.Q].CastIfHitchanceEquals(target, HitChance.Immobile);
+                    Spells[SpellSlot.Q].CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Immobile);
                 }
             }
         }
@@ -243,7 +243,7 @@ using EloBuddy.SDK.Menu.Values;
             if (!Spells[SpellSlot.Q].IsReady() || !useQ) return;
 
             var prediction = Spells[SpellSlot.Q].GetPrediction(target);
-            if (prediction.Hitchance >= HitChance.VeryHigh)
+            if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 Spells[SpellSlot.Q].Cast(prediction.CastPosition);
             }
@@ -258,7 +258,7 @@ using EloBuddy.SDK.Menu.Values;
                 || ObjectManager.Player.ManaPercent < getSliderItem(harassMenu, "com.isivir.harass.mana")) return;
 
             var prediction = Spells[SpellSlot.Q].GetPrediction(target);
-            if (prediction.Hitchance >= HitChance.High)
+            if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 Spells[SpellSlot.Q].Cast(prediction.CastPosition);
             }

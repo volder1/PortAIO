@@ -648,11 +648,11 @@ namespace IKalista
                 foreach (var enemy in HeroManager.Enemies.Where(x => x.LSIsValidTarget(spells[SpellSlot.Q].Range)))
                 {
                     var prediction = spells[SpellSlot.Q].GetSPrediction(enemy);
-                    if (prediction.HitChance >= LeagueSharp.Common.HitChance.High)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         spells[SpellSlot.Q].Cast(enemy);
                     }
-                    else if (prediction.HitChance == LeagueSharp.Common.HitChance.Collision)
+                    else if (prediction.HitChance == EloBuddy.SDK.Enumerations.HitChance.Collision)
                     {
                         this.QCollisionCheck(enemy);
                     }
@@ -714,7 +714,7 @@ namespace IKalista
 
                 foreach (var unit in
                     HeroManager.Enemies.Where(x => x.LSIsValidTarget(spells[SpellSlot.Q].Range))
-                        .Where(unit => spells[SpellSlot.Q].GetSPrediction(unit).HitChance == LeagueSharp.Common.HitChance.Immobile))
+                        .Where(unit => spells[SpellSlot.Q].GetSPrediction(unit).HitChance == EloBuddy.SDK.Enumerations.HitChance.Immobile))
                 {
                     spells[SpellSlot.Q].Cast(unit);
                 }
@@ -724,11 +724,10 @@ namespace IKalista
                 {
                     switch (prediction.HitChance)
                     {
-                        case LeagueSharp.Common.HitChance.Collision:
+                        case EloBuddy.SDK.Enumerations.HitChance.Collision:
                             this.QCollisionCheck(spearTarget);
                             break;
-                        case LeagueSharp.Common.HitChance.High:
-                        case LeagueSharp.Common.HitChance.VeryHigh:
+                        case EloBuddy.SDK.Enumerations.HitChance.High:
                             spells[SpellSlot.Q].Cast(spearTarget);
                             break;
                     }

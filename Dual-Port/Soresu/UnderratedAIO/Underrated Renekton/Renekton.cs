@@ -319,14 +319,14 @@ using EloBuddy.SDK.Menu.Values;
                         {
                             return;
                         }
-                        if (E.CastIfHitchanceEquals(target, HitChance.High))
+                        if (E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High))
                         {
                             lastE = System.Environment.TickCount;
                         }
                     }
                     if (rene && E.CanCast(target) && !lastE.Equals(0) && System.Environment.TickCount - lastE > 3600)
                     {
-                        E.CastIfHitchanceEquals(target, HitChance.High);
+                        E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High);
                     }
                     if (player.LSDistance(target) < Orbwalking.GetRealAutoAttackRange(target) && Q.IsReady() &&
                         E.IsReady() && E.IsReady())

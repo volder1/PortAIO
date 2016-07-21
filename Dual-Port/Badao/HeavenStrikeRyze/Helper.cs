@@ -90,7 +90,7 @@ namespace HeavenStrikeRyze
             if (!target.LSIsValidTarget(Program._q.Range) || target.IsZombie || !Program._q.IsReady())
                  return;
             var pred = Program._q.GetPrediction(target);
-            if (pred.Hitchance >= HitChance.Low)
+            if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
             {
                 Program._q.Cast(pred.CastPosition);
             }
@@ -103,7 +103,7 @@ namespace HeavenStrikeRyze
                             && GetchainedTarget(x).Any(y => y.NetworkId == target.NetworkId)))
                     {
                         var pred1 = Program._q.GetPrediction(tar);
-                        if (pred1.Hitchance >= HitChance.Low)
+                        if (pred1.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
                         {
                             Program._q.Cast(pred1.CastPosition);
                         }
@@ -113,7 +113,7 @@ namespace HeavenStrikeRyze
             if (forceQ)
             {
                 var predF = Program._q2.GetPrediction(target);
-                if (predF.Hitchance >= HitChance.Low)
+                if (predF.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
                 {
                     Program._q2.Cast(pred.CastPosition);
                 }

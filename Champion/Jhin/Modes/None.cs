@@ -46,7 +46,7 @@ namespace Jhin___The_Virtuoso.Modes
                                 Menus.getSliderItem(Menus.wMenu, "w.combo.max.distance") &&
                                 x.LSDistance(ObjectManager.Player) >
                                 Menus.getSliderItem(Menus.wMenu, "w.combo.min.distance") && x.IsValid &&
-                                Spells.W.GetPrediction(x).Hitchance >= Menus.wMenu.HikiChance("w.hit.chance") &&
+                                Spells.W.GetPrediction(x).HitChance >= Menus.wMenu.HikiChance("w.hit.chance") &&
                                 x.Health < Spells.W.GetDamage(x) && !x.IsDead && !x.IsZombie && x.IsValid))
                 {
                     Spells.W.Cast(enemy);

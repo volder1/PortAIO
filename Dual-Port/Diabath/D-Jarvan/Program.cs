@@ -325,7 +325,7 @@ using EloBuddy.SDK;
 
             if (useR && _r.IsReady())
             {
-                if (t.LSIsValidTarget(_r.Range) && !_haveulti) if (!t.HasBuff("JudicatorIntervention") && !t.HasBuff("Undying Rage") && ComboDamage(t) > t.Health) _r.CastIfHitchanceEquals(t, HitChance.Medium);
+                if (t.LSIsValidTarget(_r.Range) && !_haveulti) if (!t.HasBuff("JudicatorIntervention") && !t.HasBuff("Undying Rage") && ComboDamage(t) > t.Health) _r.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.Medium);
             }
 
             if (useE && _e.IsReady() && t.LSIsValidTarget(_e.Range) && _q.IsReady())
@@ -343,7 +343,7 @@ using EloBuddy.SDK;
 
             if (useQ && _q.IsReady() && !_e.IsReady() && CD >= 3)
             {
-                if (t.LSIsValidTarget(_q.Range) && _q.GetPrediction(t).Hitchance >= HitChance.High) _q.Cast(t);
+                if (t.LSIsValidTarget(_q.Range) && _q.GetPrediction(t).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) _q.Cast(t);
             }
 
             if (_r.IsReady() && autoR && !_haveulti)
@@ -351,7 +351,7 @@ using EloBuddy.SDK;
                 var target = TargetSelector.GetTarget(_e.Range, DamageType.Magical);
                 if (ObjectManager.Get<AIHeroClient>().Count(hero => hero.LSIsValidTarget(_r.Range))
                     >= getSliderItem(comboMenu, "MinTargets")
-                    && _r.GetPrediction(target).Hitchance >= HitChance.High) _r.Cast(target);
+                    && _r.GetPrediction(target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High) _r.Cast(target);
             }
 
             if (_haveulti)
@@ -397,7 +397,7 @@ using EloBuddy.SDK;
 
             if (_r.IsReady() && !_haveulti && t.LSIsValidTarget(_r.Range))
             {
-                _r.CastIfHitchanceEquals(t, HitChance.Immobile);
+                _r.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.Immobile);
             }
 
             if (_haveulti)
@@ -692,7 +692,7 @@ using EloBuddy.SDK;
 
                 if (_q.IsReady() && getCheckBoxItem(miscMenu, "UseQM"))
                 {
-                    if (hero.LSIsValidTarget(_q.Range) && _q.GetPrediction(hero).Hitchance >= HitChance.High
+                    if (hero.LSIsValidTarget(_q.Range) && _q.GetPrediction(hero).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High
                         && _player.LSGetSpellDamage(hero, SpellSlot.Q) > hero.Health)
                     {
                         _q.Cast(hero);

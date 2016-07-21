@@ -371,7 +371,7 @@ using Spell = LeagueSharp.Common.Spell;
                                             if (spells[Spells.W].GetDamage(target) > target.Health + 15)
                                             {
                                                 var prediction = spells[Spells.W].GetPrediction(target);
-                                                if (prediction.Hitchance >= HitChance.High)
+                                                if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                                                 {
                                                     spells[Spells.W].Cast(prediction.CastPosition);
                                                 }

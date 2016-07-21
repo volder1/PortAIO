@@ -47,7 +47,7 @@ using Spell = LeagueSharp.Common.Spell;
                 R = new Spell(SpellSlot.R, 0);
 
                 Q.SetSkillshot(0.25f, 90f, 1550, true, SkillshotType.SkillshotLine);
-                Q.MinHitChance = HitChance.Medium;
+                Q.MinHitChance = EloBuddy.SDK.Enumerations.HitChance.Medium;
 
                 Game.OnUpdate += OnUpdate;
                 Drawing.OnDraw += OnDraw;
@@ -234,7 +234,7 @@ using Spell = LeagueSharp.Common.Spell;
                     Q.IsReady())
                 {
                     var prediction = Q.GetPrediction(target);
-                    if (prediction.Hitchance >= HitChance.High)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Q.Cast(target);
                     }
@@ -489,7 +489,7 @@ using Spell = LeagueSharp.Common.Spell;
                     if (enemy.LSIsValidTarget(Q.Range) && enemy.Health < Q.GetDamage(enemy))
                     {
                         var prediction = Q.GetPrediction(enemy);
-                        if (prediction.Hitchance >= HitChance.High)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             Q.Cast(enemy);
                         }

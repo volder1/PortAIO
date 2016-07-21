@@ -102,11 +102,11 @@
                         foreach (var target in ObjectManager.Get<Obj_AI_Base>().Where(target => SkyLv_Taric.Monsters.Contains(target.BaseSkinName) && !target.IsDead))
                         {
                             if (target.LSIsValidTarget() && (!CustomLib.HavePassiveAA() || !getCheckBoxItem(SkyLv_Taric.Misc, "Taric.UseTaricAAPassiveJungleClear")))
-                                E.CastIfHitchanceEquals(target, HitChance.VeryHigh, PacketCast);
+                                E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, PacketCast);
                         }
                     }
                     else if(!getCheckBoxItem(SkyLv_Taric.Misc, "Taric.SpellOnlyBigMonster") && MinionN.LSIsValidTarget() && (!CustomLib.HavePassiveAA() || !getCheckBoxItem(SkyLv_Taric.Misc, "Taric.UseTaricAAPassiveJungleClear")))
-                        E.CastIfHitchanceEquals(MinionN, HitChance.VeryHigh, PacketCast);
+                        E.CastIfHitchanceEquals(MinionN, EloBuddy.SDK.Enumerations.HitChance.High, PacketCast);
                 }
 
                 if (useW && W.IsReady() && Player.ManaPercent > MiniManaW && (!E.IsReady() || !useE))

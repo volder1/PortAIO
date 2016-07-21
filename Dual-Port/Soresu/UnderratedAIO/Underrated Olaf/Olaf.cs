@@ -258,7 +258,7 @@ using Spell = LeagueSharp.Common.Spell;
             var pred = Q.GetPrediction(target, true);
             var pos = player.Position.LSExtend(pred.CastPosition, player.LSDistance(pred.CastPosition) + ext);
             if (pred.CastPosition.IsValid() && target.LSDistance(pos) < player.LSDistance(target) &&
-                pred.Hitchance >= HitChance.Medium)
+                pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
             {
                 //Console.WriteLine(2 + " - " + " - " + pred.Hitchance);
                 Q.Cast(pos);

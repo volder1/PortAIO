@@ -72,7 +72,7 @@ namespace HeavenStrikeAzir
             _r = new LeagueSharp.Common.Spell(SpellSlot.R, 250);
             _r2 = new LeagueSharp.Common.Spell(SpellSlot.R);
             _q.SetSkillshot(0.0f, 65, 1500, false, SkillshotType.SkillshotLine);
-            _q.MinHitChance = LeagueSharp.Common.HitChance.Medium;
+            _q.MinHitChance = EloBuddy.SDK.Enumerations.HitChance.Medium;
 
             //Menu instance
             _menu = MainMenu.AddMenu(Player.ChampionName, Player.ChampionName);

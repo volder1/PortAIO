@@ -75,8 +75,7 @@ using Utility = LeagueSharp.Common.Utility;
             Q.SetSkillshot(0.55f, 120, float.MaxValue, false, SkillshotType.SkillshotLine);
             W = new Spell(SpellSlot.W, 320);
             E = new Spell(SpellSlot.E);
-            E.SetSkillshot(0.75f, 230, 1500, false, SkillshotType.SkillshotCircle);
-            E.SetCharged("ZacE", "ZacE", 295, eRanges[0], eChannelTimes[0]);
+            E.SetCharged(295, eRanges[0], eChannelTimes[0], 0.75f, 1500, 230);
             R = new Spell(SpellSlot.R, 300);
         }
 
@@ -115,7 +114,7 @@ using Utility = LeagueSharp.Common.Utility;
             var target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
             if (getCheckBoxItem(menuH, "useqH") && Q.CanCast(target))
             {
-                Q.CastIfHitchanceEquals(target, HitChance.Medium, getCheckBoxItem(config, "packets"));
+                Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Medium, getCheckBoxItem(config, "packets"));
             }
             if (getCheckBoxItem(menuH, "usewH") && W.IsReady())
             {
@@ -240,7 +239,7 @@ using Utility = LeagueSharp.Common.Utility;
             if (getCheckBoxItem(menuC, "useq") && Q.CanCast(target) && target.LSIsValidTarget() &&
                 !E.IsCharging)
             {
-                Q.CastIfHitchanceEquals(target, HitChance.Medium, getCheckBoxItem(config, "packets"));
+                Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Medium, getCheckBoxItem(config, "packets"));
             }
 
             if (R.IsReady() && getCheckBoxItem(menuC, "user") &&
@@ -269,29 +268,29 @@ using Utility = LeagueSharp.Common.Utility;
                 }
                 if (eFlyPred.CastPosition.LSDistance(player.Position) < E.Range)
                 {
-                    E.CastIfHitchanceEquals(target, HitChance.High, getCheckBoxItem(config, "packets"));
+                    E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, getCheckBoxItem(config, "packets"));
                 }
                 else if (eFlyPred.UnitPosition.LSDistance(player.Position) < E.Range && target.LSDistance(player) < 500f)
                 {
-                    E.CastIfHitchanceEquals(target, HitChance.Medium, getCheckBoxItem(config, "packets"));
+                    E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Medium, getCheckBoxItem(config, "packets"));
                 }
                 else if ((eFlyPred.CastPosition.LSDistance(player.Position) < E.Range &&
                           eRanges[E.Level - 1] - eFlyPred.CastPosition.LSDistance(player.Position) < 200) ||
                          (CombatHelper.GetAngle(player, eFlyPred.CastPosition) > 35))
                 {
-                    E.CastIfHitchanceEquals(target, HitChance.Medium, getCheckBoxItem(config, "packets"));
+                    E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Medium, getCheckBoxItem(config, "packets"));
                 }
                 else if (eFlyPred.CastPosition.LSDistance(player.Position) < E.Range && zacETime != 0 &&
                          Environment.TickCount - zacETime > 2500)
                 {
-                    E.CastIfHitchanceEquals(target, HitChance.Medium, getCheckBoxItem(config, "packets"));
+                    E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.Medium, getCheckBoxItem(config, "packets"));
                 }
             }
             else if (enemyPred.UnitPosition.LSDistance(player.Position) < eRanges[E.Level - 1] &&
                      getSliderItem(menuC, "Emin") < target.LSDistance(player.Position))
             {
-                E.SetCharged("ZacE", "ZacE", 300, eRanges[E.Level - 1], eChannelTimes[E.Level - 1]);
-                E.StartCharging(eFlyPred.UnitPosition);
+                E.SetCharged(300, eRanges[E.Level - 1], eChannelTimes[E.Level - 1], 0.75f, 1500, 230);
+                E.StartCharging();
             }
         }
 
@@ -310,8 +309,8 @@ using Utility = LeagueSharp.Common.Utility;
             }
             else if (target.LSDistance(player.Position) < eRanges[E.Level - 1])
             {
-                E.SetCharged("ZacE", "ZacE", 295, eRanges[E.Level - 1], eChannelTimes[E.Level - 1]);
-                E.StartCharging(target);
+                E.SetCharged(295, eRanges[E.Level - 1], eChannelTimes[E.Level - 1], 0.75f, 1500, 230);
+                E.StartCharging();
             }
         }
 

@@ -297,23 +297,7 @@ using EloBuddy.SDK.Menu;
                         return;
                     }
 
-                    if (skillshot.SpellData.SpellName == "TaricE" && (skillshot.Unit as AIHeroClient).ChampionName == "Taric")
-                    {
-                        var target = HeroManager.AllHeroes.FirstOrDefault(h => h.Team == skillshot.Unit.Team && h.IsVisible && h.HasBuff("taricwleashactive"));
-                        if (target != null)
-                        {
-                            var start = target.ServerPosition.LSTo2D();
-                            var direction = (skillshot.OriginalEnd - start).LSNormalized();
-                            var end = start + direction * skillshot.SpellData.Range;
-                            var skillshotToAdd = new Skillshot(
-                                    skillshot.DetectionType, skillshot.SpellData, skillshot.StartTick,
-                                    start, end, target)
-                            {
-                              OriginalEnd = skillshot.OriginalEnd
-                            };
-                            DetectedSkillshots.Add(skillshotToAdd);
-                        }
-                    }
+                    if (skillshot.SpellData.SpellName == "TaricE" && (skillshot.Unit as AIHeroClient).ChampionName == "Taric") { }
 
                     if (skillshot.SpellData.SpellName == "SyndraE" || skillshot.SpellData.SpellName == "syndrae5")
                     {

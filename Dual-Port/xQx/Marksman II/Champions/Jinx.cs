@@ -221,7 +221,7 @@ using EloBuddy.SDK;
                             || enemy.HasBuff("zhonyasringshield")
                             || enemy.HasBuff("Recall")))
                     {
-                        E.CastIfHitchanceEquals(enemy, HitChance.High);
+                        E.CastIfHitchanceEquals(enemy, EloBuddy.SDK.Enumerations.HitChance.High);
                     }
                     else
                     if (W.IsReady()
@@ -233,12 +233,12 @@ using EloBuddy.SDK;
                             || enemy.HasBuffOfType(BuffType.Taunt)
                             || enemy.HasBuff("Recall")))
                     {
-                        W.CastIfHitchanceEquals(enemy, HitChance.High);
+                        W.CastIfHitchanceEquals(enemy, EloBuddy.SDK.Enumerations.HitChance.High);
                     }
 
                     if (autoEd && E.IsReady() && enemy.LSIsDashing())
                     {
-                        E.CastIfHitchanceEquals(enemy, HitChance.Dashing);
+                        E.CastIfHitchanceEquals(enemy, EloBuddy.SDK.Enumerations.HitChance.Dashing);
                     }
                 }
             }
@@ -309,7 +309,7 @@ using EloBuddy.SDK;
 
                         if (distance < (powPowRange + QAddRange) && !(aDamage * 3.5 > t.Health))
                         {
-                            if (!W.IsReady() || !(wDamage > t.Health) || W.GetPrediction(t).CollisionObjects.Count > 0)
+                            if (!W.IsReady() || !(wDamage > t.Health) || W.GetPrediction(t).CollisionObjects.Count() > 0)
                             {
                                 if (CountAlliesNearTarget(t, 500) <= 3)
                                 {
@@ -326,7 +326,7 @@ using EloBuddy.SDK;
                         else if (distance > (powPowRange + QAddRange))
                         {
                             if (!W.IsReady() || !(wDamage > t.Health) || distance > W.Range
-                                || W.GetPrediction(t).CollisionObjects.Count > 0)
+                                || W.GetPrediction(t).CollisionObjects.Count() > 0)
                             {
                                 if (CountAlliesNearTarget(t, 500) <= 3)
                                 {
@@ -552,7 +552,7 @@ using EloBuddy.SDK;
                         .Where(e => e.LSIsValidTarget(E.Range) && !e.IsDead && e.IsEnemy)
                         .OrderBy(e => ObjectManager.Player.LSDistance(e)))
             {
-                PredictionOutput ePred = E.GetPrediction(unit);
+                var ePred = E.GetPrediction(unit);
                 Vector3 eBehind = ePred.CastPosition - Vector3.Normalize(unit.ServerPosition - ObjectManager.Player.ServerPosition) * 150;
 
                 if (E.IsReady())

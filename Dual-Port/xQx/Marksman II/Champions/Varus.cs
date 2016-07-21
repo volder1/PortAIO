@@ -29,11 +29,9 @@ using EloBuddy.SDK;
             E = new LeagueSharp.Common.Spell(SpellSlot.E, 925f);
             R = new LeagueSharp.Common.Spell(SpellSlot.R, 1200f);
 
-            Q.SetSkillshot(.25f, 70f, 1650f, false, SkillshotType.SkillshotLine);
+            Q.SetCharged(250, 1600, 1.2f, .25f, 1650, 70);
             E.SetSkillshot(.50f, 250f, 1400f, false, SkillshotType.SkillshotCircle);
             R.SetSkillshot(.25f, 120f, 1950f, false, SkillshotType.SkillshotLine);
-
-            Q.SetCharged("VarusQ", "VarusQ", 250, 1600, 1.2f);
 
             Obj_AI_Base.OnProcessSpellCast += AIHeroClient_OnProcessSpellCast;
         }

@@ -477,13 +477,13 @@ using EloBuddy.SDK.Menu.Values;
             if (useQ && _q.IsReady())
             {
                 var t = TargetSelector.GetTarget(_q.Range, DamageType.Physical);
-                if (t.LSIsValidTarget(_q.Range - 70)) _q.CastIfHitchanceEquals(t, HitChance.High, true);
+                if (t.LSIsValidTarget(_q.Range - 70)) _q.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High, true);
             }
 
             if (useW && _w.IsReady())
             {
                 var t = TargetSelector.GetTarget(_w.Range, DamageType.Magical);
-                if (t.LSIsValidTarget(_w.Range)) _w.CastIfHitchanceEquals(t, HitChance.High, true);
+                if (t.LSIsValidTarget(_w.Range)) _w.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High, true);
             }
 
             if (_r.IsReady() && useR)
@@ -495,15 +495,15 @@ using EloBuddy.SDK.Menu.Values;
                     return;
                 if (_r.GetDamage(t) - 80 > t.Health && t.LSIsValidTarget(_r.Range))
                 {
-                    _r.CastIfHitchanceEquals(t, HitChance.High, true);
+                    _r.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High, true);
                 }
 
                 if (autoR)
                 {
                     var fuckr = _r.GetPrediction(t, true);
-                    if (fuckr.AoeTargetsHitCount >= getSliderItem(comboMenu, "MinTargets")
+                    if (fuckr.GetCollisionObjects<AIHeroClient>().Count() >= getSliderItem(comboMenu, "MinTargets")
                         && t.LSIsValidTarget(_r.Range))
-                        _r.CastIfHitchanceEquals(t, HitChance.High, true);
+                        _r.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High, true);
                 }
             }
 
@@ -524,13 +524,13 @@ using EloBuddy.SDK.Menu.Values;
                         if (useQ && _q.IsReady())
                         {
                             var t = TargetSelector.GetTarget(_q.Range, DamageType.Physical);
-                            if (t.LSIsValidTarget(_q.Range - 70)) _q.CastIfHitchanceEquals(t, HitChance.High, true);
+                            if (t.LSIsValidTarget(_q.Range - 70)) _q.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High, true);
                         }
 
                         if (useW && _w.IsReady())
                         {
                             var t = TargetSelector.GetTarget(_w.Range, DamageType.Magical);
-                            if (t.LSIsValidTarget(_w.Range)) _w.CastIfHitchanceEquals(t, HitChance.High, true);
+                            if (t.LSIsValidTarget(_w.Range)) _w.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High, true);
                         }
                     }
 
@@ -547,7 +547,7 @@ using EloBuddy.SDK.Menu.Values;
                                 if (ta.Health < _q.GetDamage(ta) && ta.LSIsValidTarget())
                                 {
                                     _e.Cast(ObjectManager.Player.Position.LSExtend(Game.CursorPos, 450));
-                                    _q.CastIfHitchanceEquals(ta, HitChance.High, true);
+                                    _q.CastIfHitchanceEquals(ta, EloBuddy.SDK.Enumerations.HitChance.High, true);
                                 }
                         }
 
@@ -583,13 +583,13 @@ using EloBuddy.SDK.Menu.Values;
             if (useQ && _q.IsReady())
             {
                 var t = TargetSelector.GetTarget(_q.Range, DamageType.Physical);
-                if (t.LSIsValidTarget(_q.Range - 70)) _q.CastIfHitchanceEquals(t, HitChance.High, true);
+                if (t.LSIsValidTarget(_q.Range - 70)) _q.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High, true);
             }
 
             if (useW && _w.IsReady())
             {
                 var t = TargetSelector.GetTarget(_w.Range, DamageType.Magical);
-                if (t.LSIsValidTarget(_w.Range)) _w.CastIfHitchanceEquals(t, HitChance.High, true);
+                if (t.LSIsValidTarget(_w.Range)) _w.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High, true);
             }
         }
 
@@ -818,14 +818,14 @@ using EloBuddy.SDK.Menu.Values;
                 {
                     if (_q.GetDamage(hero) > hero.Health && hero.LSIsValidTarget(_q.Range - 30))
                     {
-                        _q.CastIfHitchanceEquals(hero, HitChance.High, true);
+                        _q.CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.High, true);
                     }
                 }
                 if (_w.IsReady() && getCheckBoxItem(miscMenu, "UseWM"))
                 {
                     if (_w.GetDamage(hero) > hero.Health && hero.LSIsValidTarget(_w.Range))
                     {
-                        _w.CastIfHitchanceEquals(hero, HitChance.High, true);
+                        _w.CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.High, true);
                     }
                 }
                 if (_r.IsReady() && getCheckBoxItem(miscMenu, "UseRM") && hero.LSIsValidTarget(_r.Range))
@@ -833,7 +833,7 @@ using EloBuddy.SDK.Menu.Values;
                     if (_q.IsReady() && _q.GetDamage(hero) > hero.Health && hero.LSIsValidTarget(_q.Range)) return;
                     if (!hero.IsInvulnerable && _r.GetDamage(hero) - 80 > hero.Health)
                     {
-                        _r.CastIfHitchanceEquals(hero, HitChance.High, true);
+                        _r.CastIfHitchanceEquals(hero, EloBuddy.SDK.Enumerations.HitChance.High, true);
                     }
                 }
             }

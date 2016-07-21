@@ -40,8 +40,8 @@ namespace HeavenStrikeRyze
 
             _q.SetSkillshot(0.26f, 50f, 1700f, true, SkillshotType.SkillshotLine);
             _q2.SetSkillshot(0.26f, 50f, 1700f, false, SkillshotType.SkillshotLine);
-            _q.MinHitChance = HitChance.Medium;
-            _q2.MinHitChance = HitChance.Medium;
+            _q.MinHitChance = EloBuddy.SDK.Enumerations.HitChance.Medium;
+            _q2.MinHitChance = EloBuddy.SDK.Enumerations.HitChance.Medium;
 
 
             _menu = MainMenu.AddMenu(Player.ChampionName, Player.ChampionName);

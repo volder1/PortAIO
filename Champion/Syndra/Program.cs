@@ -174,7 +174,7 @@ using EloBuddy.SDK;
             if (!EQcastNow)
             {
                 var ePred = Eany.GetPrediction(t);
-                if (ePred.Hitchance >= HitChance.VeryHigh)
+                if (ePred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     var playerToCP = Player.LSDistance(ePred.CastPosition);
                     foreach (var ball in BallsList.Where(ball => Player.LSDistance(ball.Position) < E.Range))

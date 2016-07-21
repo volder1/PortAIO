@@ -249,7 +249,7 @@ namespace KurisuRiven
                                     r.Cast(riventarget().ServerPosition);
 
                                 if (!riventarget().HasBuffOfType(BuffType.Stun))
-                                    r.CastIfHitchanceEquals(riventarget(), HitChance.Medium);
+                                    r.CastIfHitchanceEquals(riventarget(), EloBuddy.SDK.Enumerations.HitChance.Medium);
                             }
                         }
                     }
@@ -1070,7 +1070,7 @@ namespace KurisuRiven
                         if (Rdmg(t) >= t.Health)
                         {
                             var p = r.GetPrediction(t, true, -1f, new[] { CollisionableObjects.YasuoWall });
-                            if (p.Hitchance == (HitChance)getBoxItem(r2Menu, "rhitc") + 4 && canws && !t.HasBuff("kindredrnodeathbuff"))
+                            if (p.HitChance == (EloBuddy.SDK.Enumerations.HitChance)getBoxItem(r2Menu, "rhitc") + 4 && canws && !t.HasBuff("kindredrnodeathbuff"))
                             {
                                 r.Cast(p.CastPosition);
                             }
@@ -1104,7 +1104,7 @@ namespace KurisuRiven
                             if (Rdmg(riventarget()) / riventarget().MaxHealth * 100 >= 50)
                             {
                                 var p = r.GetPrediction(riventarget(), true, -1f, new[] { CollisionableObjects.YasuoWall });
-                                if (p.Hitchance >= HitChance.Medium && canws && !riventarget().HasBuff("kindredrnodeathbuff"))
+                                if (p.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium && canws && !riventarget().HasBuff("kindredrnodeathbuff"))
                                 {
                                     if (!isteamfightkappa || Getcheckboxvalue(r2Menu, "r" + riventarget().ChampionName) ||
                                          isteamfightkappa && !rrektAny())
@@ -1127,7 +1127,7 @@ namespace KurisuRiven
                                     if (riventarget().LSDistance(player.ServerPosition) <= truerange + q.Range)
                                     {
                                         var p = r.GetPrediction(riventarget(), true, -1f, new[] { CollisionableObjects.YasuoWall });
-                                        if (p.Hitchance == HitChance.High && canws && !riventarget().HasBuff("kindredrnodeathbuff"))
+                                        if (p.HitChance == EloBuddy.SDK.Enumerations.HitChance.High && canws && !riventarget().HasBuff("kindredrnodeathbuff"))
                                         {
                                             if (!isteamfightkappa || Getcheckboxvalue(r2Menu, "r" + riventarget().ChampionName) ||
                                                  isteamfightkappa && !rrektAny())
@@ -1161,7 +1161,7 @@ namespace KurisuRiven
                         if (Rdmg(t) >= t.Health)
                         {
                             var p = r.GetPrediction(t, true, -1f, new[] { CollisionableObjects.YasuoWall });
-                            if (p.Hitchance == (HitChance)getBoxItem(r2Menu, "rhitc") + 4 && canws && !t.HasBuff("kindredrnodeathbuff"))
+                            if (p.HitChance == (EloBuddy.SDK.Enumerations.HitChance)getBoxItem(r2Menu, "rhitc") + 4 && canws && !t.HasBuff("kindredrnodeathbuff"))
                             {
                                 r.Cast(p.CastPosition);
                             }
@@ -1539,7 +1539,7 @@ namespace KurisuRiven
                                                         r.Cast(riventarget().ServerPosition);
 
                                                     if (!riventarget().HasBuffOfType(BuffType.Stun))
-                                                        r.Cast(r.CastIfHitchanceEquals(riventarget(), HitChance.Medium));
+                                                        r.Cast(r.CastIfHitchanceEquals(riventarget(), EloBuddy.SDK.Enumerations.HitChance.Medium));
                                                 });
                                         }
                                     }
@@ -1597,7 +1597,7 @@ namespace KurisuRiven
                             {
                                 var btarg = TargetSelector.GetTarget(r.Range, DamageType.Physical);
                                 if (btarg.LSIsValidTarget())
-                                    r.CastIfHitchanceEquals(btarg, HitChance.Medium);
+                                    r.CastIfHitchanceEquals(btarg, EloBuddy.SDK.Enumerations.HitChance.Medium);
                                 else
                                     r.Cast(Game.CursorPos);
                             }
@@ -1625,7 +1625,7 @@ namespace KurisuRiven
                                 if (riventarget().LSIsValidTarget(r.Range + 100) && IsLethal(riventarget()))
                                 {
                                     Utility.DelayAction.Add(100 - Game.Ping,
-                                    () => r.Cast(r.CastIfHitchanceEquals(riventarget(), HitChance.Medium)));
+                                    () => r.Cast(r.CastIfHitchanceEquals(riventarget(), EloBuddy.SDK.Enumerations.HitChance.Medium)));
                                 }
                             }
                         }
@@ -1839,7 +1839,7 @@ namespace KurisuRiven
                         }
 
                         if (riventarget().LSIsValidTarget(r.Range) && !riventarget().HasBuff("kindredrnodeathbuff"))
-                            r.CastIfHitchanceEquals(riventarget(), HitChance.High);
+                            r.CastIfHitchanceEquals(riventarget(), EloBuddy.SDK.Enumerations.HitChance.High);
                     }
                 }
 

@@ -423,7 +423,7 @@ using Utility = LeagueSharp.Common.Utility;
                     if (ObjectManager.Player.LSDistance(chainable) < E.Range)
                     {
                         var predA = E.GetPrediction(chainable);
-                        if (predA.Hitchance >= HitChance.High)
+                        if (predA.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             E.Cast(chainable);
                         }
@@ -434,7 +434,7 @@ using Utility = LeagueSharp.Common.Utility;
                     if (ObjectManager.Player.LSDistance(chainable) < E.Range)
                     {
                         var pred = ER.GetPrediction(chainable);
-                        if (pred.Hitchance >= HitChance.High)
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             ER.Cast(chainable);
                             Console.WriteLine("2Chainz: Cast R(E)");
@@ -707,7 +707,7 @@ using Utility = LeagueSharp.Common.Utility;
             {
                 SpellManager.EPrediction.UpdateSourcePosition(position, position);
                 var pred = SpellManager.EPrediction.GetPrediction(enemy);
-                if (pred.Hitchance > HitChance.Medium)
+                if (pred.HitChance > EloBuddy.SDK.Enumerations.HitChance.Medium)
                 {
                     damage += E.GetDamage(enemy);
                 }

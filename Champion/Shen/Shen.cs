@@ -291,7 +291,7 @@ using Utility = LeagueSharp.Common.Utility;
                 }
                 else if ((player.LSDistance(target.Position) > Orbwalking.GetRealAutoAttackRange(target) ||
                           player.HealthPercent < 45 || player.LSCountEnemiesInRange(1000) == 1) &&
-                         E.GetPrediction(target).Hitchance >= HitChance.High)
+                         E.GetPrediction(target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     CastETarget(target);
                 }
@@ -330,7 +330,7 @@ using Utility = LeagueSharp.Common.Utility;
                         e.NetworkId != target.NetworkId && e.LSIsValidTarget(E.Range) &&
                         (poly.IsInside(E.GetPrediction(e).UnitPosition) || poly.IsInside(e.Position)) &&
                         e.Position.LSDistance(player.Position) > player.LSDistance(pred.UnitPosition));
-            if (pred.Hitchance >= HitChance.High)
+            if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 if (enemiesBehind > 0)
                 {
@@ -365,7 +365,7 @@ using Utility = LeagueSharp.Common.Utility;
             Q.UpdateSourcePosition(blade);
             var pred = Q.GetPrediction(target);
             var poly = CombatHelper.GetPoly(blade.LSExtend(player.Position, 30), player.LSDistance(blade), 150);
-            if (((pred.Hitchance >= HitChance.VeryHigh && poly.IsInside(pred.UnitPosition)) ||
+            if (((pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && poly.IsInside(pred.UnitPosition)) ||
                  (target.LSDistance(blade) < 100) || (target.LSDistance(blade) < 500 && poly.IsInside(target.Position)) ||
                  player.LSDistance(target) < Orbwalking.GetRealAutoAttackRange(target) || ObjectManager.Player.Spellbook.IsAutoAttacking) &&
                 CheckQDef())
@@ -423,7 +423,7 @@ using Utility = LeagueSharp.Common.Utility;
                             e.NetworkId != target.NetworkId && e.LSIsValidTarget(E.Range) &&
                             (poly.IsInside(E.GetPrediction(e).UnitPosition) || poly.IsInside(e.Position)) &&
                             e.Position.LSDistance(player.Position) > player.LSDistance(pred.UnitPosition));
-                if (pred.Hitchance >= HitChance.High)
+                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     Utility.DelayAction.Add(
                         30, () =>

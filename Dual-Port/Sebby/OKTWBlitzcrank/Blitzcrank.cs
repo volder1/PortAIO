@@ -209,8 +209,8 @@ using EloBuddy.SDK.Menu.Values;
                     {
                         if (!OktwCommon.CanMove(t))
                             Q.Cast(t, true);
-                        Q.CastIfHitchanceEquals(t, HitChance.Dashing);
-                        Q.CastIfHitchanceEquals(t, HitChance.Immobile);
+                        Q.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.Dashing);
+                        Q.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.Immobile);
                     }
                 }
             }

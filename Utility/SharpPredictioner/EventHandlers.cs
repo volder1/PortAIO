@@ -102,21 +102,21 @@ using EloBuddy.SDK.Menu.Values;
                                 case 0:
                                     if (getBoxItem(menu, "SPREDHITC") == 0)
                                     {
-                                        if (b.Hitchance >= HitChance.VeryHigh)
+                                        if (b.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                                         {
                                             SharpPredictioner.Spells[(int)args.Slot].Cast(b.CastPosition);
                                         }
                                     }
                                     if (getBoxItem(menu, "SPREDHITC") == 1)
                                     {
-                                        if (b.Hitchance >= HitChance.High)
+                                        if (b.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                                         {
                                             SharpPredictioner.Spells[(int)args.Slot].Cast(b.CastPosition);
                                         }
                                     }
                                     if (getBoxItem(menu, "SPREDHITC") == 2)
                                     {
-                                        if (b.Hitchance >= HitChance.Medium)
+                                        if (b.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                                         {
                                             SharpPredictioner.Spells[(int)args.Slot].Cast(b.CastPosition);
                                         }
@@ -125,15 +125,15 @@ using EloBuddy.SDK.Menu.Values;
                                 case 1:
                                     if (getBoxItem(menu, "SPREDHITC") == 0)
                                     {
-                                        SharpPredictioner.Spells[(int)args.Slot].CastIfHitchanceEquals(enemy, HitChance.VeryHigh);
+                                        SharpPredictioner.Spells[(int)args.Slot].CastIfHitchanceEquals(enemy, EloBuddy.SDK.Enumerations.HitChance.High);
                                     }
                                     if (getBoxItem(menu, "SPREDHITC") == 1)
                                     {
-                                        SharpPredictioner.Spells[(int)args.Slot].CastIfHitchanceEquals(enemy, HitChance.High);
+                                        SharpPredictioner.Spells[(int)args.Slot].CastIfHitchanceEquals(enemy, EloBuddy.SDK.Enumerations.HitChance.High);
                                     }
                                     if (getBoxItem(menu, "SPREDHITC") == 2)
                                     {
-                                        SharpPredictioner.Spells[(int)args.Slot].CastIfHitchanceEquals(enemy, HitChance.Medium);
+                                        SharpPredictioner.Spells[(int)args.Slot].CastIfHitchanceEquals(enemy, EloBuddy.SDK.Enumerations.HitChance.Medium);
                                     }
                                     break;
                             }

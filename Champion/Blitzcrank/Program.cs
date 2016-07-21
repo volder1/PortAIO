@@ -90,13 +90,10 @@ namespace PortAIO.Champion.Blitzcrank
                 ComboMenu.Add("Blitzcrank_CUse_R", new CheckBox("Use R"));
                 ComboMenu.Add("Blitzcrank_CUse_FlashQ", new KeyBind("Flash Q", false, KeyBind.BindTypes.HoldActive, 'T'));
                 ComboMenu.AddSeparator();
-                ComboMenu.AddLabel("1 : Out of Range");
-                ComboMenu.AddLabel("2 : Impossible");
-                ComboMenu.AddLabel("3 : Low");
-                ComboMenu.AddLabel("4 : Medium");
-                ComboMenu.AddLabel("5 : High");
-                ComboMenu.AddLabel("6 : Very High");
-                ComboMenu.Add("Blitzcrank_CUseQ_Hit", new Slider("Q HitChance", 6, 1, 6));
+                ComboMenu.AddLabel("1 : Low");
+                ComboMenu.AddLabel("2 : Medium");
+                ComboMenu.AddLabel("3 : High");
+                ComboMenu.Add("Blitzcrank_CUseQ_Hit", new Slider("Q HitChance", 3, 1, 3));
 
                 HarassMenu = _Menu.AddSubMenu("Harass", "Harass");
                 HarassMenu.Add("Blitzcrank_HUse_Q", new CheckBox("Use Q"));
@@ -193,14 +190,14 @@ namespace PortAIO.Champion.Blitzcrank
                 var RTarget = TargetSelector.GetTarget(_R.Range, DamageType.Magical);
 
                 if (getCheckBoxItem(MiscMenu, "Blitzcrank_GrabDash") && _Q.IsReady())
-                    if (QTarget != null && _Q.GetPrediction(QTarget).Hitchance == HitChance.Dashing)
-                        _Q.CastIfHitchanceEquals(QTarget, HitChance.Dashing, true);
+                    if (QTarget != null && _Q.GetPrediction(QTarget).HitChance == EloBuddy.SDK.Enumerations.HitChance.Dashing)
+                        _Q.CastIfHitchanceEquals(QTarget, EloBuddy.SDK.Enumerations.HitChance.Dashing, true);
 
                 //killsteal
                 if (getCheckBoxItem(KSMenu, "Blitzcran_KUse_Q") && QTarget != null &&
                     QTarget.Health < _Q.GetDamage(QTarget) && _Q.IsReady())
                 {
-                    _Q.CastIfHitchanceEquals(QTarget, HitChance.VeryHigh, true);
+                    _Q.CastIfHitchanceEquals(QTarget, EloBuddy.SDK.Enumerations.HitChance.High, true);
                     return;
                 }
                 if (getCheckBoxItem(KSMenu, "Blitzcran_KUse_R") && RTarget != null &&

@@ -20,10 +20,10 @@ namespace LCS_Janna
 
         public static string[] HitchanceNameArray = { "Low", "Medium", "High", "Very High", "Only Immobile" };
 
-        public static HitChance[] HitchanceArray =
+        public static EloBuddy.SDK.Enumerations.HitChance[] HitchanceArray =
         {
-            HitChance.Low, HitChance.Medium, HitChance.High, HitChance.VeryHigh,
-            HitChance.Immobile
+            EloBuddy.SDK.Enumerations.HitChance.Low, EloBuddy.SDK.Enumerations.HitChance.Medium, EloBuddy.SDK.Enumerations.HitChance.High, EloBuddy.SDK.Enumerations.HitChance.High,
+            EloBuddy.SDK.Enumerations.HitChance.Immobile
         };
 
         public static string[] HighChamps =
@@ -35,7 +35,7 @@ namespace LCS_Janna
             "Zed", "Ziggs", "Kindred", "Jhin"
         };
 
-        public static HitChance HikiChance(string menuName)
+        public static EloBuddy.SDK.Enumerations.HitChance HikiChance(string menuName)
         {
             return HitchanceArray[qsettings[menuName].Cast<ComboBox>().CurrentValue];
         }

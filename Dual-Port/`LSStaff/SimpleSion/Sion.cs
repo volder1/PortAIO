@@ -34,9 +34,7 @@ using EloBuddy.SDK.Menu;
 
             //Spells
             Q = new LeagueSharp.Common.Spell(SpellSlot.Q, 1050);
-            Q.SetSkillshot(0.6f, 100f, float.MaxValue, false, SkillshotType.SkillshotLine);
-            Q.SetCharged("SionQ", "SionQ", 500, 720, 0.5f);
-
+            Q.SetCharged(500, 720, 0.5f, 0.6f, int.MaxValue, 100);
             E = new LeagueSharp.Common.Spell(SpellSlot.E, 800);
             E.SetSkillshot(0.25f, 80f, 1800, false, SkillshotType.SkillshotLine);
 
@@ -129,7 +127,7 @@ using EloBuddy.SDK.Menu;
 
                     if (Q.IsReady())
                     {
-                        Q.StartCharging(qTarget.ServerPosition);
+                        Q.StartCharging();
                     }
                 }
 

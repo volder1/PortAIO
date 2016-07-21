@@ -116,7 +116,7 @@ using EloBuddy.SDK;
                 {
                     if (ObjectManager.Player.LSGetSpellDamage(t, SpellSlot.R) > t.Health && !t.IsZombie)
                     {
-                        R.CastIfHitchanceEquals(t, HitChance.High, false);
+                        R.CastIfHitchanceEquals(t, EloBuddy.SDK.Enumerations.HitChance.High, false);
                     }
                 }
             }

@@ -229,11 +229,11 @@ namespace Karma
                 if (!rActive || !_r.IsReady())
                 {
                     var qPrediction = _q.GetPrediction(qTarget);
-                    if (qPrediction.Hitchance >= HitChance.High)
+                    if (qPrediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         _q.Cast(qTarget);
                     }
-                    else if (qPrediction.Hitchance == HitChance.Collision)
+                    else if (qPrediction.HitChance == EloBuddy.SDK.Enumerations.HitChance.Collision)
                     {
                         var minionsHit = qPrediction.CollisionObjects;
                         var closest =

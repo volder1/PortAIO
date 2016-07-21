@@ -94,7 +94,7 @@
 
                     if (UseEJungleKS && E.GetDamage(target) > target.Health && Player.LSDistance(target) <= E.Range && Player.Mana >= E.ManaCost)
                     {
-                        E.CastIfHitchanceEquals(target, HitChance.VeryHigh, PacketCast);
+                        E.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, PacketCast);
                     }
                 }
             }

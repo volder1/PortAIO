@@ -380,7 +380,7 @@ using EloBuddy.SDK.Menu;
                 var spellbookq = Player.Spellbook.GetSpell(SpellSlot.Q);
                 if (target.LSIsValidTarget(Qm.Range - 20) && Player.Mana >= spellbookq.SData.Mana)
                 {
-                    if (getpred.Hitchance == HitChance.Collision || !Q.IsReady())
+                    if (getpred.HitChance == EloBuddy.SDK.Enumerations.HitChance.Collision || !Q.IsReady())
                     {
                         if (spellbook.State != SpellState.Surpressed &&
                             spellbook.Level != 0)
@@ -528,7 +528,7 @@ using EloBuddy.SDK.Menu;
             if (target == null) return;
             var prede = Q.GetPrediction(target);
             var pred = Qe.GetPrediction(target);
-            if (pred.CollisionObjects.Count >= 1) return;
+            if (pred.CollisionObjects.Count() >= 1) return;
 
             qpred.From = Qe.GetPrediction(target).CastPosition;
             qpred1.From = Q.GetPrediction(target).CastPosition;

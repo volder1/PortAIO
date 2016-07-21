@@ -177,7 +177,7 @@ namespace PortAIO.Champion.Amumu
                                 .Where(
                                     x =>
                                         x.LSIsValidTarget(_spellQ.Range) &&
-                                        _spellQ.GetPrediction(x).Hitchance >= HitChance.High)) //causes troubles?
+                                        _spellQ.GetPrediction(x).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)) //causes troubles?
                     {
                         var targetsHit = unit.LSCountEnemiesInRange((int) _spellR.Range);
                             //unitposition might not reflect where you land with Q
@@ -199,7 +199,7 @@ namespace PortAIO.Champion.Amumu
                 if (target != null)
                 {
                     var pred = _spellQ.GetPrediction(target);
-                    if (comboQ == 2 || (comboQ == 3 && !Orbwalking.InAutoAttackRange(target)) && _spellQ.IsReady() && target.LSIsValidTarget() && pred.Hitchance >= HitChance.High)
+                    if (comboQ == 2 || (comboQ == 3 && !Orbwalking.InAutoAttackRange(target)) && _spellQ.IsReady() && target.LSIsValidTarget() && pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         _spellQ.Cast(pred.CastPosition);
                     else if (!target.CanMove && comboQ == 2 || comboQ == 3)
                     {
@@ -248,11 +248,11 @@ namespace PortAIO.Champion.Amumu
                 var minion =
                     MinionManager.GetMinions(ObjectManager.Player.ServerPosition, _spellQ.Range, MinionTypes.All,
                         MinionTeam.NotAlly, MinionOrderTypes.MaxHealth)
-                        .FirstOrDefault(x => _spellQ.GetPrediction(x).Hitchance >= HitChance.Medium);
+                        .FirstOrDefault(x => _spellQ.GetPrediction(x).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium);
 
                 if (minion != null)
                     if (farmQ == 1 || (farmQ == 2 && !Orbwalking.InAutoAttackRange(minion)))
-                        CastQ(minion, HitChance.Medium);
+                        CastQ(minion, EloBuddy.SDK.Enumerations.HitChance.Medium);
             }
 
             if (farmE && _spellE.IsReady())
@@ -298,7 +298,7 @@ namespace PortAIO.Champion.Amumu
             _comboW = false;
         }
 
-        private static void CastQ(Obj_AI_Base target, HitChance hitChance = HitChance.High)
+        private static void CastQ(Obj_AI_Base target, EloBuddy.SDK.Enumerations.HitChance hitChance = EloBuddy.SDK.Enumerations.HitChance.High)
         {
             if (!_spellQ.IsReady())
                 return;

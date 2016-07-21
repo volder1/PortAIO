@@ -170,7 +170,7 @@ using Utility = LeagueSharp.Common.Utility;
             if (getCheckBoxItem(menuC, "useq") && Q.IsReady() && Q.CanCast(target) && target.LSDistance(player) < Q.Range &&
                 (player.LSDistance(target) > Orbwalking.GetRealAutoAttackRange(target) || !Orbwalker.CanAutoAttack))
             {
-                Q.CastIfHitchanceEquals(target, HitChance.High, getCheckBoxItem(config, "packets"));
+                Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, getCheckBoxItem(config, "packets"));
             }
 
             var hasIgnite = player.Spellbook.CanUseSpell(player.GetSpellSlot("SummonerDot")) == SpellState.Ready &&
@@ -214,7 +214,7 @@ using Utility = LeagueSharp.Common.Utility;
                 }
                 if (R.IsCharging && targ != null && R.CanCast(targ) && R.Range > 1000 && R.Range > targ.LSDistance(player))
                 {
-                    R.CastIfHitchanceEquals(targ, HitChance.Medium, getCheckBoxItem(config, "packets"));
+                    R.CastIfHitchanceEquals(targ, EloBuddy.SDK.Enumerations.HitChance.Medium, getCheckBoxItem(config, "packets"));
                 }
                 if (R.IsCharging && targ != null && R.Range < 1000)
                 {
@@ -241,7 +241,7 @@ using Utility = LeagueSharp.Common.Utility;
                 }
                 if (R.IsCharging && R.CanCast(target) && R.Range > target.LSDistance(player) && cond)
                 {
-                    R.CastIfHitchanceEquals(target, HitChance.High, getCheckBoxItem(config, "packets"));
+                    R.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, getCheckBoxItem(config, "packets"));
                 }
             }
         }
@@ -278,7 +278,7 @@ using Utility = LeagueSharp.Common.Utility;
                 target.LSDistance(player) < Q.Range &&
                 (player.LSDistance(target) > Orbwalking.GetRealAutoAttackRange(target) || !Orbwalker.CanAutoAttack))
             {
-                Q.CastIfHitchanceEquals(target, HitChance.High, getCheckBoxItem(config, "packets"));
+                Q.CastIfHitchanceEquals(target, EloBuddy.SDK.Enumerations.HitChance.High, getCheckBoxItem(config, "packets"));
             }
         }
 
@@ -349,8 +349,7 @@ using Utility = LeagueSharp.Common.Utility;
             W = new Spell(SpellSlot.W, 400);
             E = new Spell(SpellSlot.E, 500);
             R = new Spell(SpellSlot.R);
-            R.SetSkillshot(0.5f, 90f, 1400, true, SkillshotType.SkillshotLine);
-            R.SetCharged("PoppyR", "PoppyR", 425, 1400, 1.0f);
+            R.SetCharged(425, 1400, 1.0f, 0.5f, 1400, 90);
         }
 
         public static bool getCheckBoxItem(Menu m, string item)

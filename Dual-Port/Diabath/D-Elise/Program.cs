@@ -446,12 +446,12 @@ using Color = System.Drawing.Color;
                         && _humanE.IsReady())
                     {
                         if (sReady && getCheckBoxItem(smiteMenu, "Smiteeee")
-                            && _humanE.GetPrediction(target).CollisionObjects.Count == 1)
+                            && _humanE.GetPrediction(target).CollisionObjects.Count() == 1)
                         {
                             CheckingCollision(target);
                             _humanE.Cast(hero);
                         }
-                        else if (_humanE.GetPrediction(target).Hitchance >= Echange())
+                        else if (_humanE.GetPrediction(target).HitChance >= Echange())
                         {
                             _humanE.Cast(target);
                         }
@@ -767,7 +767,7 @@ using Color = System.Drawing.Color;
             var target = TargetSelector.GetTarget(_humanE.Range, DamageType.Magical);
 
             if (_human && target.LSIsValidTarget(_humanE.Range) && _humanE.IsReady()
-                && _humanE.GetPrediction(target).Hitchance >= HitChance.VeryHigh)
+                && _humanE.GetPrediction(target).HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
             {
                 _humanE.Cast(target);
             }
@@ -783,7 +783,7 @@ using Color = System.Drawing.Color;
             Interrupter2.InterruptableTargetEventArgs args)
         {
             if (!getCheckBoxItem(miscMenu, "UseEInt")) return;
-            if (unit.LSIsValidTarget(_humanE.Range) && _humanE.GetPrediction(unit).Hitchance >= HitChance.Low)
+            if (unit.LSIsValidTarget(_humanE.Range) && _humanE.GetPrediction(unit).HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
             {
                 _humanE.Cast(unit);
             }
@@ -834,20 +834,20 @@ using Color = System.Drawing.Color;
             }
         }
 
-        private static HitChance Echange()
+        private static EloBuddy.SDK.Enumerations.HitChance Echange()
         {
             switch (getBoxItem(miscMenu, "Echange"))
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 default:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
             }
         }
 

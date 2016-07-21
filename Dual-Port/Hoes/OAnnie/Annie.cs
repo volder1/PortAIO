@@ -571,7 +571,7 @@ using Spell = LeagueSharp.Common.Spell;
             if (R.IsReady()
                 && user && target.LSIsValidTarget(R.Range) && !Player.HasBuff("summonerteleport") && Player.HasBuff("pyromania_particle"))
             {
-                if (rpred.AoeTargetsHitCount >= userslider)
+                if (rpred.GetCollisionObjects<AIHeroClient>().Count() >= userslider)
                 {
                     R.Cast(rpred.CastPosition);
                 }

@@ -85,16 +85,16 @@ using EloBuddy.SDK.Menu.Values;
                 nExtend = 100;
             }
 
-            PredictionOutput qPredictionOutput = Q.GetPrediction(t);
+            var qPredictionOutput = Q.GetPrediction(t);
             Vector3 castPosition = qPredictionOutput.CastPosition.LSExtend(ObjectManager.Player.Position, -nExtend);
-            HitChance[] hitChances = new[]
+            EloBuddy.SDK.Enumerations.HitChance[] hitChances = new[]
             {
-                HitChance.VeryHigh, HitChance.High, HitChance.Medium, HitChance.Low
+                EloBuddy.SDK.Enumerations.HitChance.High, EloBuddy.SDK.Enumerations.HitChance.High, EloBuddy.SDK.Enumerations.HitChance.Medium, EloBuddy.SDK.Enumerations.HitChance.Low
             };
 
-            if (qPredictionOutput.Hitchance >=
+            if (qPredictionOutput.HitChance >=
                 (ObjectManager.Player.LSDistance(t.ServerPosition) >= 350
-                    ? HitChance.VeryHigh
+                    ? EloBuddy.SDK.Enumerations.HitChance.High
                     : hitChances[Modes.ModeSettings.QHitchance]) &&
                 ObjectManager.Player.LSDistance(castPosition) < range)
             {

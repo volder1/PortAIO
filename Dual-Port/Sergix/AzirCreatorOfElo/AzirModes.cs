@@ -68,7 +68,7 @@ namespace Azir_Creator_of_Elo
                 if (target.Distance(azir.Hero.ServerPosition) < 450)
                 {
                     var pred = azir.Spells.W.GetPrediction(target);
-                    if (pred.Hitchance >= HitChance.Medium)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                     {
                         if (savew && (wCount == 1))
                         {
@@ -112,7 +112,7 @@ namespace Azir_Creator_of_Elo
                 if (azir.Spells.W.IsInRange(minion))
                 {
                     var pred = azir.Spells.W.GetPrediction(minion);
-                    if (pred.Hitchance >= HitChance.High)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         if (useW)
                             azir.Spells.W.Cast(pred.CastPosition);
@@ -120,7 +120,7 @@ namespace Azir_Creator_of_Elo
                     if (azir.soldierManager.SoldiersAttacking(azir) == false && azir.soldierManager.ActiveSoldiers.Count > 0)
                     {
                         pred = azir.Spells.Q.GetPrediction(minion);
-                        if (pred.Hitchance >= HitChance.High)
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             if (useQ)
                                 azir.Spells.Q.Cast(pred.CastPosition);
@@ -139,7 +139,7 @@ namespace Azir_Creator_of_Elo
                 if (azir.Spells.W.IsInRange(minion))
                 {
                     var pred = azir.Spells.W.GetPrediction(minion);
-                    if (pred.Hitchance >= HitChance.High)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         if (useW)
                             azir.Spells.W.Cast(pred.CastPosition);
@@ -170,7 +170,7 @@ namespace Azir_Creator_of_Elo
                 else
                 {
                     var pred = azir.Spells.W.GetPrediction(target);
-                    if (pred.Hitchance >= HitChance.VeryHigh)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         if (useW)
                             azir.Spells.W.Cast(pred.CastPosition);
@@ -196,7 +196,7 @@ namespace Azir_Creator_of_Elo
                 if (target.Health < azir.Spells.Q.GetDamage(target))
                 {
                     var pred = azir.Spells.Q.GetPrediction(target);
-                    if (pred.Hitchance >= HitChance.High)
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         //       Game.PrintChat("Killeable with q");
                         azir.Spells.Q.Cast(pred.CastPosition);
@@ -210,7 +210,7 @@ namespace Azir_Creator_of_Elo
                     if (target.Health < azir.Spells.R.GetDamage(target))
                     {
                         var pred = azir.Spells.R.GetPrediction(target);
-                        if (pred.Hitchance >= HitChance.High)
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
 
                             azir.Spells.R.Cast(pred.CastPosition);

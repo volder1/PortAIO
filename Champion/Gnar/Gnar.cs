@@ -547,7 +547,7 @@ namespace Slutty_Gnar_Reworked
                     {
                         var prediction = GnarSpells.EMini.GetPrediction(targetA);
 
-                        if (prediction.Hitchance >= HitChance.High)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             var arrivalPoint = Player.ServerPosition.LSExtend(prediction.CastPosition, Player.ServerPosition.LSDistance(prediction.CastPosition) + GnarSpells.EMini.Range);
                             if (!ObjectManager.Get<Obj_AI_Turret>().Any(t => t.Team != Player.Team && !t.IsDead && t.LSDistance(arrivalPoint, true) < 775 * 775))

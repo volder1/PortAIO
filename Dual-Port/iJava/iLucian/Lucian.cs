@@ -179,7 +179,7 @@
                     HeroManager.Enemies.Where(
                         x =>
                         x.LSIsValidTarget(Variables.Spell[Variables.Spells.R].Range)
-                        && Variables.Spell[Variables.Spells.R].GetPrediction(x).CollisionObjects.Count == 0))
+                        && Variables.Spell[Variables.Spells.R].GetPrediction(x).CollisionObjects.Count() == 0))
             {
                 Variables.Spell[Variables.Spells.R].Cast(enemy);
             }
@@ -482,7 +482,7 @@
                                 if (getCheckBoxItem(MenuGenerator.miscOptions, "com.ilucian.misc.usePrediction"))
                                 {
                                     var prediction = Variables.Spell[Variables.Spells.W].GetPrediction(target);
-                                    if (prediction.Hitchance >= HitChance.High)
+                                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                                     {
                                         Variables.Spell[Variables.Spells.W].Cast(prediction.CastPosition);
                                     }
@@ -519,7 +519,7 @@
                                 if (getCheckBoxItem(MenuGenerator.miscOptions, "com.ilucian.misc.usePrediction"))
                                 {
                                     var prediction = Variables.Spell[Variables.Spells.W].GetPrediction(target);
-                                    if (prediction.Hitchance >= HitChance.High)
+                                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                                     {
                                         Variables.Spell[Variables.Spells.W].Cast(prediction.CastPosition);
                                     }
@@ -566,7 +566,7 @@
                             if (getCheckBoxItem(MenuGenerator.harassOptions, "com.ilucian.misc.usePrediction"))
                             {
                                 var prediction = Variables.Spell[Variables.Spells.W].GetPrediction(target);
-                                if (prediction.Hitchance >= HitChance.High)
+                                if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                                 {
                                     Variables.Spell[Variables.Spells.W].Cast(prediction.CastPosition);
                                 }
@@ -644,7 +644,7 @@
                     if (getCheckBoxItem(MenuGenerator.miscOptions, "com.ilucian.misc.usePrediction"))
                     {
                         var prediction = Variables.Spell[Variables.Spells.W].GetPrediction(target);
-                        if (prediction.Hitchance >= HitChance.High)
+                        if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                         {
                             Variables.Spell[Variables.Spells.W].Cast(prediction.CastPosition);
                         }

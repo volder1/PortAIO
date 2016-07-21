@@ -99,7 +99,7 @@ namespace SPrediction
             foreach (AIHeroClient enemy in enemies)
             {
                 Prediction.Result prediction = GetPrediction(enemy, width, delay, missileSpeed, range, false, enemy.GetWaypoints(), enemy.AvgMovChangeTime(), enemy.LastMovChangeTime(), enemy.AvgPathLenght(), enemy.LastAngleDiff(), from, rangeCheckFrom);
-                if (prediction.HitChance > HitChance.Medium)
+                if (prediction.HitChance > EloBuddy.SDK.Enumerations.HitChance.Medium)
                 {
                     Vector2 to = from + (prediction.CastPosition - from).Normalized() * range;
                     Collision.Result colResult = Collision.GetCollisions(from, to, range, width, delay, missileSpeed, false);

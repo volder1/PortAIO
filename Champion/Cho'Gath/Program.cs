@@ -203,24 +203,24 @@ namespace UnderratedAIO.Champions
             if (getCheckBoxItem(comboMenu, "useq") && Q.IsReady())
             {
                 var qHit = getSliderItem(comboMenu, "qHit");
-                var hitC = HitChance.VeryHigh;
+                var hitC = EloBuddy.SDK.Enumerations.HitChance.High;
                 switch (qHit)
                 {
                     case 1:
-                        hitC = HitChance.Low;
+                        hitC = EloBuddy.SDK.Enumerations.HitChance.Low;
                         break;
                     case 2:
-                        hitC = HitChance.Medium;
+                        hitC = EloBuddy.SDK.Enumerations.HitChance.Medium;
                         break;
                     case 3:
-                        hitC = HitChance.High;
+                        hitC = EloBuddy.SDK.Enumerations.HitChance.High;
                         break;
                     case 4:
-                        hitC = HitChance.VeryHigh;
+                        hitC = EloBuddy.SDK.Enumerations.HitChance.High;
                         break;
                 }
                 var pred = Q.GetPrediction(target);
-                if (pred.Hitchance >= hitC)
+                if (pred.HitChance >= hitC)
                 {
                     Q.Cast(pred.CastPosition);
                 }

@@ -184,7 +184,7 @@ using Utility = LeagueSharp.Common.Utility;
                     if (getCheckBoxItem(comboMenu, "com.idz.zed.combo.useqpred"))
                     {
                         var prediction = _spells[SpellSlot.Q].GetPrediction(target);
-                        if (prediction.Hitchance >= GetHitchance())
+                        if (prediction.HitChance >= GetHitchance())
                         {
                             if (ShadowManager.WShadow.ShadowObject.LSDistance(target) <= _spells[SpellSlot.Q].Range)
                             {
@@ -210,7 +210,7 @@ using Utility = LeagueSharp.Common.Utility;
                     if (getCheckBoxItem(comboMenu, "com.idz.zed.combo.useqpred"))
                     {
                         var prediction = _spells[SpellSlot.Q].GetPrediction(target);
-                        if (prediction.Hitchance >= GetHitchance())
+                        if (prediction.HitChance >= GetHitchance())
                         {
                             if (ShadowManager.RShadow.ShadowObject.LSDistance(target) <= _spells[SpellSlot.Q].Range)
                             {
@@ -232,7 +232,7 @@ using Utility = LeagueSharp.Common.Utility;
                     if (getCheckBoxItem(comboMenu, "com.idz.zed.combo.useqpred"))
                     {
                         var prediction = _spells[SpellSlot.Q].GetPrediction(target);
-                        if (prediction.Hitchance >= GetHitchance())
+                        if (prediction.HitChance >= GetHitchance())
                         {
                             if (Player.LSDistance(target) <= _spells[SpellSlot.Q].Range
                                 && target.LSIsValidTarget(_spells[SpellSlot.Q].Range))
@@ -630,20 +630,20 @@ using Utility = LeagueSharp.Common.Utility;
         /// </summary>
         /// <returns>
         /// </returns>
-        private static HitChance GetHitchance()
+        private static EloBuddy.SDK.Enumerations.HitChance GetHitchance()
         {
             switch (getBoxItem(miscMenu, "com.idz.zed.misc.hitchance"))
             {
                 case 0:
-                    return HitChance.Low;
+                    return EloBuddy.SDK.Enumerations.HitChance.Low;
                 case 1:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
                 case 2:
-                    return HitChance.High;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 case 3:
-                    return HitChance.VeryHigh;
+                    return EloBuddy.SDK.Enumerations.HitChance.High;
                 default:
-                    return HitChance.Medium;
+                    return EloBuddy.SDK.Enumerations.HitChance.Medium;
             }
         }
 
@@ -723,7 +723,7 @@ using Utility = LeagueSharp.Common.Utility;
                         }
                         else
                         {
-                            if (_spells[SpellSlot.Q].GetPrediction(target).Hitchance < HitChance.High)
+                            if (_spells[SpellSlot.Q].GetPrediction(target).HitChance < EloBuddy.SDK.Enumerations.HitChance.High)
                             {
                                 _spells[SpellSlot.Q].Cast(target.Position);
                             }
