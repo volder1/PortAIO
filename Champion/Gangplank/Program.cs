@@ -1184,7 +1184,7 @@ namespace UnderratedAIO.Champions
 
         private void InitMenu()
         {
-            config = config.AddSubMenu("Gangplank ", "Gangplank");
+            config = MainMenu.AddMenu("Gangplank ", "Gangplank");
 
             // Draw settings
             menuD = config.AddSubMenu("Drawings ", "dsettings");
