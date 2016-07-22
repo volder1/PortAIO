@@ -71,6 +71,14 @@ namespace UnderratedAIO.Champions
             }
         }
 
+        private static void CleanserManager()
+        {
+            // List of disable buffs
+            if (W.IsReady() && ((Player.HasBuffOfType(BuffType.Charm)) || (Player.HasBuffOfType(BuffType.Flee)) || (Player.HasBuffOfType(BuffType.Polymorph)) || (Player.HasBuffOfType(BuffType.Snare)) || (Player.HasBuffOfType(BuffType.Stun)) || (Player.HasBuffOfType(BuffType.Taunt)) || (Player.HasBuff("summonerexhaust")) || (Player.HasBuffOfType(BuffType.Suppression))))
+            {
+                LeagueSharp.Common.Utility.DelayAction.Add(100, () => { W.Cast(); });
+            }
+        }
 
         private void GameObject_OnDelete(GameObject sender, EventArgs args)
         {
@@ -184,6 +192,11 @@ namespace UnderratedAIO.Champions
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
             {
                 Clear();
+            }
+
+            if (menuC["AutoW"].Cast<CheckBox>().CurrentValue)
+            {
+                CleanserManager();
             }
 
             if (getCheckBoxItem(menuM, "AutoR") && R.IsReady())
