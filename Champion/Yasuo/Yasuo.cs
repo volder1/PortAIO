@@ -30,7 +30,7 @@ namespace Valvrave_Sharp.Plugin
     {
         #region Constants
 
-        private const float QDelay = 0.38f, Q2Delay = 0.35f, QDelays = 0.2f, Q2Delays = 0.3f;
+        private const float QDelay = 0.38f, Q2Delay = 0.35f, QDelays = 0.215f, Q2Delays = 0.315f;
 
         private const int RWidth = 400;
 
@@ -88,7 +88,7 @@ namespace Valvrave_Sharp.Plugin
 
             Q = new LeagueSharp.SDK.Spell(SpellSlot.Q, 505).SetSkillshot(QDelay, 20, float.MaxValue, false, SkillshotType.SkillshotLine);
             Q2 = new LeagueSharp.SDK.Spell(Q.Slot, 1100).SetSkillshot(Q2Delay, 90, 1200, true, Q.Type);
-            Q3 = new LeagueSharp.SDK.Spell(Q.Slot, 225).SetSkillshot(0.005f, 225, float.MaxValue, false, SkillshotType.SkillshotCircle);
+            Q3 = new LeagueSharp.SDK.Spell(Q.Slot, 240).SetSkillshot(0.001f, 240, float.MaxValue, false, SkillshotType.SkillshotCircle);
             W = new LeagueSharp.SDK.Spell(SpellSlot.W, 400).SetTargetted(0.25f, float.MaxValue);
             E = new LeagueSharp.SDK.Spell(SpellSlot.E, 475).SetTargetted(0, 1200);
             E2 = new LeagueSharp.SDK.Spell(E.Slot, E.Range).SetTargetted(Q3.Delay, E.Speed);
@@ -196,7 +196,7 @@ namespace Valvrave_Sharp.Plugin
                     {
                         isDash = false;
                         DelayAction.Add(
-                            70,
+                            50,
                             () =>
                             {
                                 if (!isDash)
@@ -445,7 +445,7 @@ namespace Valvrave_Sharp.Plugin
                 return true;
             }
             var buff = target.Buffs.FirstOrDefault(i => i.Type == BuffType.Knockup);
-            return buff != null && Game.Time - buff.StartTime >= 0.9 * (buff.EndTime - buff.StartTime);
+            return buff != null && Game.Time - buff.StartTime >= 0.85 * (buff.EndTime - buff.StartTime);
         }
 
         private static bool CanDash(
