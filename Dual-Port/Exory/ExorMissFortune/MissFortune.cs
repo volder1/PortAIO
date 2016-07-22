@@ -7,8 +7,9 @@ using LeagueSharp.SDK.Core.Utils;
 using EloBuddy.SDK;
 using System.Linq;
 using LeagueSharp.Data;
+using LeagueSharp.Data.DataTypes;
 
- namespace ExorAIO.Champions.MissFortune
+namespace ExorAIO.Champions.MissFortune
 {
     /// <summary>
     ///     The champion class.
@@ -189,20 +190,22 @@ using LeagueSharp.Data;
                 if (Vars.GetRealHealth(args.Target as AIHeroClient) >
                         GameObjects.Player.GetAutoAttackDamage(args.Target as AIHeroClient) * 3)
                 {
-                    if (!GameObjects.EnemyHeroes.Any(
+                    if (GameObjects.EnemyHeroes.Any(
                         t =>
                             t.IsValidTarget(Vars.AARange) &&
                             t.NetworkId != Vars.PassiveTarget.NetworkId))
                     {
-                        Orbwalker.ForcedTarget =(null);
+                        args.Process = false;
+                        Orbwalker.ForcedTarget = GameObjects.EnemyHeroes.Where(
+                            t =>
+                                t.IsValidTarget(Vars.AARange) &&
+                                t.NetworkId != Vars.PassiveTarget.NetworkId).OrderByDescending(
+                                    o =>
+                                        Data.Get<ChampionPriorityData>().GetPriority(o.ChampionName)).First();
                         return;
                     }
 
-                    args.Process = false;
-                    Orbwalker.ForcedTarget =(GameObjects.EnemyHeroes.Where(
-                        t =>
-                            t.IsValidTarget(Vars.AARange) &&
-                            t.NetworkId != Vars.PassiveTarget.NetworkId).OrderByDescending(o => TargetSelector.GetPriority(o)).First());
+                    Orbwalker.ForcedTarget = null;
                 }
             }
         }

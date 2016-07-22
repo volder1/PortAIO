@@ -1,8 +1,9 @@
 using EloBuddy;
+using EloBuddy.SDK;
 using LeagueSharp;
 using LeagueSharp.SDK;
 
- namespace ExorAIO.Champions.Cassiopeia
+namespace ExorAIO.Champions.Cassiopeia
 {
     /// <summary>
     ///     The methods class.
@@ -17,6 +18,7 @@ using LeagueSharp.SDK;
             Game.OnUpdate += Cassiopeia.OnUpdate;
             Events.OnGapCloser += Cassiopeia.OnGapCloser;
             Events.OnInterruptableTarget += Cassiopeia.OnInterruptableTarget;
+            Orbwalker.OnPreAttack += Cassiopeia.OnAction;
         }
     }
 }

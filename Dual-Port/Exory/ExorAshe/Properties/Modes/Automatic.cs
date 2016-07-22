@@ -6,8 +6,9 @@ using LeagueSharp.SDK;
 using LeagueSharp.SDK.Core.Utils;
 using EloBuddy;
 using EloBuddy.SDK;
+using SharpDX;
 
- namespace ExorAIO.Champions.Ashe
+namespace ExorAIO.Champions.Ashe
 {
     /// <summary>
     ///     The logics class.
@@ -49,22 +50,31 @@ using EloBuddy.SDK;
             ///     The Automatic E Logic.
             /// </summary>
             if (Vars.E.IsReady() &&
-                Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None) &&
-                GameObjects.Player.CountEnemyHeroesInRange(1000f) == 0 &&
+                GameObjects.Player.Spellbook.GetSpell(SpellSlot.E).Ammo >=
+                    (Vars.getCheckBoxItem(Vars.EMenu, "logical") ? 2 : 1) &&
                 Vars.getCheckBoxItem(Vars.EMenu, "vision"))
             {
-                if (GameObjects.EnemyHeroes.Any(
-                    x =>
-                        !x.IsDead &&
-                        !x.IsVisible))
+                if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None) &&
+                    GameObjects.Player.CountEnemyHeroesInRange(1000f) == 0 &&
+                    GameObjects.EnemyHeroes.Count(
+                        x =>
+                            !x.IsDead &&
+                            !x.IsVisible) >= 3)
                 {
-                    if (GameObjects.Player.Spellbook.GetSpell(SpellSlot.E).Ammo >=
-                        (Vars.getCheckBoxItem(Vars.EMenu, "logical") ? 2 : 1))
+                    Vars.E.Cast(Vars.Locations
+                        .Where(d => GameObjects.Player.Distance(d) > 1500f)
+                        .OrderBy(d2 => GameObjects.Player.Distance(d2))
+                        .FirstOrDefault());
+                }
+
+                foreach (var target in GameObjects.EnemyHeroes)
+                {
+                    if (target.Distance(target.GetWaypoints().Last()) < 1500 &&
+                        !NavMesh.IsWallOfGrass(GameObjects.Player.ServerPosition, 1) &&
+                        NavMesh.IsWallOfGrass((Vector3)target.GetWaypoints().Last(), 1) &&
+                        GameObjects.Player.Distance(target.GetWaypoints().Last()) > 1000)
                     {
-                        Vars.E.Cast(Vars.Locations
-                            .Where(d => GameObjects.Player.Distance(d) > 1500f)
-                            .OrderBy(d2 => GameObjects.Player.Distance(d2))
-                            .FirstOrDefault());
+                        Vars.E.Cast(target.GetWaypoints().Last());
                     }
                 }
             }

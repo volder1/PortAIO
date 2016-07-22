@@ -19,6 +19,13 @@ namespace ExorAIO.Champions.Ryze
         /// <param name="args">The <see cref="EventArgs" /> instance containing the event data.</param>
         public static void Killsteal(EventArgs args)
         {
+            if (GameObjects.Player.HealthPercent <=
+                    Vars.getSliderItem(Vars.QMenu, "shield") &&
+                Vars.getSliderItem(Vars.QMenu, "shield") != 0)
+            {
+                return;
+            }
+
             /// <summary>
             ///     The KillSteal Q Logic.
             /// </summary>
@@ -31,13 +38,12 @@ namespace ExorAIO.Champions.Ryze
                         !Invulnerable.Check(t, DamageType.Magical) &&
                         Vars.GetRealHealth(t) <
                             (float)GameObjects.Player.LSGetSpellDamage(t, SpellSlot.Q) * (1 + (t.HasBuff("RyzeE")
-                                ? new double[] { 40, 55, 70, 85, 100, 100 }[GameObjects.Player.Spellbook.GetSpell(SpellSlot.Q).Level] / 100
+                                ? new double[] { 40, 55, 70, 85, 100 }[GameObjects.Player.Spellbook.GetSpell(SpellSlot.E).Level - 1] / 100
                                 : 0))))
                 {
                     if (!Vars.Q.GetPrediction(target).CollisionObjects.Any())
                     {
                         Vars.Q.Cast(Vars.Q.GetPrediction(target).UnitPosition);
-                        return;
                     }
                 }
             }
@@ -56,7 +62,6 @@ namespace ExorAIO.Champions.Ryze
                             (float)GameObjects.Player.LSGetSpellDamage(t, SpellSlot.W)))
                 {
                     Vars.W.CastOnUnit(target);
-                    return;
                 }
             }
 

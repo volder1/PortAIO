@@ -108,7 +108,7 @@ namespace ExorAIO.Utilities
         /// <summary>
         ///     The last tick.
         /// </summary>
-        public static int Tick = 0;
+        public static int LastTick = 0;
 
         /// <summary>
         ///     The args End.

@@ -28,14 +28,6 @@ using EloBuddy.SDK;
             }
 
             /// <summary>
-            ///     The No AA while in Combo option.
-            /// </summary>
-            if (Vars.getCheckBoxItem(Vars.MiscMenu, "noaa"))
-            {
-                PortAIO.OrbwalkerManager.SetAttack(Bools.HasSheenBuff() || GameObjects.Player.ManaPercent < 10 || !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) || (!Vars.Q.IsReady() && !Vars.W.IsReady() && !Vars.E.IsReady()));
-            }
-
-            /// <summary>
             ///     The Tear Stacking Logic.
             /// </summary>
             if (Vars.Q.IsReady() &&

@@ -4,6 +4,7 @@ using ExorAIO.Utilities;
 using LeagueSharp;
 using LeagueSharp.SDK;
 using EloBuddy;
+using EloBuddy.SDK;
 
 namespace ExorAIO.Champions.Ryze
 {
@@ -31,18 +32,18 @@ namespace ExorAIO.Champions.Ryze
                     ManaManager.GetNeededMana(Vars.Q.Slot, Vars.getSliderItem(Vars.QMenu, "laneclear")) &&
                 Vars.getSliderItem(Vars.QMenu, "laneclear") != 101)
             {
-                foreach (var minion in Targets.Minions.Where(
-                    m =>
-                        m.HasBuff("RyzeE") &&
-                        m.LSIsValidTarget(Vars.Q.Range) &&
-                        Vars.GetRealHealth(m) <
-                            (float)GameObjects.Player.LSGetSpellDamage(m, SpellSlot.Q) * (1 + (m.HasBuff("RyzeE")
-                                ? new double[] { 40, 55, 70, 85, 100, 100 }[GameObjects.Player.Spellbook.GetSpell(SpellSlot.Q).Level] / 100
-                                : 0)) &&
-                        Vars.GetRealHealth(m) >
-                            (float)GameObjects.Player.LSGetSpellDamage(m, SpellSlot.E)))
+                foreach (var minion in Targets.Minions.Where(m => m.IsValidTarget(Vars.Q.Range)))
                 {
-                    Vars.Q.Cast(minion);
+                    if (minion.HasBuff("RyzeE") &&
+                        Vars.GetRealHealth(minion) >
+                            (float)GameObjects.Player.GetSpellDamage(minion, SpellSlot.E) &&
+                        Vars.GetRealHealth(minion) <
+                            (float)GameObjects.Player.GetSpellDamage(minion, SpellSlot.Q) * (1 + (minion.HasBuff("RyzeE")
+                                ? new double[] { 40, 55, 70, 85, 100 }[GameObjects.Player.Spellbook.GetSpell(SpellSlot.E).Level - 1] / 100
+                                : 0)))
+                    {
+                        Vars.Q.Cast(minion);
+                    }
                 }
             }
 
@@ -54,14 +55,19 @@ namespace ExorAIO.Champions.Ryze
                     ManaManager.GetNeededMana(Vars.E.Slot, Vars.getSliderItem(Vars.EMenu, "laneclear")) &&
                 Vars.getSliderItem(Vars.EMenu, "laneclear") != 101)
             {
-                foreach (var minion in Targets.Minions.Where(m => m.LSIsValidTarget(Vars.E.Range)))
+                foreach (var minion in Targets.Minions.Where(m => m.IsValidTarget(Vars.E.Range)))
                 {
-                    Vars.E.CastOnUnit(
-                        minion.HasBuff("RyzeE") ||
-                        Vars.GetRealHealth(minion) <
-                            (float)GameObjects.Player.LSGetSpellDamage(minion, SpellSlot.E)
-                        ? minion
-                        : Targets.Minions.First(m => m.LSIsValidTarget(Vars.E.Range)));
+                    if (minion.HasBuff("RyzeE") ||
+                        (Vars.GetRealHealth(minion) <
+                            (float)GameObjects.Player.GetSpellDamage(minion, SpellSlot.E) &&
+                        Vars.GetRealHealth(minion) >
+                            (float)GameObjects.Player.GetAutoAttackDamage(minion)))
+                    {
+                        Vars.E.CastOnUnit(minion);
+                        return;
+                    }
+
+                    Vars.E.CastOnUnit(Targets.Minions.First(m => m.IsValidTarget(Vars.E.Range)));
                 }
             }
 
@@ -73,7 +79,7 @@ namespace ExorAIO.Champions.Ryze
                 if (Targets.JungleMinions.Any(m => !m.HasBuff("RyzeE")))
                 {
                     if (Vars.E.IsReady() &&
-                        minion.LSIsValidTarget(Vars.E.Range) &&
+                        minion.IsValidTarget(Vars.E.Range) &&
                         !GameObjects.JungleSmall.Contains(minion) &&
                         GameObjects.Player.ManaPercent >
                             ManaManager.GetNeededMana(Vars.E.Slot, Vars.getSliderItem(Vars.EMenu, "jungleclear")) &&
@@ -88,9 +94,9 @@ namespace ExorAIO.Champions.Ryze
                     ///     The JungleClear Q Logic.
                     /// </summary>
                     if (Vars.Q.IsReady() &&
-                        minion.LSIsValidTarget(Vars.Q.Range) &&
+                        minion.IsValidTarget(Vars.Q.Range) &&
                         Vars.GetRealHealth(minion) >
-                            (float)GameObjects.Player.LSGetSpellDamage(minion, SpellSlot.E) &&
+                            (float)GameObjects.Player.GetSpellDamage(minion, SpellSlot.E) &&
                         GameObjects.Player.ManaPercent >
                             ManaManager.GetNeededMana(Vars.Q.Slot, Vars.getSliderItem(Vars.QMenu, "jungleclear")) &&
                         Vars.getSliderItem(Vars.QMenu, "jungleclear") != 101)

@@ -33,11 +33,9 @@ using LeagueSharp.SDK.Enumerations;
                     ManaManager.GetNeededMana(Vars.Q.Slot, Vars.getSliderItem(Vars.QMenu, "harass")) &&
                 Vars.getSliderItem(Vars.QMenu, "harass") != 101)
             {
-                if (GameObjects.Player.Distance(Targets.Target) > 650 &&
-                    Vars.Q.GetPrediction(Targets.Target).Hitchance >= HitChance.Medium)
-                {
-                    Vars.Q.Cast(Vars.Q.GetPrediction(Targets.Target).UnitPosition.Extend((Vector2)GameObjects.Player.ServerPosition, -140));
-                }
+                Vars.Q.Cast(Targets.Target.LSIsValidTarget(300f)
+                    ? Targets.Target.ServerPosition
+                    : Vars.Q.GetPrediction(Targets.Target).CastPosition.LSExtend(GameObjects.Player.ServerPosition, -140f));
             }
         }
     }

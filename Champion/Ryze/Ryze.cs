@@ -51,7 +51,7 @@ namespace ExorAIO.Champions.Ryze
             ///     Updates the spells.
             /// </summary>
             Spells.Initialize();
-            
+
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
@@ -93,10 +93,17 @@ namespace ExorAIO.Champions.Ryze
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
         public static void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
+            if (GameObjects.Player.HealthPercent <=
+                    Vars.getSliderItem(Vars.QMenu, "shield") &&
+                Vars.getSliderItem(Vars.QMenu, "shield") != 0)
+            {
+                return;
+            }
+
             if (Vars.W.IsReady() &&
-                args.Sender.IsValidTarget(Vars.W.Range) &&
-                !Invulnerable.Check(args.Sender, DamageType.Magical, false) &&
-                Vars.getCheckBoxItem(Vars.WMenu, "gapcloser"))
+            args.Sender.IsValidTarget(Vars.W.Range) &&
+            !Invulnerable.Check(args.Sender, DamageType.Magical, false) &&
+            Vars.getCheckBoxItem(Vars.WMenu, "gapcloser"))
             {
                 Vars.W.CastOnUnit(args.Sender);
             }

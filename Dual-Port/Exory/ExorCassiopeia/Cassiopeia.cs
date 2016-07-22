@@ -5,8 +5,9 @@ using LeagueSharp.SDK.Enumerations;
 using LeagueSharp.SDK.Core.Utils;
 using EloBuddy.SDK;
 using EloBuddy;
+using System.Linq;
 
- namespace ExorAIO.Champions.Cassiopeia
+namespace ExorAIO.Champions.Cassiopeia
 {
     /// <summary>
     ///     The champion class.
@@ -38,7 +39,7 @@ using EloBuddy;
             /// </summary>
             Drawings.Initialize();
         }
-        
+
 
         /// <summary>
         ///     Called when the game updates itself.
@@ -84,6 +85,58 @@ using EloBuddy;
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
             {
                 Logics.Clear(args);
+            }
+        }
+
+        /// <summary>
+        ///     Called on orbwalker action.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="OrbwalkingActionArgs" /> instance containing the event data.</param>
+        public static void OnAction(AttackableUnit target, Orbwalker.PreAttackArgs args)
+        {
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
+            {
+                /// <summary>
+                ///     The 'No AA in Combo' Logic.
+                /// </summary>
+                if (Vars.getCheckBoxItem(Vars.MiscMenu, "noaacombo"))
+                {
+                    if (Vars.Q.IsReady() ||
+                        Vars.W.IsReady() ||
+                        Vars.E.IsReady() ||
+                        !Bools.HasSheenBuff() ||
+                        GameObjects.Player.ManaPercent > 10)
+                    {
+                        args.Process = false;
+                    }
+                }
+            }
+
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
+            {
+                /// <summary>
+                ///     The 'No AA if Q Ready' Logic.
+                /// </summary>
+                if (Vars.getCheckBoxItem(Vars.MiscMenu, "qfarmmode"))
+                {
+                    if (Vars.Q.IsReady())
+                    {
+                        args.Process = false;
+                    }
+                }
+
+                /// <summary>
+                ///     The 'Support Mode' Logic.
+                /// </summary>
+                else if (Vars.getCheckBoxItem(Vars.MiscMenu, "support"))
+                {
+                    if (args.Target is Obj_AI_Minion &&
+                        GameObjects.AllyHeroes.Any(a => a.Distance(GameObjects.Player) < 2500))
+                    {
+                        args.Process = false;
+                    }
+                }
             }
         }
 

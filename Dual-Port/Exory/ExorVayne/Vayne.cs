@@ -8,8 +8,10 @@ using LeagueSharp.SDK.Core.Utils;
 using SharpDX;
 using EloBuddy;
 using EloBuddy.SDK;
+using LeagueSharp.Data.DataTypes;
+using LeagueSharp.Data;
 
- namespace ExorAIO.Champions.Vayne
+namespace ExorAIO.Champions.Vayne
 {
     /// <summary>
     ///     The champion class.
@@ -185,7 +187,7 @@ using EloBuddy.SDK;
                 /// </summary>
                 if (GameObjects.Player.GetBuff("vaynetumblefade").EndTime - Game.Time >
                     GameObjects.Player.GetBuff("vaynetumblefade").EndTime - GameObjects.Player.GetBuff("vaynetumblefade").StartTime -
-                    (Vars.getSliderItem(Vars.MiscMenu, "stealthtime") - Game.Ping) / 1000)
+                    Vars.getSliderItem(Vars.MiscMenu, "stealthtime") / 1000)
                 {
                     args.Process = false;
                 }
@@ -203,21 +205,31 @@ using EloBuddy.SDK;
             /// <summary>
             ///     The Target Forcing Logic (W Stacks).
             /// </summary>
-            if (args.Target is AIHeroClient)
+            /// <summary>
+            ///     The Target Forcing Logic (W Stacks).
+            /// </summary>
+            if (args.Target is AIHeroClient &&
+                            Vars.GetRealHealth(args.Target as AIHeroClient) >
+                                GameObjects.Player.GetAutoAttackDamage(args.Target as AIHeroClient) * 3)
             {
-                if (!GameObjects.EnemyHeroes.Any(
+                if (GameObjects.EnemyHeroes.Any(
                     t =>
-                        t.LSIsValidTarget(Vars.AARange) &&
-                        t.GetBuffCount("vaynesilvereddebuff") == 2))
+                        t.IsValidTarget(Vars.AARange) &&
+                        t.GetBuffCount("vaynesilvereddebuff") == 2 &&
+                        t.NetworkId != (args.Target as AIHeroClient).NetworkId))
                 {
-                    Orbwalker.ForcedTarget =(null);
+                    args.Process = false;
+                    Orbwalker.ForcedTarget = GameObjects.EnemyHeroes.Where(
+                        t =>
+                            t.IsValidTarget(Vars.AARange) &&
+                            t.GetBuffCount("vaynesilvereddebuff") == 2 &&
+                            t.NetworkId != (args.Target as AIHeroClient).NetworkId).OrderByDescending(
+                                o =>
+                                    Data.Get<ChampionPriorityData>().GetPriority(o.ChampionName)).First();
                     return;
                 }
 
-                Orbwalker.ForcedTarget =(GameObjects.EnemyHeroes.FirstOrDefault(
-                    t =>
-                        t.LSIsValidTarget(Vars.AARange) &&
-                        t.GetBuffCount("vaynesilvereddebuff") == 2));
+                Orbwalker.ForcedTarget = null;
             }
         }
     }
