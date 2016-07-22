@@ -1,4 +1,5 @@
 ﻿using EloBuddy;
+using EloBuddy.SDK;
 using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
@@ -8,12 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
- namespace Azir_Creator_of_Elo
+namespace Azir_Creator_of_Elo
 {
 
     class JumpLogic
     {
         AzirMain azir;
+        Obj_AI_Minion soldier;
 
         public JumpLogic(AzirMain azir)
         {
@@ -25,7 +27,7 @@ using System.Threading.Tasks;
             {
                 //   if (azir.soldierManager.ActiveSoldiers.Count == 0|| azir.soldierManager.ActiveSoldiers.Min(t=>t.Distance(Game.CursorPos))>azir.Hero.Distance(Game.CursorPos) )
                 // {
-                azir.Spells.W.Cast(HeroManager.Player.Position.LSExtend(position, 450));
+                azir.Spells.W.Cast(HeroManager.Player.Position.Extend(position, 450));
                 LeagueSharp.Common.Utility.DelayAction.Add(Game.Ping + 150, () => azir.Spells.E.Cast(azir.soldierManager.Soldiers[azir.soldierManager.Soldiers.Count - 1].ServerPosition));
                 //}
                 //else
@@ -33,40 +35,37 @@ using System.Threading.Tasks;
                 //    Utility.DelayAction.Add(Game.Ping + 150, () => azir.Spells.E.Cast(azir.soldierManager.Soldiers[azir.soldierManager.Soldiers.Count - 1].ServerPosition));
                 // }
 
-                LeagueSharp.Common.Utility.DelayAction.Add(Game.Ping + 400, () => fleeq());
+                LeagueSharp.Common.Utility.DelayAction.Add(Game.Ping + 400, () => fleeq(position));
             }
         }
         public void fleeTopos(Vector3 position)
         {
             if (azir.Spells.W.IsReady() && azir.Spells.Q.IsReady() && azir.Spells.E.IsReady())//&&R.IsReady())
             {
-                azir.Spells.W.Cast(HeroManager.Player.Position.LSExtend(position, 450));
+                azir.Spells.W.Cast(HeroManager.Player.Position.Extend(position, 450));
                 LeagueSharp.Common.Utility.DelayAction.Add(Game.Ping + 150, () => azir.Spells.E.Cast(azir.soldierManager.Soldiers[azir.soldierManager.Soldiers.Count - 1].ServerPosition));
                 LeagueSharp.Common.Utility.DelayAction.Add(Game.Ping + 400, () => fleeq(position));
             }
         }
-        public void fleeq()
+        public void fleeq(Vector3 position)
         {
-            if (Vector2.Distance(HeroManager.Player.ServerPosition.LSTo2D(), Game.CursorPos.LSTo2D()) < azir.Spells.Q.Range)
+            if (Vector2.Distance(HeroManager.Player.ServerPosition.To2D(), position.To2D()) < azir.Spells.Q.Range)
             {
-                azir.Spells.Q.Cast(Game.CursorPos);
+                azir.Spells.Q.Cast(position);
             }
             else
             {
-                azir.Spells.Q.Cast(HeroManager.Player.Position.LSExtend(Game.CursorPos, 1150));
+                azir.Spells.Q.Cast(HeroManager.Player.Position.Extend(position, 1150));
             }
         }
-        public void fleeq(Vector3 position)
-        {
-            azir.Spells.Q.Cast(position);
-        }
+
         public void insec(AIHeroClient target)
         {
-
-            if (azir.Hero.LSDistance(target) <= azir.Spells.R.Range)
+            // si esta en rango tira la r
+            if (azir.Hero.Distance(target) <= azir.Spells.R.Range)
             {
 
-                var tower = ObjectManager.Get<Obj_AI_Turret>().FirstOrDefault(it => it.IsAlly && it.LSIsValidTarget(1000));
+                var tower = ObjectManager.Get<Obj_AI_Turret>().FirstOrDefault(it => it.IsAlly && it.IsValidTarget(1000));
 
                 if (tower != null)
                 {
@@ -80,8 +79,9 @@ using System.Threading.Tasks;
             }
             else
             {
-                var pos = Game.CursorPos.LSExtend(target.Position, Game.CursorPos.LSDistance(target.Position) - 250);
-                if (pos.LSDistance(azir.Hero.ServerPosition) <= 1300)
+                // si no hace flee
+                var pos = Game.CursorPos.LSExtend(target.Position, Game.CursorPos.Distance(target.Position) + 100);
+                if (pos.Distance(azir.Hero.ServerPosition) <= 1150 + 350)
                 {
                     fleeTopos(pos);
                 }

@@ -13,17 +13,15 @@ using Azir_Creator_of_Elo;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
 
- namespace Azir_Free_elo_Machine
+namespace Azir_Free_elo_Machine
 {
     class Insec
     {
         public enum Steps
         {
             firstCalcs = 0,
-            w = 1,
-            e = 2,
-            q = 3,
-            R = 4,
+            jump = 1,
+            R = 2,
         }
         private Steps steps;
         Azir_Creator_of_Elo.AzirMain azir;
@@ -93,9 +91,7 @@ using EloBuddy.SDK.Menu.Values;
         }
         private void Game_OnUpdate(EventArgs args)
         {
-            return;
-            /*
-            if (!azir.Spells.R.IsReady()) return;
+            //if (!azir.Spells.R.IsReady()) return;
             var insecPoint = new Vector3(0, 2, 3);
             if (Clickposition == new Vector3(0, 0, 0))
                 insecPoint = Game.CursorPos;
@@ -104,13 +100,16 @@ using EloBuddy.SDK.Menu.Values;
 
             if (!Menu._jumpMenu["inseckey"].Cast<KeyBind>().CurrentValue)
             {
+                steps = Steps.firstCalcs;
                 return;
             }
+
             azir.Orbwalk(Game.CursorPos);
 
             if (!insecPoint.IsValid())
                 return;
             var target = TargetSelector.SelectedTarget;
+            if (target == null) return;
             if (!target.IsValidTarget() || target.IsZombie)
             {
 
@@ -122,43 +121,42 @@ using EloBuddy.SDK.Menu.Values;
             if (Clickposition == new Vector3(0, 0, 0))
             {
 
-                insecPos = target.ServerPosition.LSExtend(Game.CursorPos, -300);
+                insecPos = Game.CursorPos;
             }
             else
             {
-                insecPos = target.ServerPosition.LSExtend(insecPoint, -300);
+                insecPos = insecPoint;
             }
+            var postoGo = target.ServerPosition.LSExtend(insecPos, -300);
             switch (steps)
             {
+
                 case Steps.firstCalcs:
-                    if (insecPoint.Distance(HeroManager.Player.ServerPosition) > azir.Spells.Q.Range)
+                    if (target.Distance(HeroManager.Player) <= azir.Spells.Q.Range)
                     {
-                        azir._modes.jump.fleeTopos(insecPoint);
-                        steps = steps = Steps.R;
+
+                        steps = Steps.jump;
                     }
                     break;
-                case Steps.w:
-                    break;
-                case Steps.e:
-                    break;
-                case Steps.q:
+                case Steps.jump:
+                    if (HeroManager.Player.ServerPosition.Distance(postoGo) <= 300)
+                    {
+                        steps = Steps.R;
+                    }
+                    else
+                    {
+
+                        azir._modes._jump.updateLogic(postoGo);
+                    }
                     break;
                 case Steps.R:
-                    Vector2 start1 = HeroManager.Player.Position.To2D().Extend(insecPos.To2D(), -300);
-                    Vector2 end1 = start1.Extend(HeroManager.Player.Position.To2D(), 750);
-                    float width1 = HeroManager.Player.Level == 3 ? 125 * 6 / 2 :
-                               HeroManager.Player.Level == 2 ? 125 * 5 / 2 :
-                               125 * 4 / 2;
-                    var Rect1 = new LeagueSharp.Common.Geometry.Polygon.Rectangle(start1, end1, width1 - 100);
-                    var Predicted1 = LeagueSharp.Common.Prediction.GetPrediction(target, Game.Ping / 1000f + 0.25f).UnitPosition;
-                    if (Rect1.IsInside(target.Position) && Rect1.IsInside(Predicted1))
-                    {
-                        azir.Spells.R.Cast(insecPoint);
-                        return;
-                    }
+                    azir.Spells.R.Cast(insecPoint);
+                    steps = Steps.firstCalcs;
+
+
+
                     break;
             }
-            */
         }
 
         private void castWOnAngle(Vector2 playerPos, Vector2 targetPos, float ag)
