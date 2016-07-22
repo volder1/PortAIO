@@ -307,11 +307,10 @@ using System.Collections.Generic;
         {
             foreach (
                 var enemy in
-                    Program.Enemies.Where(enemy => enemy.LSIsValidTarget(E.Range) && enemy.HasBuff("TwitchDeadlyVenom")))
+                    Program.Enemies.Where(enemy => enemy.LSIsValidTarget(E.Range) && enemy.HasBuff("TwitchDeadlyVenom") && OktwCommon.ValidUlt(enemy)))
             {
                 if (getCheckBoxItem(eMenu, "Eks") && EDamage(enemy) > enemy.Health + enemy.AttackShield)
                 {
-                    Program.debug("DUPAAA1");
                     E.Cast();
                 }
 
@@ -320,14 +319,12 @@ using System.Collections.Generic;
                     var buffNum = getEBuffCount(enemy);
                     if (getCheckBoxItem(eMenu, "5e") && buffNum == 6)
                     {
-                        Program.debug("DUPAAA2");
                         E.Cast();
                     }
 
                     var buffTime = OktwCommon.GetPassiveTime(enemy, "twitchdeadlyvenom");
                     if (!Orbwalking.InAutoAttackRange(enemy) && (Player.ServerPosition.LSDistance(enemy.ServerPosition) > 950 || buffTime < 1) && 0 < getSliderItem(eMenu, "countE") && buffNum >= getSliderItem(eMenu, "countE"))
                     {
-                        Program.debug("DUPAAA3 " + buffTime);
                         E.Cast();
                     }
                 }
