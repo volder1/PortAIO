@@ -14,25 +14,13 @@ using EloBuddy.SDK;
         
         public static void Orbwalker_OnPreAttack(AttackableUnit target, Orbwalker.PreAttackArgs args)
         {
-            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
-            {
-                var hero = args.Target as AIHeroClient;
+            if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo)) return;
 
-                if(Mode.getBoxItem(MenuConfig.comboMenu, "ComboMode") == 1)
-                {
-                    if(MenuConfig.TripleQAAReset)
-                    {
-                        if(Player.Mana == 5)
-                        {
-                            Spells.Q.Cast(hero);
-                        }
-                        if(Player.Mana < 5)
-                        {
-                            Spells.Q.Cast(hero);
-                        }
-                    }
-                }
-            }
+            if (MenuConfig.ComboMode != 1) return;
+
+            if (!MenuConfig.TripleQAAReset) return;
+
+            Spells.Q.Cast();
         }
     }
 }

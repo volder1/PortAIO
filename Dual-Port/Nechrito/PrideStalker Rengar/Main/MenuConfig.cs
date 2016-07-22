@@ -19,7 +19,6 @@ using LeagueSharp.SDK.Core.Utils;
 
             comboMenu = Menu.AddSubMenu("Combo", "Combo");
             comboMenu.Add("ComboMode", new ComboBox("Combo Mode", 0, "Gank", "Triple Q", "Ap Combo", "OneShot"));
-            comboMenu.Add("IgnoreE", new CheckBox("Inaccurate E In TripleQ / Ap Combo / OneShot"));
             comboMenu.AddLabel("In TripleQ/Ap Combo/OneShot");
             comboMenu.AddSeparator();
             comboMenu.Add("TripleQAAReset", new CheckBox("AA Q Reset In Triple Q", true));
@@ -45,7 +44,6 @@ using LeagueSharp.SDK.Core.Utils;
         public static bool ChangeComboMode { get { return miscMenu["ChangeComboMode"].Cast<KeyBind>().CurrentValue; } }
         public static bool TripleQAAReset { get { return comboMenu["TripleQAAReset"].Cast<CheckBox>().CurrentValue; } }
         public static bool StackLastHit { get { return miscMenu["StackLastHit"].Cast<CheckBox>().CurrentValue; } }
-        public static bool IgnoreE { get { return comboMenu["IgnoreE"].Cast<CheckBox>().CurrentValue; } }
         public static bool KillStealSummoner { get { return miscMenu["KillStealSummoner"].Cast<CheckBox>().CurrentValue; } }
         public static bool UseItem { get { return miscMenu["UseItem"].Cast<CheckBox>().CurrentValue; } }
         public static bool DrawCombo { get { return drawMenu["DrawCombo"].Cast<CheckBox>().CurrentValue; } }

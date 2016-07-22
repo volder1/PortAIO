@@ -2,18 +2,19 @@
 
 using System;
 using System.Linq;
-using EloBuddy;
+using LeagueSharp;
 using LeagueSharp.SDK;
-using LeagueSharp.SDK.Core.Utils;
 using PrideStalker_Rengar.Main;
 using LeagueSharp.SDK.Enumerations;
+using LeagueSharp.SDK.Core.Utils;
 using EloBuddy.SDK.Menu.Values;
 using EloBuddy.SDK.Menu;
+using EloBuddy;
 using EloBuddy.SDK;
 
 #endregion
 
- namespace PrideStalker_Rengar.Handlers
+namespace PrideStalker_Rengar.Handlers
 {
     internal class Mode : Core
     {
@@ -23,11 +24,12 @@ using EloBuddy.SDK;
         #region Combo
         public static void Combo()
         {
-            var target = TargetSelector.GetTarget(1000, DamageType.Physical);
+            var target = TargetSelector.GetTarget(Spells.E.Range, DamageType.Physical);
 
 
-            if (target == null || !target.LSIsValidTarget() || target.IsZombie) return;
-            if (Player.Mana == 5)
+            if (target == null || !target.IsValidTarget() || target.IsZombie) return;
+
+            if (Player.Mana >= 5)
             {
                 if (MenuConfig.UseItem && Spells.Q.IsReady() && Spells.W.IsReady() && HasPassive)
                 {
@@ -35,38 +37,37 @@ using EloBuddy.SDK;
                 }
                 if (Spells.E.IsReady() && target.Distance(Player) < Player.AttackRange)
                 {
-
-                    Spells.E.Cast(target);
+                    Spells.E.CastIfHitchanceMinimum(target, HitChance.Collision);
                 }
                 if (Spells.Q.IsReady() && target.Distance(Player) < Player.AttackRange && !Spells.E.IsReady())
                 {
                     Spells.Q.Cast(target);
                 }
             }
-            if (Player.Mana < 5)
+
+            if (!(Player.Mana < 5)) return;
+
+            if (MenuConfig.UseItem && Spells.Q.IsReady() && Spells.W.IsReady() && HasPassive)
             {
-                if (MenuConfig.UseItem && Spells.Q.IsReady() && Spells.W.IsReady() && HasPassive)
+                ITEM.CastYomu();
+            }
+            if (Spells.E.IsReady() && !HasPassive && target.Distance(Player) < Spells.E.Range)
+            {
+                Spells.E.Cast(target);
+            }
+            if (target.Distance(Player) <= Spells.W.Range)
+            {
+                if (Spells.Q.IsReady())
                 {
-                    ITEM.CastYomu();
+                    Spells.Q.Cast(target);
                 }
-                if (Spells.E.IsReady() && !HasPassive && target.Distance(Player) < Spells.E.Range)
+                if (MenuConfig.UseItem)
                 {
-                    Spells.E.Cast(target);
+                    ITEM.CastHydra();
                 }
-                if (target.Distance(Player) <= Spells.W.Range)
+                if (Spells.W.IsReady())
                 {
-                    if (Spells.Q.IsReady())
-                    {
-                        Spells.Q.Cast(target);
-                    }
-                    if (MenuConfig.UseItem)
-                    {
-                        ITEM.CastHydra();
-                    }
-                    if (Spells.W.IsReady())
-                    {
-                        Spells.W.Cast(target);
-                    }
+                    Spells.W.Cast(target);
                 }
             }
         }
@@ -76,7 +77,7 @@ using EloBuddy.SDK;
         {
             var target = TargetSelector.GetTarget(Spells.E.Range, DamageType.Magical);
 
-            if (target == null || !target.LSIsValidTarget() || target.IsZombie) return;
+            if (target == null || !target.IsValidTarget() || target.IsZombie) return;
 
             if (Player.Mana == 5)
             {
@@ -97,6 +98,7 @@ using EloBuddy.SDK;
                 }
             }
             if (!(Player.Mana < 5)) return;
+
             if (MenuConfig.UseItem && Spells.Q.IsReady() && Spells.W.IsReady() && HasPassive)
             {
                 ITEM.CastYomu();
@@ -105,7 +107,9 @@ using EloBuddy.SDK;
             {
                 ITEM.CastProtobelt();
             }
+
             if (!(target.Distance(Player) <= Spells.W.Range)) return;
+
             if (MenuConfig.UseItem && Spells.W.IsReady())
             {
                 ITEM.CastHydra();
@@ -115,20 +119,15 @@ using EloBuddy.SDK;
                 Spells.W.Cast(target);
                 Spells.W.Cast(target);
             }
+
             else if (Spells.Q.IsReady())
             {
                 Spells.Q.Cast(target);
             }
-            else if (Spells.E.IsReady() && target.Distance(Player) <= Spells.W.Range + 225)
+
+            else if (Spells.E.IsReady() && !Spells.W.IsReady() && target.Distance(Player) <= float.MaxValue)
             {
-                if (MenuConfig.IgnoreE)
-                {
-                    Spells.E.Cast(target.ServerPosition);
-                }
-                else
-                {
-                    Spells.E.CastIfHitchanceEquals(target, HitChance.Collision);
-                }
+                Spells.E.CastIfHitchanceMinimum(target, HitChance.Collision);
             }
         }
         #endregion
@@ -138,9 +137,9 @@ using EloBuddy.SDK;
         {
             var target = TargetSelector.GetTarget(Spells.E.Range, DamageType.Physical);
 
-            if (target == null || !target.LSIsValidTarget() || target.IsZombie) return;
+            if (target == null || !target.IsValidTarget() || target.IsZombie) return;
 
-            if (Player.Mana == 5)
+            if (Player.Mana >= 5)
             {
                 if (MenuConfig.UseItem && Spells.Q.IsReady() && HasPassive)
                 {
@@ -156,39 +155,35 @@ using EloBuddy.SDK;
                 }
             }
 
-            if (Player.Mana < 5)
+            if (!(Player.Mana < 5)) return;
+
+
+            if (MenuConfig.UseItem && Spells.Q.IsReady() && Spells.W.IsReady())
             {
-                if (MenuConfig.UseItem && Spells.Q.IsReady() && Spells.W.IsReady())
+                ITEM.CastYomu();
+            }
+
+            if (Spells.Q.IsReady() && target.Distance(Player) <= Spells.W.Range)
+            {
+                if (!MenuConfig.TripleQAAReset)
                 {
-                    ITEM.CastYomu();
-                }
-                if (Spells.Q.IsReady() && target.Distance(Player) <= Spells.W.Range)
-                {
-                    if (!MenuConfig.TripleQAAReset)
-                    {
-                        Spells.Q.Cast();
-                    }
-                }
-                if (Spells.E.IsReady() && !Spells.Q.IsReady() && target.Distance(Player) < Player.AttackRange)
-                {
-                    if (MenuConfig.IgnoreE)
-                    {
-                        Spells.E.Cast(target.ServerPosition);
-                    }
-                    else
-                    {
-                        Spells.E.CastIfHitchanceEquals(target, HitChance.Collision);
-                    }
-                }
-                if (Spells.W.IsReady() && !Spells.Q.IsReady() && Player.Distance(target) <= Spells.W.Range)
-                {
-                    if (MenuConfig.UseItem)
-                    {
-                        ITEM.CastHydra();
-                    }
-                    Spells.W.Cast(target);
+                    Spells.Q.Cast();
                 }
             }
+
+            if (Spells.E.IsReady() && !Spells.Q.IsReady() && target.Distance(Player) < float.MaxValue)
+            {
+                Spells.E.CastIfHitchanceMinimum(target, HitChance.Collision);
+            }
+
+            if (!Spells.W.IsReady() || Spells.Q.IsReady() || !(Player.Distance(target) <= Spells.W.Range)) return;
+
+            if (MenuConfig.UseItem)
+            {
+                ITEM.CastHydra();
+            }
+            Spells.W.Cast(target);
+
         }
         #endregion
 
@@ -198,8 +193,9 @@ using EloBuddy.SDK;
             var target = TargetSelector.GetTarget(Spells.E.Range, DamageType.Physical);
             GameObjects.EnemyMinions.Where(m => m.IsMinion && m.IsEnemy && m.Team != GameObjectTeam.Neutral && m.LSIsValidTarget(Spells.W.Range)).ToList();
 
-            if (target == null || !target.LSIsValidTarget() || target.IsZombie) return;
-            if (Player.Mana == 5)
+            if (target == null || !target.IsValidTarget() || target.IsZombie) return;
+
+            if (Player.Mana >= 5)
             {
                 if (MenuConfig.UseItem && Spells.Q.IsReady() && HasPassive)
                 {
@@ -210,36 +206,29 @@ using EloBuddy.SDK;
                     Spells.Q.Cast();
                 }
             }
-            if (Player.Mana < 5)
+
+            if (!(Player.Mana < 5)) return;
+
+            if (MenuConfig.UseItem && Spells.Q.IsReady() && Spells.W.IsReady())
             {
-                if (MenuConfig.UseItem && Spells.Q.IsReady() && Spells.W.IsReady())
-                {
-                    ITEM.CastYomu();
-                }
-                if (Spells.E.IsReady() && target.Distance(Player) <= Spells.W.Range + 225)
-                {
-                    if (MenuConfig.IgnoreE)
-                    {
-                        Spells.E.Cast(target.ServerPosition);
-                    }
-                    else
-                    {
-                        Spells.E.CastIfHitchanceEquals(target, HitChance.Collision);
-                    }
-                }
-                if (Spells.Q.IsReady() && target.Distance(Player) <= Spells.W.Range)
-                {
-                    Spells.Q.Cast();
-                }
-                if (Spells.W.IsReady() && Player.Distance(target) <= Spells.W.Range)
-                {
-                    if (MenuConfig.UseItem)
-                    {
-                        ITEM.CastHydra();
-                    }
-                    Spells.W.Cast(target);
-                }
+                ITEM.CastYomu();
             }
+            if (Spells.E.IsReady() && target.Distance(Player) <= Spells.W.Range + 225)
+            {
+                Spells.E.CastIfHitchanceMinimum(target, HitChance.Collision);
+            }
+            if (Spells.Q.IsReady() && target.Distance(Player) <= Spells.W.Range)
+            {
+                Spells.Q.Cast();
+            }
+
+            if (!Spells.W.IsReady() || !(Player.Distance(target) <= Spells.W.Range)) return;
+
+            if (MenuConfig.UseItem)
+            {
+                ITEM.CastHydra();
+            }
+            Spells.W.Cast(target);
         }
 
         #endregion
@@ -257,9 +246,9 @@ using EloBuddy.SDK;
 
             foreach (var m in minions)
             {
-                if (Player.Mana == 5)
+                if (Player.Mana >= 5)
                 {
-                    if (Mode.getBoxItem(MenuConfig.comboMenu, "ComboMode") == 2)
+                    if (MenuConfig.ComboMode == 2)
                     {
                         if (Spells.W.IsReady() && m.Distance(Player) <= Spells.W.Range)
                         {
@@ -278,30 +267,27 @@ using EloBuddy.SDK;
                         }
                     }
                 }
-                if (Player.Mana < 5)
+
+                if (!(Player.Mana < 5)) continue;
+
+                if (Spells.Q.IsReady())
                 {
-                    if (Spells.Q.IsReady())
-                    {
-                        Spells.Q.Cast(m);
-                    }
-
-                    if (Spells.E.IsReady() && !HasPassive)
-                    {
-                        if (Spells.Q.IsReady() || Spells.W.IsReady())
-                        {
-                            Spells.E.Cast(m);
-                        }
-                    }
-
-                    if (Spells.W.IsReady() && m.Distance(Player) <= Spells.W.Range)
-                    {
-                        if (MenuConfig.UseItem)
-                        {
-                            ITEM.CastHydra();
-                        }
-                        Spells.W.Cast(m);
-                    }
+                    Spells.Q.Cast(m);
                 }
+
+                if (Spells.E.IsReady() && !HasPassive)
+                {
+                    Spells.E.Cast(m);
+                }
+
+                if (!Spells.W.IsReady() || !(m.Distance(Player) <= Spells.W.Range)) continue;
+
+                if (MenuConfig.UseItem)
+                {
+                    ITEM.CastHydra();
+                }
+
+                Spells.W.Cast(m);
             }
 
         }
@@ -321,7 +307,7 @@ using EloBuddy.SDK;
             {
                 if (Player.Mana == 5)
                 {
-                    if (Mode.getBoxItem(MenuConfig.comboMenu, "ComboMode") == 2)
+                    if (MenuConfig.ComboMode == 2)
                     {
                         if (Spells.W.IsReady() && m.Distance(Player) <= Spells.W.Range)
                         {
@@ -330,7 +316,7 @@ using EloBuddy.SDK;
                     }
                     else
                     {
-                        if (Spells.W.IsReady() && m.Distance(Player) <= Spells.W.Range && Player.HealthPercent < 80)
+                        if (Spells.W.IsReady() && m.Distance(Player) <= Spells.W.Range && Player.HealthPercent < 20)
                         {
                             if (MenuConfig.UseItem)
                             {
@@ -340,24 +326,22 @@ using EloBuddy.SDK;
                         }
                     }
                 }
-                if (Player.Mana < 5)
+
+                if (!(Player.Mana < 5)) continue;
+
+                if (Spells.E.IsReady())
                 {
-
-                    if (Spells.W.IsReady() && m.Distance(Player) <= Spells.W.Range)
-                    {
-                        if (MenuConfig.UseItem)
-                        {
-                            ITEM.CastHydra();
-                        }
-                        Spells.W.Cast(m.ServerPosition);
-                    }
-                    if (Spells.E.IsReady())
-                    {
-                        if (!Spells.Q.IsReady() || Spells.W.IsReady()) return;
-
-                        Spells.E.Cast(m.ServerPosition);
-                    }
+                    Spells.E.Cast(m.ServerPosition);
                 }
+
+                if (!Spells.W.IsReady() || !(m.Distance(Player) <= Spells.W.Range)) continue;
+
+                if (MenuConfig.UseItem)
+                {
+                    ITEM.CastHydra();
+                }
+
+                Spells.W.Cast(m.ServerPosition);
             }
         }
         #endregion
@@ -377,7 +361,7 @@ using EloBuddy.SDK;
             {
                 foreach (var m in minions)
                 {
-                    if (m.Health < Spells.Q.GetDamage(m) + (float)Player.GetAutoAttackDamage(m))
+                    if (m.Health < Spells.Q.GetDamage(m) + (float)Player.LSGetAutoAttackDamage(m))
                     {
                         Spells.Q.Cast();
                     }
@@ -385,6 +369,21 @@ using EloBuddy.SDK;
             }
         }
         #endregion
+
+        public static bool getCheckBoxItem(Menu m, string item)
+        {
+            return m[item].Cast<CheckBox>().CurrentValue;
+        }
+
+        public static int getSliderItem(Menu m, string item)
+        {
+            return m[item].Cast<Slider>().CurrentValue;
+        }
+
+        public static bool getKeyBindItem(Menu m, string item)
+        {
+            return m[item].Cast<KeyBind>().CurrentValue;
+        }
 
         public static int getBoxItem(Menu m, string item)
         {
@@ -423,7 +422,6 @@ using EloBuddy.SDK;
             }
 
         }
-
         #endregion
     }
 }
