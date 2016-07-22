@@ -24,7 +24,7 @@ namespace HeavenStrikeRyze
         private static void Game_OnUpdate(EventArgs args)
         {
 
-            if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
+            if (!(Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear)))
                 return;
 
             if (Player.Mana * 100 / Player.MaxMana > Program.ManaJungClear)

@@ -22,20 +22,6 @@ namespace ExorAIO.Utilities
         {
             Drawing.OnEndScene += delegate
             {
-                /// <summary>
-                ///     Loads the R Minimap drawing.
-                /// </summary>
-                if (Vars.R != null &&
-                    Vars.R.IsReady())
-                {
-                    if (GameObjects.Player.ChampionName.Equals("Lux") ||
-                        GameObjects.Player.ChampionName.Equals("Jhin") ||
-                        GameObjects.Player.ChampionName.Equals("Ryze") ||
-                        GameObjects.Player.ChampionName.Equals("Taliyah"))
-                    {
-                        Geometry.DrawCircleOnMinimap(GameObjects.Player.Position, Vars.R.Range, Color.White);
-                    }
-                }
             };
 
             Drawing.OnDraw += delegate

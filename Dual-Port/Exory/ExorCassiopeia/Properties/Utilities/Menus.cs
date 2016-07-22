@@ -64,7 +64,7 @@ using ExorAIO.Utilities;
             /// </summary>
             Vars.MiscMenu = Vars.Menu.AddSubMenu("Miscellaneous");
             {
-                Vars.MiscMenu.Add("noaa", new CheckBox("Don't AA in Combo"));
+                Vars.MiscMenu.Add("noaacombo", new CheckBox("Don't AA in Combo"));
                 Vars.MiscMenu.Add("tear", new Slider("Stack Tear / if Mana >= x%", 80, 0, 101));
             }
 

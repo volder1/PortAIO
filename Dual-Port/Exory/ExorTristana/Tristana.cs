@@ -6,8 +6,10 @@ using LeagueSharp.SDK;
 using LeagueSharp.SDK.Enumerations;
 using EloBuddy;
 using EloBuddy.SDK;
+using LeagueSharp.Data;
+using LeagueSharp.Data.DataTypes;
 
- namespace ExorAIO.Champions.Tristana
+namespace ExorAIO.Champions.Tristana
 {
     /// <summary>
     ///     The champion class.
@@ -124,21 +126,25 @@ using EloBuddy.SDK;
             /// <summary>
             ///     The Target Forcing Logic.
             /// </summary>
-            if (args.Target is AIHeroClient)
+            if (args.Target is AIHeroClient &&
+                            Vars.GetRealHealth(args.Target as AIHeroClient) >
+                                GameObjects.Player.GetAutoAttackDamage(args.Target as AIHeroClient) * 3)
             {
-                if (!GameObjects.EnemyHeroes.Any(
+                if (GameObjects.EnemyHeroes.Any(
                     t =>
-                        t.LSIsValidTarget(Vars.AARange) &&
+                        t.IsValidTarget(Vars.AARange) &&
                         t.HasBuff("TristanaECharge")))
                 {
-                    Orbwalker.ForcedTarget =(null);
+                    Orbwalker.ForcedTarget = GameObjects.EnemyHeroes.Where(
+                        t =>
+                            t.IsValidTarget(Vars.AARange) &&
+                            t.HasBuff("TristanaECharge")).OrderByDescending(
+                                o =>
+                                    Data.Get<ChampionPriorityData>().GetPriority(o.ChampionName)).First();
                     return;
                 }
 
-                Orbwalker.ForcedTarget =(GameObjects.EnemyHeroes.FirstOrDefault(
-                    t =>
-                        t.IsValidTarget(Vars.AARange) &&
-                        t.HasBuff("TristanaECharge")));
+                Orbwalker.ForcedTarget = null;
             }
         }
     }

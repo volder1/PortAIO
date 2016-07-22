@@ -30,13 +30,9 @@ using LeagueSharp.SDK.Enumerations;
             /// </summary>
             if (Vars.Q.IsReady() && Targets.Target.LSIsValidTarget(Vars.Q.Range) && Vars.getCheckBoxItem(Vars.QMenu, "combo"))
             {
-                if (!Targets.Target.LSIsValidTarget(Vars.AARange) &&
-                    Vars.Q.GetPrediction(Targets.Target).Hitchance >= HitChance.High)
-                {
-                    Vars.Q.Cast(
-                        Vars.Q.GetPrediction(Targets.Target)
-                            .UnitPosition.Extend((Vector2)GameObjects.Player.ServerPosition, -140));
-                }
+                Vars.Q.Cast(Targets.Target.LSIsValidTarget(300f)
+                    ? Targets.Target.ServerPosition
+                    : Vars.Q.GetPrediction(Targets.Target).CastPosition.LSExtend(GameObjects.Player.ServerPosition, -140f));
             }
         }
     }
