@@ -309,7 +309,7 @@ namespace OneKeyToWin_AIO_Sebby
             {
                 foreach (var enemy in HeroManager.Enemies.Where(enemy => enemy.LSIsValidTarget(E.Range) && !OktwCommon.CanMove(enemy)))
                 {
-                    E.Cast(enemy.Position);
+                    E.Cast(enemy);
                     return;
                 }
                 if (!Program.LagFree(1))

@@ -275,7 +275,7 @@ namespace OneKeyToWin_AIO_Sebby
                     {
                         if (Utils.TickCount - W.LastCastAttemptT > 1000)
                         {
-                            W.Cast(enemy.Position, true);
+                            W.Cast(enemy);
                             LastW = enemy;
                         }
                         else if (LastW.NetworkId != enemy.NetworkId)

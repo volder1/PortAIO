@@ -12,14 +12,15 @@ using Prediction = SebbyLib.Prediction.Prediction;
 using PredictionInput = SebbyLib.Prediction.PredictionInput;
 using Spell = LeagueSharp.Common.Spell;
 using System.Collections.Generic;
-
+using SharpDX;
 
 namespace PortAIO.Champion.Ashe
 {
     internal class Program
     {
         private static readonly Menu Config = SebbyLib.Program.Config;
-        private static bool CastR = false;
+        private static bool CastR = false, CastR2 = false;
+        private static Obj_AI_Base RTarget = null;
         public static Spell Q, W, E, R;
         public static float QMANA, WMANA, EMANA, RMANA;
         private static Menu drawMenu, QMenu, EMenu, RMenu, FarmMenu, harassMenu;
@@ -59,6 +60,7 @@ namespace PortAIO.Champion.Ashe
             drawMenu = Config.AddSubMenu("Draw");
             drawMenu.Add("onlyRdy", new CheckBox("Draw only ready spells"));
             drawMenu.Add("wRange", new CheckBox("W Range"));
+            drawMenu.Add("rNot", new CheckBox("R key info", true));
 
             QMenu = Config.AddSubMenu("Q Config");
             QMenu.Add("harasQ", new CheckBox("Harass Q"));
@@ -82,18 +84,13 @@ namespace PortAIO.Champion.Ashe
                     }
                 }
             }
-
+            RMenu.Add("useR2", new KeyBind("R key target cast", false, KeyBind.BindTypes.HoldActive, 'Y'));
             RMenu.Add("useR", new KeyBind("Semi-manual cast R key", false, KeyBind.BindTypes.HoldActive, 'T'));
 
             List<string> modes = new List<string>();
 
             modes.Add("LOW HP");
             modes.Add("CLOSEST");
-
-            foreach (var enemy in HeroManager.Enemies)
-            {
-                modes.Add(enemy.ChampionName);
-            }
 
             RMenu.Add("Semi-manual", new ComboBox("Semi-manual MODE", 0, modes.ToArray()));
 
@@ -135,6 +132,15 @@ namespace PortAIO.Champion.Ashe
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
             Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
+            Game.OnWndProc += Game_OnWndProc;
+        }
+
+        private static void Game_OnWndProc(WndEventArgs args)
+        {
+            if (args.Msg == 513 && HeroManager.Enemies.Exists(x => Game.CursorPos.Distance(x.Position) < 300))
+            {
+                RTarget = HeroManager.Enemies.First(x => Game.CursorPos.Distance(x.Position) < 300);
+            }
         }
 
         private static void Obj_AI_Base_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
@@ -183,6 +189,17 @@ namespace PortAIO.Champion.Ashe
                     CastR = true;
                 }
 
+                if (getKeyBindItem(RMenu, "useR2"))
+                {
+                    CastR2 = true;
+                }
+
+                if (CastR2)
+                {
+                    if (RTarget.IsValidTarget())
+                        SebbyLib.Program.CastSpell(R, RTarget);
+                }
+
                 if (CastR)
                 {
                     if (getBoxItem(RMenu, "Semi-manual") == 0)
@@ -197,17 +214,12 @@ namespace PortAIO.Champion.Ashe
                         if (t.LSIsValidTarget() && t.IsHPBarRendered && t.IsVisible)
                             SebbyLib.Program.CastSpell(R, t);
                     }
-                    else
-                    {
-                        var t = HeroManager.Enemies[getBoxItem(RMenu, "Semi-manual") - 2];
-                        if (t.LSIsValidTarget() && t.IsHPBarRendered && t.IsVisible)
-                            SebbyLib.Program.CastSpell(R, t);
-                    }
                 }
             }
             else
             {
                 CastR = false;
+                CastR2 = false;
             }
 
             if (SebbyLib.Program.LagFree(1))
@@ -394,17 +406,31 @@ namespace PortAIO.Champion.Ashe
                 RMANA = R.Instance.SData.Mana;
         }
 
+        public static void drawText(string msg, Vector3 Hero, System.Drawing.Color color, int weight = 0)
+        {
+            var wts = Drawing.WorldToScreen(Hero);
+            Drawing.DrawText(wts[0] - (msg.Length) * 5, wts[1] + weight, color, msg);
+        }
+
         private static void Drawing_OnDraw(EventArgs args)
         {
+            if (getCheckBoxItem(drawMenu, "rNot"))
+            {
+                if (RTarget != null)
+                    drawText("R KEY TARGET: " + RTarget.BaseSkinName, Player.Position, System.Drawing.Color.YellowGreen, 150);
+                else
+                    drawText("PLS CLICK LEFT ON R TARGET", Player.Position, System.Drawing.Color.YellowGreen, 150);
+            }
+
             if (getCheckBoxItem(drawMenu, "wRange"))
             {
                 if (getCheckBoxItem(drawMenu, "onlyRdy"))
                 {
                     if (W.IsReady())
-                        LeagueSharp.Common.Utility.DrawCircle(ObjectManager.Player.Position, W.Range, Color.Orange, 1, 1);
+                        LeagueSharp.Common.Utility.DrawCircle(ObjectManager.Player.Position, W.Range, System.Drawing.Color.Orange, 1, 1);
                 }
                 else
-                    LeagueSharp.Common.Utility.DrawCircle(ObjectManager.Player.Position, W.Range, Color.Orange, 1, 1);
+                    LeagueSharp.Common.Utility.DrawCircle(ObjectManager.Player.Position, W.Range, System.Drawing.Color.Orange, 1, 1);
             }
         }
     }

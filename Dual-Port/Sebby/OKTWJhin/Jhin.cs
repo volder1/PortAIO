@@ -333,7 +333,7 @@ using EloBuddy.SDK.Menu.Values;
                     E.Cast(trapPos);
 
                 foreach (var enemy in Program.Enemies.Where(enemy => enemy.LSIsValidTarget(E.Range) && !OktwCommon.CanMove(enemy)))
-                    E.Cast(enemy.ServerPosition);
+                    E.Cast(enemy);
             }
 
             var t = TargetSelector.GetTarget(E.Range, DamageType.Physical);
