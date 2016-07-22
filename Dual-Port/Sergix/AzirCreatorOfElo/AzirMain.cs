@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
- namespace Azir_Creator_of_Elo
+namespace Azir_Creator_of_Elo
 {
     internal class AzirMain
     {
@@ -32,10 +32,7 @@ using System.Threading.Tasks;
         }
         public AIHeroClient Hero
         {
-            get
-            {
-                return HeroManager.Player;
-            }
+            get { return HeroManager.Player; }
         }
         private void OnLoad(EventArgs args)
         {
@@ -57,21 +54,10 @@ using System.Threading.Tasks;
 
         private void Ondraw(EventArgs args)
         {
-            // var ts = TargetSelector.GetSelectedTarget();
-            /* if (ts != null)
-             {
-
-                 var pos = Game.CursorPos.Extend(ts.Position, Game.CursorPos.Distance(ts.Position) - 250);
-                 if (!ts.IsDead)
-                     Drawing.DrawCircle(pos, 50, System.Drawing.Color.Red);
-             }*/
             var drawControl = Menu._drawSettingsMenu["dcr"].Cast<CheckBox>().CurrentValue;
             var drawFleeMaxRange = Menu._drawSettingsMenu["dfr"].Cast<CheckBox>().CurrentValue;
             if (drawControl)
                 Render.Circle.DrawCircle(ObjectManager.Player.Position, 925, System.Drawing.Color.GreenYellow);
-
-
-
             var drawLane = Menu._drawSettingsMenu["dsl"].Cast<CheckBox>().CurrentValue;
             int x = 0;
             if (drawLane)
@@ -83,12 +69,10 @@ using System.Threading.Tasks;
                     {
                         foreach (AIHeroClient h in HeroManager.Enemies)
                         {
-                            if (m.LSDistance(h) < 335)
+                            if (m.LSDistance(h) < 315)
                             {
                                 x++;
-
                             }
-
                         }
                         if (x > 0)
                         {
@@ -114,10 +98,7 @@ using System.Threading.Tasks;
 
                 Render.Circle.DrawCircle(Hero.Position, 1150 + 350, System.Drawing.Color.GreenYellow);
             }
-
-
         }
-
 
         private void OnUpdate(EventArgs args)
         {

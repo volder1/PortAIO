@@ -61,7 +61,7 @@ namespace Azir_Creator_of_Elo
     internal class StaticSpells
     {
         private static Points _pointer;
-        public static void CastQ(AzirMain azir, AIHeroClient target, bool useQ, int nSoldiersToQ)
+        public static void CastQ(AzirMain azir, AIHeroClient target, bool useQ)
         {
             var pointsAttack = new Points[120];
             var points = Azir_Free_elo_Machine.Math.Geometry.PointsAroundTheTarget(target.ServerPosition, 640, 80);

@@ -50,6 +50,8 @@ using System.Threading.Tasks;
             {
                 _laneClearMenu.Add("LQ", new CheckBox("Use Q"));
                 _laneClearMenu.Add("LW", new CheckBox("Use W"));
+                _laneClearMenu.Add("LWM", new Slider("Minions at W range to cast", 3, 1, 6));
+                _laneClearMenu.Add("LQM", new Slider("Soldiers to Q ", 1, 1, 3));
 
             }
         }
