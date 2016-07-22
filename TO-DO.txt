@@ -38,6 +38,7 @@ Utility Ports [Only doing after Champions are completed] :
 - AioCaster
 - AutoSharp - Once working again
 - AutoJungle - Once working again
+- Aram Det Full
 - SFX Utility [might be hard]
 - StreamHelper
 - Shadow Tracker
@@ -72,3 +73,4 @@ AIOS in an AIO :
 - Heaven Strike Series
 - VST
 - h3h3's support
+- ReformedAIO
