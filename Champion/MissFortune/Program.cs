@@ -89,7 +89,31 @@ using Utility = LeagueSharp.Common.Utility;
             Orbwalker.OnPostAttack += afterAttack;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
+            EloBuddy.Player.OnIssueOrder += Player_OnIssueOrder;
             new OktwCommon();
+        }
+
+        private static void Player_OnIssueOrder(Obj_AI_Base sender, PlayerIssueOrderEventArgs args)
+        {
+            if (getKeyBindItem(rMenu, "disableBlock"))
+            {
+                PortAIO.OrbwalkerManager.SetAttack(true);
+                PortAIO.OrbwalkerManager.SetMovement(true);
+                args.Process = true;
+                Orbwalker.MoveTo(Game.CursorPos);
+                return;
+            }
+
+            if (Player.IsChannelingImportantSpell() || Game.Time - RCastTime < 0.3)
+            {
+                if (getCheckBoxItem(rMenu, "forceBlockMove"))
+                {
+                    args.Process = false;
+                }
+
+                Program.debug("cast R");
+                return;
+            }
         }
 
         public static bool getCheckBoxItem(Menu m, string item)
