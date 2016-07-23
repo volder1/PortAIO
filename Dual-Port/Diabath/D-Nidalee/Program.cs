@@ -12,7 +12,7 @@ using Color = System.Drawing.Color;
 using Spell = LeagueSharp.Common.Spell;
 using Utility = LeagueSharp.Common.Utility;
 
- namespace D_Nidalee
+namespace D_Nidalee
 {
     internal class Program
     {
@@ -259,7 +259,7 @@ using Utility = LeagueSharp.Common.Utility;
         {
             return m[item].Cast<ComboBox>().CurrentValue;
         }
-        
+
         private static void Game_OnGameUpdate(EventArgs args)
         {
             var target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
@@ -1034,27 +1034,29 @@ using Utility = LeagueSharp.Common.Utility;
 
         private static void AllyAutoE()
         {
-            foreach (var hero in ObjectManager.Get<AIHeroClient>().Where(hero => hero.IsAlly && !hero.IsMe && hero.LSIsValidTarget(E.Range)))
-            {
-                var forms = getCheckBoxItem(Heal, "AutoSwitchform");
-                var mana = Player.Mana >= Player.MaxMana * getSliderItem(Heal, "MPPercent") / 100;
-                if (Player.HasBuff("Recall") || hero.HasBuff("Recall") || hero.InFountain()) return;
-                if (E.IsReady() &&
-                    hero.Health / hero.MaxHealth * 100 <= getSliderItem(Heal, "AllyHPercent") &&
-                    Utility.LSCountEnemiesInRange(1200) > 0 &&
-                    hero.LSIsValidTarget(E.Range))
+            foreach (var hero in ObjectManager.Get<AIHeroClient>().Where(hero => hero.IsAlly))
+                if (Player.Spellbook.CanUseSpell(SpellSlot.E) == SpellState.Ready && hero.IsAlly)
                 {
-                    if (IsHuman && mana)
+                    if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Flee)) return;
+                    var forms = getCheckBoxItem(Heal, "AutoSwitchform");
+                    var health = hero.Health
+                    <= hero.MaxHealth * getSliderItem(Heal, "AllyHPercent") / 100;
+                    var mana = Player.Mana >= Player.MaxMana * getSliderItem(Heal, "MPPercent") / 100;
+                    if (hero.HasBuff("Recall") || hero.InFountain()) return;
+                    if (E.IsReady() && health)
                     {
-                        E.Cast(hero);
-                    }
+                        if (IsHuman && mana)
+                        {
+                            Player.Spellbook.CastSpell(SpellSlot.E, hero);
+                        }
 
-                    if (IsCougar && R.IsReady() && mana && forms)
-                    {
-                        R.Cast();
+                        if (IsCougar && R.IsReady() && mana && forms)
+                        {
+                            R.Cast();
+                            Player.Spellbook.CastSpell(SpellSlot.E, hero);
+                        }
                     }
                 }
-            }
         }
 
         private static void KillSteal()
