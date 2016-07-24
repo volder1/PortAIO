@@ -60,7 +60,12 @@ namespace Azir_Creator_of_Elo
                     }
             }
             int z = azir.soldierManager.Soldiers.Count - x;
-            return z < nSoldiersToQ;
+            return z >= nSoldiersToQ;
+        }
+
+        public Obj_AI_Minion getClosestSolider(Vector3 pos)
+        {
+            return Soldiers.Where(sol => !sol.IsDead).OrderBy(sol => sol.Distance(pos, true) - ((sol.IsMoving) ? 500 : 0)).FirstOrDefault();
         }
 
         public Obj_AI_Minion getSoldierOnRange(int range)

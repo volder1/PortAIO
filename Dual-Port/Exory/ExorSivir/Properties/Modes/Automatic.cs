@@ -99,7 +99,7 @@ namespace ExorAIO.Champions.Sivir
                     }
 
                     /// <summary>
-                    ///     Block Gangplank's Barrels 1st Part.
+                    ///     Block Gangplank's Barrels.
                     /// </summary>
                     if ((sender as AIHeroClient).ChampionName.Equals("Gangplank"))
                     {
@@ -119,15 +119,6 @@ namespace ExorAIO.Champions.Sivir
                                 Vars.E.Cast();
                             }
                         }
-                    }
-
-                    /// <summary>
-                    ///     Block Gangplank's Barrels 2nd Part.
-                    /// </summary>
-                    else if (GameObjects.Player.Distance(args.End) < 450 &&
-                        args.SData.Name.Equals("GangplankEBarrelFuseMissile"))
-                    {
-                        Vars.E.Cast();
                     }
 
                     /// <summary>

@@ -2,6 +2,7 @@ using System;
 using ExorAIO.Utilities;
 using LeagueSharp;
 using LeagueSharp.SDK;
+using System.Linq;
 using EloBuddy;
 
  namespace ExorAIO.Champions.Warwick
@@ -20,6 +21,22 @@ using EloBuddy;
             if (GameObjects.Player.LSIsRecalling())
             {
                 return;
+            }
+
+            /// <summary>
+            ///     The Automatic Q Logic.
+            /// </summary>
+            if (Vars.Q.IsReady() &&
+                Targets.Minions.Any() &&
+                !GameObjects.EnemyHeroes.Any(t => t.LSIsValidTarget(Vars.R.Range)) &&
+                Vars.getCheckBoxItem(Vars.QMenu, "logical"))
+            {
+                if (GameObjects.Player.MaxHealth <
+                        GameObjects.Player.Health +
+                        (float)GameObjects.Player.LSGetSpellDamage(Targets.Minions.FirstOrDefault(), SpellSlot.Q) * 0.8)
+                {
+                    Vars.Q.CastOnUnit(Targets.Minions.FirstOrDefault());
+                }
             }
 
             /// <summary>

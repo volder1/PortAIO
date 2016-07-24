@@ -11,7 +11,7 @@ using Color = System.Drawing.Color;
 using Spell = LeagueSharp.Common.Spell;
 using Utility = LeagueSharp.Common.Utility;
 
- namespace OneKeyToWin_AIO_Sebby.Champions
+namespace OneKeyToWin_AIO_Sebby.Champions
 {
     internal class Malzahar
     {
@@ -19,7 +19,7 @@ using Utility = LeagueSharp.Common.Utility;
         private static Spell Q, Qr, W, E, R;
         private static float QMANA, WMANA, EMANA, RMANA;
         private static float Rtime;
-        
+
         public static Menu drawMenu, qMenu, wMenu, eMenu, rMenu, farmMenu;
 
         public static AIHeroClient Player
@@ -31,7 +31,7 @@ using Utility = LeagueSharp.Common.Utility;
         {
             Q = new Spell(SpellSlot.Q, 900);
             Qr = new Spell(SpellSlot.Q, 900);
-            W = new Spell(SpellSlot.W, 650);
+            W = new Spell(SpellSlot.W, 750);
             E = new Spell(SpellSlot.E, 650);
             R = new Spell(SpellSlot.R, 700);
 
@@ -94,7 +94,7 @@ using Utility = LeagueSharp.Common.Utility;
             if (args.Slot == SpellSlot.R && sender.Owner.IsMe && !getCheckBoxItem(rMenu, "preventRCast"))
             {
                 var t = args.Target as AIHeroClient;
-                if (t != null && t.Health > R.GetDamage(t))
+                if (t != null && t.Health - OktwCommon.GetIncomingDamage(t) > R.GetDamage(t) * 2.5)
                 {
                     if (E.IsReady() && Player.Mana > RMANA + EMANA)
                     {
@@ -342,17 +342,18 @@ using Utility = LeagueSharp.Common.Utility;
         {
             if (Player.UnderTurret(true) && getCheckBoxItem(rMenu, "Rturrent"))
                 return;
-            var t = TargetSelector.GetTarget(R.Range, DamageType.Magical);
-            if (Player.CountEnemiesInRange(900) < 3 && t.LSIsValidTarget())
+            if (Player.CountEnemiesInRange(800) < 3)
+                return;
+            foreach (var t in HeroManager.Enemies.Where(t => t.IsValidTarget(R.Range)))
             {
-                var totalComboDamage = OktwCommon.GetKsDamage(t, R);
+                var totalComboDamage = R.GetDamage(t) * 2.5;
                 // E calculation
 
                 totalComboDamage += E.GetDamage(t);
 
                 if (W.IsReady() && Player.Mana > RMANA + WMANA)
                 {
-                    totalComboDamage += W.GetDamage(t) * 5;
+                    totalComboDamage += Q.GetDamage(t);
                 }
 
                 if (Player.Mana > RMANA + QMANA)

@@ -19,11 +19,6 @@ using EloBuddy;
         /// <param name="args">The <see cref="EventArgs" /> instance containing the event data.</param>
         public static void Killsteal(EventArgs args)
         {
-            if (GameObjects.EnemyHeroes.Any(t => t.LSIsValidTarget(Vars.AARange)))
-            {
-                return;
-            }
-
             /// <summary>
             ///     The KillSteal Q Logic.
             /// </summary>
@@ -33,6 +28,7 @@ using EloBuddy;
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
                         !Invulnerable.Check(t) &&
+                        !t.LSIsValidTarget(Vars.AARange) &&
                         t.LSIsValidTarget(Vars.Q.Range - 200f)))
                 {
                     if (Vars.GetRealHealth(target) <
@@ -47,11 +43,6 @@ using EloBuddy;
                 }
             }
 
-            if (GameObjects.EnemyHeroes.Any(t => t.LSIsValidTarget(Vars.W.Range)))
-            {
-                return;
-            }
-
             /// <summary>
             ///     The KillSteal R Logic.
             /// </summary>
@@ -62,6 +53,7 @@ using EloBuddy;
                     t =>
                         !Invulnerable.Check(t) &&
                         t.LSIsValidTarget(Vars.R.Range) &&
+                        !t.LSIsValidTarget(Vars.AARange + 200) &&
                         Vars.GetRealHealth(t) <
                             (float)GameObjects.Player.LSGetSpellDamage(t, SpellSlot.R)))
                 {

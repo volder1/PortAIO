@@ -6,7 +6,7 @@ using LeagueSharp.SDK;
 using LeagueSharp.SDK.Core.Utils;
 using EloBuddy;
 
- namespace ExorAIO.Champions.Warwick
+namespace ExorAIO.Champions.Warwick
 {
     /// <summary>
     ///     The logics class.
@@ -47,6 +47,8 @@ using EloBuddy;
                     t =>
                         !Invulnerable.Check(t) &&
                         t.LSIsValidTarget(Vars.R.Range) &&
+                        t.Health >
+                         (float)GameObjects.Player.LSGetSpellDamage(t, SpellSlot.Q) * 2 &&
                         t.Health <
                             (float)GameObjects.Player.LSGetSpellDamage(t, SpellSlot.R)))
                 {
