@@ -679,7 +679,7 @@ namespace SebbyLib.Prediction
                 result.Hitchance = HitChance.VeryHigh;
                 return result;
             }
-     
+
             // LONG CLICK DETECTION ///////////////////////////////////////////////////////////////////////////////////
 
             if (distanceUnitToWaypoint > pathMinLen)

@@ -469,21 +469,21 @@ namespace SebbyLib
                 {
                     var pred = QWER.GetPrediction(target);
                     if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
-                        QWER.Cast(pred.CastPosition);
+                        QWER.Cast(target);
                     return;
                 }
                 else if (getSliderItem("HitChance") == 1)
                 {
                     var pred = QWER.GetPrediction(target);
-                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
-                        QWER.Cast(pred.CastPosition);
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
+                        QWER.Cast(target);
                     return;
                 }
                 else if (getSliderItem("HitChance") == 2)
                 {
                     var pred = QWER.GetPrediction(target);
-                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
-                        QWER.Cast(pred.CastPosition);
+                    if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Low)
+                        QWER.Cast(target);
                     return;
                 }
                 return;

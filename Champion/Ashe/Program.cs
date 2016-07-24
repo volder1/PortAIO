@@ -13,6 +13,7 @@ using PredictionInput = SebbyLib.Prediction.PredictionInput;
 using Spell = LeagueSharp.Common.Spell;
 using System.Collections.Generic;
 using SharpDX;
+using EloBuddy.SDK.Enumerations;
 
 namespace PortAIO.Champion.Ashe
 {
@@ -119,11 +120,13 @@ namespace PortAIO.Champion.Ashe
             Q = new Spell(SpellSlot.Q);
             W = new Spell(SpellSlot.W, 1240);
             E = new Spell(SpellSlot.E, 2500);
-            R = new Spell(SpellSlot.R, float.MaxValue);
+            R = new Spell(SpellSlot.R, 15000);
 
             W.SetSkillshot(0.25f, 20f, 1500f, true, SkillshotType.SkillshotLine);
             E.SetSkillshot(0.25f, 299f, 1400f, false, SkillshotType.SkillshotLine);
-            R.SetSkillshot(0.25f, 130f, 1600f, false, SkillshotType.SkillshotLine);
+            R.SetSkillshot(0.500f, 250f, 1000f, false, SkillshotType.SkillshotLine);
+            R.skillshot.AllowedCollisionCount = int.MaxValue;
+
             LoadMenuOKTW();
 
             Game.OnUpdate += Game_OnUpdate;
@@ -132,15 +135,6 @@ namespace PortAIO.Champion.Ashe
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
             Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
-            Game.OnWndProc += Game_OnWndProc;
-        }
-
-        private static void Game_OnWndProc(WndEventArgs args)
-        {
-            if (args.Msg == 513 && HeroManager.Enemies.Exists(x => Game.CursorPos.Distance(x.Position) < 300))
-            {
-                RTarget = HeroManager.Enemies.First(x => Game.CursorPos.Distance(x.Position) < 300);
-            }
         }
 
         private static void Obj_AI_Base_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
@@ -182,6 +176,8 @@ namespace PortAIO.Champion.Ashe
 
         private static void Game_OnUpdate(EventArgs args)
         {
+            RTarget = TargetSelector.SelectedTarget;
+
             if (R.IsReady())
             {
                 if (getKeyBindItem(RMenu, "useR"))
@@ -197,27 +193,32 @@ namespace PortAIO.Champion.Ashe
                 if (CastR2)
                 {
                     if (RTarget.IsValidTarget())
+                    {
                         SebbyLib.Program.CastSpell(R, RTarget);
+                    }
                 }
 
                 if (CastR)
                 {
                     if (getBoxItem(RMenu, "Semi-manual") == 0)
                     {
+                        Console.WriteLine("2");
                         var t = TargetSelector.GetTarget(1800, DamageType.Physical);
-                        if (t.LSIsValidTarget() && t.IsHPBarRendered && t.IsVisible)
+                        if (t.LSIsValidTarget())
                             SebbyLib.Program.CastSpell(R, t);
                     }
                     else if (getBoxItem(RMenu, "Semi-manual") == 1)
                     {
+                        Console.WriteLine("2");
                         var t = HeroManager.Enemies.OrderBy(x => x.Distance(Player)).FirstOrDefault();
-                        if (t.LSIsValidTarget() && t.IsHPBarRendered && t.IsVisible)
+                        if (t.LSIsValidTarget())
                             SebbyLib.Program.CastSpell(R, t);
                     }
                 }
             }
             else
             {
+                RTarget = null;
                 CastR = false;
                 CastR2 = false;
             }
@@ -362,27 +363,7 @@ namespace PortAIO.Champion.Ashe
 
         private static void CastW(Obj_AI_Base t)
         {
-            var CoreType2 = SebbyLib.Prediction.SkillshotType.SkillshotLine;
-
-            var predInput2 = new PredictionInput
-            {
-                Aoe = false,
-                Collision = W.Collision,
-                Speed = W.Speed,
-                Delay = W.Delay,
-                Range = W.Range,
-                From = Player.ServerPosition,
-                Radius = W.Width,
-                Unit = t,
-                Type = CoreType2
-            };
-
-            var poutput2 = Prediction.GetPrediction(predInput2);
-
-            if (poutput2.Hitchance >= HitChance.High)
-            {
-                W.Cast(poutput2.CastPosition);
-            }
+            SebbyLib.Program.CastSpell(W, t);
         }
 
         private static void SetMana()
