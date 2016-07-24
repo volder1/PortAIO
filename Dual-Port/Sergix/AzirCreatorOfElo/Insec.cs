@@ -48,15 +48,15 @@ namespace Azir_Free_elo_Machine
                 {
                     if (target.IsVisible && target.IsValid)
                     {
-                        var pos = target.ServerPosition.LSExtend(Game.CursorPos, -300);
-                        Render.Circle.DrawCircle(pos, 100, System.Drawing.Color.GreenYellow);
+                        //var pos = target.ServerPosition.LSExtend(Game.CursorPos, -300);
+                        //Render.Circle.DrawCircle(pos, 100, System.Drawing.Color.GreenYellow);
                     }
                 }
             }
             else
             {
                 var pos = target.ServerPosition.LSExtend(Clickposition, -300);
-                Render.Circle.DrawCircle(pos, 100, System.Drawing.Color.GreenYellow);
+                //Render.Circle.DrawCircle(pos, 100, System.Drawing.Color.GreenYellow);
                 Render.Circle.DrawCircle(Clickposition, 100, System.Drawing.Color.GreenYellow);
             }
 
@@ -127,7 +127,7 @@ namespace Azir_Free_elo_Machine
             {
                 insecPos = insecPoint;
             }
-            var postoGo = target.ServerPosition.LSExtend(insecPos, -300);
+            var postoGo = target.ServerPosition;
             switch (steps)
             {
 
@@ -139,7 +139,7 @@ namespace Azir_Free_elo_Machine
                     }
                     break;
                 case Steps.jump:
-                    if (HeroManager.Player.ServerPosition.Distance(postoGo) <= 300)
+                    if (HeroManager.Player.ServerPosition.Distance(postoGo) <= 220)
                     {
                         steps = Steps.R;
                     }
@@ -150,11 +150,22 @@ namespace Azir_Free_elo_Machine
                     }
                     break;
                 case Steps.R:
-                    azir.Spells.R.Cast(insecPoint);
-                    steps = Steps.firstCalcs;
+                    if (azir.Hero.Distance(target) < 220)
+                    {
+                        var tower = ObjectManager.Get<Obj_AI_Turret>().FirstOrDefault(it => it.IsValidTarget(1000));
 
+                        if (tower != null)
+                        {
+                            azir.Spells.R.Cast(tower.ServerPosition);
+                            steps = Steps.firstCalcs;
+                        }
 
-
+                        else
+                        {
+                            azir.Spells.R.Cast(insecPoint);
+                            steps = Steps.firstCalcs;
+                        }
+                    }
                     break;
             }
         }

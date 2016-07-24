@@ -84,7 +84,7 @@ using EloBuddy.SDK;
                     /// <summary>
                     ///     The Q Clear Logic.
                     /// </summary>
-                    if (Anivia.QMissile.Position.CountEnemyHeroesInRange(Vars.Q.Width * 2 - 5f) > 0)
+                    if (Anivia.QMissile.Position.CountEnemyHeroesInRange(Vars.Q.Width * 2) > 0)
                     {
                         Vars.Q.Cast();
                     }
@@ -106,7 +106,7 @@ using EloBuddy.SDK;
                         return;
                     }
 
-                    if (Anivia.QMissile.Position.CountEnemyHeroesInRange(Vars.Q.Width * 2 - 5f) > 0)
+                    if (Anivia.QMissile.Position.CountEnemyHeroesInRange(Vars.Q.Width * 2) > 0)
                     {
                         Vars.Q.Cast();
                     }

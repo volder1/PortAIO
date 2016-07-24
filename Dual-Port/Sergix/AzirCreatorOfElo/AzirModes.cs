@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharpDX;
 
 namespace Azir_Creator_of_Elo
 {
@@ -105,11 +106,19 @@ namespace Azir_Creator_of_Elo
                             MinionOrderTypes.MaxHealth);
             if (minionW != null && useW)
             {
-                MinionManager.FarmLocation wFarmLocation = azir.Spells.W.GetCircularFarmLocation(minionW,
-                    315);
+                var wFarmLocation = azir.Spells.W.GetCircularFarmLocation(minionW,
+                      315);
                 if (wFarmLocation.MinionsHit >= minToW)
                 {
-                    azir.Spells.W.Cast(wFarmLocation.Position);
+                    var closestSoldier = azir.soldierManager.getClosestSolider(wFarmLocation.Position.To3D());
+                    if (closestSoldier == null)
+                    {
+                        azir.Spells.W.Cast(wFarmLocation.Position);
+                    }
+                    else if (wFarmLocation.Position.Distance(closestSoldier) >= 300)
+                    {
+                        azir.Spells.W.Cast(wFarmLocation.Position);
+                    }
                 }
             }
             List<Obj_AI_Base> minionQ =
@@ -124,30 +133,62 @@ MinionManager.GetMinions(
 
                 MinionManager.FarmLocation wFarmLocation = azir.Spells.Q.GetCircularFarmLocation(minionW,
                     315);
-                if (wFarmLocation.MinionsHit >= minToW)
+                foreach (Obj_AI_Minion minion in minionQ)
                 {
-                    azir.Spells.Q.Cast(wFarmLocation.Position);
+                    var closest_soldier = azir.soldierManager.getClosestSolider(minion.ServerPosition);
+                    if (closest_soldier != null)
+                        if (minion.Distance(closest_soldier) > 315)
+                        {
+                            azir.Spells.Q.Cast(minion.Position);
+                            break;
+                        }
                 }
             }
         }
 
         public override void Jungleclear(AzirMain azir)
         {
+
+            var useQ = Menu._JungleClearMenu["JQ"].Cast<CheckBox>().CurrentValue;
             var useW = Menu._JungleClearMenu["JW"].Cast<CheckBox>().CurrentValue;
             base.Jungleclear(azir);
-            var minion =
-                MinionManager.GetMinions(azir.Spells.Q.Range, MinionTypes.All, MinionTeam.Neutral,
-                    MinionOrderTypes.MaxHealth).FirstOrDefault();
-            if (minion == null) return;
-
-
-            if (azir.Spells.W.IsInRange(minion))
+            List<Obj_AI_Base> minionW =
+MinionManager.GetMinions(
+                   azir.Hero.Position,
+                    azir.Spells.W.Range,
+                    MinionTypes.All,
+                    MinionTeam.Neutral,
+                    MinionOrderTypes.MaxHealth);
+            if (minionW != null && useW)
             {
-                var pred = azir.Spells.W.GetPrediction(minion);
-                if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
+                MinionManager.FarmLocation wFarmLocation = azir.Spells.W.GetCircularFarmLocation(minionW,
+                    315);
+                if (wFarmLocation.MinionsHit >= 1)
                 {
-                    if (useW)
-                        azir.Spells.W.Cast(pred.CastPosition);
+                    azir.Spells.W.Cast(wFarmLocation.Position);
+                }
+            }
+            List<Obj_AI_Base> minionQ =
+MinionManager.GetMinions(
+                      azir.Hero.Position,
+                       azir.Spells.Q.Range,
+                       MinionTypes.All,
+                       MinionTeam.Neutral,
+                       MinionOrderTypes.MaxHealth);
+            if (minionQ != null && useQ && azir.soldierManager.CheckQCastAtLaneClear(minionQ, azir))
+            {
+
+                MinionManager.FarmLocation wFarmLocation = azir.Spells.Q.GetCircularFarmLocation(minionW,
+                    315);
+                foreach (Obj_AI_Minion minion in minionQ)
+                {
+                    var closest_soldier = azir.soldierManager.getClosestSolider(minion.ServerPosition);
+                    if (closest_soldier != null)
+                        if (minion.Distance(closest_soldier) > 315)
+                        {
+                            azir.Spells.Q.Cast(minion.Position);
+                            break;
+                        }
                 }
 
 

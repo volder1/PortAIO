@@ -376,7 +376,7 @@ using EloBuddy.SDK;
                         }
                         else
                         {
-                            lastPosInfo.position = end;
+                            //lastPosInfo.position = end;
                             lastDodgingEndTime = EvadeUtils.TickCount;
 
                             if (isDodging || EvadeUtils.TickCount < lastDodgingEndTime + 500)
@@ -411,7 +411,7 @@ using EloBuddy.SDK;
                         }
                         else
                         {
-                            lastPosInfo.position = dashPos;
+                            //lastPosInfo.position = dashPos;
                             lastDodgingEndTime = EvadeUtils.TickCount;
 
                             if (isDodging || EvadeUtils.TickCount < lastDodgingEndTime + 500)

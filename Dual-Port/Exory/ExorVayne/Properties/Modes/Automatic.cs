@@ -48,9 +48,9 @@ using EloBuddy;
                             (Vars.E.GetPrediction(target).UnitPosition + vector * (float)(i * 42.5)).LSIsWall() &&
                             (Vars.E2.GetPrediction(target).UnitPosition + vector * (float)(i * 42.5)).LSIsWall() &&
 
-                            (target.ServerPosition + vector * i * 44).LSIsWall() &&
-                            (Vars.E.GetPrediction(target).UnitPosition + vector * i * 44).LSIsWall() &&
-                            (Vars.E2.GetPrediction(target).UnitPosition + vector * i * 44).LSIsWall())
+                            (target.ServerPosition + vector * (float)(i * 44.5)).LSIsWall() &&
+                            (Vars.E.GetPrediction(target).UnitPosition + vector * (float)(i * 44.5)).LSIsWall() &&
+                            (Vars.E2.GetPrediction(target).UnitPosition + vector * (float)(i * 44.5)).LSIsWall())
                         {
                             Vars.E.CastOnUnit(target);
                         }

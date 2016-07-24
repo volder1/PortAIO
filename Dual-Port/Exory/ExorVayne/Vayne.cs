@@ -135,22 +135,21 @@ namespace ExorAIO.Champions.Vayne
                 /// <summary>
                 ///     The Dash-Condemn Prediction Logic.
                 /// </summary>
-                else
+                if (!GameObjects.Player.IsDashing() &&
+                    GameObjects.Player.Distance(args.End) >
+                        GameObjects.Player.BoundingRadius &&
+                    Vars.getCheckBoxItem(Vars.WMenu, "dashpred") &&
+                    Vars.getCheckBoxItem(Vars.WhiteListMenu, args.Sender.ChampionName.ToLower()))
                 {
-                    if (!GameObjects.Player.IsDashing() &&
-                        GameObjects.Player.Distance(args.End) >
-                            GameObjects.Player.BoundingRadius &&
-                        Vars.getCheckBoxItem(Vars.EMenu, "dashpred") &&
-                        Vars.getCheckBoxItem(Vars.WhiteListMenu, args.Sender.ChampionName.ToLower()))
+                    for (var i = 1; i < 10; i++)
                     {
-                        for (var i = 1; i < 10; i++)
+                        var vector = Vector3.Normalize(args.End - GameObjects.Player.ServerPosition);
+
+                        if ((args.End + vector * (float)(i * 42.5)).IsWall() &&
+                            (args.End + vector * (float)(i * 44.5)).IsWall())
                         {
-                            if ((args.End + Vector3.Normalize(args.End - GameObjects.Player.ServerPosition) * (float)(i * 42.5)).LSIsWall() &&
-                                (args.End + Vector3.Normalize(args.End - GameObjects.Player.ServerPosition) * i * 44).LSIsWall())
-                            {
-                                Console.WriteLine("DASHPREDICTION CONDEMN!!1!11");
-                                Vars.E.CastOnUnit(args.Sender);
-                            }
+                            Console.WriteLine("DASHPREDICTION CONDEMN!!1!11");
+                            Vars.E.CastOnUnit(args.Sender);
                         }
                     }
                 }

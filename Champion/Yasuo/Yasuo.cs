@@ -30,7 +30,7 @@ namespace Valvrave_Sharp.Plugin
     {
         #region Constants
 
-        private const float QDelay = 0.38f, Q2Delay = 0.35f, QDelays = 0.215f, Q2Delays = 0.315f;
+        private const float QDelay = 0.385f, Q2Delay = 0.35f, QDelays = 0.22f, Q2Delays = 0.315f;
 
         private const int RWidth = 400;
 
@@ -88,7 +88,7 @@ namespace Valvrave_Sharp.Plugin
 
             Q = new LeagueSharp.SDK.Spell(SpellSlot.Q, 505).SetSkillshot(QDelay, 20, float.MaxValue, false, SkillshotType.SkillshotLine);
             Q2 = new LeagueSharp.SDK.Spell(Q.Slot, 1100).SetSkillshot(Q2Delay, 90, 1200, true, Q.Type);
-            Q3 = new LeagueSharp.SDK.Spell(Q.Slot, 240).SetSkillshot(0.001f, 240, float.MaxValue, false, SkillshotType.SkillshotCircle);
+            Q3 = new LeagueSharp.SDK.Spell(Q.Slot, 220).SetSkillshot(0.001f, 220, float.MaxValue, false, SkillshotType.SkillshotCircle);
             W = new LeagueSharp.SDK.Spell(SpellSlot.W, 400).SetTargetted(0.25f, float.MaxValue);
             E = new LeagueSharp.SDK.Spell(SpellSlot.E, 475).SetTargetted(0, 1200);
             E2 = new LeagueSharp.SDK.Spell(E.Slot, E.Range).SetTargetted(Q3.Delay, E.Speed);
@@ -232,6 +232,17 @@ namespace Valvrave_Sharp.Plugin
             {
                 args.Process = !IsDashing;
             };
+            Obj_AI_Base.OnProcessSpellCast += (sender, args) =>
+            {
+                if (!sender.IsMe)
+                {
+                    return;
+                }
+                if (args.Slot == SpellSlot.E)
+                {
+                    lastE = Variables.TickCount;
+                }
+            };
             Events.OnDash += (sender, args) =>
                 {
                     if (!args.Unit.IsMe)
@@ -254,11 +265,6 @@ namespace Valvrave_Sharp.Plugin
                             break;
                         case "YasuoDashScalar":
                             cDash = 1;
-                            break;
-                        case "yasuoeqcombosoundmiss":
-                        case "YasuoEQComboSoundHit":
-                            Orbwalker.DisableAttacking = (true);
-                            DelayAction.Add(220, () => Orbwalker.DisableAttacking = (false));
                             break;
                     }
                 };
@@ -352,7 +358,8 @@ namespace Valvrave_Sharp.Plugin
             get
             {
                 var result = new Tuple<AIHeroClient, List<AIHeroClient>>(null, new List<AIHeroClient>());
-                foreach (var target in GetRTargets)
+                var targets = EntityManager.Heroes.Enemies.Where(x => HaveR(x) && R.IsInRange(x));
+                foreach (var target in targets)
                 {
                     var nears =
                         GameObjects.EnemyHeroes.Where(
@@ -369,17 +376,14 @@ namespace Valvrave_Sharp.Plugin
                     }
                 }
                 return getCheckBoxItem(comboMenu, "RDelay")
-                       && (Player.HealthPercent >= 20
+                       && (Player.HealthPercent >= 15
                            || GameObjects.EnemyHeroes.Count(i => i.IsValidTarget(600) && !HaveR(i)) == 0)
                            ? (result.Item2.Any(CanCastDelayR) ? result.Item1 : null)
                            : result.Item1;
             }
         }
 
-        private static List<AIHeroClient> GetRTargets
-            => EntityManager.Heroes.Enemies.Where(x => R.IsInRange(x) && HaveR(x) && x.LSIsValidTarget() && x.IsVisible).ToList();
-
-        private static bool IsDashing => Variables.TickCount - lastE <= 70 || Player.IsDashing() || posDash.IsValid();
+        private static bool IsDashing => Variables.TickCount - lastE <= 100 || Player.IsDashing() || posDash.IsValid();
 
         private static LeagueSharp.SDK.Spell SpellQ => !haveQ3 ? Q : Q2;
 
@@ -405,36 +409,46 @@ namespace Valvrave_Sharp.Plugin
 
         private static void BeyBlade()
         {
-            if (!Common.CanFlash)
+            if (!Common.CanFlash || !Q.IsReady() || !haveQ3)
             {
                 return;
             }
-            if (Q.IsReady() && haveQ3 && IsDashing && CanCastQCir)
+            if (IsDashing && CanCastQCir)
             {
-                var hits =
-                    GameObjects.EnemyHeroes.Count(
-                        i => i.LSIsValidTarget() && Q3.GetPredPosition(i).Distance(posDash) < Q3.Range + FlashRange);
-                if (hits > 0 && Q3.Cast(posDash))
+                var bestHit = 0;
+                var bestPos = new Vector3();
+                for (var i = 0; i < 360; i += 10)
                 {
-                    //DelayAction.Add();
+                    var pos =
+                        (posDash.ToVector2() + FlashRange * new Vector2(1, 0).Rotated((float)(Math.PI * i / 180.0)))
+                            .ToVector3();
+                    var hits = GameObjects.EnemyHeroes.Count(a => a.IsValidTarget(Q3.Width, true, pos));
+                    if (hits > bestHit)
+                    {
+                        bestHit = hits;
+                        bestPos = pos;
+                    }
+                }
+                if (bestPos.IsValid() && Q3.Cast(Player.Position))
+                {
+                    Player.Spellbook.CastSpell(Flash, bestPos);
                 }
             }
-            if (!E.IsReady() || IsDashing)
+            if (!E.IsReady())
             {
                 return;
             }
             var obj =
                 Common.ListEnemies(true)
-                    .Where(i => i.LSIsValidTarget(E.Range) && !HaveE(i))
+                    .Where(i => i.IsValidTarget(E.Range) && !HaveE(i))
                     .MaxOrDefault(
                         i =>
                         GameObjects.EnemyHeroes.Count(
                             a =>
-                            !a.Compare(i) && a.LSIsValidTarget()
-                            && Q3.GetPredPosition(a).Distance(GetPosAfterDash(i)) < Q3.Range + FlashRange - 50));
-            if (obj != null && E.CastOnUnit(obj))
+                            !a.Compare(i) && a.IsValidTarget(Q3.Width / 2 + FlashRange - 50, true, GetPosAfterDash(i))));
+            if (obj != null)
             {
-                lastE = Variables.TickCount;
+                E.CastOnUnit(obj);
             }
         }
 
@@ -445,7 +459,7 @@ namespace Valvrave_Sharp.Plugin
                 return true;
             }
             var buff = target.Buffs.FirstOrDefault(i => i.Type == BuffType.Knockup);
-            return buff != null && Game.Time - buff.StartTime >= 0.85 * (buff.EndTime - buff.StartTime);
+            return buff != null && Game.Time - buff.StartTime >= 0.88 * (buff.EndTime - buff.StartTime);
         }
 
         private static bool CanDash(
@@ -491,10 +505,6 @@ namespace Valvrave_Sharp.Plugin
 
         private static bool CastQCir(List<Obj_AI_Base> obj)
         {
-            if (obj.Count == 0)
-            {
-                return false;
-            }
             var target = obj.FirstOrDefault();
             return target != null && Q3.Cast(SpellQ.GetPredPosition(target, true));
         }
@@ -542,7 +552,6 @@ namespace Valvrave_Sharp.Plugin
                             .ToList();
                     if (listPos.Any(i => IsThroughWall(target.ServerPosition, i)) && E.CastOnUnit(target))
                     {
-                        lastE = Variables.TickCount;
                         return;
                     }
                 }
@@ -550,76 +559,10 @@ namespace Valvrave_Sharp.Plugin
 
             if (getCheckBoxItem(comboMenu, "EGap") && E.IsReady())
             {
-                var underTower = getCheckBoxItem(comboMenu, "ETower");
-
-                if (getBoxItem(comboMenu, "EMode") == 0)
+                var target = GetBestDashObj(getCheckBoxItem(comboMenu, "ETower"));
+                if (target != null && E.CastOnUnit(target))
                 {
-                    var listDashObj = GetDashObj(underTower);
-
-                    var target = E.GetTarget(Q3.Width);
-                    if (target != null && haveQ3 && Q.IsReady(50))
-                    {
-                        var nearObj = GetBestObj(listDashObj, target, true);
-                        if (nearObj != null && (GetPosAfterDash(nearObj).CountEnemyHeroesInRange(Q3.Width) > 1 || Player.CountEnemyHeroesInRange(Q.Range + E.Range / 2) == 1) && E.CastOnUnit(nearObj))
-                        {
-                            lastE = Variables.TickCount;
-                            return;
-                        }
-                    }
-
-                    target = E.GetTarget();
-                    if (target != null && ((cDash > 0 && CanDash(target, false, underTower)) || (haveQ3 && Q.IsReady(50) && CanDash(target, true, underTower))) && E.CastOnUnit(target))
-                    {
-                        lastE = Variables.TickCount;
-                        return;
-                    }
-
-                    target = Q.GetTarget(100) ?? Q2.GetTarget();
-
-                    if (target != null && (!Player.Spellbook.IsAutoAttacking || Player.HealthPercent < 40))
-                    {
-                        var nearObj = GetBestObj(listDashObj, target);
-                        var canDash = cDash == 0 && nearObj != null && !HaveE(target);
-                        if (Q.IsReady(50))
-                        {
-                            var nearObjQ3 = GetBestObj(listDashObj, target, true);
-                            if (nearObjQ3 != null)
-                            {
-                                nearObj = nearObjQ3;
-                                canDash = true;
-                            }
-                        }
-                        if (!canDash && target.DistanceToPlayer() > target.GetRealAutoAttackRange() * 0.7)
-                        {
-                            canDash = true;
-                        }
-                        if (canDash)
-                        {
-                            if (nearObj == null && E.IsInRange(target) && CanDash(target, false, underTower))
-                            {
-                                nearObj = target;
-                            }
-                            if (nearObj != null && E.CastOnUnit(nearObj))
-                            {
-                                lastE = Variables.TickCount;
-                                return;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    var target = Orbwalker.LastTarget;
-                    if (target == null || Player.Distance(target) > target.GetRealAutoAttackRange() * 0.7
-                        || Player.Distance(Game.CursorPos) > E.Range * 1.5)
-                    {
-                        var obj = GetBestObjToMouse(underTower);
-                        if (obj != null && E.CastOnUnit(obj))
-                        {
-                            lastE = Variables.TickCount;
-                            return;
-                        }
-                    }
+                    return;
                 }
             }
 
@@ -639,7 +582,8 @@ namespace Valvrave_Sharp.Plugin
                         }
                     }
                 }
-                else if (!haveQ3 ? Q.CastingBestTarget(true).IsCasted() : CastQ3())
+                else if ((!getCheckBoxItem(comboMenu, "EGap") || E.Level == 0 || GetBestDashObj(getCheckBoxItem(comboMenu, "ETower")) == null)
+                         && (!haveQ3 ? Q.CastingBestTarget(true).IsCasted() : CastQ3()))
                 {
                     return;
                 }
@@ -671,39 +615,98 @@ namespace Valvrave_Sharp.Plugin
             {
                 return;
             }
-            var obj = GetBestObjToMouse();
-            if (obj != null && E.CastOnUnit(obj))
+            var obj = GetBestDashObjToMouse(true);
+            if (obj != null)
             {
-                lastE = Variables.TickCount;
+                E.CastOnUnit(obj);
             }
         }
 
-        private static Obj_AI_Base GetBestObj(List<Obj_AI_Base> obj, AIHeroClient target, bool inQCir = false)
+        private static Obj_AI_Base GetBestDashObj(bool underTower)
         {
-            obj.RemoveAll(i => i.Compare(target));
-            if (obj.Count == 0)
+            if (getBoxItem(comboMenu, "EMode") == 0)
             {
-                return null;
+                var target = E.GetTarget(Q3.Width);
+                if (target != null && haveQ3 && Q.IsReady(50))
+                {
+                    var nearObj = GetBestDashObjToUnit(target, underTower, true);
+                    if (nearObj != null
+                        && (GetPosAfterDash(nearObj).CountEnemyHeroesInRange(Q3.Width) > 1
+                            || Player.CountEnemyHeroesInRange(Q.Range + E.Range / 2) == 1))
+                    {
+                        return nearObj;
+                    }
+                }
+                target = E.GetTarget();
+                if (target != null
+                    && ((cDash > 0 && CanDash(target, false, underTower))
+                        || (haveQ3 && Q.IsReady(50) && CanDash(target, true, underTower))))
+                {
+                    return target;
+                }
+                target = Q.GetTarget(100) ?? Q2.GetTarget();
+                if (target != null && (!Player.Spellbook.IsAutoAttacking || Player.HealthPercent < 40))
+                {
+                    var nearObj = GetBestDashObjToUnit(target, underTower, false);
+                    var canDash = cDash == 0 && nearObj != null && !HaveE(target);
+                    if (Q.IsReady(50))
+                    {
+                        var nearObjQ3 = GetBestDashObjToUnit(target, underTower, true);
+                        if (nearObjQ3 != null)
+                        {
+                            nearObj = nearObjQ3;
+                            canDash = true;
+                        }
+                    }
+                    if (!canDash && target.DistanceToPlayer() > target.GetRealAutoAttackRange() * 0.7)
+                    {
+                        canDash = true;
+                    }
+                    if (canDash)
+                    {
+                        if (nearObj == null && target.IsValidTarget(E.Range) && CanDash(target, false, underTower))
+                        {
+                            nearObj = target;
+                        }
+                        if (nearObj != null)
+                        {
+                            return nearObj;
+                        }
+                    }
+                }
             }
-            var pos = E.GetPredPosition(target, true);
-            return obj.Where(i => CanDash(i, inQCir, true, pos)).MinOrDefault(i => GetPosAfterDash(i).Distance(pos));
+            else
+            {
+                var target = Orbwalker.LastTarget;
+                if (target == null || Player.Distance(target) > target.GetRealAutoAttackRange() * 0.7
+                    || Player.Distance(Game.CursorPos) > E.Range * 1.5)
+                {
+                    var obj = GetBestDashObjToMouse(underTower);
+                    if (obj != null)
+                    {
+                        return obj;
+                    }
+                }
+            }
+            return null;
         }
 
-        private static Obj_AI_Base GetBestObjToMouse(bool underTower = true)
+        private static Obj_AI_Base GetBestDashObjToMouse(bool underTower)
         {
             var pos = Game.CursorPos;
             return
-                GetDashObj(underTower)
-                    .Where(i => CanDash(i, false, true, pos))
+                Common.ListEnemies()
+                    .Where(i => i.IsValidTarget(E.Range) && CanDash(i, false, underTower, pos))
                     .MinOrDefault(i => GetPosAfterDash(i).Distance(pos));
         }
 
-        private static List<Obj_AI_Base> GetDashObj(bool underTower = false)
+        private static Obj_AI_Base GetBestDashObjToUnit(AIHeroClient target, bool underTower, bool inQCir)
         {
+            var pos = E.GetPredPosition(target, true);
             return
                 Common.ListEnemies()
-                    .Where(i => i.LSIsValidTarget(E.Range) && (underTower || !GetPosAfterDash(i).IsUnderEnemyTurret()))
-                    .ToList();
+                    .Where(i => i.IsValidTarget(E.Range) && !i.Compare(target) && CanDash(i, inQCir, underTower, pos))
+                    .MinOrDefault(i => GetPosAfterDash(i).Distance(pos));
         }
 
         public static double GetEDmg(Obj_AI_Base target)
@@ -804,7 +807,7 @@ namespace Valvrave_Sharp.Plugin
 
         private static bool IsInRangeQ(Obj_AI_Minion minion)
         {
-            return minion.LSIsValidTarget(Math.Max(465 + minion.BoundingRadius / 3, 475));
+            return minion.IsValidTarget(Math.Min(465 + minion.BoundingRadius / 3, 480));
         }
 
         private static bool IsThroughWall(Vector3 from, Vector3 to)
@@ -864,38 +867,24 @@ namespace Valvrave_Sharp.Plugin
             }
             if (getCheckBoxItem(ksMenu, "E") && E.IsReady())
             {
-                var targets = EntityManager.Heroes.Enemies.Where(i => !HaveE(i) && E.IsInRange(i)).ToList();
-                if (targets.Count > 0)
+                var canQ = getCheckBoxItem(ksMenu, "Q") && Q.IsReady(50);
+                var target =
+                        EntityManager.Heroes.Enemies.FirstOrDefault(
+                            i =>
+                            !HaveE(i) && E.IsInRange(i)
+                            && (canQ && Q3.WillHit(Q3.GetPredPosition(i), GetPosAfterDash(i))
+                                    ? i.Health - Math.Max(GetEDmg(i) - i.MagicShield, 0) + i.AttackShield
+                                      <= GetQDmg(i)
+                                    : i.Health + i.MagicShield <= GetEDmg(i)));
+                if (target != null && E.CastOnUnit(target))
                 {
-                    var target = targets.FirstOrDefault(i => i.Health + i.MagicShield <= GetEDmg(i));
-                    if (target != null)
-                    {
-                        if (E.CastOnUnit(target))
-                        {
-                            lastE = Variables.TickCount;
-                            return;
-                        }
-                    }
-                    else if (getCheckBoxItem(ksMenu, "Q") && Q.IsReady(50))
-                    {
-                        target =
-                            targets.Where(i => i.Distance(GetPosAfterDash(i)) < Q3.Width)
-                            .FirstOrDefault(
-                                 i =>
-                                     i.Health - Math.Max(GetEDmg(i) - i.MagicShield, 0) + i.AttackShield
-                                    <= GetQDmg(i));
-                        if (target != null && E.CastOnUnit(target))
-                        {
-                            lastE = Variables.TickCount;
-                            return;
-                        }
-                    }
+                    return;
                 }
             }
             if (getCheckBoxItem(ksMenu, "R") && R.IsReady())
             {
-                var target =
-                    GetRTargets.Where(
+                var target = 
+                    EntityManager.Heroes.Enemies.Where(
                         i =>
                         getCheckBoxItem(ksMenu, "RCast" + i.NetworkId)
                         && i.Health + i.AttackShield <= R.GetDamage(i) + (Q.IsReady(1000) ? GetQDmg(i) : 0))
@@ -1138,10 +1127,7 @@ namespace Valvrave_Sharp.Plugin
             {
                 if (getCheckBoxItem(drawMenu, "R") && R.IsReady())
                 {
-                    Render.Circle.DrawCircle(
-                        Player.Position,
-                        R.Range,
-                        GetRTargets.Count > 0 ? Color.LimeGreen : Color.IndianRed);
+                    Render.Circle.DrawCircle(Player.Position, R.Range, R.IsReady() ? Color.LimeGreen : Color.IndianRed);
                 }
                 if (getCheckBoxItem(drawMenu, "UseR"))
                 {
@@ -1202,7 +1188,7 @@ namespace Valvrave_Sharp.Plugin
             else if (miscMenu["EQ3Flash"].Cast<KeyBind>().CurrentValue)
             {
                 Orbwalker.MoveTo(Game.CursorPos);
-                //BeyBlade();
+                BeyBlade();
             }
 
             if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
@@ -1256,9 +1242,9 @@ namespace Valvrave_Sharp.Plugin
                     .OrderBy(i => GetPosAfterDash(i).CountEnemyHeroesInRange(400))
                     .ThenBy(i => GetPosAfterDash(i).Distance(to))
                     .FirstOrDefault();
-            if (target != null && E.CastOnUnit(target))
+            if (target != null)
             {
-                lastE = Variables.TickCount;
+                E.CastOnUnit(target);
             }
         }
         #endregion

@@ -19,8 +19,8 @@ using EloBuddy;
         /// <param name="args">The <see cref="EventArgs" /> instance containing the event data.</param>
         public static void Combo(EventArgs args)
         {
-            if (Bools.HasSheenBuff() ||
-                !Targets.Target.LSIsValidTarget() ||
+            if ((Bools.HasSheenBuff() &&
+                Targets.Target.LSIsValidTarget(Vars.AARange)) ||
                 Invulnerable.Check(Targets.Target))
             {
                 return;
@@ -45,14 +45,10 @@ using EloBuddy;
             ///     The Q Combo Logic.
             /// </summary>
             if (Vars.Q.IsReady() &&
+                Targets.Target.LSIsValidTarget(Vars.Q.Range) &&
                 Vars.getCheckBoxItem(Vars.QMenu, "combo"))
             {
-                if (GameObjects.Player.MaxHealth >
-                        GameObjects.Player.Health +
-                        (float)GameObjects.Player.LSGetSpellDamage(Targets.Target, SpellSlot.Q) * 0.8)
-                {
-                    Vars.Q.CastOnUnit(Targets.Target);
-                }
+                Vars.Q.CastOnUnit(Targets.Target);
             }
 
             /// <summary>

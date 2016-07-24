@@ -59,8 +59,8 @@ using System.Threading.Tasks;
         {
             _JungleClearMenu = menu.AddSubMenu("JungleClear Menu", "JungleClear Menu");
             {
+                _JungleClearMenu.Add("JQ", new CheckBox("Use Q"));
                 _JungleClearMenu.Add("JW", new CheckBox("Use W"));
-
             }
         }
         public void loadHarashMenu()
@@ -79,7 +79,7 @@ using System.Threading.Tasks;
             {
                 _jumpMenu.Add("fleekey", new KeyBind("Jump key", false, KeyBind.BindTypes.HoldActive, 'Z'));
                 _jumpMenu.Add("inseckey", new KeyBind("Insec key", false, KeyBind.BindTypes.HoldActive, 'T'));
-
+                _jumpMenu.Add("FMJ", new CheckBox("Max Range Jump Only"));
             }
         }
     }

@@ -1,13 +1,14 @@
 using System;
+using System.Linq;
 using ExorAIO.Utilities;
 using LeagueSharp;
 using LeagueSharp.SDK;
-using EloBuddy;
+using LeagueSharp.SDK.Enumerations;
 using LeagueSharp.SDK.Core.Utils;
+using EloBuddy;
 using EloBuddy.SDK;
-using System.Linq;
 
- namespace ExorAIO.Champions.Caitlyn
+namespace ExorAIO.Champions.Caitlyn
 {
     /// <summary>
     ///     The champion class.
@@ -34,7 +35,7 @@ using System.Linq;
             /// </summary>
             Drawings.Initialize();
         }
-        
+
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
@@ -91,6 +92,7 @@ using System.Linq;
         {
             if (sender.IsMe)
             {
+
                 if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
                 {
                     switch (args.SData.Name)
@@ -100,11 +102,12 @@ using System.Linq;
                             if (Vars.W.IsReady() &&
                                 Vars.getCheckBoxItem(Vars.WMenu, "combo"))
                             {
-                                Vars.W.Cast(GameObjects.Player.ServerPosition.LSExtend(
+                                Vars.W.Cast(GameObjects.Player.ServerPosition.Extend(
                                     args.End,
                                     GameObjects.Player.Distance(args.End) + Vars.W.Width));
                             }
                             break;
+
                         default:
                             break;
                     }
@@ -115,22 +118,67 @@ using System.Linq;
         /// <summary>
         ///     Fired on spell cast.
         /// </summary>
-        /// <param name="sender">The object.</param>
+        /// <param name="spellbook">The spellbook.</param>
         /// <param name="args">The <see cref="SpellbookCastSpellEventArgs" /> instance containing the event data.</param>
-        public static void OnCastSpell(Spellbook sender, SpellbookCastSpellEventArgs args)
+        public static void OnCastSpell(Spellbook spellbook, SpellbookCastSpellEventArgs args)
+        {
+            if (spellbook.Owner.IsMe)
+            {
+                switch (args.Slot)
+                {
+                    case SpellSlot.W:
+                        /// <summary>
+                        ///     Blocks trap cast if there is another trap nearby.
+                        /// </summary>
+                        if (ObjectManager.Get<Obj_AI_Minion>().Any(
+                            m =>
+                                m.Distance(args.EndPosition) < 200 &&
+                                m.CharData.BaseSkinName.Equals("caitlyntrap")))
+                        {
+                            args.Process = false;
+                        }
+                        break;
+
+                    case SpellSlot.E:
+                        if (Environment.TickCount - Vars.LastTick < 1000)
+                        {
+                            return;
+                        }
+
+                        /// <summary>
+                        ///     The Dash to CursorPos Option.
+                        /// </summary>
+                        if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None) &&
+                            Vars.getCheckBoxItem(Vars.MiscMenu, "reversede"))
+                        {
+                            Vars.LastTick = Environment.TickCount;
+                            Vars.E.Cast(GameObjects.Player.ServerPosition.Extend(Game.CursorPos, -Vars.E.Range));
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Called on spellcast process.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="GameObjectProcessSpellCastEventArgs" /> instance containing the event data.</param>
+        public static void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             /// <summary>
-            ///     Blocks trap cast if there is another trap nearby.
+            ///     The Trap AA-Reset.
             /// </summary>
-            if (args.Slot == SpellSlot.W)
+            if (sender.IsMe &&
+                (args.Target as AIHeroClient).LSIsValidTarget() &&
+                args.SData.Name.Equals("CaitlynHeadshotMissile") &&
+                GameObjects.Player.HasBuff("caitlynheadshotrangecheck") &&
+                (args.Target as AIHeroClient).HasBuff("caitlynyordletrapdebuff"))
             {
-                if (ObjectManager.Get<Obj_AI_Minion>().Any(
-                    m =>
-                        m.Distance(args.EndPosition) < 200 &&
-                        m.CharData.BaseSkinName.Equals("caitlyntrap")))
-                {
-                    args.Process = false;
-                }
+                Orbwalker.ResetAutoAttack();
             }
         }
 
@@ -155,13 +203,12 @@ using System.Linq;
             }
 
             if (Vars.W.IsReady() &&
-                args.Sender.IsValidTarget(Vars.W.Range) &&
+                args.Sender.LSIsValidTarget(Vars.W.Range) &&
                 !Invulnerable.Check(args.Sender, DamageType.Magical, false) &&
                 Vars.getCheckBoxItem(Vars.WMenu, "gapcloser"))
             {
                 Vars.W.Cast(args.End);
             }
-            
         }
 
         /// <summary>
@@ -177,7 +224,7 @@ using System.Linq;
             }
 
             if (Vars.E.IsReady() &&
-                args.Sender.IsValidTarget(Vars.E.Range) &&
+                args.Sender.LSIsValidTarget(Vars.E.Range) &&
                 Vars.getCheckBoxItem(Vars.EMenu, "interrupter"))
             {
                 if (!Vars.E.GetPrediction(args.Sender).CollisionObjects.Any())
@@ -188,29 +235,10 @@ using System.Linq;
             }
 
             if (Vars.W.IsReady() &&
-                args.Sender.IsValidTarget(Vars.W.Range) &&
+                args.Sender.LSIsValidTarget(Vars.W.Range) &&
                 Vars.getCheckBoxItem(Vars.WMenu, "interrupter"))
             {
                 Vars.W.Cast(Vars.W.GetPrediction(args.Sender).CastPosition);
-            }
-        }
-
-        /// <summary>
-        ///     Called on spellcast process.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="GameObjectProcessSpellCastEventArgs" /> instance containing the event data.</param>
-        public static void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
-        {
-            if (sender.IsMe &&
-                (args.Target as AIHeroClient).LSIsValidTarget())
-            {
-                if (args.SData.Name.Equals("CaitlynHeadshotMissile") &&
-                    GameObjects.Player.HasBuff("caitlynheadshotrangecheck") &&
-                    (args.Target as AIHeroClient).HasBuff("caitlynyordletrapdebuff"))
-                {
-                    Orbwalker.ResetAutoAttack();
-                }
             }
         }
     }
