@@ -518,6 +518,9 @@ namespace PortAIO
                             case 2:
                                 ExorAIO.AIO.OnLoad();
                                 break;
+                            case 3:
+                                new EatMyCass.EatMyCass().OnLoad();
+                                break;
                             default:
                                 Champion = new SAutoCarry.Champions.Cassiopeia();
                                 break;

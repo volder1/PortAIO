@@ -283,6 +283,8 @@
     <Compile Include="Dual-Port\Badao\HeavenStrikeRyze\Lane.cs" />
     <Compile Include="Dual-Port\Badao\HeavenStrikeRyze\LastHit.cs" />
     <Compile Include="Dual-Port\Badao\HeavenStrikeRyze\Program.cs" />
+    <Compile Include="Dual-Port\ChewyMoon\Eat My Cass\EatMyCass.cs" />
+    <Compile Include="Dual-Port\ChewyMoon\Eat My Cass\UnitExtensions.cs" />
     <Compile Include="Dual-Port\ChewyMoon\MoonDraven\MoonDraven.cs" />
     <Compile Include="Dual-Port\Danz\Thresh - The Chain Warden\Program.cs" />
     <Compile Include="Dual-Port\Danz\Zac - The Secret Flubber\Program.cs" />
