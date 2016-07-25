@@ -467,7 +467,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[58]))
                 {
-                    Miscc.Add("cassiopeia", new ComboBox("Use addon for Cassiopeia : ", 0, "SAutoCarry", "Seph Cassio", "ExorAIO"));
+                    Miscc.Add("cassiopeia", new ComboBox("Use addon for Cassiopeia : ", 0, "SAutoCarry", "Seph Cassio", "ExorAIO", "Eat My Cass"));
                 }
                 if (Player.ChampionName.Equals(Champion[59]))
                 {
