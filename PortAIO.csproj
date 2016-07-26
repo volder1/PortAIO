@@ -616,6 +616,7 @@
     <Compile Include="Dual-Port\Soresu\UnderratedAIO\Underrated Hecarim\Hecarim.cs" />
     <Compile Include="Dual-Port\Soresu\UnderratedAIO\Underrated Olaf\Olaf.cs" />
     <Compile Include="Dual-Port\Soresu\UnderratedAIO\Underrated Trundle\Trundle.cs" />
+    <Compile Include="Dual-Port\SupportExTraGoZ\Ryze\Program.cs" />
     <Compile Include="Dual-Port\SupportExTraGoZ\SurvivorMalzahar\DrawDamage.cs" />
     <Compile Include="Dual-Port\SupportExTraGoZ\SurvivorMalzahar\Program.cs" />
     <Compile Include="Dual-Port\TheDoctor\yol0Thresh\AntiGapcloser.cs" />
