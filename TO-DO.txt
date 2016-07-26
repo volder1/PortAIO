@@ -23,7 +23,6 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - Flowers Riven
 - Evict Ryze
 - KarmaXD
-- LCS LEBLANC
 - Flowers' Akali
 - xBard
 - Ekko Master of Time
