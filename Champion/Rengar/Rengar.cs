@@ -226,7 +226,7 @@
                                     var pred = spells[Spells.E].GetPrediction(targetE);
                                     if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                                     {
-                                        spells[Spells.E].Cast(pred.CastPosition);
+                                        LeagueSharp.Common.Utility.DelayAction.Add(300, () => spells[Spells.E].Cast(pred.CastPosition));
                                     }
                                 }
                             }
@@ -254,7 +254,7 @@
                                 var pred = spells[Spells.E].GetPrediction(targetE);
                                 if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.Medium)
                                 {
-                                    spells[Spells.E].Cast(pred.CastPosition);
+                                    LeagueSharp.Common.Utility.DelayAction.Add(300, () => spells[Spells.E].Cast(pred.CastPosition));
                                 }
                             }
                         }
@@ -267,7 +267,7 @@
                         if (spells[Spells.E].IsReady() && target.LSIsValidTarget(spells[Spells.E].Range))
                         {
                             var pred = spells[Spells.E].GetPrediction(target);
-                            spells[Spells.E].Cast(pred.CastPosition);
+                            LeagueSharp.Common.Utility.DelayAction.Add(300, () => spells[Spells.E].Cast(pred.CastPosition));
                         }
                         break;
 

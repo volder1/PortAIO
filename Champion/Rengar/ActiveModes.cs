@@ -10,6 +10,7 @@
     using ItemData = LeagueSharp.Common.Data.ItemData;
     using EloBuddy.SDK;
     using EloBuddy.SDK.Menu.Values;
+    using EloBuddy.SDK.Events;
 
     // ReSharper disable once ClassNeverInstantiated.Global
     public class ActiveModes : Standards
@@ -21,13 +22,6 @@
         /// </summary>
         public static void Combo()
         {
-            /*var target = TargetSelector.SelectedTarget
-                             ?? TargetSelector.GetTarget(spells[Spells.E].Range, DamageType.Physical);
-            if (target == null)
-            {
-                return;
-            }*/
-
             var forced = Orbwalker.ForcedTarget;
             if (forced != null && forced.LSIsValidTarget() && forced is AIHeroClient &&
                     Orbwalking.InAutoAttackRange(forced))
@@ -141,6 +135,13 @@
                 }
 
                 var pred = spells[Spells.E].GetPrediction(target);
+
+                if (Player.IsDashing())
+                {
+                    LeagueSharp.Common.Utility.DelayAction.Add(300, () => spells[Spells.E].Cast(pred.CastPosition));
+                    return;
+                }
+
                 if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                 {
                     spells[Spells.E].Cast(pred.CastPosition);

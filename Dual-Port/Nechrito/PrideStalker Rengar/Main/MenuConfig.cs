@@ -22,6 +22,7 @@ using LeagueSharp.SDK.Core.Utils;
             comboMenu.AddLabel("In TripleQ/Ap Combo/OneShot");
             comboMenu.AddSeparator();
             comboMenu.Add("TripleQAAReset", new CheckBox("AA Q Reset In Triple Q", true));
+            comboMenu.Add("EBackwards", new CheckBox("E Backwards When Jumping", true));
 
             miscMenu = Menu.AddSubMenu("Misc", "Misc");
             miscMenu.Add("KillStealSummoner", new CheckBox("KillSteal Summoner Q", true));
@@ -39,6 +40,7 @@ using LeagueSharp.SDK.Core.Utils;
 
         }
 
+        public static bool EBackwards { get { return comboMenu["EBackwards"].Cast<CheckBox>().CurrentValue; } }
         public static int ComboMode { get { return miscMenu["ComboMode"].Cast<ComboBox>().CurrentValue; } }
         public static bool Passive { get { return miscMenu["Passive"].Cast<KeyBind>().CurrentValue; } }
         public static bool ChangeComboMode { get { return miscMenu["ChangeComboMode"].Cast<KeyBind>().CurrentValue; } }

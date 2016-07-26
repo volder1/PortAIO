@@ -144,7 +144,7 @@
 
                 foreach (var ally in HeroManager.Allies)
                 {
-                    if (!getCheckBoxItem(this.Menu, string.Format("healon{0}", ally.ChampionName)) || ally.LSIsRecalling() || ally.IsInvulnerable)
+                    if (!getCheckBoxItem(this.Menu, string.Format("healon{0}", ally.ChampionName)) || ally.LSIsRecalling() || ally.IsInvulnerable || ally.HasBuff("ChronoShift"))
                     {
                         return;
                     }

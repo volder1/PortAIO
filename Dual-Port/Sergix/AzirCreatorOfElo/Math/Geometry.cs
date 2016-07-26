@@ -5,14 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Azir_Creator_of_Elo;
-using EloBuddy;
+using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
+using EloBuddy;
+using EloBuddy.SDK;
 
 namespace Azir_Free_elo_Machine.Math
 {
-    public struct Points
-    {
+  public  struct Points
+{
         public Points(float hits, Vector3 point)
         {
             this.hits = hits;
@@ -21,9 +23,10 @@ namespace Azir_Free_elo_Machine.Math
 
         public float hits;
         public Vector3 point;
-    }
+}
     static class Geometry
     {
+        
         public static IEnumerable<Vector3> PointsAroundTheTarget(Vector3 pos, float dist, float prec = 15, float prec2 = 5)
         {
             if (!pos.IsValid())
@@ -57,20 +60,20 @@ namespace Azir_Free_elo_Machine.Math
             return list;
         }
 
-        public static float Nattacks(AzirMain azir, Vector3 point, AIHeroClient target)
+        public static float Nattacks(AzirMain azir,Vector3 point,AIHeroClient target)
         {
             const float azirSoldierRange = 315;
-            var attacksS = 0f;
-            foreach (var m in azir.soldierManager.Soldiers)
+            var attacksS=0f;
+            foreach (var m in azir.SoldierManager.Soldiers)
             {
                 if (m.IsDead) continue;
-                var spaceToDoQ = m.ServerPosition.LSDistance(point);
-                var timeToDoIt = (spaceToDoQ / azir.Spells.Q.Speed);
-                var posFinalTarget = Prediction.GetPrediction(target, timeToDoIt);
-                var space = azirSoldierRange - posFinalTarget.UnitPosition.LSDistance(point);
+                var spaceToDoQ = m.ServerPosition.Distance(point);
+                var timeToDoIt = (spaceToDoQ/azir.Spells.Q.Speed);
+                var posFinalTarget = LeagueSharp.Common.Prediction.GetPrediction(target, timeToDoIt);
+                var space = azirSoldierRange - posFinalTarget.UnitPosition.Distance(point);
 
-                var time = space / target.MoveSpeed;
-                attacksS += (time / azir.Hero.AttackDelay);
+                var time = space/target.MoveSpeed;
+                attacksS +=  (time/azir.Hero.AttackDelay);
             }
             return attacksS;
         }

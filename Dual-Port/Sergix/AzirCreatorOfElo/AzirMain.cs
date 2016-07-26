@@ -1,4 +1,5 @@
-﻿using EloBuddy;
+﻿using Azir_Free_elo_Machine;
+using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu.Values;
 using LeagueSharp;
@@ -14,90 +15,109 @@ namespace Azir_Creator_of_Elo
 {
     internal class AzirMain
     {
-        private Spells _spells;
+        public GapcloserList gapcloserList;
+        public List<String> InterruptSpell;
+      public readonly string[] Gapcloser = new[]
+            {
+                "AkaliShadowDance", "Headbutt", "DianaTeleport", "IreliaGatotsu", "JaxLeapStrike", "JayceToTheSkies",
+                "MaokaiUnstableGrowth", "MonkeyKingNimbus", "Pantheon_LeapBash", "PoppyHeroicCharge", "QuinnE",
+                "XenZhaoSweep", "blindmonkqtwo", "FizzPiercingStrike", "RengarLeap"
+            };
+       public readonly string[] Interrupt = new[]
+           {
+                "KatarinaR", "GalioIdolOfDurand", "Crowstorm", "Drain", "AbsoluteZero", "ShenStandUnited", "UrgotSwap2",
+                "AlZaharNetherGrasp", "FallenOne", "Pantheon_GrandSkyfall_Jump", "VarusQ", "CaitlynAceintheHole",
+                "MissFortuneBulletTime", "InfiniteDuress", "LucianR"
+            };
+        public SpellSlot Trans(int i)
+        {
+            switch (i)
+            {
+                case 0:
+                    return SpellSlot.Q;
+                case 1:
+                    return SpellSlot.W;
+                case 2:
+                    return SpellSlot.E;
+                case 3:
+                    return SpellSlot.R;
+            }
+            return SpellSlot.Q;
+        }
         public Menu _menu;
         public AzirModes _modes;
-        public Azir_Creator_of_Elo.Spells Spells
-        {
-            get { return _spells; }
-        }
-        public Azir_Creator_of_Elo.Menu Menu
-        {
-            get { return _menu; }
-        }
-        public SoldierManager soldierManager;
+        private string tittle, version;
+
+        public Azir_Creator_of_Elo.Spells Spells { get; private set; }
+
+        public Azir_Creator_of_Elo.Menu Menu => _menu;
+
+        public SoldierManager SoldierManager;
+        internal int InterruptNum;
+        internal int GapcloserNum;
+
         public AzirMain()
         {
+
+            tittle = "[Azir]Azir Updated June 2016";
+            version = "1.0.1.2";
             CustomEvents.Game.OnGameLoad += OnLoad;
         }
-        public AIHeroClient Hero
-        {
-            get { return HeroManager.Player; }
-        }
+
+        public AIHeroClient Hero => HeroManager.Player;
+
         private void OnLoad(EventArgs args)
         {
             if (Hero.ChampionName != "Azir") return;
-            Chat.Print("<b><font color =\"#FF33D6\">Azir creator of Elo Loaded!");
-            _menu = new AzirMenu("Azir Creator of Elo");
-            soldierManager = new SoldierManager();
-            _spells = new Spells();
+
+            this.gapcloserList=new GapcloserList();
+            _menu = new AzirMenu("Azir Elo Machine",this);
+            SoldierManager = new SoldierManager();
+            Spells = new Spells();
             _modes = new AzirModes(this);
             Game.OnUpdate += OnUpdate;
             Drawing.OnDraw += Ondraw;
-            //      walker = new AzirWalker(Menu.GetMenu.SubMenu("Orbwalker"));
+           
         }
 
         public void Orbwalk(Vector3 pos)
         {
-            Orbwalker.MoveTo(pos);
+            Orbwalker.OrbwalkTo(pos);
         }
 
         private void Ondraw(EventArgs args)
         {
-            var drawControl = Menu._drawSettingsMenu["dcr"].Cast<CheckBox>().CurrentValue;
-            var drawFleeMaxRange = Menu._drawSettingsMenu["dfr"].Cast<CheckBox>().CurrentValue;
+            var drawControl = AzirMenu._drawSettingsMenu["dcr"].Cast<CheckBox>().CurrentValue;
+            var drawFleeMaxRange = AzirMenu._drawSettingsMenu["dfr"].Cast<CheckBox>().CurrentValue;
             if (drawControl)
-                Render.Circle.DrawCircle(ObjectManager.Player.Position, 925, System.Drawing.Color.GreenYellow);
-            var drawLane = Menu._drawSettingsMenu["dsl"].Cast<CheckBox>().CurrentValue;
-            int x = 0;
+                Render.Circle.DrawCircle(ObjectManager.Player.Position, 925, System.Drawing.Color.GreenYellow,2);
+            var drawLane = AzirMenu._drawSettingsMenu["dsl"].Cast<CheckBox>().CurrentValue;
+            var x = 0;
             if (drawLane)
 
-                foreach (Obj_AI_Minion m in soldierManager.Soldiers)
+                foreach (var m in SoldierManager.Soldiers)
                 {
-                    //m.tim
-                    if (!m.IsDead)
-                    {
-                        foreach (AIHeroClient h in HeroManager.Enemies)
-                        {
-                            if (m.LSDistance(h) < 315)
-                            {
-                                x++;
-                            }
-                        }
-                        if (x > 0)
-                        {
-                            Render.Circle.DrawCircle(m.Position, 315, System.Drawing.Color.GreenYellow);
-                        }
-                        else
-                        {
-                            Render.Circle.DrawCircle(m.Position, 315, System.Drawing.Color.PaleVioletRed);
-                        }
-                        var wts = Drawing.WorldToScreen(m.Position);
-                        var wtssxt = Drawing.WorldToScreen(HeroManager.Player.ServerPosition);
+                
+                    if (m.IsDead) continue;
 
-                        if (m.Distance(HeroManager.Player) < 950)
-                            Drawing.DrawLine(wts[0], wts[1], wtssxt[0], wtssxt[1], 5f, System.Drawing.Color.GreenYellow);
-                        else
-                            Drawing.DrawLine(wts[0], wts[1], wtssxt[0], wtssxt[1], 5f,
-                                System.Drawing.Color.PaleVioletRed);
-                    }
+                    x += HeroManager.Enemies.Count(h => m.Distance(h) < 315);
+
+                    Render.Circle.DrawCircle(m.Position, 315,
+                        x > 0 ? System.Drawing.Color.GreenYellow : System.Drawing.Color.PaleVioletRed);
+                    var wts = Drawing.WorldToScreen(m.Position);
+                    var wtssxt = Drawing.WorldToScreen(HeroManager.Player.ServerPosition);
+
+                     Drawing.DrawLine(wts[0], wts[1], wtssxt[0], wtssxt[1], 2f,
+                        m.Distance(HeroManager.Player) < 950
+                            ? System.Drawing.Color.GreenYellow
+                            : System.Drawing.Color.PaleVioletRed);
                 }
-            if (drawFleeMaxRange)
-            {
-                // var pos = HeroManager.Player.Position.Extend(Game.CursorPos, 450);
 
-                Render.Circle.DrawCircle(Hero.Position, 1150 + 350, System.Drawing.Color.GreenYellow);
-            }
+            if (drawFleeMaxRange)
+                Render.Circle.DrawCircle(Hero.Position, 1150 + 350, System.Drawing.Color.GreenYellow,2);
+            
+
+
         }
 
         private void OnUpdate(EventArgs args)

@@ -13,7 +13,7 @@
     using EloBuddy;
     using EloBuddy.SDK.Menu;
     using EloBuddy.SDK.Menu.Values;
-    internal class Cleanse : IPlugin
+    internal class Cleanse //: IPlugin
     {
         #region Constructors and Destructors
 

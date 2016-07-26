@@ -7,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
- namespace Azir_Creator_of_Elo
+namespace Azir_Creator_of_Elo
 {
-    class Modes
+    internal class Modes
     {
-        
         public virtual void Update(AzirMain azir)
         {
 
@@ -20,7 +19,7 @@ using System.Threading.Tasks;
                 Combo(azir);
             }
 
-            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
             {
                 Harash(azir);
             }
@@ -30,29 +29,22 @@ using System.Threading.Tasks;
                 Laneclear(azir);
                 Jungleclear(azir);
             }
-
-
         }
+
         public virtual void Jungleclear(AzirMain azir)
         {
-
         }
 
         public virtual void Laneclear(AzirMain azir)
         {
-
         }
 
         public virtual void Harash(AzirMain azir)
         {
-
         }
 
         public virtual void Combo(AzirMain azir)
         {
-
-
-
         }
     }
 }
