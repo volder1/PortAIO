@@ -22,7 +22,7 @@ namespace OneKeyToWin_AIO_Sebby
         public static Menu drawMenu, wMenu, eMenu, rMenu, harassMenu, farmMenu, miscMenu;
         public static Spell Q, W, E, R;
         public static float QMANA, WMANA, EMANA, RMANA;
-        
+
         private static Vector3 CursorPosition = Vector3.Zero;
         public static double lag;
         public static double WCastTime = 0;
@@ -228,6 +228,8 @@ namespace OneKeyToWin_AIO_Sebby
         {
             if (Program.LagFree(1))
             {
+                if (!Orbwalker.CanMove)
+                    return;
                 var cc = !Program.None && Player.Mana > RMANA + QMANA + EMANA;
                 var harass = Program.Farm && Player.ManaPercent > getSliderItem(harassMenu, "HarassMana") && OktwCommon.CanHarras();
 
@@ -448,6 +450,9 @@ namespace OneKeyToWin_AIO_Sebby
                 }
             }
 
+            if (!Orbwalker.CanMove || (Orbwalker.ShouldWait && Orbwalker.CanAutoAttack))
+                return;
+
             var minions = EntityManager.MinionsAndMonsters.EnemyMinions.Where(x => x.IsInRange(Player, Q.Range));
             var orbTarget = 0;
 
@@ -499,7 +504,7 @@ namespace OneKeyToWin_AIO_Sebby
             {
                 if (mob.Health == mob.MaxHealth)
                     continue;
-                if (((mob.BaseSkinName == "SRU_Dragon" && getCheckBoxItem(rMenu, "Rdragon"))
+                if (((mob.BaseSkinName.ToLower().Contains("dragon") && getCheckBoxItem(rMenu, "Rdragon"))
                      || (mob.BaseSkinName == "SRU_Baron" && getCheckBoxItem(rMenu, "Rbaron"))
                      || (mob.BaseSkinName == "SRU_Red" && getCheckBoxItem(rMenu, "Rred"))
                      || (mob.BaseSkinName == "SRU_Blue" && getCheckBoxItem(rMenu, "Rblue")))
