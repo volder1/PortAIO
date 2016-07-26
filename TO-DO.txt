@@ -1,10 +1,5 @@
 ﻿To-Do :
 ------------------------------------------------------------------------------------------------------------------
-- ElZilean not ulting
-- Redo/update Trynd/Kayle/Zilean again...
-- Sivir issues [https://github.com/berbb/PortAIO/issues/585]
-- Fix Karthus zombie mode
-- Check out Evades and find a way to fucking test it lol []
 
 Port [Will Port One at a time when I'm bored or there's nothing on the to-do]
 ------------------------------------------------------------------------------------------------------------------
@@ -29,6 +24,7 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - Evict Ryze
 - KarmaXD
 - LCS LEBLANC
+- Flowers' Akali
 
 Utility Ports [Only doing after Champions are completed] :
 ------------------------------------------------------------------------------------------------------------------
