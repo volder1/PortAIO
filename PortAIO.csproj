@@ -535,6 +535,17 @@
     <Compile Include="Dual-Port\Exory\ExorWarwick\Properties\Utilities\Targets.cs" />
     <Compile Include="Dual-Port\Exory\ExorWarwick\Warwick.cs" />
     <Compile Include="Dual-Port\God\EliseGod\Program.cs" />
+    <Compile Include="Dual-Port\Hikigaya\LCS LeBlanc\Extensions\DamageCalculator.cs" />
+    <Compile Include="Dual-Port\Hikigaya\LCS LeBlanc\Extensions\DamageIndicator.cs" />
+    <Compile Include="Dual-Port\Hikigaya\LCS LeBlanc\Extensions\Menus.cs" />
+    <Compile Include="Dual-Port\Hikigaya\LCS LeBlanc\Extensions\Spells.cs" />
+    <Compile Include="Dual-Port\Hikigaya\LCS LeBlanc\Extensions\Utilities.cs" />
+    <Compile Include="Dual-Port\Hikigaya\LCS LeBlanc\LeBlanc.cs" />
+    <Compile Include="Dual-Port\Hikigaya\LCS LeBlanc\Modes\Clear.cs" />
+    <Compile Include="Dual-Port\Hikigaya\LCS LeBlanc\Modes\Combo\QRWE.cs" />
+    <Compile Include="Dual-Port\Hikigaya\LCS LeBlanc\Modes\Combo\WRQE.cs" />
+    <Compile Include="Dual-Port\Hikigaya\LCS LeBlanc\Modes\Mixed.cs" />
+    <Compile Include="Dual-Port\Hikigaya\LCS LeBlanc\Program.cs" />
     <Compile Include="Dual-Port\Hoes\OAnnie\Annie.cs" />
     <Compile Include="Dual-Port\Hoes\OAnnie\DrawManager.cs" />
     <Compile Include="Dual-Port\Hoes\OAnnie\GlobalManager.cs" />
