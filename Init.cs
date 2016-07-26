@@ -630,6 +630,9 @@ namespace PortAIO
                             case 5:
                                 HeavenStrikeRyze.Program.Game_OnGameLoad();
                                 break;
+                            case 6:
+                                SurvivorRyze.Program.Game_OnGameLoad();
+                                break;
                             default:
                                 ExorAIO.AIO.OnLoad();
                                 break;

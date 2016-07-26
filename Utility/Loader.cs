@@ -363,7 +363,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[32]))
                 {
-                    Miscc.Add("ryze", new ComboBox("Use addon for Ryze : ", 0, "ExorAIO", "ElEasy Ryze", "SluttyRyze", "Arcane Ryze", "Sergix Ryze", "HeavenStrikeRyze"));
+                    Miscc.Add("ryze", new ComboBox("Use addon for Ryze : ", 0, "ExorAIO", "ElEasy Ryze", "SluttyRyze", "Arcane Ryze", "Sergix Ryze", "HeavenStrikeRyze", "SurvivorRyze"));
                 }
                 if (Player.ChampionName.Equals(Champion[33]))
                 {
