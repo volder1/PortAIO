@@ -1062,6 +1062,9 @@ namespace PortAIO
                             case 4:
                                 BLeblanc.Program.Game_OnGameLoad();
                                 break;
+                            case 5:
+                                LCS_LeBlanc.Program.OnLoad();
+                                break;
                             default:
                                 PopBlanc.Program.OnLoad();
                                 break;

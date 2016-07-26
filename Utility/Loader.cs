@@ -387,7 +387,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[38]))
                 {
-                    Miscc.Add("leblanc", new ComboBox("Use addon for LeBlanc : ", 0, "PopBlanc", "xQx LeBlanc", "FreshBooster", "LeBlanc II", "Badao LeBlanc"));
+                    Miscc.Add("leblanc", new ComboBox("Use addon for LeBlanc : ", 0, "PopBlanc", "xQx LeBlanc", "FreshBooster", "LeBlanc II", "Badao LeBlanc", "LCS LeBlanc"));
                 }
                 if (Player.ChampionName.Equals(Champion[39]))
                 {
