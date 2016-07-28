@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
@@ -37,7 +37,7 @@ using EloBuddy;
 
         public static bool CanKillableWith(this Obj_AI_Base t, Spell spell)
         {
-            return t.Health < spell.GetDamage(t) - 5;
+            return t.Health <= spell.GetDamage(t);
         }
 
         public static bool CanStun(this Obj_AI_Base t)
@@ -45,7 +45,7 @@ using EloBuddy;
             float targetHealth = Champion.PlayerSpells.Q.IsReady() && !t.LSIsValidTarget(Champion.PlayerSpells.E.Range)
                 ? t.Health + Champion.PlayerSpells.Q.GetDamage(t)
                 : t.Health;
-            return targetHealth / t.MaxHealth * 100 > ObjectManager.Player.Health / ObjectManager.Player.MaxHealth * 100;
+            return targetHealth / t.MaxHealth * 100 >= ObjectManager.Player.Health / ObjectManager.Player.MaxHealth * 100;
 
             //return t.HealthPercent > ObjectManager.Player.HealthPercent;
         }
