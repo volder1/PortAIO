@@ -26,6 +26,8 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - Flowers' Akali
 - xBard
 - Ekko Master of Time
+- Orianna by Kortatu
+- TheCassiopeia [Custom Pred.]
 
 Utility Ports [Only doing after Champions are completed] :
 ------------------------------------------------------------------------------------------------------------------
