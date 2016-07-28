@@ -265,7 +265,7 @@ using EloBuddy.SDK;
                         }
                     case 2:
                         {
-                            if (t.Health > ObjectManager.Player.Health)
+                            if (t.Health >= ObjectManager.Player.Health)
                             {
                                 Champion.PlayerSpells.CastECombo(t);
                             }
