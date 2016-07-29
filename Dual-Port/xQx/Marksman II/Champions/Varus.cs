@@ -258,7 +258,7 @@ using EloBuddy.SDK;
 
         public override void Orbwalking_BeforeAttack(AttackableUnit target, Orbwalker.PreAttackArgs args)
         {
-            args.Process = !Q.IsCharging;
+            args.Process = Q.IsCharging;
         }
 
         public override bool ComboMenu(Menu config)

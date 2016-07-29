@@ -529,11 +529,6 @@ namespace SurvivorRyze
             {
                 case 0:
                     #region Burst Mode
-                    // Execute the Lad
-                    if (ComboMenu["CUseIgnite"].Cast<CheckBox>().CurrentValue && target.Health < SebbyLib.OktwCommon.GetIncomingDamage(target) + Player.GetSummonerSpellDamage(target, LeagueSharp.Common.Damage.SummonerSpell.Ignite))
-                    {
-                        Player.Spellbook.CastSpell(IgniteSlot, target);
-                    }
                     if (ComboMenu["Combo2TimesMana"].Cast<CheckBox>().CurrentValue)
                     {
                         if (Player.Mana >= 2 * (Q.Instance.SData.Mana + W.Instance.SData.Mana + E.Instance.SData.Mana))

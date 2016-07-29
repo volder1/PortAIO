@@ -596,7 +596,7 @@ using EvadeA;
                     myHero.Spellbook.CastSpell(SpellSlot.E, possible2WTarget);
                 }
             }
-            if (target is AIHeroClient && UseQBool)
+            if (target is AIHeroClient && target.IsVisible && ((AIHeroClient)target).IsHPBarRendered && UseQBool)
             {
                 if (Q.IsReady() && (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit)))
                 {
@@ -755,7 +755,6 @@ using EvadeA;
                         }
                         if (mode != 3 || mode != 6 || mode != 7 || mode != 8 || mode != 4 || mode != 9)
                         {
-                            Console.WriteLine("A");
                             myHero.Spellbook.CastSpell(SpellSlot.Q, tumblePosition);
                         }
                     }
