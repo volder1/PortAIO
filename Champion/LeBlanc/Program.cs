@@ -306,19 +306,15 @@ using Utility = LeagueSharp.Common.Utility;
                 return;
             }
 
-            if (W.IsReady() && target.LSIsValidTarget(W.Range + WRadius - 10) && W.IsActive(force) && W.IsFirstW())
+            Console.WriteLine(W.IsActive(force).ToString());
+
+            if (W.IsReady() && target.LSIsValidTarget(W.Range) && W.IsActive(force) && W.IsFirstW())
             {
-                if (!force ||
-                    (target.CountEnemiesInRange(300) <= getSliderItem(ksMenu, "KSEnemies") &&
-                     Player.HealthPercent >= getSliderItem(ksMenu, "KSHealth")))
+                Console.WriteLine("Combo: Cast W");
+                var pred = W.GetPrediction(target);
+                if (W.IsInRange(target) && target != null)
                 {
-                    var pos = Prediction.GetPrediction(target, W.Delay, W.Range + WRadius, W.Speed);
-                    if (pos.CastPosition.LSDistance(target.ServerPosition) < WRadius)
-                    {
-                        W.Cast(target);
-                        Console.WriteLine("Combo: Cast W");
-                        return;
-                    }
+                    W.Cast(pred.CastPosition);
                 }
             }
 
@@ -374,11 +370,10 @@ using Utility = LeagueSharp.Common.Utility;
             if (target != null &&
                 target.CountEnemiesInRange(WRadius) >= getSliderItem(comboMenu, "AOEEnemies"))
             {
-                if (W.IsReady() && getCheckBoxItem(comboMenu, "AOEW") && W.IsFirstW() &&
-                    W.Cast(target, false, true).IsCasted())
+                if (W.IsReady() && getCheckBoxItem(comboMenu, "AOEW") && W.IsFirstW())
                 {
                     Console.WriteLine("AOE: Cast W");
-                    return true;
+                    W.Cast(target);
                 }
 
                 if (R.IsReady() && getCheckBoxItem(comboMenu, "AOER") && R.GetSpellSlot() == SpellSlot.W && R.IsFirstW() &&
@@ -403,7 +398,7 @@ using Utility = LeagueSharp.Common.Utility;
 
             var pos = Player.ServerPosition.LSExtend(target.ServerPosition, W.Range + 10);
 
-            if (pos.IsValidWPoint() && W.Cast(pos))
+            if (pos.IsValidWPoint() && W.Cast(pos) && W.IsFirstW())
             {
                 Console.WriteLine("AOE: Cast Gapclose W");
                 return true;
