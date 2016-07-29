@@ -1,4 +1,4 @@
-﻿ namespace ElUtilitySuite.Summoners
+ namespace ElUtilitySuite.Summoners
 {
     using System;
     using System.Drawing;
@@ -85,19 +85,17 @@
                 return;
             }
 
-            var healMenu = rootMenu.AddSubMenu("Heal", "Heal");
+            this.Menu = rootMenu.AddSubMenu("Heal", "Heal");
             {
-                healMenu.Add("Heal.Activated", new CheckBox("Heal"));
-                healMenu.Add("PauseHealHotkey", new KeyBind("Don't use heal key", false, KeyBind.BindTypes.HoldActive, 'L'));
-                healMenu.Add("min-health", new Slider("Health percentage", 20, 1));
-                healMenu.Add("min-damage", new Slider("Heal on % incoming damage", 20, 1));
+                this.Menu.Add("Heal.Activated", new CheckBox("Heal"));
+                this.Menu.Add("PauseHealHotkey", new KeyBind("Don't use heal key", false, KeyBind.BindTypes.HoldActive, 'L'));
+                this.Menu.Add("min-health", new Slider("Health percentage", 20, 1));
+                this.Menu.Add("min-damage", new Slider("Heal on % incoming damage", 20, 1));
                 foreach (var x in HeroManager.Allies)
                 {
-                    healMenu.Add($"healon{x.ChampionName}", new CheckBox("Use for " + x.ChampionName));
+                    this.Menu.Add($"healon{x.ChampionName}", new CheckBox("Use for " + x.ChampionName));
                 }
             }
-
-            this.Menu = healMenu;
         }
 
 
@@ -137,14 +135,14 @@
                     return;
                 }
 
-                if (!getCheckBoxItem(this.Menu, "Heal.Activated") || getKeyBindItem(this.Menu, "PauseHealHotkey"))
+                if (!this.Menu["Heal.Activated"].Cast<CheckBox>().CurrentValue || this.Menu["PauseHealHotkey"].Cast<KeyBind>().CurrentValue)
                 {
                     return;
                 }
 
                 foreach (var ally in HeroManager.Allies)
                 {
-                    if (!getCheckBoxItem(this.Menu, string.Format("healon{0}", ally.ChampionName)) || ally.LSIsRecalling() || ally.IsInvulnerable || ally.HasBuff("ChronoShift"))
+                    if (!this.Menu[string.Format("healon{0}", ally.ChampionName)].Cast<CheckBox>().CurrentValue || ally.LSIsRecalling() || ally.IsInvulnerable || ally.HasBuff("ChronoShift"))
                     {
                         return;
                     }
@@ -152,7 +150,7 @@
                     var enemies = ally.LSCountEnemiesInRange(750f);
                     var totalDamage = IncomingDamageManager.GetDamage(ally) * 1.1f;
 
-                    if (ally.HealthPercent <= getSliderItem(this.Menu, "min-health") && (this.HealSpell.IsInRange(ally) || ally.IsMe) && enemies >= 1 && !ally.IsDead)
+                    if (ally.HealthPercent <= this.Menu["min-health"].Cast<Slider>().CurrentValue && (this.HealSpell.IsInRange(ally) || ally.IsMe) && enemies >= 1 && !ally.IsDead)
                     {
                         if (ally.HealthPercent < getSliderItem(this.Menu, "min-health"))
                         {
