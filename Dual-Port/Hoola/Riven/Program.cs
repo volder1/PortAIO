@@ -9,6 +9,7 @@ using EloBuddy.SDK.Menu;
 
 using EloBuddy.SDK;
 using System.Collections.Generic;
+using EloBuddy.SDK.Rendering;
 
 namespace HoolaRiven
 {
@@ -74,19 +75,27 @@ namespace HoolaRiven
                 Orbwalker.ResetAutoAttack();
             }
         }
+        private static readonly float _barLength = 104;
+        private static readonly float _xOffset = 2;
+        private static readonly float _yOffset = 9;
         private static void Drawing_OnEndScene(EventArgs args)
         {
-            foreach (
-                var enemy in
-                    EloBuddy.ObjectManager.Get<EloBuddy.AIHeroClient>()
-                        .Where(ene => ene.LSIsValidTarget() && !ene.IsZombie && ene.IsHPBarRendered))
+            if (Player.IsDead)
+                return;
+            if (!Dind) return;
+            foreach (var aiHeroClient in EntityManager.Heroes.Enemies)
             {
-                if (Dind)
-                {
-                    Indicator.unit = enemy;
-                    Indicator.drawDmg(getComboDamage(enemy), new ColorBGRA(255, 204, 0, 170));
-                }
+                if (!aiHeroClient.IsHPBarRendered || !aiHeroClient.VisibleOnScreen) continue;
 
+                var pos = new Vector2(aiHeroClient.HPBarPosition.X + _xOffset, aiHeroClient.HPBarPosition.Y + _yOffset);
+                var fullbar = (_barLength) * (aiHeroClient.HealthPercent / 100);
+                var damage = (_barLength) *
+                                 ((getComboDamage(aiHeroClient) / aiHeroClient.MaxHealth) > 1
+                                     ? 1
+                                     : (getComboDamage(aiHeroClient) / aiHeroClient.MaxHealth));
+                Line.DrawLine(System.Drawing.Color.Aqua, 9f, new Vector2(pos.X, pos.Y),
+                    new Vector2(pos.X + (damage > fullbar ? fullbar : damage), pos.Y));
+                Line.DrawLine(System.Drawing.Color.Black, 9, new Vector2(pos.X + (damage > fullbar ? fullbar : damage) - 2, pos.Y), new Vector2(pos.X + (damage > fullbar ? fullbar : damage) + 2, pos.Y));
             }
         }
 
