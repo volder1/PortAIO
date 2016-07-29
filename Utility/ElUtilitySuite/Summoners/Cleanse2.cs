@@ -1,4 +1,4 @@
-﻿namespace ElUtilitySuite.Summoners
+namespace ElUtilitySuite.Summoners
 {
     using System;
     using System.Collections.Generic;
@@ -166,17 +166,15 @@
             this.Menu.Add("Cleanse.HealthPercent", new Slider("Cleanse when HP <=", 75, 0, 100));
             this.Menu.Add("CleanseEnabled", new CheckBox("Enabled"));
 
-            humanizerDelay = this.Menu.AddSubMenu("Humanizer Delay", "CleanseHumanizer");
-            {
-                humanizerDelay.Add("MinHumanizerDelay", new Slider("Min Humanizer Delay (MS)", 100, 0, 500));
-                humanizerDelay.Add("MaxHumanizerDelay", new Slider("Max Humanizer Delay (MS)", 150, 0, 500));
-                humanizerDelay.Add("HumanizerEnabled", new CheckBox("Enabled", false));
-            }
+            this.Menu.AddGroupLabel("Humanizer Settings");
+            this.Menu.Add("MinHumanizerDelay", new Slider("Min Humanizer Delay (MS)", 100, 0, 500));
+            this.Menu.Add("MaxHumanizerDelay", new Slider("Max Humanizer Delay (MS)", 150, 0, 500));
+            this.Menu.Add("HumanizerEnabled", new CheckBox("Enabled", false));
 
-            buffTypeMenu = this.Menu.AddSubMenu("Buff Types", "BuffTypeSettings");
+            this.Menu.AddGroupLabel("Buff Types");
             foreach (var buffType in this.BuffsToCleanse.Select(x => x.ToString()))
             {
-                buffTypeMenu.Add($"3Cleanse{buffType}", new CheckBox(buffType, TrueStandard.Contains($"{buffType}")));
+                this.Menu.Add($"3Cleanse{buffType}", new CheckBox(buffType, TrueStandard.Contains($"{buffType}")));
             }
         }
 
@@ -344,7 +342,7 @@
 
         private void OnUpdate(EventArgs args)
         {
-            if (!getCheckBoxItem(this.Menu, "CleanseEnabled"))
+            if (!this.Menu["CleanseEnabled"].Cast<CheckBox>().CurrentValue)
             {
                 return;
             }
@@ -357,8 +355,8 @@
                             x =>
                             this.BuffsToCleanse.Contains(x.Type) && x.Caster.Type == GameObjectType.AIHeroClient && x.Caster.IsEnemy))
                 {
-                    if (!getCheckBoxItem(buffTypeMenu, $"3Cleanse{buff.Type}")
-                        || getSliderItem(this.Menu, "MinDuration") / 1000f
+                    if (!this.Menu[$"3Cleanse{buff.Type}"].Cast<CheckBox>().CurrentValue
+                        || this.Menu["MinDuration"].Cast<Slider>().CurrentValue / 1000f
                         > buff.EndTime - buff.StartTime || this.BuffIndexesHandled[ally.NetworkId].Contains(buff.Index) || Spells.Any(b => buff.Name.Equals(b.Spellname, StringComparison.InvariantCultureIgnoreCase)))
                     {
                         continue;
@@ -379,20 +377,20 @@
 
                     this.BuffIndexesHandled[ally.NetworkId].Add(buff.Index);
 
-                    if (getCheckBoxItem(humanizerDelay, "HumanizerEnabled"))
+                    if (this.Menu["HumanizerEnabled"].Cast<CheckBox>().CurrentValue)
                     {
                         LeagueSharp.Common.Utility.DelayAction.Add(
                             (int)
                             Math.Min(
                                 this.Random.Next(
-                                    getSliderItem(humanizerDelay, "MinHumanizerDelay"),
-                                    getSliderItem(humanizerDelay, "MaxHumanizerDelay")),
+                                    this.Menu["MinHumanizerDelay"].Cast<Slider>().CurrentValue,
+                                    this.Menu["MaxHumanizerDelay"].Cast<Slider>().CurrentValue),
                                 (buff.StartTime - buff.EndTime) * 1000),
                             () =>
                             {
-                                if (getCheckBoxItem(this.Menu, "CleanseEnabled.Health"))
+                                if (this.Menu["CleanseEnabled.Health"].Cast<CheckBox>().CurrentValue)
                                 {
-                                    if (getSliderItem(this.Menu, "Cleanse.HealthPercent") <= ObjectManager.Player.HealthPercent)
+                                    if (this.Menu["Cleanse.HealthPercent"].Cast<Slider>().CurrentValue <= ObjectManager.Player.HealthPercent)
                                     {
                                         cleanseItem.Cast(ally);
                                         this.BuffIndexesHandled[ally.NetworkId].Remove(buff.Index);
@@ -407,9 +405,9 @@
                     }
                     else
                     {
-                        if (getCheckBoxItem(this.Menu, "CleanseEnabled.Health"))
+                        if (this.Menu["CleanseEnabled.Health"].Cast<CheckBox>().CurrentValue)
                         {
-                            if (getSliderItem(this.Menu, "Cleanse.HealthPercent") <= ObjectManager.Player.HealthPercent)
+                            if (this.Menu["Cleanse.HealthPercent"].Cast<Slider>().CurrentValue <= ObjectManager.Player.HealthPercent)
                             {
                                 cleanseItem.Cast(ally);
                                 this.BuffIndexesHandled[ally.NetworkId].Remove(buff.Index);
