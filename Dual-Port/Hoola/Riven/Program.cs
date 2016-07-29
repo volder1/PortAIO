@@ -8,6 +8,7 @@ using EloBuddy.SDK.Menu;
 
 
 using EloBuddy.SDK;
+using System.Collections.Generic;
 
 namespace HoolaRiven
 {
@@ -30,6 +31,8 @@ namespace HoolaRiven
         private static bool forceItem;
         private static float LastQ;
         private static float LastR;
+        private static int LastECastTick;
+        private static int LastRCastTick;
         private static EloBuddy.AttackableUnit QTarget;
 
         public static void OnGameLoad()
@@ -47,8 +50,8 @@ namespace HoolaRiven
             OnMenuLoad();
 
 
-            Timer = new Render.Text("Q Expiry =>  " + ((double)(LastQ - Utils.GameTimeTickCount + 3800) / 1000).ToString("0.0"), (int)EloBuddy.Drawing.WorldToScreen(Player.Position).X - 140, (int)EloBuddy.Drawing.WorldToScreen(Player.Position).Y + 10, 30, Color.MidnightBlue, "calibri");
-            Timer2 = new Render.Text("R Expiry =>  " + (((double)LastR - Utils.GameTimeTickCount + 15000) / 1000).ToString("0.0"), (int)EloBuddy.Drawing.WorldToScreen(Player.Position).X - 60, (int)EloBuddy.Drawing.WorldToScreen(Player.Position).Y + 10, 30, Color.IndianRed, "calibri");
+            Timer = new Render.Text("Q Expiry =>  " + ((double)(LastQ - Environment.TickCount + 3800) / 1000).ToString("0.0"), (int)EloBuddy.Drawing.WorldToScreen(Player.Position).X - 140, (int)EloBuddy.Drawing.WorldToScreen(Player.Position).Y + 10, 30, Color.MidnightBlue, "calibri");
+            Timer2 = new Render.Text("R Expiry =>  " + (((double)LastR - Environment.TickCount + 15000) / 1000).ToString("0.0"), (int)EloBuddy.Drawing.WorldToScreen(Player.Position).X - 60, (int)EloBuddy.Drawing.WorldToScreen(Player.Position).Y + 10, 30, Color.IndianRed, "calibri");
 
             EloBuddy.Game.OnUpdate += OnTick;
             EloBuddy.Drawing.OnDraw += Drawing_OnDraw;
@@ -324,7 +327,7 @@ namespace HoolaRiven
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear)) Jungleclear();
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass)) Harass();
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Flee)) Flee();
-            if (Utils.GameTimeTickCount - LastQ >= 3650 && QStack != 1 && !Player.LSIsRecalling() && KeepQ && Q.IsReady()) Q.Cast(EloBuddy.Game.CursorPos);
+            if (Environment.TickCount - LastQ >= 3650 && QStack != 1 && !Player.LSIsRecalling() && KeepQ && Q.IsReady()) Q.Cast(EloBuddy.Game.CursorPos);
         }
 
         private static void Killsteal()
@@ -369,20 +372,18 @@ namespace HoolaRiven
             if (Player.IsDead)
                 return;
             var heropos = EloBuddy.Drawing.WorldToScreen(EloBuddy.ObjectManager.Player.Position);
-
-
             if (QStack != 1 && DrawTimer1)
-            {
-                Timer.text = ("Q Expiry =>  " + ((double)(LastQ - Utils.GameTimeTickCount + 3800) / 1000).ToString("0.0") + "S");
-                Timer.OnEndScene();
-            }
+                    {
+                        Timer.text = ("Q Expiry =>  " + ((double)(LastQ - Environment.TickCount + 3800) / 1000).ToString("0.0") + "S");
+                        Timer.OnEndScene();
+                    }
+
 
             if (Player.HasBuff("RivenFengShuiEngine") && DrawTimer2)
-            {
-                Timer2.text = ("R Expiry =>  " + (((double)LastR - Utils.GameTimeTickCount + 15000) / 1000).ToString("0.0") + "S");
-                Timer2.OnEndScene();
-            }
-
+                         {
+                            Timer2.text = ("R Expiry =>  " + (((double)LastR - Environment.TickCount + 15000) / 1000).ToString("0.0") + "S");
+                            Timer2.OnEndScene();
+                         }
             if (DrawCB) Render.Circle.DrawCircle(Player.Position, 250 + Player.AttackRange + 70, E.IsReady() ? System.Drawing.Color.FromArgb(120, 0, 170, 255) : System.Drawing.Color.IndianRed);
             if (DrawBT && Flash != EloBuddy.SpellSlot.Unknown) Render.Circle.DrawCircle(Player.Position, 800, R.IsReady() && Flash.IsReady() ? System.Drawing.Color.FromArgb(120, 0, 170, 255) : System.Drawing.Color.IndianRed);
             if (DrawFH) Render.Circle.DrawCircle(Player.Position, 450 + Player.AttackRange + 70, E.IsReady() && Q.IsReady() ? System.Drawing.Color.FromArgb(120, 0, 170, 255) : System.Drawing.Color.IndianRed);
@@ -566,39 +567,59 @@ namespace HoolaRiven
 
         private static void OnPlay(EloBuddy.Obj_AI_Base sender, EloBuddy.GameObjectPlayAnimationEventArgs args)
         {
+            if (Player.IsDead)
+                return;
             if (!sender.IsMe) return;
 
             switch (args.Animation)
             {
                 case "Spell1a":
-                    LastQ = Utils.GameTimeTickCount;
-                    if (Qstrange && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None)) EloBuddy.Chat.Say("/d");
+                    LastQ = Environment.TickCount;
+                    if (Qstrange && (Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.None)) EloBuddy.Player.DoEmote(EloBuddy.Emote.Dance);
                     QStack = 2;
-                    if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None) && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit) && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Flee)) Utility.DelayAction.Add((QD * 10) + 1, Reset);
+                    if (Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.None &&
+                        Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.LastHit &&
+                        Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.Flee)
+                        DelayAction(Reset, (QD * 10) + 1);
                     break;
                 case "Spell1b":
-                    LastQ = Utils.GameTimeTickCount;
-                    if (Qstrange && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None)) EloBuddy.Chat.Say("/d");
+                    LastQ = Environment.TickCount;
+                    if (Qstrange && (Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.None)) EloBuddy.Player.DoEmote(EloBuddy.Emote.Dance);
                     QStack = 3;
-                    if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None) && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit) && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Flee)) Utility.DelayAction.Add((QD * 10) + 1, Reset);
+                    if (Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.None &&
+                        Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.LastHit &&
+                        Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.Flee)
+                        DelayAction(Reset, (QD * 10) + 1);
                     break;
                 case "Spell1c":
-                    LastQ = Utils.GameTimeTickCount;
-                    if (Qstrange && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None)) EloBuddy.Chat.Say("/d");
+                    LastQ = Environment.TickCount;
+                    if (Qstrange && (Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.None)) EloBuddy.Player.DoEmote(EloBuddy.Emote.Dance);
                     QStack = 1;
-                    if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None) && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit) && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Flee)) Utility.DelayAction.Add((QLD * 10) + 3, Reset);
+                    if (Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.None &&
+                        Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.LastHit &&
+                        Orbwalker.ActiveModesFlags != Orbwalker.ActiveModes.Flee)
+                        DelayAction(Reset, (QLD * 10) + 3);
                     break;
                 case "Spell3":
-                    if (( Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) ||
-                        Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Flee)) && Youmu) CastYoumoo();
+                    if ((//Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Burst ||
+                         Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Combo ||
+                         //Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.FastHarass ||
+                         Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Flee) && Youmu) CastYoumoo();
                     break;
                 case "Spell4a":
-                    LastR = Utils.GameTimeTickCount;
+                    LastR = Environment.TickCount;
                     break;
                 case "Spell4b":
-                    var target = LSTargetSelector.GetSelectedTarget();
-                    if (Q.IsReady() && target.LSIsValidTarget()) ForceCastQ(target);
+                    var target = TargetSelector.SelectedTarget;
+
+                    if (target == null || !target.IsValidTarget()) target = TargetSelector.GetTarget(450 + Player.AttackRange + 70, EloBuddy.DamageType.Physical);
+                    if (target == null || !target.IsValidTarget()) return;
+                    if (Q.IsReady() && target.IsValidTarget()) ForceCastQ(target);
                     break;
+                case "Dance":
+                    Orbwalker.ResetAutoAttack();
+                    break;
+
             }
         }
 
@@ -615,9 +636,7 @@ namespace HoolaRiven
 
         private static void Reset()
         {
-            Orbwalker.ResetAutoAttack();
-            EloBuddy.Chat.Say("/d");
-            EloBuddy.Player.IssueOrder(EloBuddy.GameObjectOrder.MoveTo, Player.Position.LSExtend(EloBuddy.Game.CursorPos, Player.LSDistance(EloBuddy.Game.CursorPos) + 10));
+            EloBuddy.Player.DoEmote(EloBuddy.Emote.Dance);
         }
         private static bool InWRange(EloBuddy.GameObject target) =>(Player.HasBuff("RivenFengShuiEngine") && target != null) ?
                       330 >= Player.LSDistance(target.Position) : 265 >= Player.LSDistance(target.Position);
@@ -660,8 +679,6 @@ namespace HoolaRiven
             forceQ = true;
             QTarget = target;
         }
-
-
         private static void FlashW()
         {
             var target = LSTargetSelector.GetSelectedTarget();
@@ -969,6 +986,73 @@ namespace HoolaRiven
                 return Player.CalcDamage(target, EloBuddy.DamageType.Physical, rawdmg * (1 + pluspercent));
             }
             return 0;
+        }
+        public static void DelayAction(Action func, int delay)
+        {
+            /*
+            Timer timer = null;
+            timer = new Timer(obj =>
+            {
+                func();
+                timer.Dispose();
+            },
+                null, delay, Timeout.Infinite);
+             * */
+            Core.DelayAction(func, delay);
+        }
+
+        public static class DelayAction2
+        {
+            public delegate void Callback();
+
+            public static List<DelayedAction> ActionList = new List<DelayedAction>();
+
+            static DelayAction2()
+            {
+                EloBuddy.Game.OnUpdate += GameOnOnGameUpdate;
+            }
+
+            private static void GameOnOnGameUpdate(EventArgs args)
+            {
+                for (var i = ActionList.Count - 1; i >= 0; i--)
+                {
+                    if (ActionList[i].Time <= Environment.TickCount)
+                    {
+                        try
+                        {
+                            if (ActionList[i].CallbackObject != null)
+                            {
+                                ActionList[i].CallbackObject();
+                                //Will somehow result in calling ALL non-internal marked classes of the called assembly and causes NullReferenceExceptions.
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
+
+                        ActionList.RemoveAt(i);
+                    }
+                }
+            }
+
+            public static void Add(Action func, int time)
+            {
+                var action = new DelayedAction(time, func);
+                ActionList.Add(action);
+            }
+
+            public struct DelayedAction
+            {
+                public Action CallbackObject;
+                public int Time;
+
+                public DelayedAction(int time, Action callback)
+                {
+                    Time = time + Environment.TickCount;
+                    CallbackObject = callback;
+                }
+            }
         }
     }
 }
