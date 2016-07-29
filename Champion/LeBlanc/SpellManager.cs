@@ -2,10 +2,11 @@
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu;
 using LeagueSharp.Common;
+using System;
 using System.Collections.Generic;
 using Spell = LeagueSharp.Common.Spell;
 
- namespace PopBlanc
+namespace PopBlanc
 {
     internal static class SpellManager
     {
@@ -84,19 +85,23 @@ using Spell = LeagueSharp.Common.Spell;
                 menu = Program.qMenu;
             }
 
-            if (spell.Slot == SpellSlot.W)
+            else if (spell.Slot == SpellSlot.W)
             {
                 menu = Program.wMenu;
             }
 
-            if (spell.Slot == SpellSlot.E)
+            else if (spell.Slot == SpellSlot.E)
             {
                 menu = Program.eMenu;
             }
 
-            if (spell.Slot == SpellSlot.R)
+            else if (spell.Slot == SpellSlot.R)
             {
                 menu = Program.rMenu;
+            }
+            else
+            {
+                menu = Program.wMenu;
             }
 
             var name = s + spell.Slot;
@@ -106,7 +111,14 @@ using Spell = LeagueSharp.Common.Spell;
 
         public static bool IsFirstW(this Spell spell)
         {
-            return spell.Instance.ToggleState.Equals(1);
+            if (spell.Slot == SpellSlot.W)
+            {
+                return ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).Name != "leblancslidereturn";
+            }
+            else
+            {
+                return ObjectManager.Player.Spellbook.GetSpell(SpellSlot.R).Name == "LeblancSlideM";
+            }
         }
 
         public static SpellSlot GetSpellSlot(this Spell spell)
