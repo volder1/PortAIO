@@ -1,4 +1,4 @@
-﻿ namespace ElUtilitySuite.Summoners
+ namespace ElUtilitySuite.Summoners
 {
     using System;
     using System.Collections.Generic;
@@ -66,16 +66,14 @@
                 return;
             }
 
-            var exhaustMenu = rootMenu.AddSubMenu("Exhaust", "Exhaust");
+            this.Menu = rootMenu.AddSubMenu("Exhaust", "Exhaust");
             {
-                exhaustMenu.Add("Exhaust.Activated", new CheckBox("Exhaust activated", false));
+                this.Menu.Add("Exhaust.Activated", new CheckBox("Exhaust activated", false));
                 foreach (var x in HeroManager.Enemies)
                 {
-                    exhaustMenu.Add($"exhauston{x.CharData.BaseSkinName}", new CheckBox("Use for " + x.ChampionName));
+                    this.Menu.Add($"exhauston{x.CharData.BaseSkinName}", new CheckBox("Use for " + x.ChampionName));
                 }
             }
-
-            this.Menu = exhaustMenu;
         }
 
         /// <summary>
