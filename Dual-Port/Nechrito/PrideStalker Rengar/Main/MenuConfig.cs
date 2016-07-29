@@ -41,7 +41,7 @@ using LeagueSharp.SDK.Core.Utils;
         }
 
         public static bool EBackwards { get { return comboMenu["EBackwards"].Cast<CheckBox>().CurrentValue; } }
-        public static int ComboMode { get { return miscMenu["ComboMode"].Cast<ComboBox>().CurrentValue; } }
+        public static int ComboMode { get { return comboMenu["ComboMode"].Cast<ComboBox>().CurrentValue; } }
         public static bool Passive { get { return miscMenu["Passive"].Cast<KeyBind>().CurrentValue; } }
         public static bool ChangeComboMode { get { return miscMenu["ChangeComboMode"].Cast<KeyBind>().CurrentValue; } }
         public static bool TripleQAAReset { get { return comboMenu["TripleQAAReset"].Cast<CheckBox>().CurrentValue; } }
