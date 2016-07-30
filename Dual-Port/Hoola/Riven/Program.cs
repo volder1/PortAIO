@@ -93,7 +93,7 @@ namespace HoolaRiven
                                  ((getComboDamage(aiHeroClient) / aiHeroClient.MaxHealth) > 1
                                      ? 1
                                      : (getComboDamage(aiHeroClient) / aiHeroClient.MaxHealth));
-                Line.DrawLine(System.Drawing.Color.Aqua, 9f, new Vector2(pos.X, pos.Y),
+                Line.DrawLine(System.Drawing.Color.Orange, 9f, new Vector2(pos.X, pos.Y),
                     new Vector2(pos.X + (damage > fullbar ? fullbar : damage), pos.Y));
                 Line.DrawLine(System.Drawing.Color.Black, 9, new Vector2(pos.X + (damage > fullbar ? fullbar : damage) - 2, pos.Y), new Vector2(pos.X + (damage > fullbar ? fullbar : damage) + 2, pos.Y));
             }
