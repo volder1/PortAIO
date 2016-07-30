@@ -5,6 +5,7 @@
 
 ###### - Berb : Creator of project, porter, github maker maintainer guy, bug fixer and developer
 ###### - Muse30 : Active Porter, supporter, bug fixer and developer, just think of him as a Berb v2
+###### - CttBot : Active Porter, supporter, bug fixer and developer, just think of him as a Berb v2
 ###### - SidaRevamped : Active Supporter and bug fixer
 
 ### - Installation Instructions
