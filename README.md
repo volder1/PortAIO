@@ -1,4 +1,3 @@
-![asd](http://image.prntscr.com/image/9595f1a2e8e444eb8fd742874020f636.png)
 # Welcome to PortAIO's Official Github
 - https://github.com/berbb/PortAIO is the official GitHub.
 - https://discord.gg/0zNgmm6ziPDoOfbZ is the official PortAIO discord channel.
