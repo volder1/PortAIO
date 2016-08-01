@@ -299,7 +299,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[16]))
                 {
-                    Miscc.Add("draven", new ComboBox("Use addon for Draven : ", 0, "Sharp Shooter/Exor", "Tyler1", "Marksman II", "ExorAIO", "MoonDraven"));
+                    Miscc.Add("draven", new ComboBox("Use addon for Draven : ", 0, "Sharp Shooter/Exor", "Tyler1", "Marksman II", "ExorAIO"));
                 }
                 if (Player.ChampionName.Equals(Champion[17]))
                 {
@@ -383,7 +383,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[37]))
                 {
-                    Miscc.Add("shaco", new ComboBox("Use addon for Shaco : ", 0, "UnderratedAIO", "ChewyMoon's Shaco"));
+                    Miscc.Add("shaco", new ComboBox("Use addon for Shaco : ", 0, "UnderratedAIO"));
                 }
                 if (Player.ChampionName.Equals(Champion[38]))
                 {
@@ -443,7 +443,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[52]))
                 {
-                    Miscc.Add("irelia", new ComboBox("Use addon for Irelia : ", 0, "ChallengerSeries", "IreliaGOD", "Irelia II", "Irelia Reloaded"));
+                    Miscc.Add("irelia", new ComboBox("Use addon for Irelia : ", 0, "ChallengerSeries", "IreliaGOD", "Irelia II"));
                 }
                 if (Player.ChampionName.Equals(Champion[53]))
                 {
@@ -467,7 +467,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[58]))
                 {
-                    Miscc.Add("cassiopeia", new ComboBox("Use addon for Cassiopeia : ", 0, "SAutoCarry", "Seph Cassio", "ExorAIO", "Eat My Cass"));
+                    Miscc.Add("cassiopeia", new ComboBox("Use addon for Cassiopeia : ", 0, "SAutoCarry", "Seph Cassio", "ExorAIO"));
                 }
                 if (Player.ChampionName.Equals(Champion[59]))
                 {
@@ -650,7 +650,6 @@ namespace PortAIO.Utility
             credits.AddLabel("BestSkarnerNA");
             credits.AddLabel("Justy");
             credits.AddLabel("spawny");
-            credits.AddLabel("ChewyMoon");
             credits.AddLabel("Shegeki14");
             credits.AddLabel("trooperhdx");
             credits.AddLabel("StopMotionCuber");

@@ -518,9 +518,6 @@ namespace PortAIO
                             case 2:
                                 ExorAIO.AIO.OnLoad();
                                 break;
-                            case 3:
-                                new EatMyCass.EatMyCass().OnLoad();
-                                break;
                             default:
                                 Champion = new SAutoCarry.Champions.Cassiopeia();
                                 break;
@@ -684,9 +681,6 @@ namespace PortAIO
                             case 3:
                                 ExorAIO.AIO.OnLoad();
                                 break;
-                            case 4:
-                                new MoonDraven.MoonDraven().Load();
-                                break;
                             default:
                                 RevampedDraven.Program.OnLoad();
                                 break;
@@ -822,9 +816,6 @@ namespace PortAIO
                                 break;
                             case 2:
                                 Irelia.Irelia.Init();
-                                break;
-                            case 3:
-                                Irelia_Reloaded.Program.GameOnOnGameLoad();
                                 break;
                             default:
                                 Challenger_Series.Irelia.OnLoad();
@@ -1533,9 +1524,6 @@ namespace PortAIO
                         {
                             case 0:
                                 UnderratedAIO.Program.Init();
-                                break;
-                            case 1:
-                                ChewyMoonsShaco.ChewyMoonShaco.OnGameLoad();
                                 break;
                             default:
                                 UnderratedAIO.Program.Init();
