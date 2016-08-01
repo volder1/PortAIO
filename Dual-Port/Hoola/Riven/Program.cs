@@ -32,8 +32,6 @@ namespace HoolaRiven
         private static bool forceItem;
         private static float LastQ;
         private static float LastR;
-        private static int LastECastTick;
-        private static int LastRCastTick;
         private static EloBuddy.AttackableUnit QTarget;
 
         public static void OnGameLoad()
@@ -62,6 +60,7 @@ namespace HoolaRiven
             EloBuddy.Obj_AI_Base.OnSpellCast += OnDoCastLC;
             EloBuddy.Obj_AI_Base.OnPlayAnimation += OnPlay;
             EloBuddy.Obj_AI_Base.OnProcessSpellCast += OnCasting;
+            EloBuddy.Obj_AI_Base.OnSpellCast += WERCasting;
             Interrupter2.OnInterruptableTarget += Interrupt;
         }
 
@@ -72,6 +71,25 @@ namespace HoolaRiven
             if (Items.HasItem(3748) && Items.CanUseItem(3748))
             {
                 Items.UseItem(3748);
+            }
+        }
+        private static void WERCasting(EloBuddy.Obj_AI_Base Sender, EloBuddy.GameObjectProcessSpellCastEventArgs args)
+        {
+            if (!Sender.IsMe) return;
+            if (args.Slot == EloBuddy.SpellSlot.W)
+            {
+                Orbwalker.ResetAutoAttack();
+            }
+            if (args.Slot == EloBuddy.SpellSlot.R && R.Instance.Name == IsFirstR)
+            {
+                Orbwalker.ResetAutoAttack();
+            }
+            if (args.Slot == EloBuddy.SpellSlot.E)
+            {
+                Orbwalker.ResetAutoAttack();
+            }
+            if (args.SData.DisplayNameTranslated == "Crescent")
+            {
                 Orbwalker.ResetAutoAttack();
             }
         }
@@ -625,10 +643,6 @@ namespace HoolaRiven
                     if (target == null || !target.IsValidTarget()) return;
                     if (Q.IsReady() && target.IsValidTarget()) ForceCastQ(target);
                     break;
-                case "Dance":
-                    Orbwalker.ResetAutoAttack();
-                    break;
-
             }
         }
 
@@ -645,7 +659,9 @@ namespace HoolaRiven
 
         private static void Reset()
         {
+            Orbwalker.ResetAutoAttack();
             EloBuddy.Player.DoEmote(EloBuddy.Emote.Dance);
+            EloBuddy.Player.IssueOrder(EloBuddy.GameObjectOrder.MoveTo, Player.Position.LSExtend(EloBuddy.Game.CursorPos, Player.LSDistance(EloBuddy.Game.CursorPos) + 10));
         }
         private static bool InWRange(EloBuddy.GameObject target) =>(Player.HasBuff("RivenFengShuiEngine") && target != null) ?
                       330 >= Player.LSDistance(target.Position) : 265 >= Player.LSDistance(target.Position);
