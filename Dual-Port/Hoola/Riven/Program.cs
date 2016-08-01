@@ -76,6 +76,10 @@ namespace HoolaRiven
         private static void WERCasting(EloBuddy.Obj_AI_Base Sender, EloBuddy.GameObjectProcessSpellCastEventArgs args)
         {
             if (!Sender.IsMe) return;
+            if (args.Slot == EloBuddy.SpellSlot.Q && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Flee))
+            {
+                Orbwalker.ResetAutoAttack();
+            }
             if (args.Slot == EloBuddy.SpellSlot.W)
             {
                 Orbwalker.ResetAutoAttack();
