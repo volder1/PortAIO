@@ -75,11 +75,19 @@ namespace HoolaRiven
         }
         private static void WERCasting(EloBuddy.Obj_AI_Base Sender, EloBuddy.GameObjectProcessSpellCastEventArgs args)
         {
+            if (args.Slot == EloBuddy.SpellSlot.Q && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking)
+            {
+                Orbwalker.ResetAutoAttack();
+            }
             if (args.Slot == EloBuddy.SpellSlot.W && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking)
             {
                 Orbwalker.ResetAutoAttack();
             }
-            if (args.Slot == EloBuddy.SpellSlot.R && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking)
+            if (args.Slot == EloBuddy.SpellSlot.R && R.Instance.Name == IsFirstR && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking)
+            {
+                Orbwalker.ResetAutoAttack();
+            }
+            if (args.Slot == EloBuddy.SpellSlot.E && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking)
             {
                 Orbwalker.ResetAutoAttack();
             }
@@ -629,6 +637,8 @@ namespace HoolaRiven
                     break;
                 case "Spell4b":
                     var target = TargetSelector.SelectedTarget;
+                    if (target == null || !target.IsValidTarget()) target = TargetSelector.GetTarget(450 + Player.AttackRange + 70, EloBuddy.DamageType.Physical);
+                    if (target == null || !target.IsValidTarget()) return;
                     if (Q.IsReady() && target.IsValidTarget()) ForceCastQ(target);
                     break;
             }
