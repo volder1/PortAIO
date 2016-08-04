@@ -75,19 +75,11 @@ namespace HoolaRiven
         }
         private static void WERCasting(EloBuddy.Obj_AI_Base Sender, EloBuddy.GameObjectProcessSpellCastEventArgs args)
         {
-            if (args.Slot == EloBuddy.SpellSlot.Q && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking)
-            {
-                Orbwalker.ResetAutoAttack();
-            }
             if (args.Slot == EloBuddy.SpellSlot.W && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking)
             {
                 Orbwalker.ResetAutoAttack();
             }
-            if (args.Slot == EloBuddy.SpellSlot.R && R.Instance.Name == IsFirstR && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking)
-            {
-                Orbwalker.ResetAutoAttack();
-            }
-            if (args.Slot == EloBuddy.SpellSlot.E && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking)
+            if (args.Slot == EloBuddy.SpellSlot.R && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking)
             {
                 Orbwalker.ResetAutoAttack();
             }
@@ -191,7 +183,8 @@ namespace HoolaRiven
             if (args.Target is EloBuddy.AIHeroClient)
             {
                 var target = (EloBuddy.AIHeroClient)args.Target;
-                if (KillstealR && R.IsReady() && R.Instance.Name == IsSecondR) if (target.Health < (Rdame(target, target.Health) + Player.LSGetAutoAttackDamage(target)) && target.Health > Player.LSGetAutoAttackDamage(target)) R.Cast(target.Position);
+                var R2Pred = R.GetPrediction(target);
+                if (KillstealR && R.IsReady() && R.Instance.Name == IsSecondR) if (target.Health < (Rdame(target, target.Health) + Player.LSGetAutoAttackDamage(target)) && target.Health > Player.LSGetAutoAttackDamage(target)) R.Cast(R2Pred.CastPosition);
                 if (KillstealW && W.IsReady()) if (target.Health < (W.GetDamage(target) + Player.LSGetAutoAttackDamage(target)) && target.Health > Player.LSGetAutoAttackDamage(target)) W.Cast();
                 if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) && target != null)
                 {
@@ -376,7 +369,7 @@ namespace HoolaRiven
                 foreach (var target in targets)
                 {
                     if (target.Health < Rdame(target, target.Health) && (!target.HasBuff("kindrednodeathbuff") && !target.HasBuff("Undying Rage") && !target.HasBuff("JudicatorIntervention")))
-                        R.Cast(target.Position);
+                        R.Cast();
                 }
             }
         }
@@ -387,8 +380,9 @@ namespace HoolaRiven
                 var targets = HeroManager.Enemies.Where(x => x.LSIsValidTarget(R.Range) && !x.IsZombie);
                 foreach (var target in targets)
                 {
+                    var R2Pred = R.GetPrediction(target);
                     if (target.Health / target.MaxHealth <= 0.25 && (!target.HasBuff("kindrednodeathbuff") || !target.HasBuff("Undying Rage") || !target.HasBuff("JudicatorIntervention")))
-                        R.Cast(target.Position);
+                        R.Cast(R2Pred.CastPosition);
                 }
             }
         }
@@ -505,7 +499,7 @@ namespace HoolaRiven
 
         private static void Burst()
         {
-            var target = LSTargetSelector.GetSelectedTarget();
+            var target = TargetSelector.SelectedTarget;
             if (target != null && target.LSIsValidTarget() && !target.IsZombie)
             {
                 if (R.IsReady() && R.Instance.Name == IsFirstR && W.IsReady() && E.IsReady() && Player.LSDistance(target.Position) <= 250 + 70 + Player.AttackRange)
@@ -637,9 +631,10 @@ namespace HoolaRiven
                     break;
                 case "Spell4b":
                     var target = TargetSelector.SelectedTarget;
-                    if (target == null || !target.IsValidTarget()) target = TargetSelector.GetTarget(450 + Player.AttackRange + 70, EloBuddy.DamageType.Physical);
-                    if (target == null || !target.IsValidTarget()) return;
                     if (Q.IsReady() && target.IsValidTarget()) ForceCastQ(target);
+                    break;
+                case "Dance":
+                    Orbwalker.ResetAutoAttack();
                     break;
             }
         }
@@ -657,9 +652,7 @@ namespace HoolaRiven
 
         private static void Reset()
         {
-            Orbwalker.ResetAutoAttack();
             EloBuddy.Player.DoEmote(EloBuddy.Emote.Dance);
-            EloBuddy.Player.IssueOrder(EloBuddy.GameObjectOrder.MoveTo, Player.Position.LSExtend(EloBuddy.Game.CursorPos, Player.LSDistance(EloBuddy.Game.CursorPos) + 10));
         }
         private static bool InWRange(EloBuddy.GameObject target) =>(Player.HasBuff("RivenFengShuiEngine") && target != null) ?
                       330 >= Player.LSDistance(target.Position) : 265 >= Player.LSDistance(target.Position);
@@ -671,8 +664,9 @@ namespace HoolaRiven
             if (forceItem && Items.CanUseItem(Item) && Items.HasItem(Item) && Item != 0) Items.UseItem(Item);
             if (forceR2 && R.Instance.Name == IsSecondR)
             {
-                var target = LSTargetSelector.GetSelectedTarget();
-                if (target != null) R.Cast(target.Position);
+                var target = TargetSelector.SelectedTarget;
+                var R2Pred = R.GetPrediction(target);
+                if (target != null) R.Cast(R2Pred.CastPosition);
             }
         }
 
@@ -704,7 +698,7 @@ namespace HoolaRiven
         }
         private static void FlashW()
         {
-            var target = LSTargetSelector.GetSelectedTarget();
+            var target = TargetSelector.SelectedTarget;
             if (target != null && target.LSIsValidTarget() && !target.IsZombie)
             {
                 W.Cast();
