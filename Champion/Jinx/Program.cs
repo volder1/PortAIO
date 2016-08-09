@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using LeagueSharp;
@@ -165,7 +165,7 @@ namespace OneKeyToWin_AIO_Sebby
                 {
                     var t = TargetSelector.GetTarget(R.Range, DamageType.Physical);
                     if (t.LSIsValidTarget())
-                        R.Cast(t, true, true);
+                        R.Cast(t);
                 }
                 if (rMenu["Rjungle"].Cast<CheckBox>().CurrentValue)
                 {
@@ -376,7 +376,7 @@ namespace OneKeyToWin_AIO_Sebby
                         }
                         else if (target.LSCountEnemiesInRange(200) > 2)
                         {
-                            R.Cast(target, true, true);
+                            R.Cast(target,true,true);
                         }
                     }
                 }
@@ -412,7 +412,7 @@ namespace OneKeyToWin_AIO_Sebby
             }
         }
 
-        private float bonusRange() { return 670f + Player.BoundingRadius + 25 * Player.Spellbook.GetSpell(SpellSlot.Q).Level; }
+        private float bonusRange() { return 640f + Player.BoundingRadius + 25 * Player.Spellbook.GetSpell(SpellSlot.Q).Level; }
 
         private bool FishBoneActive { get { return Player.HasBuff("JinxQ"); } }
 
