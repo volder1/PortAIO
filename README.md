@@ -1,4 +1,4 @@
-# No longer being maintained.
+# No longer being maintained. PortAIO v2 will soon replace this.
 
 
 # Welcome to PortAIO's Official Github
