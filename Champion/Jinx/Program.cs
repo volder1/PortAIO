@@ -1,51 +1,44 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
 using SebbyLib;
-using EloBuddy;
 using EloBuddy.SDK.Menu.Values;
 using EloBuddy.SDK.Menu;
-using EloBuddy.SDK;
-
-
 namespace OneKeyToWin_AIO_Sebby
 {
 
     class Jinx
     {
         private Menu Config = Program.Config;
-        
-        public LeagueSharp.Common.Spell Q, W, E, R;
+        public static Menu qMenu, wMenu, eMenu, rMenu, farmMenu, drawMenu;
+        public Spell Q, W, E, R;
         public float QMANA = 0, WMANA = 0, EMANA = 0, RMANA = 0;
 
         public double lag = 0, WCastTime = 0, QCastTime = 0, DragonTime = 0, grabTime = 0;
         public float DragonDmg = 0;
 
-        public AIHeroClient Player { get { return ObjectManager.Player; } }
+        public EloBuddy.AIHeroClient Player { get { return EloBuddy.ObjectManager.Player; } }
 
         public void LoadOKTW()
         {
-            Q = new LeagueSharp.Common.Spell(SpellSlot.Q);
-            W = new LeagueSharp.Common.Spell(SpellSlot.W, 1500f);
-            E = new LeagueSharp.Common.Spell(SpellSlot.E, 920f);
-            R = new LeagueSharp.Common.Spell(SpellSlot.R, 3000f);
+            Q = new Spell(EloBuddy.SpellSlot.Q);
+            W = new Spell(EloBuddy.SpellSlot.W, 1500f);
+            E = new Spell(EloBuddy.SpellSlot.E, 920f);
+            R = new Spell(EloBuddy.SpellSlot.R, 3000f);
 
             W.SetSkillshot(0.6f, 60f, 3300f, true, SkillshotType.SkillshotLine);
             E.SetSkillshot(1.2f, 100f, 1750f, false, SkillshotType.SkillshotCircle);
             R.SetSkillshot(0.7f, 140f, 1500f, false, SkillshotType.SkillshotLine);
 
             LoadMenuOKTW();
-            Game.OnUpdate += Game_OnUpdate;
-            Orbwalker.OnPreAttack += BeforeAttack;
-            Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
+            EloBuddy.Game.OnUpdate += Game_OnUpdate;
+            EloBuddy.SDK.Orbwalker.OnPreAttack += BeforeAttack;
+            EloBuddy.Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
-            Drawing.OnDraw += Drawing_OnDraw;
+            EloBuddy.Drawing.OnDraw += Drawing_OnDraw;
         }
-
-        public static Menu qMenu, wMenu, eMenu, rMenu, farmMenu, drawMenu;
 
         private void LoadMenuOKTW()
         {
@@ -91,23 +84,23 @@ namespace OneKeyToWin_AIO_Sebby
 
         }
 
-        private void BeforeAttack(AttackableUnit target, Orbwalker.PreAttackArgs args)
+        private void BeforeAttack(EloBuddy.AttackableUnit unit, EloBuddy.SDK.Orbwalker.PreAttackArgs args)
         {
             if (!Q.IsReady() || !qMenu["autoQ"].Cast<CheckBox>().CurrentValue || !FishBoneActive)
                 return;
 
-            var t = args.Target as AIHeroClient;
+            var t = args.Target as EloBuddy.AIHeroClient;
 
             if (t != null)
             {
                 var realDistance = GetRealDistance(t) - 50;
-                if (Program.Combo && (realDistance < GetRealPowPowRange(t) || (Player.Mana < RMANA + 20 && Player.GetAutoAttackDamage(t) * 3 < t.Health)))
+                if (Program.Combo && (realDistance < GetRealPowPowRange(t) || (Player.Mana < RMANA + 20 && Player.LSGetAutoAttackDamage(t) * 3 < t.Health)))
                     Q.Cast();
                 else if (Program.Farm && qMenu["Qharras"].Cast<CheckBox>().CurrentValue && (realDistance > bonusRange() || realDistance < GetRealPowPowRange(t) || Player.Mana < RMANA + EMANA + WMANA + WMANA))
                     Q.Cast();
             }
 
-            var minion = args.Target as Obj_AI_Minion;
+            var minion = args.Target as EloBuddy.Obj_AI_Minion;
             if (Program.Farm && minion != null)
             {
                 var realDistance = GetRealDistance(minion);
@@ -125,15 +118,11 @@ namespace OneKeyToWin_AIO_Sebby
             {
                 var Target = gapcloser.Sender;
                 if (Target.LSIsValidTarget(E.Range))
-                {
                     E.Cast(gapcloser.End);
-                }
-                return;
             }
-            return;
         }
 
-        private void Obj_AI_Base_OnProcessSpellCast(Obj_AI_Base unit, GameObjectProcessSpellCastEventArgs args)
+        private void Obj_AI_Base_OnProcessSpellCast(EloBuddy.Obj_AI_Base unit, EloBuddy.GameObjectProcessSpellCastEventArgs args)
         {
             if (unit.IsMinion)
                 return;
@@ -141,7 +130,7 @@ namespace OneKeyToWin_AIO_Sebby
             if (unit.IsMe)
             {
                 if (args.SData.Name == "JinxWMissile")
-                    WCastTime = Game.Time;
+                    WCastTime = EloBuddy.Game.Time;
             }
             if (E.IsReady())
             {
@@ -151,7 +140,7 @@ namespace OneKeyToWin_AIO_Sebby
                 }
                 if (unit.IsAlly && args.SData.Name == "RocketGrab" && Player.LSDistance(unit.Position) < E.Range)
                 {
-                    grabTime = Game.Time;
+                    grabTime = EloBuddy.Game.Time;
                 }
             }
 
@@ -163,7 +152,7 @@ namespace OneKeyToWin_AIO_Sebby
             {
                 if (rMenu["useR"].Cast<KeyBind>().CurrentValue)
                 {
-                    var t = TargetSelector.GetTarget(R.Range, DamageType.Physical);
+                    var t = EloBuddy.SDK.TargetSelector.GetTarget(R.Range, EloBuddy.DamageType.Physical);
                     if (t.LSIsValidTarget())
                         R.Cast(t);
                 }
@@ -184,7 +173,7 @@ namespace OneKeyToWin_AIO_Sebby
             if (Program.LagFree(2) && Q.IsReady() && qMenu["autoQ"].Cast<CheckBox>().CurrentValue)
                 LogicQ();
 
-            if (Program.LagFree(3) && W.IsReady() && !ObjectManager.Player.Spellbook.IsAutoAttacking && wMenu["autoW"].Cast<CheckBox>().CurrentValue)
+            if (Program.LagFree(3) && W.IsReady() && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking && wMenu["autoW"].Cast<CheckBox>().CurrentValue)
                 LogicW();
 
             if (Program.LagFree(4) && R.IsReady())
@@ -193,30 +182,30 @@ namespace OneKeyToWin_AIO_Sebby
 
         private void LogicQ()
         {
-            if (Program.Farm && !FishBoneActive && !ObjectManager.Player.Spellbook.IsAutoAttacking && Orbwalker.LastTarget == null && SebbyLib.Orbwalking.CanAttack() && farmMenu["farmQout"].Cast<CheckBox>().CurrentValue && Player.Mana > RMANA + WMANA + EMANA + 10)
+            if (Program.Farm && !FishBoneActive && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking && EloBuddy.SDK.Orbwalker.LastTarget == null && EloBuddy.SDK.Orbwalker.CanAutoAttack && farmMenu["farmQout"].Cast<CheckBox>().CurrentValue && Player.Mana > RMANA + WMANA + EMANA + 10)
             {
                 foreach (var minion in Cache.GetMinions(Player.Position, bonusRange() + 30).Where(
-                minion => !SebbyLib.Orbwalking.InAutoAttackRange(minion) && GetRealPowPowRange(minion) < GetRealDistance(minion) && bonusRange() < GetRealDistance(minion)))
+                minion => !LeagueSharp.Common.Orbwalking.InAutoAttackRange(minion) && GetRealPowPowRange(minion) < GetRealDistance(minion) && bonusRange() < GetRealDistance(minion)))
                 {
-                    var hpPred = SebbyLib.HealthPrediction.GetHealthPrediction(minion, 400, 70);
-                    if (hpPred < Player.GetAutoAttackDamage(minion) * 1.1 && hpPred > 5)
+                    var hpPred = LeagueSharp.Common.HealthPrediction.GetHealthPrediction(minion, 400, 70);
+                    if (hpPred < Player.LSGetAutoAttackDamage(minion) * 1.1 && hpPred > 5)
                     {
-                        Orbwalker.ForcedTarget =(minion);
+                        EloBuddy.SDK.Orbwalker.ForcedTarget = minion;
                         Q.Cast();
                         return;
                     }
                 }
             }
 
-            var t = TargetSelector.GetTarget(bonusRange() + 60, DamageType.Physical);
+            var t = EloBuddy.SDK.TargetSelector.GetTarget(bonusRange() + 60, EloBuddy.DamageType.Physical);
             if (t.LSIsValidTarget())
             {
-                if (!FishBoneActive && (!SebbyLib.Orbwalking.InAutoAttackRange(t) || t.CountEnemiesInRange(250) > 2) && Orbwalker.LastTarget == null)
+                if (!FishBoneActive && (525 < GetRealDistance(t) || t.LSCountEnemiesInRange(250) > 2) && EloBuddy.SDK.Orbwalker.LastTarget == null)
                 {
                     var distance = GetRealDistance(t);
-                    if (Program.Combo && (Player.Mana > RMANA + WMANA + 10 || Player.GetAutoAttackDamage(t) * 3 > t.Health))
+                    if (Program.Combo && (Player.Mana > RMANA + WMANA + 10 || Player.LSGetAutoAttackDamage(t) * 3 > t.Health))
                         Q.Cast();
-                    else if (Program.Farm && !ObjectManager.Player.Spellbook.IsAutoAttacking && SebbyLib.Orbwalking.CanAttack() && qMenu["Qharras"].Cast<CheckBox>().CurrentValue && !ObjectManager.Player.UnderTurret(true) && Player.Mana > RMANA + WMANA + EMANA + 20 && distance < bonusRange() + t.BoundingRadius + Player.BoundingRadius)
+                    else if (Program.Farm && !EloBuddy.ObjectManager.Player.Spellbook.IsAutoAttacking && EloBuddy.SDK.Orbwalker.CanAutoAttack && qMenu["Qharras"].Cast<CheckBox>().CurrentValue && !EloBuddy.ObjectManager.Player.UnderTurret(true) && Player.Mana > RMANA + WMANA + EMANA + 20 && distance < bonusRange() + t.BoundingRadius + Player.BoundingRadius)
                         Q.Cast();
                 }
             }
@@ -226,53 +215,24 @@ namespace OneKeyToWin_AIO_Sebby
                 Q.Cast();
             else if (FishBoneActive && Program.Combo && Player.LSCountEnemiesInRange(2000) == 0)
                 Q.Cast();
-            else if (FishBoneActive && (Program.Farm || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit)))
+            else if (FishBoneActive && (Program.Farm || EloBuddy.SDK.Orbwalker.ActiveModesFlags.HasFlag(EloBuddy.SDK.Orbwalker.ActiveModes.LastHit)))
             {
                 Q.Cast();
             }
         }
 
-        /// <summary>
-        /// Calculates the Damage done with R - KARMAPANDA
-        /// </summary>
-        /// <param name="target">The Target</param>
-        /// <returns>Returns the Damage done with useR</returns>
-        private static float RDamage(Obj_AI_Base target)
-        {
-            var distance = ObjectManager.Player.Distance(target);
-            var increment = Math.Floor(distance / 100f);
-
-            if (increment > 15)
-            {
-                increment = 15;
-            }
-
-            var extraPercent = Math.Floor((10f + (increment * 6f))) / 10f;
-
-            if (extraPercent > 10)
-            {
-                extraPercent = 10;
-            }
-
-            var damage = (new[] { 0f, 25f, 35f, 45f }[Program.R.Level] * (extraPercent)) +
-                         ((extraPercent / 100f) * ObjectManager.Player.FlatPhysicalDamageMod) +
-                         ((new[] { 0f, 0.25f, 0.3f, 0.35f }[Program.R.Level] * (target.MaxHealth - target.Health)));
-
-            return ObjectManager.Player.CalculateDamageOnUnit(target, DamageType.Physical, (float)damage);
-        }
-
         private void LogicW()
         {
-            var t = TargetSelector.GetTarget(W.Range, DamageType.Physical);
-            if (t.LSIsValidTarget() && t.IsHPBarRendered && t.IsVisible)
+            var t = EloBuddy.SDK.TargetSelector.GetTarget(W.Range, EloBuddy.DamageType.Physical);
+            if (t.LSIsValidTarget())
             {
 
-                foreach (var enemy in HeroManager.Enemies.Where(enemy => enemy.LSIsValidTarget(W.Range) && enemy.LSDistance(Player) > bonusRange() && enemy.IsHPBarRendered && enemy.IsVisible))
+                foreach (var enemy in HeroManager.Enemies.Where(enemy => enemy.LSIsValidTarget(W.Range) && enemy.LSDistance(Player) > bonusRange()))
                 {
                     var comboDmg = OktwCommon.GetKsDamage(enemy, W);
                     if (R.IsReady() && Player.Mana > RMANA + WMANA + 20)
                     {
-                        comboDmg += RDamage(enemy);
+                        comboDmg += R.GetDamage(enemy, 1);
                     }
                     if (comboDmg > enemy.Health && OktwCommon.ValidUlt(enemy))
                     {
@@ -297,7 +257,7 @@ namespace OneKeyToWin_AIO_Sebby
                 }
                 if (!Program.None && Player.Mana > RMANA + WMANA && Player.LSCountEnemiesInRange(GetRealPowPowRange(t)) == 0)
                 {
-                    foreach (var enemy in HeroManager.Enemies.Where(enemy => enemy.LSIsValidTarget(W.Range) && !OktwCommon.CanMove(enemy) && enemy.IsHPBarRendered && enemy.IsVisible))
+                    foreach (var enemy in HeroManager.Enemies.Where(enemy => enemy.LSIsValidTarget(W.Range) && !OktwCommon.CanMove(enemy)))
                         W.Cast(enemy, true);
                 }
             }
@@ -305,7 +265,7 @@ namespace OneKeyToWin_AIO_Sebby
 
         private void LogicE()
         {
-            if (Player.Mana > RMANA + EMANA && eMenu["autoE"].Cast<CheckBox>().CurrentValue && Game.Time - grabTime > 1)
+            if (Player.Mana > RMANA + EMANA && eMenu["autoE"].Cast<CheckBox>().CurrentValue && EloBuddy.Game.Time - grabTime > 1)
             {
                 foreach (var enemy in HeroManager.Enemies.Where(enemy => enemy.LSIsValidTarget(E.Range) && !OktwCommon.CanMove(enemy)))
                 {
@@ -324,11 +284,11 @@ namespace OneKeyToWin_AIO_Sebby
 
                 if (Program.Combo && Player.IsMoving && eMenu["comboE"].Cast<CheckBox>().CurrentValue && Player.Mana > RMANA + EMANA + WMANA)
                 {
-                    var t = TargetSelector.GetTarget(E.Range, DamageType.Physical);
-                    if (t.LSIsValidTarget(E.Range) && E.GetPrediction(t).CastPosition.LSDistance(t.Position) > 200 && (int)E.GetPrediction(t).HitChance == 5)
+                    var t = EloBuddy.SDK.TargetSelector.GetTarget(E.Range, EloBuddy.DamageType.Physical);
+                    if (t.LSIsValidTarget(E.Range) && E.GetPrediction(t).CastPosition.LSDistance(t.Position) > 200 && 5 <= (int)E.GetPrediction(t).HitChance )
                     {
                         E.CastIfWillHit(t, 2);
-                        if (t.HasBuffOfType(BuffType.Slow))
+                        if (t.HasBuffOfType(EloBuddy.BuffType.Slow))
                         {
                             Program.CastSpell(E, t);
                         }
@@ -357,38 +317,30 @@ namespace OneKeyToWin_AIO_Sebby
         {
             if (Player.UnderTurret(true) && rMenu["Rturrent"].Cast<CheckBox>().CurrentValue)
                 return;
-            if (Game.Time - WCastTime > 0.9 && rMenu["autoR"].Cast<CheckBox>().CurrentValue)
+            if (EloBuddy.Game.Time - WCastTime > 0.9 && rMenu["autoR"].Cast<CheckBox>().CurrentValue)
             {
                 foreach (var target in HeroManager.Enemies.Where(target => target.LSIsValidTarget(R.Range) && OktwCommon.ValidUlt(target)))
                 {
-                    if (!target.IsVisible || !target.IsHPBarRendered)
-                    {
-                        return;
-                    }
                     var predictedHealth = target.Health - OktwCommon.GetIncomingDamage(target);
-                    var Rdmg = RDamage(target);
+                    var Rdmg = R.GetDamage(target, 1);
 
                     if (Rdmg > predictedHealth && !OktwCommon.IsSpellHeroCollision(target, R) && GetRealDistance(target) > bonusRange() + 200)
                     {
-                        if (GetRealDistance(target) > bonusRange() + 300 + target.BoundingRadius && target.CountAlliesInRange(600) == 0 && Player.CountEnemiesInRange(400) == 0)
+                        if (GetRealDistance(target) > bonusRange() + 300 + target.BoundingRadius && target.CountAlliesInRange(600) == 0 && Player.LSCountEnemiesInRange(400) == 0)
                         {
                             castR(target);
                         }
                         else if (target.LSCountEnemiesInRange(200) > 2)
                         {
-                            R.Cast(target,true,true);
+                            R.Cast(target, true, true);
                         }
                     }
                 }
             }
         }
 
-        private void castR(AIHeroClient target)
+        private void castR(EloBuddy.AIHeroClient target)
         {
-            if (!target.IsVisible || !target.IsHPBarRendered)
-            {
-                return;
-            }
             var inx = rMenu["hitchanceR"].Cast<Slider>().CurrentValue;
             if (inx == 0)
             {
@@ -412,19 +364,20 @@ namespace OneKeyToWin_AIO_Sebby
             }
         }
 
-        private float bonusRange() { return 640f + Player.BoundingRadius + 25 * Player.Spellbook.GetSpell(SpellSlot.Q).Level; }
+        private float bonusRange() { return 525f + Player.BoundingRadius + 25 * Player.Spellbook.GetSpell(EloBuddy.SpellSlot.Q).Level; }
 
         private bool FishBoneActive { get { return Player.HasBuff("JinxQ"); } }
 
-        private float GetRealPowPowRange(GameObject target)
+        private float GetRealPowPowRange(EloBuddy.GameObject target)
         {
-            return 650f + Player.BoundingRadius + target.BoundingRadius;
+            return 640f + Player.BoundingRadius + target.BoundingRadius;
 
         }
 
-        private float GetRealDistance(Obj_AI_Base target)
+        private float GetRealDistance(EloBuddy.Obj_AI_Base target)
         {
-            return Player.ServerPosition.LSDistance(EloBuddy.SDK.Prediction.Position.PredictUnitPosition(target, (int)0.05f).To3D()) + Player.BoundingRadius + target.BoundingRadius;
+
+            return Player.ServerPosition.LSDistance(Prediction.GetPrediction(target, 0.05f).CastPosition) + Player.BoundingRadius + target.BoundingRadius;
         }
 
         public bool ShouldUseE(string SpellName)
@@ -466,28 +419,28 @@ namespace OneKeyToWin_AIO_Sebby
                 if (mob.Health < mob.MaxHealth && ((mob.BaseSkinName.ToLower().Contains("dragon") && rMenu["Rdragon"].Cast<CheckBox>().CurrentValue)
                     || (mob.BaseSkinName == "SRU_Baron" && rMenu["Rbaron"].Cast<CheckBox>().CurrentValue))
                     && mob.CountAlliesInRange(1000) == 0
-                    && mob.LSDistance(Player.Position) > 1000 && mob.IsVisible && mob.IsHPBarRendered)
+                    && mob.LSDistance(Player.Position) > 1000)
                 {
                     if (DragonDmg == 0)
                         DragonDmg = mob.Health;
 
-                    if (Game.Time - DragonTime > 4)
+                    if (EloBuddy.Game.Time - DragonTime > 4)
                     {
                         if (DragonDmg - mob.Health > 0)
                         {
                             DragonDmg = mob.Health;
                         }
-                        DragonTime = Game.Time;
+                        DragonTime = EloBuddy.Game.Time;
                     }
 
                     else
                     {
-                        var DmgSec = (DragonDmg - mob.Health) * (Math.Abs(DragonTime - Game.Time) / 4);
+                        var DmgSec = (DragonDmg - mob.Health) * (Math.Abs(DragonTime - EloBuddy.Game.Time) / 4);
                         //debug("DS  " + DmgSec);
                         if (DragonDmg - mob.Health > 0)
                         {
                             var timeTravel = GetUltTravelTime(Player, R.Speed, R.Delay, mob.Position);
-                            var timeR = (mob.Health - Player.CalcDamage(mob, DamageType.Physical, (250 + (100 * R.Level)) + Player.FlatPhysicalDamageMod + 300)) / (DmgSec / 4);
+                            var timeR = (mob.Health - Player.CalcDamage(mob, EloBuddy.DamageType.Physical, (250 + (100 * R.Level)) + Player.FlatPhysicalDamageMod + 300)) / (DmgSec / 4);
                             //debug("timeTravel " + timeTravel + "timeR " + timeR + "d " + ((150 + (100 * R.Level + 200) + Player.FlatPhysicalDamageMod)));
                             if (timeTravel > timeR)
                                 R.Cast(mob.Position);
@@ -502,7 +455,7 @@ namespace OneKeyToWin_AIO_Sebby
             }
         }
 
-        private float GetUltTravelTime(AIHeroClient source, float speed, float delay, Vector3 targetpos)
+        private float GetUltTravelTime(EloBuddy.AIHeroClient source, float speed, float delay, Vector3 targetpos)
         {
             float distance = Vector3.Distance(source.ServerPosition, targetpos);
             float missilespeed = speed;
@@ -541,10 +494,10 @@ namespace OneKeyToWin_AIO_Sebby
 
         public static void drawLine(Vector3 pos1, Vector3 pos2, int bold, System.Drawing.Color color)
         {
-            var wts1 = Drawing.WorldToScreen(pos1);
-            var wts2 = Drawing.WorldToScreen(pos2);
+            var wts1 = EloBuddy.Drawing.WorldToScreen(pos1);
+            var wts2 = EloBuddy.Drawing.WorldToScreen(pos2);
 
-            Drawing.DrawLine(wts1[0], wts1[1], wts2[0], wts2[1], bold, color);
+            EloBuddy.Drawing.DrawLine(wts1[0], wts1[1], wts2[0], wts2[1], bold, color);
         }
 
         private void Drawing_OnDraw(EventArgs args)
@@ -553,42 +506,42 @@ namespace OneKeyToWin_AIO_Sebby
             if (drawMenu["qRange"].Cast<CheckBox>().CurrentValue)
             {
                 if (FishBoneActive)
-                    LeagueSharp.Common.Utility.DrawCircle(Player.Position, 590f + Player.BoundingRadius, System.Drawing.Color.DeepPink, 1, 1);
+                    Utility.DrawCircle(Player.Position, 590f + Player.BoundingRadius, System.Drawing.Color.DeepPink, 1, 1);
                 else
-                    LeagueSharp.Common.Utility.DrawCircle(Player.Position, bonusRange() - 29, System.Drawing.Color.DeepPink, 1, 1);
+                    Utility.DrawCircle(Player.Position, bonusRange() - 29, System.Drawing.Color.DeepPink, 1, 1);
             }
             if (drawMenu["wRange"].Cast<CheckBox>().CurrentValue)
             {
                 if (drawMenu["onlyRdy"].Cast<CheckBox>().CurrentValue)
                 {
                     if (W.IsReady())
-                        LeagueSharp.Common.Utility.DrawCircle(Player.Position, W.Range, System.Drawing.Color.Cyan, 1, 1);
+                        Utility.DrawCircle(Player.Position, W.Range, System.Drawing.Color.Cyan, 1, 1);
                 }
                 else
-                    LeagueSharp.Common.Utility.DrawCircle(Player.Position, W.Range, System.Drawing.Color.Cyan, 1, 1);
+                    Utility.DrawCircle(Player.Position, W.Range, System.Drawing.Color.Cyan, 1, 1);
             }
             if (drawMenu["eRange"].Cast<CheckBox>().CurrentValue)
             {
                 if (drawMenu["onlyRdy"].Cast<CheckBox>().CurrentValue)
                 {
                     if (E.IsReady())
-                        LeagueSharp.Common.Utility.DrawCircle(Player.Position, E.Range, System.Drawing.Color.Gray, 1, 1);
+                        Utility.DrawCircle(Player.Position, E.Range, System.Drawing.Color.Gray, 1, 1);
                 }
                 else
-                    LeagueSharp.Common.Utility.DrawCircle(Player.Position, E.Range, System.Drawing.Color.Gray, 1, 1);
+                    Utility.DrawCircle(Player.Position, E.Range, System.Drawing.Color.Gray, 1, 1);
             }
             if (drawMenu["noti"].Cast<CheckBox>().CurrentValue)
             {
-                var t = TargetSelector.GetTarget(R.Range, DamageType.Physical);
+                var t = EloBuddy.SDK.TargetSelector.GetTarget(R.Range, EloBuddy.DamageType.Physical);
 
-                if (R.IsReady() && t.LSIsValidTarget() && RDamage(t) > t.Health)
+                if (R.IsReady() && t.LSIsValidTarget() && R.GetDamage(t, 1) > t.Health)
                 {
-                    Drawing.DrawText(Drawing.Width * 0.1f, Drawing.Height * 0.5f, System.Drawing.Color.Red, "Ult can kill: " + t.ChampionName + " have: " + t.Health + "hp");
+                    EloBuddy.Drawing.DrawText(EloBuddy.Drawing.Width * 0.1f, EloBuddy.Drawing.Height * 0.5f, System.Drawing.Color.Red, "Ult can kill: " + t.ChampionName + " have: " + t.Health + "hp");
                     drawLine(t.Position, Player.Position, 5, System.Drawing.Color.Red);
                 }
                 else if (t.LSIsValidTarget(2000) && W.GetDamage(t) > t.Health)
                 {
-                    Drawing.DrawText(Drawing.Width * 0.1f, Drawing.Height * 0.5f, System.Drawing.Color.Red, "W can kill: " + t.ChampionName + " have: " + t.Health + "hp");
+                    EloBuddy.Drawing.DrawText(EloBuddy.Drawing.Width * 0.1f, EloBuddy.Drawing.Height * 0.5f, System.Drawing.Color.Red, "W can kill: " + t.ChampionName + " have: " + t.Health + "hp");
                     drawLine(t.Position, Player.Position, 3, System.Drawing.Color.Yellow);
                 }
             }
