@@ -1,4 +1,4 @@
-# PortAIO v2 Status : 85%
+# No longer being maintained.
 
 
 # Welcome to PortAIO's Official Github
