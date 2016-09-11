@@ -86,7 +86,7 @@ using EloBuddy.SDK.Menu.Values;
                 {
                     IsMoving = true,
                     CurrentPos = unit.ServerPosition.LSTo2D(),
-                    PredictedPos = path.CutPath((int) d)[0],
+                    PredictedPos = path.CutPathLS((int) d)[0],
                 };
             }
             return new FastPredResult

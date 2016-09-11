@@ -84,7 +84,7 @@ using EloBuddy;
                 {
                     IsMoving = true,
                     CurrentPosVector2 = unitAiBase.ServerPosition.LSTo2D(),
-                    PredictedPosVector2 = path.CutPath((int) moveSpeedF)[0]
+                    PredictedPosVector2 = path.CutPathLS((int) moveSpeedF)[0]
                 };
             }
 

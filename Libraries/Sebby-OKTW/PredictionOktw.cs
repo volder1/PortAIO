@@ -864,7 +864,7 @@ namespace SebbyLib.Prediction
                     }
                 }
 
-                path = path.CutPath(d);
+                path = path.CutPathLS(d);
                 var tT = 0f;
                 for (var i = 0; i < path.Count - 1; i++)
                 {
