@@ -19,7 +19,7 @@ using Color = System.Drawing.Color;
 
         public static int getJumpWardId()
         {
-            int[] wardIds = { 3340, 3350, 3205, 3207, 2049, 2045, 2044, 3361, 3154, 3362, 3160, 2043, (int)ItemId.Sightstone, (int)ItemId.Warding_Totem_Trinket, (int)ItemId.Vision_Ward, (int)ItemId.Sightstone, (int)ItemId.Trackers_Knife, (int)ItemId.Trackers_Knife_Enchantment_Cinderhulk, (int)ItemId.Trackers_Knife_Enchantment_Devourer, (int)ItemId.Trackers_Knife_Enchantment_Runic_Echoes, (int)ItemId.Trackers_Knife_Enchantment_Sated_Devourer, (int)ItemId.Trackers_Knife_Enchantment_Warrior };
+            int[] wardIds = { 3340, 3350, 3205, 3207, 2049, 2045, 2044, 3361, 3154, 3362, 3160, 2043, (int)ItemId.Sightstone, (int)ItemId.Warding_Totem_Trinket, (int)ItemId.Vision_Ward, (int)ItemId.Sightstone, (int)ItemId.Trackers_Knife, (int)ItemId.Trackers_Knife_Enchantment_Cinderhulk, (int)ItemId.Trackers_Knife_Enchantment_Bloodrazor, (int)ItemId.Trackers_Knife_Enchantment_Runic_Echoes, (int)ItemId.Trackers_Knife_Enchantment_Bloodrazor, (int)ItemId.Trackers_Knife_Enchantment_Warrior };
             foreach (var id in wardIds)
             {
                 if (Item.HasItem(id) && Item.CanUseItem(id))
