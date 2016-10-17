@@ -9,7 +9,7 @@ using EloBuddy.SDK.Menu;
 namespace OneKeyToWin_AIO_Sebby
 {
 
-    class Jinx
+    class Jinx : Base
     {
         private Menu Config = Program.Config;
         public static Menu qMenu, wMenu, eMenu, rMenu, farmMenu, drawMenu;
